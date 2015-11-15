@@ -1,0 +1,44 @@
+
+/* http://ilikepixels.co.uk/drop/bubbler/ */
+
+.bubble
+	{
+	position: relative;
+	/* width: 250px; */
+	/* height: 120px; */
+	padding: 10px;
+	margin-top:20px;
+/* 	background: #FFE08F; */
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	box-shadow:0px 2px 2px #666;
+	}
+
+.bubble:after
+	{
+	content: '';
+	position: absolute;
+	border-style: solid;
+	border-width: 0 15px 15px;
+/*	border-color: #FFE08F transparent; */
+	display: block;
+	width: 0;
+	z-index: 1;
+	top: -15px;
+	left: 42px;
+	}
+
+.bubble:before
+	{
+	content: '';
+	position: absolute;
+	border-style: solid;
+	border-width: 0 15px 15px;
+/*	border-color: #000000 transparent; */
+	display: block;
+	width: 0;
+	z-index: 0;
+	top: -16px;
+	left: 42px;
+	}

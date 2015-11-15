@@ -1,0 +1,142 @@
+
+To Do (einfach)
+- CSS fuer mobile Geraete oder responsive Design
+- Ueberlegungen zur Verlinkung - "http" oder "https" als Standard?
+- Eroeffnung eines Projekts auf GitHub, SourceForge o.ä. Seiten ueberdenken
+- Ueberlegung zum Aendern der Lizenz von GPL zu AGPL - https://de.wikipedia.org/wiki/GNU_Affero_General_Public_License
+- Erklaerungen der Parteien in neuem Fenster, neuem DIV oder neuer Tabellenzeile anzeigen lassen
+- jQuery 2.x nutzen
+- Pruefen: Unterschiede beim Einlesen von MAC-Dateien zu WIN oder IX-Dateien?
+
+To Do (etwas komplizierter)
+- Pruefen ob der AJAX-Bug (0.2.3.2) bereinigt ist: Bei unterschiedlich grossen Parteiantwort-CSV-Dateien kann es passieren, dass die Dateien unterschiedlich schnell geladen werden und dann falsch zugeordnet. -> Ajax "Promises" verwenden
+- i18n / Translation to English -> Siehe Umsetzungideen in /SYSTEM/I18N.CSV
+- Quellcode aufraeumen, optimieren und besser dokumentieren.
+- Kompletter Umstieg auf jquery.csv.js-Bibliothek (bisher nur in der QUICKTEST.HTML)
+- optionale Abfrage vor der Umfrage, z.B.: "Welche Partei würden Sie normalerweise wählen?" Vergleiche www.bahn-o-mat.de
+- Wechsel von Arrays (wo die Daten gespeichert sind) hin zu HTML5-Datenbanktechniken (z.B. IndexedDB, evtl. WebStorage)
+
+Versionen:
+
+0.2.4.1.20151115
+
+- INDEX.HTML
+\- Social Media Buttons
+\- Wahlknoepfe umbenannt: "Stimme dafür" -> "Stimme zu", "Stimme dagegen" -> "Stimme nicht zu"
+- CSS
+\- Social Media Buttons
+\- tr:nth-child(even) in Ergebnis-Tabellen anstelle von Funktionen GENERAL.JS/"fnCreateMiddleColor" und "fnTransformHexToDec"
+- RESULTS.HTML
+\- Auswertung nach Tagen und optische Verbesserungen
+- IMPRINT.HTML, CSS, DEFINITION.JS
+\- Translations / Uebersetzungen
+
+0.2.4.20150222
+
+Riesigen Dank an Ben Kobrinski (mail@benkob.de) für:
+- Sortierung der Ergebnistabelle nach Übereinstimmung 
+- Wichtung ausgewählter Thesen (z.B. "Dieses Thema ist mir besonders wichtig" -> doppelte Punktzahl)
+- Live-Auswertung und Aenderung in der Ergebnistabelle (z.B. "Habe mich bei Frage 3 spontan umentschieden." -> Was kommt jetzt raus?)
+  (Die Reihenfolge in der statistischen Auswertung "mowpersonal" und "mowparties" wird davon nicht berührt)
+- GENERAL.JS
+\- neue globale Variablen: arVotingDouble, arSortParties, activeQuestion
+\- neue Variablen fnEvaluation() -> var faktor
+\- neue Funktionen: fnToggleSelfPosition(), fnToggleDouble()
+- OUTPUT.JS
+\- Checkbox für doppelte Bewertung
+\- neue Funktionen: fnChangeVotingDouble(), fnReEvaluate()
+- INDEX.HTML
+\- Checkbox für doppelte Bewertung
+\- Sprechblase (Speechbubble) für These
+\- Pro, Neutral und Contra auf erste Zeile. "Doppelt werten" und "Überspringen" auf zweite Zeile gelegt.
+- optische Verbesserungen (Teil-Transparenz bei Buttons, Farbverlauf für Hintergrund, Sprechblase für These, ...)
+- Hilfe-Dokument überarbeitet
+
+........20150215 - Bürgerschaftswahl in Hamburg
+........20140831 - Landtagswahl in Sachsen
+
+0.2.3.2.20140724
+
+- GENERAL.JS 
+\- Funktion fnReadCsv() um "async: false," erweitert. (Das "A" in AJAX deaktiviert.) Sollte den Lade-Bug hoffentlich bereinigen. Ausserdem den "error:"-Text um eine kurze Hilfe erweitert.
+- OUTPUT.JS
+\- Hintergrundfarbe in Funktion fnJumpToQuestionNumber() mit der Rahmenfarbe angeglichen.
+\- Anzeige der These UND der vollen Frage in der ausfuehrlichen Auswertung (fnEvaluationLong() -> arQuestionsLong[i])
+- DEFAULT.CSS
+\- "height" aus #middle entfernt. Jetzt gibt es zwar keine feste Hoehe mehr aber dafuer kann man am Ende alles problemlos ausdrucken.
+- Hilfe-Dokument um FAQ erweitert
+
+........20140525 - Europawahl in Deutschland
+
+0.2.3.1.20140518
+
+- QUICKTEST.HTML prueft nun auf fehlende Variablen
+- IMPRINT.HTML
+\- fehlende, optionale Werte werden mit "keine Angabe" ersetzt.
+\- Texte und Links aufgeraeumt.
+- In INDEX.HTML den #results-DIV aufgeteilt in #resultsShort und #resultsLong um CSS-Vererbung von #content zu vermeiden (Schriftgroesse in den Ergebnistabellen ist nun immer gleich / Standardgröße)
+- In OUTPUT.JS die feste Beschraenkung auf 16 Fragen / Zeile aufgehoben (in fnJumpToQuestionNumber()). 12 Fragen / Zeile als neue Vorgabe eingestellt. Kann jetzt im Quelltext geaendert werden.
+- In DEFINITION.JS Informationen und Beispiele zur Problemvermeidung hinzugefuegt
+\- gleiches Trennzeichen nutzen!
+\- CSV-Dateien mit zwei Spalten nutzen!
+\- HTML-Notation bei Sonderzeichen benutzen!
+
+0.2.3.20140511
+
+- kleines Skript für die Auswertung hinzugefügt (RESULTS.HTML) für die Ergebnisse aus der VOTE.PHP / TEST.TXT
+- Erklaerungen in QUICKTEST.HTML praezisiert
+- Möglichkeit die Bildgroesse des Parteilogos in der DEFINITION.JS anzugeben (intPartyLogosImgWidth und intPartyLogosImgHeight)
+- optische und inhaltliche Verbesserungen (Mit Dank an OpenData Wuppertal, www.opendatal.de, www.talomat.de)
+\- Icons ausgetauscht und vergroessert 
+\- Rahmen zentriert und schattiert, Schriftgroessen und -farben angepasst
+
+......20130922 - Bundestagswahl in Deutschland
+
+0.2.2.20120930
+
+- Lizenzhinweise aktualisiert (manchmal stand noch GPL 2)
+- optische und inhaltliche Verbesserungen in der detaillierten Auswertung (Mit Dank an Peter Lutz, Passau)
+\- Icons hinzugefuegt, z.B. für rot-gruen-blinde Personen 
+\- Position der Partei im Tooltip (vorher: "Parteiname: Begruendung", jetzt: "Parteiname: Stimme dafuer/dagegen: Begruendung")
+
+0.2.1.20091216
+
+- Bewertungssystem korrigiert. Enthaltung wurde als 0,5 gewertet, ist nun 0
+- Vor- und Zurueckspringen bei Fragen nun moeglich
+- Moeglichkeit ein anderes Trennzeichen als das Komma fuer die CSV zu definieren
+- Einstellungen der Partei/Positionslisten in der DEFINITION.JS von Arrays auf Strings umgestellt fuer einfachere Administration
+- Schnelltest verbessert zur einfacheren Fehlersuche
+- optische Verbesserungen
+\- Alternativtext in Ergebnisliste beschreibt auch persoenliche Position mit Worten statt 1/0/-1
+
+0.2.0.1.20091027
+
+- Bewertungssystem an den Wahlomat angepasst. Neutrale Positionen der Parteien werden nun als halber Punkt angerechnet.
+
+0.2.0.20091004
+
+- Moeglichkeit, einzelne Parteien in der Ergebnisliste einzeln auszuwaehlen
+- Schnelltest zum Pruefen der Konfiguration
+- optische Verbesserungen
+\- Rahmen mit Farbe der eigenen Position (z.B. rot) um Bild der Parteiposition (z.B: gruen) in detaillierter Auswertung
+\- Stylesheet-Datei verbessert (Schriftgroesse mit % statt pt)
+
+0.1.1.20090930
+
+- Variable fuer Internetadressen der Parteien hinzugefuegt
+- Austausch der Designvorlagen (CSS) moeglich
+- Moeglichkeit der anonymen "Wahlprogonose" nach Nutzereinwilligung
+- optische Verbesserungen
+\- Hervorhebeung von geraden Tabellenspalten in der Auswertung
+\- Verschiedene Farben in der Auswertung je nach Prozent der uebereinstimmung mit Partei
+
+0.1.0.20090929
+
+- erste Veroeffentlichung
+- Abfrage von Parteipositionen
+- kurze Auswertung
+- detaillierte Auswertung
+
+......20090927 - Bundestagswahl in Deutschland
+
+http://www.mat-o-wahl.de

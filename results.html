@@ -1,0 +1,84 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+<title>Mat-O-Wahl - Auswertung</title>
+<script type="text/javascript" src="system/jquery-1.3.2.min.js"></script>
+<script type="text/javascript" src="system/jquery.csv-0.71.min.js"></script>
+<script type="text/javascript" src="data/definition.js"></script>
+<script type="text/javascript" src="system/general.js"></script>
+<script type="text/javascript" src="system/results.js"></script>
+
+<!-- link rel="stylesheet" type="text/css" href="../styles/default.css" / -->
+
+<script type="text/javascript">
+//<![CDATA[
+document.writeln("<link rel='stylesheet' type='text/css' href='styles/"+design+".css' />");
+//]]>
+</script>
+
+</head>
+<body>
+
+<div id="middle">
+
+	<h1>Auswertung - Mat-O-Wahl</h1>
+
+	<noscript style="color:#ff0000; font-weight:900">
+		Diese Auswertung ben&ouml;tigt JavaScript. 
+		Bitte aktivieren Sie die JavaScript-Technik in Ihrem Browser.
+		Diese Meldung verschwindet, wenn JavaScript aktiv ist.
+	</noscript>
+
+	<p id="resultsInformation">
+		Informationen zur Auswertung
+	</p>
+
+		<p id="debug">
+			debug
+		</p>
+
+		
+	<h2>Abstimmung zu den Parteien</h2>
+	
+		<p id="resultsParties">
+			<i>Bitte warten, bis alle Berechnungen beendet sind ...</i>
+		</p>
+
+	<h2>Abstimmung nach Tagen</h2>
+
+		<p id="resultsTimes">
+			<i>Bitte warten, bis alle Berechnungen beendet sind ...</i>
+		</p>
+
+	<h2>Abstimmung zu den einzelnen Fragen</h2>
+	
+		<p id="resultsQuestions">
+			<i>Bitte warten, bis alle Berechnungen beendet sind ...</i> 
+		</p>
+
+		
+</div>
+
+	<p id="extras">
+	[<a href="index.html">zur&uuml;ck zur Umfrage</a>]
+	</p>
+
+<script type="text/javascript">
+//<![CDATA[
+
+	fnResultsStart();
+
+	var jetzt = new Date();
+	var sekunden = jetzt.getTime(); 
+
+	// System nicht aus dem Cache laden lassen, sondern immer mit neuem Parameter
+	var div = document.getElementById("extras");
+	div.innerHTML += " - Auswertung <a href='results.html?"+sekunden+"'>neu starten<\/a>?";
+
+
+//]]>
+</script>
+
+</body>
+</html>

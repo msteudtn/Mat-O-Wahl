@@ -1,0 +1,180 @@
+
+/* BODY: Hintergrundfarbe, Schriftart, -groesse und -farbe */
+/* BODY: background color, font, size and color */
+body {
+	font-family:Verdana, Arial, Helvetica, sans-serif; 
+	font-size:10pt; 
+	color:#FFFFFF; 
+
+	background-color: #000030;
+	background-image: -moz-linear-gradient(top, #000030, #404080 80%); 
+    background-attachment: fixed;
+	}
+
+/* UeBERSCHRIFTEN */
+/* HEADLINES */
+h1 { font-size:130%;}
+h2 { font-size:120%;}
+h3 { font-size:110%;}
+
+/* LINK-Farbe */
+/* LINK-color */
+a { color:#FFFFFF; text-decoration:underline;}
+a:link { color:#FFFFFF; } 
+a:visited { color:#C0C0C0; }
+a:active { color:#FF0000; }
+a:hover { color:#FF0000; text-decoration:none; } 
+
+/* TABELLEN */
+/* TABLES */
+table { font-size:100%; }
+
+td { 
+	border: 1px solid #C0C0C0; 
+	padding: 5px;
+	-moz-border-radius: 3px; 
+	-khtml-border-radius: 3px;
+	border-radius: 3px; 
+	font-size:110%;
+ 	}
+
+tr:nth-child(even) {
+	background: #000030;
+	}
+
+/* MIDDLE: Zentraler DIV-Container mit allen weiteren Containern */
+/* MIDDLE: central DIV with all containers */
+#middle {
+	background-color:#000040;
+	width:600px; 
+	text-align:left; 
+	margin: auto auto; 
+	padding:10px;
+	-moz-border-radius: 15px;
+	-khtml-border-radius: 15px;
+	border-radius: 15px;
+	border: 2px solid #808080; 
+	overflow:auto;
+	box-shadow:0px 4px 4px #666;
+	}
+
+
+/* Ueberschrift zur Wahl/Thema der Wahl - Formate schon durch <h1> und <h2> geregelt */
+/* Headline for the election/topic - formats already defined by <h1> and <h2> */
+#heading {} 
+
+
+/* Kurze Beschreibung der Wahl */
+/* Short explanation of election */
+#explanation { color: #C0C0C0; }
+
+
+/* Zaehler fuer Fragen und Kurzbeschreibung der Frage */
+/* Counter for questions and short description of question */
+#headingContent { font-size:110%; font-weight:bold }
+
+
+/* Anzeige der aktuellen Frage */
+/* Current question */
+#content { 
+	font-size: 150%;
+	}
+
+/* Farben für Sprechblase.- Form und andere Einstellungen in Datei speechbubble.css */
+/* Colors of the speech bubble.- Form and further settings in file speechbubble.css */
+.bubble { background: #000030; 	border: #FFFFFF solid 1px; }
+.bubble:after { border-color: #000030 transparent; }
+.bubble:before { border-color: #FFFFFF transparent; }
+
+
+/* VOTING-Tabelle mit den Knoepfen Ja / Nein / Egal / Ueberspringen / Doppelt */
+/* VOTING-Table with buttons Yes / no / No Opinion / Skip / Twice */
+#voting { margin-top:10px; }
+
+#votingPro, #votingNeutral, #votingContra, #votingSkip, #votingDouble { 
+	cursor:pointer; 
+	}
+
+#votingSkip, #votingDouble { 
+	font-size:90%; 
+	}
+
+/* alle Knoepfe im Auswahlmenue 20% tansparent (= 0.8) und bei Mause-Over 100% da */
+/* all voting buttons 20% tansparent (= 0.8) and 100% at mouse-over */
+#voting img {
+	border-radius: 5px; /* 100px = rund / round button ;) */
+	box-shadow:0px 2px 2px #666;
+	opacity: 0.8;
+	}
+
+#voting img:hover {
+	border-radius: 5px;
+	box-shadow:0px 2px 2px #000;
+	opacity: 1.0;
+	transition: all 0.2s linear;
+	}
+
+
+/* Statistik */
+/* Statistics */
+#keepStats { 
+	margin-top:10px; 
+	font-size:90%; 
+	}
+
+
+/* Impressum und Neustart */
+/* Legal Notice and restart */
+#extras { 
+	width:600px; 
+	padding: 10px;
+	margin: auto auto; 
+	}
+
+
+/* Social Media DIV und zugehoerige Buttons */
+/* Social media DIV and corresponding buttons */
+#social-media { 
+	width:600px; 
+	padding: 10px;
+	margin: auto auto; 
+	}
+
+
+.social-media-button {
+    padding: 5px;
+	margin: 5px;
+    text-align: center;	
+	font-weight: 400;
+	opacity: 0.75;
+	border-radius: 3px;
+}
+
+.social-media-button:hover {
+	opacity: 1;
+	cursor: pointer;
+	transition: all 0.2s linear;
+}
+
+#social-facebook {
+    background: #4560a3;
+	color: #fff;
+}
+
+#social-twitter {
+    background: #68ace3;
+	color: #fff;
+}
+
+#social-google {
+    background: #c33;
+	color: #fff;
+}
+
+#social-mail {
+    background: #c6c6c6;
+	color: #fff;
+}
+
+
+

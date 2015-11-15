@@ -1,0 +1,145 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+<title>Mat-O-Wahl - Test</title>
+<script type="text/javascript" src="system/jquery-1.3.2.min.js"></script>
+<script type="text/javascript" src="data/definition.js"></script>
+<script type="text/javascript" src="system/general.js"></script>
+<script type="text/javascript" src="system/quicktest.js"></script>
+
+<!-- link rel="stylesheet" type="text/css" href="../styles/default.css" / -->
+
+<script type="text/javascript">
+//<![CDATA[
+document.writeln("<link rel='stylesheet' type='text/css' href='styles/"+design+".css' />");
+//]]>
+</script>
+
+</head>
+<body>
+
+<div id="middle">
+
+	<p id="debug">
+	</p>
+
+	<h1>Mat-O-Wahl - Konfigurationstest / Configuration test</h1>
+	
+	<p lang="de">
+		DE: Dieser Test liest alle wichtigen Einstellungen aus und liefert so einen schnellen &Uuml;berblick,
+		ob man vielleicht einen Fehler in der Konfiguration gemacht hat. 
+	</p>
+
+	<p lang="en">
+		EN: This test reads all important settings and gives you a quick overview if there's a mistake in the configuration.
+	</p>
+
+
+	<h2>Fehlerbericht / Error Report</h2>
+
+		<noscript style="color:#ff0000; font-weight:900">
+			<p lang="de">
+			DE: Dieser Test ben&ouml;tigt JavaScript. 
+			Bitte aktivieren Sie die JavaScript-Technik in Ihrem Browser.
+			Diese Meldung verschwindet, wenn JavaScript aktiv ist.
+			</p>
+
+			<p lang="en">
+			EN: JavaScript needed.
+			Please activate JavaScript in your browser.
+			This message disappears once JavaScript is active.
+			</p>
+		</noscript>
+	
+		<div id="testOther">
+			<p lang="de">
+			<b>
+			DE: Wenn diese Meldung auch nach mehreren Minuten nicht verschwindet und JavaScript aktiviert ist, haben Sie entweder einen sehr langsamen Rechner, 
+			einen sehr umfangreichen Fragebogen oder ein echtes Problem in den Definitions-Dateien. 
+			z.B. eine <a href="data/definition.js">Einstellung</a>, die nicht sauber mit &quot;Anf&uuml;hrungszeichen&quot; eingeschlossen ist 
+			oder eine fehlende Einstellung. <u>Zum Beispiel</u>: 
+			</b>
+			<br /> 
+			<br /> Falsch: Fehlendes Anf&uuml;hrungszeichen am Anfang oder Ende.
+			<br /> <i>var fileQuestions = Fragen.csv&quot;;</i>
+			<br /> <i>var fileQuestions = &quot;Fragen.csv;</i>
+			<br />  
+			<br /> Falsch: Eine vollkommen fehlende Einstellung.
+			<br /> <i>var fileQuestions =</i>
+			<br />
+			<br /> Falsch: Eine Datei ohne Dateiendung (obwohl diese vorhanden ist) oder Gro&szlig;- und Kleinschreibung. Dateiendungen werden im Windows-Explorer normalerweise ausgeblendet. :(
+			<br /> <i>var fileQuestions = &quot;Fragen&quot;;</i>
+			<br /> 
+			<br /> Richtig: 
+			<br /> <i>var fileQuestions = &quot;Fragen.csv&quot;;</i>
+			</p>
+
+			<p lang="en">
+			<b>
+			EN: If this message is still showing after some minutes and JavaScript is active, you have either a very slow computer, a very complex questionnaire or a real problem with the preferences like
+			a <a href="data/definition.js">setting</a>, that is not enclosed by &quot;quotes&quot; or one of the following wrong settings:
+			</b>
+			<br /> 
+			<br /> Wrong: Missing quote at the beginning or end.
+			<br /> <i>var fileQuestions = Fragen.csv&quot;;</i>
+			<br /> <i>var fileQuestions = &quot;Fragen.csv;</i>
+			<br />  
+			<br /> Wrong: A missing setting
+			<br /> <i>var fileQuestions =</i>
+			<br />
+			<br /> Wrong: A file without file extension (even thoug it exists) or a confusion with capital letters. Windows-Explorer usually hides the file extensions. :(
+			<br /> <i>var fileQuestions = &quot;Fragen&quot;;</i>
+			<br /> 
+			<br /> Right: 
+			<br /> <i>var fileQuestions = &quot;Fragen.csv&quot;;</i>
+			</p>
+
+		</div>
+	
+	<h2>Beschreibungen / Descriptions</h2>
+	
+		<p id="testExplanation">
+			<i>Bitte warten, bis alle Berechnungen beendet sind ... / Please wait until all calculations are finished ...</i> 
+		</p>
+
+	<h2>Fragen / Questions</h2>
+	
+		<p id="testQuestions">
+			<i>Bitte warten, bis alle Berechnungen beendet sind ... / Please wait until all calculations are finished ...</i> 
+		</p>
+	
+	<h2>Antworten der Parteien / Party answers</h2>
+	
+		<p id="testAnswers">
+			<i>Bitte warten, bis alle Berechnungen beendet sind ... / Please wait until all calculations are finished ...</i> 
+		</p>
+		
+	<h2>Kontakt- und Impressumsdaten / Contact and Legal Notice</h2>
+	
+		<p id="testImprint">
+			<i>Bitte warten, bis alle Berechnungen beendet sind ... / Please wait until all calculations are finished ...</i> 
+		</p>
+		
+</div>
+
+	<p id="extras">
+	[<a href="index.html">Zur&uuml;ck / Back</a>]
+	</p>
+
+<script type="text/javascript">
+//<![CDATA[
+	fnTestStart();
+
+	var jetzt = new Date();
+	var sekunden = jetzt.getTime(); 
+
+	// System nicht aus dem Cache laden lassen, sondern immer mit neuem Parameter
+	var div = document.getElementById("extras");
+	div.innerHTML += " - Test <a href='quicktest.html?"+sekunden+"'>neu starten<\/a>?";
+
+//]]>
+</script>
+
+</body>
+</html>
