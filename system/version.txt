@@ -1,14 +1,15 @@
 
 To Do (einfach)
+---------------
 - CSS fuer mobile Geraete oder responsive Design
 - Ueberlegungen zur Verlinkung - "http" oder "https" als Standard?
-- Eroeffnung eines Projekts auf GitHub, SourceForge o.ä. Seiten ueberdenken
 - Ueberlegung zum Aendern der Lizenz von GPL zu AGPL - https://de.wikipedia.org/wiki/GNU_Affero_General_Public_License
 - Erklaerungen der Parteien in neuem Fenster, neuem DIV oder neuer Tabellenzeile anzeigen lassen
 - jQuery 2.x nutzen
 - Pruefen: Unterschiede beim Einlesen von MAC-Dateien zu WIN oder IX-Dateien?
 
 To Do (etwas komplizierter)
+---------------------------
 - Pruefen ob der AJAX-Bug (0.2.3.2) bereinigt ist: Bei unterschiedlich grossen Parteiantwort-CSV-Dateien kann es passieren, dass die Dateien unterschiedlich schnell geladen werden und dann falsch zugeordnet. -> Ajax "Promises" verwenden
 - i18n / Translation to English -> Siehe Umsetzungideen in /SYSTEM/I18N.CSV
 - Quellcode aufraeumen, optimieren und besser dokumentieren.
@@ -16,7 +17,16 @@ To Do (etwas komplizierter)
 - optionale Abfrage vor der Umfrage, z.B.: "Welche Partei würden Sie normalerweise wählen?" Vergleiche www.bahn-o-mat.de
 - Wechsel von Arrays (wo die Daten gespeichert sind) hin zu HTML5-Datenbanktechniken (z.B. IndexedDB, evtl. WebStorage)
 
+
 Versionen:
+----------
+
+0.2.4.2.20161021
+
+- INDEX.HTML, VOTE.PHP
+\- Translations / Uebersetzungen
+- CSS
+\- Added description for "tr:nth-child(even)"
 
 0.2.4.1.20151115
 
