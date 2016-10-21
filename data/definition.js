@@ -187,6 +187,8 @@ var design = "default";
 // Als Trennzeichen fuer die Werte dient wieder ein Komma. ;-)
 // Das Skript und der Mat-O-Wahl sollten auf der gleichen Domain liegen. 
 
+// ********************************************************************
+
 // EN: STATISTICS
 // Allow anonymous analysis: true/1 or false/0 
 // Consent of the user and a privacy policy are needed! (*)
@@ -206,4 +208,3 @@ var statsServer = "http://localhost/extras/vote.php";
 
 // (*) In OUTPUT.JS at around line 26 you can define the checkbox as "checked".
 // This would be an opt-in method.
-
