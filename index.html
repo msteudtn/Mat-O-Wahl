@@ -43,34 +43,35 @@ document.writeln("<link rel='stylesheet' type='text/css' href='styles/"+design+"
 	</noscript>
 
 	<div id="heading">
-		<h1>&Uuml;berschrift zur Wahl/Thema der Wahl</h1>
-		<h2>Unter&uuml;berschrift</h2> 
+		<h1>1.3.1. &Uuml;berschrift zur Wahl/Thema der Wahl <br /> Main Headline </h1>
+		<h2>1.3.2. Unter&uuml;berschrift <br /> Second headline</h2> 
 	</div>
 	
 	<div id="explanation">
-		<p>Kurze Beschreibung der Wahl, wer wird gew&auml;hlt, wann, warum, f&uuml;r wie lange, usw.</p>
+		<p>1.3.3. Kurze Beschreibung der Wahl, wer wird gew&auml;hlt, wann, warum, f&uuml;r wie lange, usw. <br /> Short (explaining) text on what's the election about</p>
 	</div>
 
 	<div id="headingContent">
-		<h3>Z&auml;hler f&uuml;r Fragen und Kurzbeschreibung der Frage</h3>
+		<h3>Z&auml;hler f&uuml;r Fragen und Kurzbeschreibung der Frage <br /> Counter for questions and their short description</h3>
 	</div>
 	
 	<div id="content" class="bubble">
 		<p>
-			Liste mit Fragen zu den verschiedenen Positionen der Parteien bzw. Kandidaten.
+			Frage(n) zu den verschiedenen Positionen an die Parteien bzw. Kandidaten.
+			<br /> Question(s) on the different party/candidate positions
 		</p>
 	</div>
 
 	<div id="headingResults">
-		<h3>&Uuml;berschrift f&uuml;r die Ergebnisse/Resultate</h3>
+		<h3>&Uuml;berschrift f&uuml;r die Ergebnisse/Resultate <br /> Headline for the results</h3>
 	</div>
 	
 	<div id="resultsShort">
-		<p>Ergebnisse / Resultate der Parteien in tabellarischer Form</p>
+		<p>Ergebnisse / Resultate der Parteien in tabellarischer Form <br /> Table with results (short)</p>
 	</div>
 
 	<div id="resultsLong">
-		<p>Detaillierte Ergebnisse / Resultate mit eigener Meinung in tabellarischer Form</p>
+		<p>Detaillierte Ergebnisse / Resultate mit eigener Meinung in tabellarischer Form <br /> Tabel with results (long)</p>
 	</div>
 	
 
@@ -96,22 +97,21 @@ document.writeln("<link rel='stylesheet' type='text/css' href='styles/"+design+"
 		<table style="width:100%;">
 			<tr>
 				<td style="width:50%;" onclick="fnChangeVotingDouble()" id="votingDouble">
-					<img src="img/double-no_icon.png" width="30" height="30" border="1" alt="Doppelt" style="float:left; margin-right: 10px;" id="imageVotingDouble" /> 						Thema ist für mich sehr wichtig. (Doppelt werten)
+					<img src="img/double-no_icon.png" width="30" height="30" border="1" alt="Doppelt" style="float:left; margin-right: 10px;" id="imageVotingDouble" />Thema ist für mich sehr wichtig. (Doppelt werten)
 				</td>
 
-				 <td style="width:50%" id="votingSkip" title="Skip [x]">
-					<img src="img/skip_icon.png" width="30" height="30" border="1" alt="Skip [x]" style="float:left; margin-right: 10px;" />
-
-					&Uuml;berspringen <br /> (Nicht werten)
+				<td style="width:50%" id="votingSkip" title="Skip [x]">
+					<img src="img/skip_icon.png" width="30" height="30" border="1" alt="Skip [x]" style="float:left; margin-right: 10px;" />&Uuml;berspringen <br /> (Nicht werten)
 				</td>
 			</tr>
 		</table>
-			
+
 	</div>
 	
 	<br />
 	<div id="jumpToQuestion" style="display:none; width:90%">
 		Gehe direkt zu Frage Nummer XY.
+		Jump to Question XY directly
 	</div>				
 
 	<div id="keepStats" style="display:none; width:90%">
@@ -144,7 +144,8 @@ document.writeln("<link rel='stylesheet' type='text/css' href='styles/"+design+"
 		var jetzt = new Date();
 		var sekunden = jetzt.getTime(); 
 
-		// System nicht aus dem Cache laden lassen, sondern immer mit neuem Parameter
+		// DE: System nicht aus dem Cache laden lassen, sondern immer mit neuem Parameter
+		// EN: Do not load system from cache but start with an additional parameter
 		var div = document.getElementById("extras");
 		div.innerHTML += " Fragebogen <a href='index.html?"+sekunden+"'>neu starten<\/a>?";
 
