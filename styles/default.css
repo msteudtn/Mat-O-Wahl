@@ -38,6 +38,8 @@ td {
 	font-size:110%;
  	}
 
+/* gerade Spalten auf Ergebnisseite in anderer Farbe */
+/* even rows on result-page in different color */
 tr:nth-child(even) {
 	background: #FFE08F;
 	}
@@ -175,6 +177,3 @@ tr:nth-child(even) {
     background: #c6c6c6;
 	color: #fff;
 }
-
-
-
