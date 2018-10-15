@@ -1,172 +1,204 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <title>Mat-O-Wahl</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<meta name="author" content="Mathias Steudtner"/>
-<meta name="description" content="Mat-O-Wahl" />
-<meta name="keywords" content="Mat-O-Wahl, MatOWahl, Demokratie, Wahlen, elections, vote, Wahlbeteiligung, Fragebogen, Antworten, Positionen, Entscheidung, Hilfe, Politik, B&uuml;rgermeister, Stadtrat, Kommunalwahl, Fachschaftsrat, Studentenrat, StuRa, Studentenparlament, Studierendenparlament, StuPa, AStA, Kreisrat, Landrat, Volksabstimmung, Plebiszit, Klon, clone, Alternative, GPL, JavaScript, Freeware, kostenlos"/>
-<meta name="date" content="2015-02-22T12:00:00+0100"/>
-<meta name="robots" content="index, follow" />
-<meta name="language" content="de" />
-<meta name="Content-Language" content="de" />
+  <meta name="keywords" content="Mat-O-Wahl, MatOWahl, Demokratie, Wahlen, elections, vote, Wahlbeteiligung, Fragebogen, Antworten, Positionen, Entscheidung, Hilfe, Politik, B&uuml;rgermeister, Stadtrat, Kommunalwahl, Fachschaftsrat, Studentenrat, StuRa, Studentenparlament, Studierendenparlament, StuPa, AStA, Kreisrat, Landrat, Volksabstimmung, Plebiszit, Klon, clone, Alternative, GPL, JavaScript, Freeware, kostenlos"/>
+  <meta name="robots" content="index, follow" />
+  <meta name="language" content="de" />
+  <meta name="Content-Language" content="de" />
 
+  <meta name="author" content="Mathias Steudtner"/>
+  <meta name="description" content="Mat-O-Wahl" />
+  
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
-<title>Mat-O-Wahl</title>
-<script type="text/javascript" src="system/jquery-1.3.2.min.js"></script>
-<script type="text/javascript" src="data/definition.js"></script>
-<script type="text/javascript" src="system/general.js"></script>
-<script type="text/javascript" src="system/output.js"></script>
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
-<!-- link rel="stylesheet" type="text/css" href="styles/default.css" / -->
-<link rel="stylesheet" type="text/css" href="styles/speechbubble.css">
+	<!-- Mat-o-Wahl JAVASCRIPT -->
+	<script type="text/javascript" src="data/definition.js"></script>
+	<script type="text/javascript" src="system/general.js"></script>
+	<script type="text/javascript" src="system/output.js"></script>
 
-<script type="text/javascript">
-//<![CDATA[
-document.writeln("<link rel='stylesheet' type='text/css' href='styles/"+design+".css' />");
-//]]>
-</script>
+	<!-- Mat-o-Wahl CSS -->
+	<link rel="stylesheet" type="text/css" href="styles/speechbubble.css">
+	<link rel="stylesheet" type="text/css" href="styles/bootstrap-flat-toggle-switch.css">
+	
+	<!-- Mat-o-Wahl JAVASCRIPT und CSS - dynamisch eingebunden -->
+	<script type="text/javascript">
+	//<![CDATA[
+	document.writeln("<link rel='stylesheet' type='text/css' href='styles/"+design+".css' />");
+
+	// i18n: Internationalisation
+	url = "i18n/i18n_"+language+".js"
+	$.getScript( url, function( data, textStatus, jqxhr ) {
+	  // console.log( data ); // Data returned
+	  // console.log( textStatus ); // Success
+	  // console.log( jqxhr.status ); // 200
+	  // console.log( "Load was performed." );
+	});
+	
+	//]]>
+	</script>
 
 </head>
 <body>
 
-<div id="middle">
 
-	<noscript style="color:#ff0000; font-weight:900">
-	<p>ACHTUNG!</p>
-	<p>Sie haben JavaScript deaktiviert. Ohne diese Technik, funktioniert das System nicht. Bitte aktivieren Sie JavaScript in Ihrem Browser.</p>
-	<p>
-	Internet Explorer: Gelbe Warnleiste oben anklicken und "Geblockte Inhalte" bzw. "Aktive Inhalte" zulassen.
-	<br /> Mozilla Firefox: Men&uuml;leiste &gt; Extras &gt; Einstellungen &gt; Inhalt &gt; JavaScript aktivieren
-	</p>
-	<p>F&uuml;r generelle Informationen zu diesem Programm besuchen Sie bitte: <a href="http://www.mat-o-wahl.de">www.mat-o-wahl.de</a></p>
-	<p>Diese Meldung verschwindet, wenn JavaScript aktiv ist.</p>
-	</noscript>
+<div class="container container-fluid theme-showcase">
 
-	<div id="heading">
-		<h1>1.3.1. &Uuml;berschrift zur Wahl/Thema der Wahl <br /> Main Headline </h1>
-		<h2>1.3.2. Unter&uuml;berschrift <br /> Second headline</h2> 
-	</div>
-	
-	<div id="explanation">
-		<p>1.3.3. Kurze Beschreibung der Wahl, wer wird gew&auml;hlt, wann, warum, f&uuml;r wie lange, usw. <br /> Short (explaining) text on what's the election about</p>
-	</div>
+	<!-- 1. BESCHREIBUNG -->
 
-	<div id="headingContent">
-		<h3>Z&auml;hler f&uuml;r Fragen und Kurzbeschreibung der Frage <br /> Counter for questions and their short description</h3>
-	</div>
-	
-	<div id="content" class="bubble">
-		<p>
-			Frage(n) zu den verschiedenen Positionen an die Parteien bzw. Kandidaten.
-			<br /> Question(s) on the different party/candidate positions
-		</p>
-	</div>
+		<div class="row">
+			<div class="col">
 
-	<div id="headingResults">
-		<h3>&Uuml;berschrift f&uuml;r die Ergebnisse/Resultate <br /> Headline for the results</h3>
-	</div>
-	
-	<div id="resultsShort">
-		<p>Ergebnisse / Resultate der Parteien in tabellarischer Form <br /> Table with results (short)</p>
-	</div>
+				<div id="heading1">
+					<h1>&Uuml;berschrift zur Wahl/Thema der Wahl <br /> Main Headline </h1>
+				</div>
 
-	<div id="resultsLong">
-		<p>Detaillierte Ergebnisse / Resultate mit eigener Meinung in tabellarischer Form <br /> Tabel with results (long)</p>
-	</div>
-	
-
-	<div id="voting" style="display:none; width:90%">
-
-		<table border='0' style="width:100%;">
-			<tr>
-				<td style="text-align:center;" id="votingPro" title="Pro [+]">
-					<img src="img/pro_icon.png" width="100" height="100" border="1" alt="Pro [+]" />
-					<p> Stimme zu </p>
-				</td>
-				<td style="text-align:center" id="votingNeutral" title="Neutral [0]">
-					<img src="img/neutral_icon.png" width="100" height="100" border="1" alt="Neutral [0]" />
-					<p> Egal/Wei&szlig; nicht </p>
-				</td>
-				<td style="text-align:center" id="votingContra" title="Contra [-]">
-					<img src="img/contra_icon.png" width="100" height="100" border="1" alt="Contra [-]" />
-					<p> Stimme nicht zu </p>
-				</td>
-			</tr>
-		</table>
+				<div id="heading2">
+					<h2>Unter&uuml;berschrift <br /> Second headline</h2> 
+				</div>
+				
+				<div id="explanation">
+					<p>1Kurze Beschreibung der Wahl, wer wird gew&auml;hlt, wann, warum, f&uuml;r wie lange, usw. <br /> Short (explaining) text on what's the election about</p>
+				</div>
+				
+				<div id="content" class="bubble">
+					<p>
+					Frage(n) zu den verschiedenen Positionen an die Parteien bzw. Kandidaten.
+					<br /> Question(s) on the different party/candidate positions
+					</p>
+				</div>
 			
-		<table style="width:100%;">
-			<tr>
-				<td style="width:50%;" onclick="fnChangeVotingDouble()" id="votingDouble">
-					<img src="img/double-no_icon.png" width="30" height="30" border="1" alt="Doppelt" style="float:left; margin-right: 10px;" id="imageVotingDouble" />Thema ist für mich sehr wichtig. (Doppelt werten)
-				</td>
+			</div>
+		</div>
 
-				<td style="width:50%" id="votingSkip" title="Skip [x]">
-					<img src="img/skip_icon.png" width="30" height="30" border="1" alt="Skip [x]" style="float:left; margin-right: 10px;" />&Uuml;berspringen <br /> (Nicht werten)
-				</td>
-			</tr>
-		</table>
-
-	</div>
-	
-	<br />
-	<div id="jumpToQuestion" style="display:none; width:90%">
-		Gehe direkt zu Frage Nummer XY.
-		Jump to Question XY directly
-	</div>				
-
-	<div id="keepStats" style="display:none; width:90%">
-		<table border='0' width="100%">
-			<tr>
-				<td valign="top">
-					<input type="checkbox" id="keepStatsCheckbox" />
-				</td>
-				<td id="keepStatsQuestion">
-					Anonyme Auswertung (Wahlprognose) erlauben.
-					<br /> 
-				</td>
-			</tr>		
-		</table>
-	</div>	
 		
-	
-	<div id="debug">
-	</div>
+	<!-- 2. ERGEBNISSE -->
 
+		<div class="row">
+			<div class="col">	
+	
+				<div id="headingResults">
+					<h3>&Uuml;berschrift f&uuml;r die Ergebnisse/Resultate <br /> Headline for the results</h3>
+				</div>
+				
+				<div id="resultsShort">
+					<p>Ergebnisse / Resultate der Parteien in tabellarischer Form <br /> Table with results (short)</p>
+				</div>
+
+				<div id="resultsLong">
+					<p>Detaillierte Ergebnisse / Resultate mit eigener Meinung in tabellarischer Form <br /> Table with results (long / detailed)</p>
+				</div>
+
+			</div>
+		</div>
+
+		
+	<!-- 3. BUTTONS -->
+		
+		<div class="row" id="voting">
+			<div class="col">
+				<button type="button" id="votingPro" class="btn btn-success btn-lg btn-block">[&#x2714;] Pro</button>
+			</div>
+
+			<div class="col">
+				<button type="button" id="votingNeutral" class="btn btn-warning btn-lg btn-block">[&#x25EF;] Neutral</button>
+			</div>
+
+			<div class="col">
+				<button type="button" id="votingContra" class="btn btn-danger btn-lg btn-block">[&#x2716;] Contra</button>
+			</div>
+
+			<div class="col">
+				<button type="button" id="votingSkip" class="btn btn-default btn-lg btn-block">[&#x21B7;] Skip</button>
+			</div>
+			
+			<div class="col">
+				<button type="button" id="votingDouble" onclick="fnChangeVotingDouble()" class="btn btn-outline-dark btn-lg btn-block">[x2] Important</button>
+			</div>
+		</div> 
+
+	<!-- 4. ZÄHLER / FORTSCHRITT -->
+
+		<div class="progress" id="progress">
+			<div class="progress-bar" id="progress-bar" style="width:10%"></div>
+		</div>
+
+	
+		<div class="row">
+			<div class="col">
+			
+				<div id="jumpToQuestion" style="display:none; width:100%">
+					Gehe direkt zu Frage Nummer XY.
+					Jump to Question XY directly
+				</div>
+				
+			</div>
+		</div>
+
+		
+	<!-- 5. CHECKBOX FüR AUSWERTUNG -->		
+
+		<div class="row" id="keepStats">
+			<div class="col">
+			
+				<label class="switch">
+					<input type="checkbox" id="keepStatsCheckbox" />
+					<span class="slider"></span>
+				</label>
+				
+				<span id="keepStatsQuestion">
+					Nachfrage: Statistik <br /> Allow statistics
+				</span>	
+				
+			</div>
+		</div>
+	
+	
+	<!-- 6. IMPRESSUM, NEUSTART, SOCIAL MEDIA -->
+
+		<div class="row">	
+			<div class="col">
+				<a class="btn btn-outline-dark btn-block btn-sm" role="button" href="system/imprint.html" target="_blank" id="imprint">Button Impressum / Legal</a>
+			</div>
+
+			<div class="col" >
+				<a class='btn btn-outline-dark btn-block btn-sm' role='button' href='index.html' id="restart">Button Neustart / Restart</a>
+			</div>			
+			
+			<div class="col">
+				<button class="btn btn-block btn-sm" id="social-facebook" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(location.href) + '&title='+encodeURIComponent(document.title), '_blank', 'location=yes,height=480,width=640,scrollbars=yes,status=yes'); return false;" title="auf Facebook teilen">
+				facebook</button>
+			</div>
+
+			<div class="col">
+				<button class="btn btn-block btn-sm" id="social-twitter" onclick="window.open('https://twitter.com/share?url=' + encodeURIComponent(location.href) + '&title='+encodeURIComponent(document.title), '_blank', 'location=yes,height=480,width=640,scrollbars=yes,status=yes'); return false;" title="auf Twitter teilen" >
+				Twitter</button>
+			</div>
+		</div>
+	
+	
 </div>
 
-	<p id="extras">
-		<a href="system/imprint.html" target="_blank">Impressum</a> -
+	<script type="text/javascript">
+	//<![CDATA[
+	
+		// dirty hack: i18n-Sprachdatei 2x laden
+		url = "i18n/i18n_"+language+".js"
+		$.getScript( url, function( data, textStatus, jqxhr ) {
+		});
+	
+		$(document).ready(function() { fnStart(); });
 
-		<script type="text/javascript">
-		//<![CDATA[
-		fnStart();
-
-		var jetzt = new Date();
-		var sekunden = jetzt.getTime(); 
-
-		// DE: System nicht aus dem Cache laden lassen, sondern immer mit neuem Parameter
-		// EN: Do not load system from cache but start with an additional parameter
-		var div = document.getElementById("extras");
-		div.innerHTML += " Fragebogen <a href='index.html?"+sekunden+"'>neu starten<\/a>?";
-
-		//]]>
-		</script>
-
-	</p>
-
-	<p id="social-media">
-	Mit Freunden teilen:
-
-		<span class="social-media-button" id="social-facebook" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(location.href) + '&title='+encodeURIComponent(document.title), '_blank', 'location=yes,height=480,width=640,scrollbars=yes,status=yes'); return false;" title="auf Facebook teilen">
-		facebook</span>
-
-		<span class="social-media-button" id="social-google" onclick="window.open('https://plus.google.com/share?url=' + encodeURIComponent(location.href) + '&title='+encodeURIComponent(document.title), '_blank', 'location=yes,height=480,width=640,scrollbars=yes,status=yes'); return false;" title="auf Google+ teilen">
-		Google+</span>
-
-		<span class="social-media-button" id="social-twitter" onclick="window.open('https://twitter.com/share?url=' + encodeURIComponent(location.href) + '&title='+encodeURIComponent(document.title), '_blank', 'location=yes,height=480,width=640,scrollbars=yes,status=yes'); return false;" title="auf Twitter teilen" >
-		Twitter</span>
-
-	</p>
+	//]]>
+	</script>	
 
 </body>
-</html>
+</html> 
