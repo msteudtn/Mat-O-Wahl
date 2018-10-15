@@ -3,7 +3,7 @@
 // Lizenz: GPL 3
 // Mathias Steudtner http://www.medienvilla.com
 
-var version = "0.2.4.2.20161021"
+var version = "0.3.0.201810xx-beta"
 
 // Globale Variablen
 var arQuestionsShort = new Array();	// Kurzform der Fragen: Atomkraft, Flughafenausbau, ...
@@ -31,7 +31,7 @@ arPartyLogosImg	= fnTransformDefinitionStringToArray(strPartyLogosImg);
 arPartyInternet	= fnTransformDefinitionStringToArray(strPartyInternet);
 
 
-// Anzeige der Fragen
+// Anzeige der Fragen (aus fnStart())
 function fnShowQuestions(csvData)
 {
 	// Zeilenweises Einlesen der Fragen ...
@@ -45,7 +45,7 @@ function fnShowQuestions(csvData)
 
 
 
-// Einlesen der Parteipositionen
+// Einlesen der Parteipositionen (aus fnStart())
 function fnReadPositions(csvData)
 {
 	// Zeilenweises Einlesen der Parteipositionen und Vergleichen
@@ -54,12 +54,17 @@ function fnReadPositions(csvData)
 
 
 // Auswertung (Berechnung)
+// Gibt ein Array "arResults" zurück für fnEvaluationShort() und fnEvaluationLong();
+// Aufruf am Ende aller Fragen in fnShowQuestionNumber() und beim Prüfen auf die "doppelte Wertung" in fnReEvaluate()
 function fnEvaluation()
 {
 
-	// Abstimmungsknöpfe entfernen 
-	$("#voting").empty();
+	// Abstimmungsknöpfe u.a. entfernen 
 	$("#explanation").fadeOut(500).empty();
+	$("#progress").fadeOut(500).empty();
+	$("#voting").empty();
+	$("#jumpToQuestion").empty();
+	$("#keepStats").hide();
 
 	// Anzahl der Fragen bestimmen, da Positions-Array ein Vielfaches aus Fragen * Parteien enthält.
 	var numberOfQuestions = arQuestionsLong.length;		// 3 Fragen
@@ -105,13 +110,15 @@ function fnEvaluation()
 	} // end: for numberOfQuestions
 	
 	// Wenn Nutzer eingewilligt hat ...
-	if ( $("#keepStatsCheckbox").attr("checked")==1)
+	if ( $("#keepStatsCheckbox").prop("checked")==1)
 	{
+		// Sende Auswertung an Server
 		fnSendResults(arResults, arPersonalPositions);
 	}
 	else
 	{
 	}
+
 	$("#keepStats").hide().empty();
 
 	return arResults;
@@ -151,6 +158,7 @@ function fnReadCsv(csvFile,fnCallback)
 
 
 // Senden der persoenlichen Ergebnisse an den Server (nach Einwilligung)
+// Aufruf aus fnEvaluation()
 function fnSendResults(arResults, arPersonalPositions)
 {
 	var strResults = arResults.join(",");
@@ -158,7 +166,7 @@ function fnSendResults(arResults, arPersonalPositions)
 	
 	$.get(statsServer, { mowpersonal: strPersonalPositions, mowparties: strResults } );
 
-	alert("Daten gesendet an Server:"+statsServer+" mowpersonal: "+strPersonalPositions+" mowparties: "+strResults+"")
+	console.log("Mat-O-Wahl. Daten gesendet an Server: "+statsServer+" - mowpersonal: "+strPersonalPositions+" - mowparties: "+strResults+"")
 }
 
 
@@ -261,10 +269,12 @@ function fnTransformPositionToImage(position)
 	return positionImage;	
 }
 
-// ersetzt die Position (-1, 0, 1) mit der passenden Farbe
+// ersetzt die Partei-Position (-1, 0, 1) mit der passenden Farbe
 function fnTransformPositionToColor(position)
 {
-	var arColors = new Array("#ff0000","#ffff00","#00ff00")
+	// red, yellow, green - "#ff0000","#ffff00","#00ff00"
+	// Bootstrap-colors: https://github.com/twbs/bootstrap/blob/master/dist/css/bootstrap.css
+	var arColors = new Array("#d9534f","#f0ad4e","#5cb85c")
 	var positionColor = "#c0c0c0";
 	for (z = -1; z <= 1; z++)
 	{
@@ -278,7 +288,7 @@ function fnTransformPositionToColor(position)
 }
 
 
-// ersetzt die Position (-1, 0, 1) mit dem passenden Text
+// ersetzt die Partei-Position (-1, 0, 1) mit dem passenden Text
 function fnTransformPositionToText(position)
 {
 	var arText = new Array("Stimme dagegen","Egal/Wei&szlig; nicht","Stimme daf&uuml;r")
@@ -294,22 +304,31 @@ function fnTransformPositionToText(position)
 	
 }
 
-
-// Gibt ein Bild für den Balken in der Auswertung entsprechend der Prozentzahl Uebereinstimmung zurück
+// Gibt ein Bild/Button für den Balken in der Auswertung entsprechend der Prozentzahl Uebereinstimmung zurück
 function fnBarImage(percent)
 {
-	if (percent <= 33)
-	{ var barImage = "contra_px.png"; }
-	else if (percent <= 66)
-	{ var barImage = "neutral_px.png"; }
-	else
-	{ var barImage = "pro_px.png"; }
+	// bis v.0.3 mit PNG-Bildern, danach mit farblicher Bootstrap-Progressbar
+	
+	if (percent <= 33) { 
+		// var barImage = "contra_px.png"; 
+		var barImage = "bg-danger"; 
+	}
+	else if (percent <= 66) { 
+		// var barImage = "neutral_px.png"; 
+		var barImage = "bg-warning"; 
+	}
+	else { 
+		// var barImage = "pro_px.png"; 
+		var barImage = "bg-success"; 
+	}
 	
 	return barImage;
 }
 
 
-// Berechnet die "mittlere" Farbe aus Text und Hintergrund für die Tabellenzeilen in der Auswertung -> 0.2.4.1 DEPRECATED -> built in CSS ODD
+// Berechnet die "mittlere" Farbe aus Text und Hintergrund für die Tabellenzeilen in der Auswertung 
+// 0.2.4.1 DEPRECATED -> built in CSS ODD
+/*
 function DEPRECATED_fnCreateMiddleColor()
 {
 	var bodyTextcolor = $("body").css("color");
@@ -350,9 +369,12 @@ function DEPRECATED_fnCreateMiddleColor()
 	var middleColor = "rgb("+middleR+","+middleG+","+middleB+")";
 	return middleColor;
 }
+*/
 
 
-// wandelt HEX in DEC um -> 0.2.4.1 DEPRECATED -> built in CSS ODD
+// wandelt HEX in DEC um 
+// 0.2.4.1 DEPRECATED -> built in CSS ODD
+/*
 function DEPRECATED_fnTransformHexToDec(color)
 {
 	var colorR = color.substr(0,2);
@@ -366,9 +388,11 @@ function DEPRECATED_fnTransformHexToDec(color)
 	var colorRGB = "rgb("+colorR+","+colorG+","+colorB+")";
 	return colorRGB;
 }
+*/
 
-
+// v.0.3 DEPRECATED
 // Bei Klick auf "Details anzeigen/verbergen", pruefe ob Partei angezeigt werden soll fuer Vergleich 
+/*
 function fnStartToggleTableRow(questionLength)
 {
 //	for (x = 0; x <= (arPartyFiles.length-1); x++) // Ver 0.2.3.2
@@ -378,8 +402,9 @@ function fnStartToggleTableRow(questionLength)
 		fnToggleTablerow(arSortParties[x],questionLength); // 
 	}
 }
+*/
 
-// neu BenKob
+// neu BenKob (doppelte Wertung)
 function fnToggleSelfPosition(i)
 {
 	arPersonalPositions[i]--;
@@ -397,7 +422,7 @@ function fnToggleSelfPosition(i)
 	fnReEvaluate();
 }
 
-// neu BenKob
+// neu BenKob (doppelte Wertung)
 function fnToggleDouble(i)
 {
 	arVotingDouble[i]=!arVotingDouble[i];
@@ -414,7 +439,9 @@ function fnToggleDouble(i)
 	fnReEvaluate();
 }
 
+// v.0.3 DEPRECATED
 // Einblenden/Ausblenden der Spalte mit den Parteipositionen
+/*
 function fnToggleTablerow(partyId, questionLength)
 {
 
@@ -478,16 +505,21 @@ function fnToggleTablerow(partyId, questionLength)
 	}
 	
 }
+*/
 
 
-// 
+// v.0.3 DEPRECATED
+/*
 function fnCalculatePieChart(radius,prozent,divName)
 {
 	var faktor = (25 - prozent) / 50 * -1;
 	fnDrawPieChart(radius,faktor,divName);
 }
+*/
 
+// v.0.3 DEPRECATED
 // zeichnet einen Kreis, Halbkreis, Viertelkreis usw.
+/*
 function fnDrawPieChart(radius,faktor,divName)
 {
 	//var canvas = document.getElementById(divName);
@@ -517,3 +549,4 @@ function fnDrawPieChart(radius,faktor,divName)
     	canvas.fill();
 	}
 }
+*/
