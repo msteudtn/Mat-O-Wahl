@@ -194,11 +194,16 @@
 	
 		// dirty hack: i18n-Sprachdatei 2x laden
 		url = "i18n/i18n_"+language+".js"
-		$.getScript( url, function( data, textStatus, jqxhr ) {
-		});
-		  console.log( "i18n load was performed. (B)" );
 		  
-		$(document).ready(function() { fnStart(); });
+		$(document).ready(function() { 
+
+			$.getScript( url, function( data, textStatus, jqxhr ) {
+			});
+			  console.log( "i18n load was performed. (B)" );
+			
+			fnStart(); 
+		
+		});
 
 	//]]>
 	</script>	
