@@ -57,13 +57,13 @@ function fnStart()
 	}
 
 	// Impressum
-	$("#imprint").html(TEXT_IMPRINT);
+	$("#imprint").html("[§] "+TEXT_IMPRINT);
 	
 	// Neustart / Wiederholung
 	var jetzt = new Date();
 	var sekunden = jetzt.getTime(); 
 	$("#restart").attr("href","index.html?"+sekunden);
-	$("#restart").html("&#x21BB; "+TEXT_RESTART);
+	$("#restart").html("[&#x21BB;] "+TEXT_RESTART);
 	
 	//////////////////////////////////////////////////////////////////
 	// FRAGEN UND ANTWORTEN in Arrays einlesen
