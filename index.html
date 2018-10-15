@@ -20,16 +20,10 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
-	<!-- Mat-o-Wahl JAVASCRIPT -->
+	<!-- Mat-o-Wahl EINSTELLUNGEN (Javascript) -->
 	<script type="text/javascript" src="data/definition.js"></script>
-	<script type="text/javascript" src="system/general.js"></script>
-	<script type="text/javascript" src="system/output.js"></script>
-
-	<!-- Mat-o-Wahl CSS -->
-	<link rel="stylesheet" type="text/css" href="styles/speechbubble.css">
-	<link rel="stylesheet" type="text/css" href="styles/bootstrap-flat-toggle-switch.css">
 	
-	<!-- Mat-o-Wahl JAVASCRIPT und CSS - dynamisch eingebunden -->
+	<!-- Mat-o-Wahl JAVASCRIPT und CSS - dynamisch eingebunden auf Basis DEFINITION.JS -->
 	<script type="text/javascript">
 	//<![CDATA[
 	document.writeln("<link rel='stylesheet' type='text/css' href='styles/"+design+".css' />");
@@ -40,12 +34,21 @@
 	  // console.log( data ); // Data returned
 	  // console.log( textStatus ); // Success
 	  // console.log( jqxhr.status ); // 200
-	  // console.log( "Load was performed." );
+	  console.log( "i18n load was performed. (A)" );
 	});
 	
 	//]]>
 	</script>
 
+	<!-- Mat-o-Wahl CSS -->
+	<link rel="stylesheet" type="text/css" href="styles/speechbubble.css">
+	<link rel="stylesheet" type="text/css" href="styles/bootstrap-flat-toggle-switch.css">	
+	
+	<!-- Mat-o-Wahl JAVASCRIPT -->
+	<script type="text/javascript" src="system/general.js"></script>
+	<script type="text/javascript" src="system/output.js"></script>
+	
+	
 </head>
 <body>
 
@@ -184,7 +187,6 @@
 			</div>
 		</div>
 	
-	
 </div>
 
 	<script type="text/javascript">
@@ -194,7 +196,8 @@
 		url = "i18n/i18n_"+language+".js"
 		$.getScript( url, function( data, textStatus, jqxhr ) {
 		});
-	
+		  console.log( "i18n load was performed. (B)" );
+		  
 		$(document).ready(function() { fnStart(); });
 
 	//]]>
