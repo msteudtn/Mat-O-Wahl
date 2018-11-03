@@ -1,9 +1,9 @@
-// GENERAL.JS von http://www.mat-o-wahl.de
-// Allgemeine Verarbeitungen
-// Lizenz: GPL 3
+// GENERAL.JS http://www.mat-o-wahl.de
+// General functions / Allgemeine Verarbeitungen
+// License: GPL 3
 // Mathias Steudtner http://www.medienvilla.com
 
-var version = "0.3.0.201810xx-beta"
+var version = "0.3.0.20181103"
 
 // Globale Variablen
 var arQuestionsShort = new Array();	// Kurzform der Fragen: Atomkraft, Flughafenausbau, ...
@@ -34,9 +34,10 @@ arPartyInternet	= fnTransformDefinitionStringToArray(strPartyInternet);
 // Anzeige der Fragen (aus fnStart())
 function fnShowQuestions(csvData)
 {
-	// Zeilenweises Einlesen der Fragen ...
-	fnSplitLines(csvData,1);
-
+	// Einlesen der Fragen ...
+	// fnSplitLines(csvData,1);
+	fnTransformCsvToArray(csvData,1)
+	
 	// ... und Anzeigen
 	var questionNumber = -1;
 	
@@ -48,8 +49,9 @@ function fnShowQuestions(csvData)
 // Einlesen der Parteipositionen (aus fnStart())
 function fnReadPositions(csvData)
 {
-	// Zeilenweises Einlesen der Parteipositionen und Vergleichen
-	fnSplitLines(csvData,0);
+	// Einlesen der Parteipositionen und Vergleichen
+	// fnSplitLines(csvData,0);
+	fnTransformCsvToArray(csvData,0)
 }
 
 
@@ -126,7 +128,7 @@ function fnEvaluation()
 }
 
 
-
+/*
 // ALTERNATIV - Einlesen der CSV-Datei und Weitergabe an Rückgabefunktion - einfacher aber ohne Fehlercode
 function ALT2_fnReadCsv(csvFile,fnCallback)
 {
@@ -136,10 +138,11 @@ function ALT2_fnReadCsv(csvFile,fnCallback)
  } );
 	
 }
+*/
 
-
+/*
 // Einlesen der CSV-Datei und Weitergabe an Rückgabefunktion
-function fnReadCsv(csvFile,fnCallback)
+function fnReadCsv_ORIGINAL(csvFile,fnCallback)
 {
 
  $.ajax({ 
@@ -151,9 +154,33 @@ function fnReadCsv(csvFile,fnCallback)
 	success: function(data) {  
 		fnCallback(data); },
 	error: function(objXML, textStatus, errorThrown) {
-		alert("ERROR - Fehler beim Einlesen der CSV-Datei \n\nCode - objXML-Status: "+objXML.status+" \n\nCode - textStatus: "+textStatus+" \n\nCode - errorThrown: "+errorThrown+" \n\nName und Verzeichnis der CSV-Datei sollte sein: "+csvFile+" \n\nLoesungshinweise: Gross- und Kleinschreibung beachtet? Datei-Endung uebersehen? Datei im richtigen Verzeichnis? Lokaler XHR-Zugriff fuer Google Chrome-Browser moeglich mittels --allow-file-access-from-files (Issue 40787)?"); }
+		alert("Mat-O-Wahl ERROR - Reading CSV-file \n\nCode - objXML-Status: "+objXML.status+" \n\nCode - textStatus: "+textStatus+" \n\nCode - errorThrown: "+errorThrown+" \n\nName and folder of CSV-file should be: "+csvFile+" \n\nPossible solutions: Check for capital letters. Extension of file? File in the wrong folder? Are you working on a local machine or a server? e.g. XHR-access for Google Chrome via --allow-file-access-from-files (Issue 40787)?"); }
 	} );
 
+}
+*/
+
+// Einlesen der CSV-Datei und Weitergabe an Rückgabefunktion
+function fnReadCsv(csvFile,fnCallback)
+{
+// http://michaelsoriano.com/working-with-jquerys-ajax-promises-and-deferred-objects/
+ $.ajax({ 
+	type: "GET", 
+	url: csvFile,
+	dataType: "text", 
+	contentType: "application/x-www-form-urlencoded",
+	error: function(objXML, textStatus, errorThrown) {
+		alert("Mat-O-Wahl ERROR - Reading CSV-file \n\nCode - objXML-Status: "+objXML.status+" \n\nCode - textStatus: "+textStatus+" \n\nCode - errorThrown: "+errorThrown+" \n\nName and folder of CSV-file should be: "+csvFile+" \n\nPossible solutions: Check for capital letters. Extension of file? File in the wrong folder? Are you working on a local machine or a server? e.g. XHR-access for Google Chrome via --allow-file-access-from-files (Issue 40787)?"); }
+	})
+  .done(function(data) {
+    // console.log('success', data) 
+	console.log("Mat-o-Wahl load: "+csvFile);
+	fnCallback(data);
+  })
+  .fail(function(xhr) {
+    console.log('Mat-O-Wahl file error - ', xhr);	
+  });
+	
 }
 
 
@@ -170,11 +197,14 @@ function fnSendResults(arResults, arPersonalPositions)
 }
 
 
-// Auslesen der Zeile und speichern der Werte in Arrays
+// v.0.3 DEPRECATED
+// Auslesen der Zeile und speichern der Werte in Arrays (aus fnShowQuestions() und fnReadPositions())
+/*
 function fnSplitLines(csvData,modus)
 {
 	// Auftrennen am Zeilenumbruch 
  	var arZeilen = csvData.split("\n");
+	// 
  
 	for(i = 0; i <= arZeilen.length-1; i++)
 	{
@@ -192,6 +222,7 @@ function fnSplitLines(csvData,modus)
 		}
 		else
 		{
+			// 
 			if (modus == 1)
 			{
 				// Fragen in globales Array schreiben
@@ -207,9 +238,11 @@ function fnSplitLines(csvData,modus)
 		} // end: if-else posSeparator < 0
 	} // end: for
 }
+*/
 
-
+// v.0.3 DEPRECATED
 // entfernt die Anführungszeichen am Anfang und Ende aus den CSV-Daten, falls vorhanden (MS Excel & OO Calc fügen diese ein)
+/*
 function fnClearQuotes(string)
 {
 	var strLength = string.length;
@@ -229,7 +262,7 @@ function fnClearQuotes(string)
 
 	return string;
 }
-
+*/
 
 
 // Berechnet Prozentwerte
@@ -240,6 +273,33 @@ function fnPercentage(value,max)
 	return percent; 
 }
 
+// v.0.3 NEU
+// CSV-Daten in Array einlesen (aus fnShowQuestions() und fnReadPositions())
+function fnTransformCsvToArray(csvData,modus)
+{
+	// benutzt externe jquery-csv-Bibliothek
+	arZeilen = $.csv.toArrays(csvData, {separator: ""+separator+""});
+	
+	for(i = 0; i <= arZeilen.length-1; i++)
+	{
+		// console.log("i: "+i+" m: "+modus+" v0: "+arZeilen[i][0]+" v1: "+arZeilen[i][1] )	
+		valueOne = arZeilen[i][0];
+		valueTwo = arZeilen[i][1];
+		
+		if (modus == 1)
+		{
+			// FRAGEN in globales Array schreiben
+			arQuestionsShort.push(valueOne);
+			arQuestionsLong.push(valueTwo);
+		}
+		else
+		{
+			// ANTWORTEN und Meinungen in globales Array schreiben
+				arPartyPositions.push(valueOne);
+				arPartyOpinions.push(valueTwo);
+		}  // end: if-else modus == 1	
+	}  // end: for
+}
 
 // wandelt den String aus der DEFINITION.JS in ein ARRAY um - einfacher fuer den Benutzer
 function fnTransformDefinitionStringToArray(strName)
@@ -254,7 +314,9 @@ function fnTransformDefinitionStringToArray(strName)
 }
 
 
+// v.0.3 DEPRECATED
 // ersetzt die Position (-1, 0, 1) mit dem passenden Bild
+/*
 function fnTransformPositionToImage(position)
 {
 	var arImages = new Array("contra_icon.png","neutral_icon.png","pro_icon.png")
@@ -266,7 +328,40 @@ function fnTransformPositionToImage(position)
 			positionImage = arImages[(z+1)];
 		}
 	}
-	return positionImage;	
+	return positionImage;
+}
+*/
+
+// v.0.3 NEU
+// ersetzt die Position (-1, 0, 1) mit dem passenden Button
+function fnTransformPositionToButton(position)
+{
+	var arButtons = new Array("btn-danger","btn-warning","btn-success")
+	var positionButton = "btn-default";
+	for (z = -1; z <= 1; z++)
+	{
+	 	if (z == position)
+		{
+			positionButton = arButtons[(z+1)];
+		}
+	}
+	return positionButton;
+}
+
+// v.0.3 NEU
+// ersetzt die Position (-1, 0, 1) mit dem passenden Icon
+function fnTransformPositionToIcon(position)
+{
+	var arIcons = new Array("&#x2716;","&#x25EF;","&#x2714;")
+	var positionIcon = "&#x21B7;";
+	for (z = -1; z <= 1; z++)
+	{
+	 	if (z == position)
+		{
+			positionIcon = arIcons[(z+1)];
+		}
+	}
+	return positionIcon;
 }
 
 // ersetzt die Partei-Position (-1, 0, 1) mit der passenden Farbe
@@ -291,8 +386,8 @@ function fnTransformPositionToColor(position)
 // ersetzt die Partei-Position (-1, 0, 1) mit dem passenden Text
 function fnTransformPositionToText(position)
 {
-	var arText = new Array("Stimme dagegen","Egal/Wei&szlig; nicht","Stimme daf&uuml;r")
-	var positionText = "&Uuml;bersprungen";
+	var arText = new Array("[-]","[o]","[+]")
+	var positionText = "[/]";
 	for (z = -1; z <= 1; z++)
 	{
 	 	if (z == position)
@@ -304,7 +399,7 @@ function fnTransformPositionToText(position)
 	
 }
 
-// Gibt ein Bild/Button für den Balken in der Auswertung entsprechend der Prozentzahl Uebereinstimmung zurück
+// Gibt ein Bild/CSS-Klasse für den Balken in der Auswertung entsprechend der Prozentzahl Uebereinstimmung zurück
 function fnBarImage(percent)
 {
 	// bis v.0.3 mit PNG-Bildern, danach mit farblicher Bootstrap-Progressbar
@@ -404,7 +499,7 @@ function fnStartToggleTableRow(questionLength)
 }
 */
 
-// neu BenKob (doppelte Wertung)
+// 02/2015 BenKob (doppelte Wertung)
 function fnToggleSelfPosition(i)
 {
 	arPersonalPositions[i]--;
@@ -412,28 +507,35 @@ function fnToggleSelfPosition(i)
 		{arPersonalPositions[i]=99}
 	if (arPersonalPositions[i]==98) 
 		{arPersonalPositions[i]=1}
-	var positionImage = fnTransformPositionToImage(arPersonalPositions[i]);
-	var positionColor = fnTransformPositionToColor(arPersonalPositions[i]);
+//	var positionImage = fnTransformPositionToImage(arPersonalPositions[i]);
+	var positionButton = fnTransformPositionToButton(arPersonalPositions[i]);
+	var positionIcon = fnTransformPositionToIcon(arPersonalPositions[i]);
+	// var positionColor = fnTransformPositionToColor(arPersonalPositions[i]);
 	var positionText  = fnTransformPositionToText(arPersonalPositions[i]);
-	$("#selfPosition"+i).attr("src", "img/"+positionImage);
+	
+	// $("#selfPosition"+i).attr("src", "img/"+positionImage);
+	$("#selfPosition"+i).removeClass("btn-danger btn-warning btn-success btn-default").addClass(positionButton);
+	$("#selfPosition"+i).html(positionIcon);
 	$("#selfPosition"+i).attr("alt", positionText);
 	$("#selfPosition"+i).attr("title", positionText);
-	$(".positionRow"+i).css("border","1px solid "+positionColor);
+	// $(".positionRow"+i).css("border","1px solid "+positionColor);
 	fnReEvaluate();
 }
 
-// neu BenKob (doppelte Wertung)
+// 02/2015 BenKob (doppelte Wertung)
 function fnToggleDouble(i)
 {
 	arVotingDouble[i]=!arVotingDouble[i];
 	if(arVotingDouble[i])
 	{
-		$("#doubleIcon"+i).attr("src","img/double-yes_icon.png");
+		// $("#doubleIcon"+i).attr("src","img/double-yes_icon.png");
+		$("#doubleIcon"+i).removeClass("btn-outline-dark").addClass("btn-dark");
 		$("#doubleIcon"+i).attr("title","'Frage wird doppelt gewertet");
 	}
 	else
 	{
-		$("#doubleIcon"+i).attr("src","img/double-no_icon.png");
+		// $("#doubleIcon"+i).attr("src","img/double-no_icon.png");
+		$("#doubleIcon"+i).removeClass("btn-dark").addClass("btn-outline-dark");
 		$("#doubleIcon"+i).attr("title","'Frage wird einfach gewertet");
 	}
 	fnReEvaluate();
