@@ -1,11 +1,9 @@
 // DEUTSCHE TEXTE http://www.mat-o-wahl.de
-// License: CC0 / Public Domain
-// Mathias Steudtner http://www.medienvilla.com
 
 // Buttons
-var TEXT_VOTING_PRO = "Stimme dafür"
+var TEXT_VOTING_PRO = "Stimme zu"
 var TEXT_VOTING_NEUTRAL = "Egal/Weiß nicht"
-var TEXT_VOTING_CONTRA = "Stimme dagegen"
+var TEXT_VOTING_CONTRA = "Stimme nicht zu"
 var TEXT_VOTING_SKIP = "Überspringen"
 var TEXT_VOTING_DOUBLE = "Pers. wichtiges Thema"
 

@@ -1,13 +1,11 @@
 // ENGLISH LANGUAGE TEXTS http://www.mat-o-wahl.de
-// License: CC0 / Public Domain
-// Mathias Steudtner http://www.medienvilla.com
 
 // Buttons
-var TEXT_VOTING_PRO = "Vote for"
+var TEXT_VOTING_PRO = "Agree"
 var TEXT_VOTING_NEUTRAL = "No opinion"
-var TEXT_VOTING_CONTRA = "Vote against"
+var TEXT_VOTING_CONTRA = "Disagree"
 var TEXT_VOTING_SKIP = "Skip (don't count)"
-var TEXT_VOTING_DOUBLE = "Very important for me"
+var TEXT_VOTING_DOUBLE = "Very important to me"
 
 // Statistic
 var TEXT_ALLOW_STATISTIC = "Allow anonymous analytics (prognosis)? See <a href='http://"+imprintPrivacyUrl+"' target='_blank'>privacy statement</a>."

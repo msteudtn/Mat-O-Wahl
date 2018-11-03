@@ -1,6 +1,4 @@
 // TEXTES FRANCAISES http://www.mat-o-wahl.de
-// License: CC0 / Public Domain
-// Mathias Steudtner http://www.medienvilla.com
 
 // Buttons
 var TEXT_VOTING_PRO = "voter pour"
