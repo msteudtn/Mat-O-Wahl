@@ -1,6 +1,6 @@
-// OUTPUT.JS von http://www.mat-o-wahl.de
-// Ausgabe der Daten
-// Lizenz: GPL 3
+// OUTPUT.JS http://www.mat-o-wahl.de
+// Output of information / Ausgabe der Informationen
+// License: GPL 3
 // Mathias Steudtner http://www.medienvilla.com
 
 function fnStart()
@@ -73,9 +73,11 @@ function fnStart()
 	// (b) Antworten der Parteien 
 	for (i = 0; i <= arPartyFiles.length-1; i++)
 	{
-		// Zeitversetzt starten, damit Reihenfolge auch garantiert stimmt. 500, 750, 1000, 1250ms, ... später
+		// Zeitversetzt starten, damit Reihenfolge auch stimmt. 500, 750, 1000, 1250ms, ... später
+		// Funktioniert aber nicht 100% wenn eine große Datei dazwischen ist :(
 		window.setTimeout("fnReadCsv('data/"+arPartyFiles[i]+"',"+fnReadPositions+")",500+i*250);	
 	}
+	
 
 	//arVotingDouble initialisieren
 	for (i=0;i<arQuestionsShort.length;i++)
@@ -190,7 +192,7 @@ function fnShowQuestionNumber(questionNumber)
 	
 }
 
-// neu BenKob
+// 02/2015 BenKob
 function fnChangeVotingDouble()
 {
 
@@ -327,9 +329,10 @@ function fnEvaluationShort(arResults)
 		tableContent += "</td>"
 		
 		tableContent += "<td width='30%'>"
-			tableContent += "<a href='http://"+arPartyInternet[partyNum]+"' target='_blank' title='"+arPartyNamesLong[partyNum]+"'>";		
+			tableContent += arPartyNamesLong[partyNum];
+			tableContent += " (<a href='http://"+arPartyInternet[partyNum]+"' target='_blank' title='"+arPartyNamesLong[partyNum]+"'>";		
 			tableContent += arPartyNamesShort[partyNum];
-			tableContent += "</a>";
+			tableContent += "</a>)";
 		tableContent += "</td>"
 		
 		tableContent += "<td width='10%'>"
@@ -420,6 +423,7 @@ function fnEvaluationLong(arResults)
 	// v.0.3 NEU: nur noch zwei Spalten
 	tableContent += "<tr>";
 	tableContent += " <th> </th>"; 
+	tableContent += " <th> </th>"; 
 	tableContent += " <th>"+TEXT_RESULTS_MATCHES_DETAILS_TABLE+"</th>";
 	tableContent += "</tr>";
 
@@ -427,8 +431,10 @@ function fnEvaluationLong(arResults)
 	// var cellId = -1;	// cellId ist für das Ausblenden der Spalten wichtig.
 	for (i = 0; i <= (arQuestionsLong.length-1); i++)
 	{
-		var positionImage = fnTransformPositionToImage(arPersonalPositions[i]);
-		var positionColor = fnTransformPositionToColor(arPersonalPositions[i]);	// eigene Meinung - wird unten auch wieder genutzt als Rahmen für Parteipositionsbild
+		// var positionImage = fnTransformPositionToImage(arPersonalPositions[i]);
+		var positionButton = fnTransformPositionToButton(arPersonalPositions[i]);
+		var positionIcon = fnTransformPositionToIcon(arPersonalPositions[i]);
+		// var positionColor = fnTransformPositionToColor(arPersonalPositions[i]);	// eigene Meinung - wird unten auch wieder genutzt als Rahmen für Parteipositionsbild
 		var positionText  = fnTransformPositionToText(arPersonalPositions[i]);
 		
 		// zu überarbeiten! -> Änderung von 0.2.3.2 auf 0.2.4
@@ -439,26 +445,48 @@ function fnEvaluationLong(arResults)
 		tableContent += "<tr>";
 		
 			// 1. Spalte: eigene Meinung + doppelte Wertung
-			tableContent += "<td align='center'><nobr>";
+			tableContent += "<td style='text-align:center'>";
+/*			
 				tableContent += "<img src='img/"+positionImage+
 						"' height='20' width='20' id='selfPosition"+i+
 						"' class='positionRow"+i+
 						"' onclick='fnToggleSelfPosition("+i+")' alt='"+positionText+
 						"' title='"+positionText+"' style='cursor:pointer;' /> ";
+*/ 
+				tableContent += "<button type='button' id='selfPosition"+i+"' "+
+					" class='btn "+positionButton+" btn-sm' "+ 
+					" onclick='fnToggleSelfPosition("+i+")' "+ 
+					" alt='"+positionText+"' title='"+positionText+"'>"+
+					" "+positionIcon+"</button>";
+
+			tableContent += "</td>";	
+			tableContent += "<td style='text-align:center'>";	
+				
 				if (arVotingDouble[i])
 				{
-				tableContent += "<img src='img/double-yes_icon.png"+
+/*
+					tableContent += "<img src='img/double-yes_icon.png"+
 						"' height='20' width='20' id='doubleIcon"+i+
 						"' onclick='fnToggleDouble("+i+")' style='cursor:pointer;' title='Frage wird doppelt gewertet' />";
+*/						
+					tableContent += "<button type='button' class='btn btn-dark btn-sm' "+
+						" id='doubleIcon"+i+"' "+
+						" onclick='fnToggleDouble("+i+")' title='Frage wird doppelt gewertet'>x2</button>";						
 				}
 				else			
 				{
+/*					
 				tableContent += "<img src='img/double-no_icon.png"+
 						"' height='20' width='20' id='doubleIcon"+i+
 						"' onclick='fnToggleDouble("+i+")' style='cursor:pointer;' title='Frage wird einfach gewertet' />";
+*/						
+				tableContent += "<button type='button' class='btn btn-outline-dark btn-sm' "+
+						" id='doubleIcon"+i+"' "+
+						" onclick='fnToggleDouble("+i+")' title='Frage wird einfach gewertet'>x2</button>";
+
 				}
 				
-			tableContent += "</nobr></td>";
+			tableContent += "</td>";
 
 			// 2. Spalte: Frage (kurz und lang)
 			tableContent += "<td id='resultsLongQuestion"+i+"'>";
@@ -497,6 +525,7 @@ function fnEvaluationLong(arResults)
 		// v.0.3 Parteiantworten gleich unter der Frage anzeigen
 		tableContent += "<tr id='resultsLongAnswersToQuestion"+i+"'> ";
 		tableContent += " <td> </td> ";
+		tableContent += " <td> </td> ";		
 		tableContent += " <td>";
 		// darunterliegende Zeile - Parteipositionen anzeigen
 			for (j = 0; j <= (arPartyFiles.length-1); j++)
@@ -505,15 +534,24 @@ function fnEvaluationLong(arResults)
 				// cellId++; /// VER 0.2.3.2
 				// var cellId = partyNum + 2 + (i * multiplier);
 				var partyPositionsRow = partyNum * arQuestionsLong.length + i;
-				var positionImage = fnTransformPositionToImage(arPartyPositions[partyPositionsRow]);
-                                var positionText = fnTransformPositionToText(arPartyPositions[partyPositionsRow]);
+				// var positionImage = fnTransformPositionToImage(arPartyPositions[partyPositionsRow]);
+				var positionButton = fnTransformPositionToButton(arPartyPositions[partyPositionsRow]);
+				var positionIcon = fnTransformPositionToIcon(arPartyPositions[partyPositionsRow]);
+				
+                var positionText = fnTransformPositionToText(arPartyPositions[partyPositionsRow]);
 
 				// Inhalt der Zelle
 				tableContent += "<p>"
+/*				
 				tableContent += "<img class='positionRow"+i+
 							"' src='img/"+positionImage+
 							"' height='20' width='20' alt='"+arPartyOpinions[partyPositionsRow]+
 							"' style='border:1px solid "+positionColor+"' /> ";
+*/							
+				tableContent += "<button type='button' class='btn "+positionButton+" btn-sm' disabled "+
+						" alt='"+arPartyOpinions[partyPositionsRow]+"'>"+
+						" "+positionIcon+"</button>";							
+							
 				tableContent += "<strong>" + arPartyNamesShort[partyNum] + "</strong>: " + positionText + ( arPartyOpinions[partyPositionsRow] === "" ? "" : ": " + arPartyOpinions[partyPositionsRow] ) + " ";
 				tableContent += "</p>";
 			}
@@ -586,7 +624,11 @@ function fnEvaluationLong(arResults)
 } // end function
 
 
-// neu BenKob
+// 02/2015 BenKob
+// Aktualisierung der Ergebnisse in der oberen Ergebnistabelle (short)
+// Aufruf heraus in:
+// (a) fnEvaluationShort() nach dem Aufbau der oberen Tabelle 
+// (b) in den Buttons in der detaillierten Auswertung (fnToggleSelfPosition() und fnToggleDouble())
 function fnReEvaluate()
 {
 	//Ergebniss neu auswerten und Anzeige aktualisieren
