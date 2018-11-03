@@ -1,6 +1,6 @@
-// RESULTS.JS von http://www.mat-o-wahl.de
-// Auslesen der Ergebnisse aus der (beispielhaften) VOTE.PHP
-// Lizenz: GPL 3
+// RESULTS.JS http://www.mat-o-wahl.de
+// Read results from anonymous (example) statistics / VOTE.PHP / Auslesen der (Beispiel) Statistik-Ergebnisse
+// License: GPL 3
 // Mathias Steudtner http://www.medienvilla.com
 
 // Datei mit den ERGEBNISSEN. Im Beispiel der VOTE.PHP heißt sie TEST.TXT
@@ -131,8 +131,13 @@ function fnResultsMowparties()
 				content += " "+arResultsMowpartiesSum[i]+"/"+maxPointsPerParty;
 				content += " ("+percent+"%) ";
 			content += "</td>";
-			content += "<td>";
-				content += " <img src='img/skip_px.png' height='12' width='"+(percent*faktor)+"' border='1'> ";
+			content += "<td width='40%'>";
+				// content += " <img src='img/skip_px.png' height='12' width='"+(percent*faktor)+"' border='1'> ";
+
+				content += "<div class='progress'>"
+				content += "	<div class='progress-bar' role='progressbar' style='width:"+percent+"%'>"+percent+"%</div> "
+				content += "</div>"				
+				
 			content += "</td>";
 		content += "</tr>";
 	}
@@ -158,8 +163,13 @@ function fnResultsMowparties()
 				content += " "+arResultsMowpartiesSum[i]+"/"+maxPointsTotal+" ";
 				content += " ("+percent+"%) ";
 			content += "</td>";
-			content += "<td>";
-				content += " <img src='img/skip_px.png' height='12' width='"+(percent*faktor)+"' border='1'> ";
+			content += "<td width='40%'>";
+				// content += " <img src='img/skip_px.png' height='12' width='"+(percent*faktor)+"' border='1'> ";
+				
+				content += "<div class='progress'>"
+				content += "	<div class='progress-bar' role='progressbar' style='width:"+percent+"%'>"+percent+"%</div> "
+				content += "</div>"			
+				
 			content += "</td>";
 		content += "</tr>";
 	}
@@ -245,35 +255,55 @@ function fnResultsMowpersonal()
 
 		content += "<tr>";
 			content += "<td>";
-				content += percentContra+"%";
+				content += arMowpersonalSumContra[i]+"/"+maxValues+" [-] ";
 			content += "</td>";
 			content += "<td>";
-				content += "<img src='img/contra_px.png' height='12' width="+(percentContra * faktor)+" border='1' title="+arMowpersonalSumContra[i]+"/"+maxValues+"> ";
+				// content += "<img src='img/contra_px.png' height='12' width="+(percentContra * faktor)+" border='1' title="+arMowpersonalSumContra[i]+"/"+maxValues+"> ";
+				
+				content += "<div class='progress'>"
+				content += "	<div class='progress-bar bg-danger' role='progressbar' style='width:"+percentContra+"%'>"+percentContra+"% </div> "
+				content += "</div>"	
+				
 			content += "</td>";
 		content += "</tr>";
 
 		content += "<tr>";
 			content += "<td>";
-				content += percentNeutral+"% ";
+				content += arMowpersonalSumNeutral[i]+"/"+maxValues+" [o] ";
 			content += "</td>";
 			content += "<td>";
-				content += "<img src='img/neutral_px.png' height='12' width="+(percentNeutral * faktor)+" border='1' title="+arMowpersonalSumNeutral[i]+"/"+maxValues+"> ";
-			content += "</td>";
-		content += "</tr>";
-		content += "<tr>";
-			content += "<td>";
-				content += percentPro+"%";
-			content += "</td>";
-			content += "<td>";
-				content += "<img src='img/pro_px.png' height='12' width="+(percentPro * faktor)+" border='1' title="+arMowpersonalSumPro[i]+"/"+maxValues+"> ";
+				// content += "<img src='img/neutral_px.png' height='12' width="+(percentNeutral * faktor)+" border='1' title="+arMowpersonalSumNeutral[i]+"/"+maxValues+"> ";
+
+				content += "<div class='progress'>"
+				content += "	<div class='progress-bar bg-warning' role='progressbar' style='width:"+percentNeutral+"%'>"+percentNeutral+"% </div> "
+				content += "</div>"	
+				
 			content += "</td>";
 		content += "</tr>";
 		content += "<tr>";
 			content += "<td>";
-				content += percentSkip+"%";
+				content += arMowpersonalSumPro[i]+"/"+maxValues+" [+]";
 			content += "</td>";
 			content += "<td>";
-				content += " <img src='img/skip_px.png' height='12' width="+(percentSkip * faktor)+" border='1' title="+arMowpersonalSumSkip[i]+"/"+maxValues+"> ";
+				// content += "<img src='img/pro_px.png' height='12' width="+(percentPro * faktor)+" border='1' title="+arMowpersonalSumPro[i]+"/"+maxValues+"> ";
+
+				content += "<div class='progress'>"
+				content += "	<div class='progress-bar bg-success' role='progressbar' style='width:"+percentPro+"%'>"+percentPro+"% </div> "
+				content += "</div>"	
+				
+			content += "</td>";
+		content += "</tr>";
+		content += "<tr>";
+			content += "<td>";
+				content += arMowpersonalSumSkip[i]+"/"+maxValues+" [/]";
+			content += "</td>";
+			content += "<td>";
+				// content += " <img src='img/skip_px.png' height='12' width="+(percentSkip * faktor)+" border='1' title="+arMowpersonalSumSkip[i]+"/"+maxValues+"> ";
+				
+				content += "<div class='progress'>"
+				content += "	<div class='progress-bar' role='progressbar' style='width:"+percentSkip+"%'>"+percentSkip+"% </div> "
+				content += "</div>"					
+				
 			content += "</td>";
 		content += "</tr>";
 
@@ -352,8 +382,12 @@ function fnResultsTimes()
 			content += "<td>";
 				content += " "+arCounter[i]+"x ("+percent+"%) ";
 			content += "</td>";
-			content += "<td>";
-				content += " <img src='img/skip_px.png' height='12' width='"+(arCounter[i])+"' border='1'> ";
+			content += "<td width='40%'>";
+				// content += " <img src='img/skip_px.png' height='12' width='"+(arCounter[i])+"' border='1'> ";
+				
+				content += "<div class='progress'>"
+				content += "	<div class='progress-bar' role='progressbar' style='width:"+(arCounter[i])+"%'>"+(arCounter[i])+"% </div> "
+				content += "</div>";
 			content += "</td>";
 		content += "</tr>";
 	}
@@ -369,7 +403,6 @@ function fnResultsTimes()
 
 
 }
-
 
 
 

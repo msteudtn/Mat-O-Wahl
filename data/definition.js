@@ -84,6 +84,9 @@ var strPartyNamesLong = "Appelpartei Deutschlands, Bananenrepublikpartei , Tradi
 // 1.2.4. Logos der Parteien (und Bildgroesse fuer alle, Ursprungseinstellung = 50x25px)
 // 1.2.4. Logos of parties (and picture size for all, default = 50x25px)
 var strPartyLogosImg = " appel.png  , banane.jpg, tbc.gif,    egal.png   ";
+
+// DEMNÄCHST VERALTET und wird ersetzt durch schicke, automatisch skalierte Bilder (Bootstrap) 
+// TO BE DEPRECATED and to be replaced with fancy automatic sized images (Bootstrap) 
 var intPartyLogosImgWidth = 50;
 var intPartyLogosImgHeight = 25;
 
@@ -91,9 +94,10 @@ var intPartyLogosImgHeight = 25;
 // 1.2.5. Website of parties/candidates without http:// - Link opens in a new window.
 var strPartyInternet = "www.appelpartei.ap, www.banane.ba, www.die-citronen.ca, www.neutrale-partei.np";
 
+// DEPRECATED v.0.3
 // 1.2.6. Anzahl der Parteien, die in der detaillierten Auswertung sofort angezeigt werden sollen. 0 = alle
 // 1.2.6. Number of parties to show in the detailed analysis. 0 = all
-var intPartyDefaultShow = 3
+// var intPartyDefaultShow = 3
 // --------------------------------------------------------------------
 
 // --------------------------------------------------------------------
@@ -170,9 +174,9 @@ var separator = ";";
 // 2.2. Design (CSS) in folder /styles  
 var design = "default";
 
-// (To Do) Sprache / Language
-// see also draft in /SYSTEM/i18n.csv
-// var language = "de";
+// Sprache / Language
+// see files in folder /i18n/
+var language = "de";
 
 
 ///////////////////////////////////////////////////////////////////////
@@ -203,8 +207,8 @@ var statsServer = "http://localhost/extras/vote.php";
 // -> Ergebnis an Statistik gesendet: / Result sent to statistic
 // http://localhost/extras/vote.php?mowpersonal=-1,0,1,99&mowparties=5,1,0,2
 
-// (*) In der OUTPUT.JS etwa auf Zeile 26 kann man die Checkbox automatisch als 
+// (*) In der OUTPUT.JS etwa auf Zeile 29 kann man die Checkbox automatisch als 
 // "checked" / angeklickt definieren. Das entspricht dem Opt-In Verfahren.
 
-// (*) In OUTPUT.JS at around line 26 you can define the checkbox as "checked".
+// (*) In OUTPUT.JS at around line 29 you can define the checkbox as "checked".
 // This would be an opt-in method.

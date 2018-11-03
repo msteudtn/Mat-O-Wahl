@@ -1,25 +1,38 @@
-
+﻿
 To Do (einfach)
 ---------------
-- CSS fuer mobile Geraete oder responsive Design
 - Ueberlegungen zur Verlinkung - "http" oder "https" als Standard?
 - Ueberlegung zum Aendern der Lizenz von GPL zu AGPL - https://de.wikipedia.org/wiki/GNU_Affero_General_Public_License
-- Erklaerungen der Parteien in neuem Fenster, neuem DIV oder neuer Tabellenzeile anzeigen lassen
-- jQuery 2.x nutzen
-- Pruefen: Unterschiede beim Einlesen von MAC-Dateien zu WIN oder IX-Dateien?
+- Pruefen: Unterschiede beim Einlesen von MAC-Dateien zu WIN oder *IX-Dateien?
 
 To Do (etwas komplizierter)
 ---------------------------
 - Pruefen ob der AJAX-Bug (0.2.3.2) bereinigt ist: Bei unterschiedlich grossen Parteiantwort-CSV-Dateien kann es passieren, dass die Dateien unterschiedlich schnell geladen werden und dann falsch zugeordnet. -> Ajax "Promises" verwenden
-- i18n / Translation to English -> Siehe Umsetzungideen in /SYSTEM/I18N.CSV
 - Quellcode aufraeumen, optimieren und besser dokumentieren.
-- Kompletter Umstieg auf jquery.csv.js-Bibliothek (bisher nur in der QUICKTEST.HTML)
 - optionale Abfrage vor der Umfrage, z.B.: "Welche Partei würden Sie normalerweise wählen?" Vergleiche www.bahn-o-mat.de
 - Wechsel von Arrays (wo die Daten gespeichert sind) hin zu HTML5-Datenbanktechniken (z.B. IndexedDB, evtl. WebStorage)
+- jumpToQuestion-Tabelle unter den Fragen per Bootstrap-Gridsystem automatisch skalieren
 
 
 Versionen:
 ----------
+
+0.3.0.20181103
+
+- INDEX.HTML, OUTPUT.JS, GENERAL.JS, ...
+\- Bootstrap-Framework for responsive design
+\- Ajax-Promises: $.ajax({}).done()
+\- jquery-csv-library instead of own JavaScript-functions (and update existing jquery-csv from 0.7.1 to 0.8.9)
+- CSS
+\- Adaptions to Bootstrap-Framework
+- i18n
+\- internationalisation-files (not via CSV but JS)
+- IMG-folder
+\- pictures deleted (CSS instead)
+
+........20181028 Landtagswahl in Hessen
+........20181014 Landtagswahl in Bayern
+........20170924 Bundestagswahl in Deutschland
 
 0.2.4.2.20161021
 

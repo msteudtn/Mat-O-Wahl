@@ -1,9 +1,9 @@
-// GENERAL.JS von http://www.mat-o-wahl.de
-// Allgemeine Verarbeitungen
-// Lizenz: GPL 3
+// GENERAL.JS http://www.mat-o-wahl.de
+// General functions / Allgemeine Verarbeitungen
+// License: GPL 3
 // Mathias Steudtner http://www.medienvilla.com
 
-var version = "0.2.4.2.20161021"
+var version = "0.3.0.20181103"
 
 // Globale Variablen
 var arQuestionsShort = new Array();	// Kurzform der Fragen: Atomkraft, Flughafenausbau, ...
@@ -31,12 +31,13 @@ arPartyLogosImg	= fnTransformDefinitionStringToArray(strPartyLogosImg);
 arPartyInternet	= fnTransformDefinitionStringToArray(strPartyInternet);
 
 
-// Anzeige der Fragen
+// Anzeige der Fragen (aus fnStart())
 function fnShowQuestions(csvData)
 {
-	// Zeilenweises Einlesen der Fragen ...
-	fnSplitLines(csvData,1);
-
+	// Einlesen der Fragen ...
+	// fnSplitLines(csvData,1);
+	fnTransformCsvToArray(csvData,1)
+	
 	// ... und Anzeigen
 	var questionNumber = -1;
 	
@@ -45,21 +46,27 @@ function fnShowQuestions(csvData)
 
 
 
-// Einlesen der Parteipositionen
+// Einlesen der Parteipositionen (aus fnStart())
 function fnReadPositions(csvData)
 {
-	// Zeilenweises Einlesen der Parteipositionen und Vergleichen
-	fnSplitLines(csvData,0);
+	// Einlesen der Parteipositionen und Vergleichen
+	// fnSplitLines(csvData,0);
+	fnTransformCsvToArray(csvData,0)
 }
 
 
 // Auswertung (Berechnung)
+// Gibt ein Array "arResults" zurück für fnEvaluationShort() und fnEvaluationLong();
+// Aufruf am Ende aller Fragen in fnShowQuestionNumber() und beim Prüfen auf die "doppelte Wertung" in fnReEvaluate()
 function fnEvaluation()
 {
 
-	// Abstimmungsknöpfe entfernen 
-	$("#voting").empty();
+	// Abstimmungsknöpfe u.a. entfernen 
 	$("#explanation").fadeOut(500).empty();
+	$("#progress").fadeOut(500).empty();
+	$("#voting").empty();
+	$("#jumpToQuestion").empty();
+	$("#keepStats").hide();
 
 	// Anzahl der Fragen bestimmen, da Positions-Array ein Vielfaches aus Fragen * Parteien enthält.
 	var numberOfQuestions = arQuestionsLong.length;		// 3 Fragen
@@ -105,13 +112,15 @@ function fnEvaluation()
 	} // end: for numberOfQuestions
 	
 	// Wenn Nutzer eingewilligt hat ...
-	if ( $("#keepStatsCheckbox").attr("checked")==1)
+	if ( $("#keepStatsCheckbox").prop("checked")==1)
 	{
+		// Sende Auswertung an Server
 		fnSendResults(arResults, arPersonalPositions);
 	}
 	else
 	{
 	}
+
 	$("#keepStats").hide().empty();
 
 	return arResults;
@@ -119,7 +128,7 @@ function fnEvaluation()
 }
 
 
-
+/*
 // ALTERNATIV - Einlesen der CSV-Datei und Weitergabe an Rückgabefunktion - einfacher aber ohne Fehlercode
 function ALT2_fnReadCsv(csvFile,fnCallback)
 {
@@ -129,10 +138,11 @@ function ALT2_fnReadCsv(csvFile,fnCallback)
  } );
 	
 }
+*/
 
-
+/*
 // Einlesen der CSV-Datei und Weitergabe an Rückgabefunktion
-function fnReadCsv(csvFile,fnCallback)
+function fnReadCsv_ORIGINAL(csvFile,fnCallback)
 {
 
  $.ajax({ 
@@ -144,13 +154,38 @@ function fnReadCsv(csvFile,fnCallback)
 	success: function(data) {  
 		fnCallback(data); },
 	error: function(objXML, textStatus, errorThrown) {
-		alert("ERROR - Fehler beim Einlesen der CSV-Datei \n\nCode - objXML-Status: "+objXML.status+" \n\nCode - textStatus: "+textStatus+" \n\nCode - errorThrown: "+errorThrown+" \n\nName und Verzeichnis der CSV-Datei sollte sein: "+csvFile+" \n\nLoesungshinweise: Gross- und Kleinschreibung beachtet? Datei-Endung uebersehen? Datei im richtigen Verzeichnis? Lokaler XHR-Zugriff fuer Google Chrome-Browser moeglich mittels --allow-file-access-from-files (Issue 40787)?"); }
+		alert("Mat-O-Wahl ERROR - Reading CSV-file \n\nCode - objXML-Status: "+objXML.status+" \n\nCode - textStatus: "+textStatus+" \n\nCode - errorThrown: "+errorThrown+" \n\nName and folder of CSV-file should be: "+csvFile+" \n\nPossible solutions: Check for capital letters. Extension of file? File in the wrong folder? Are you working on a local machine or a server? e.g. XHR-access for Google Chrome via --allow-file-access-from-files (Issue 40787)?"); }
 	} );
 
+}
+*/
+
+// Einlesen der CSV-Datei und Weitergabe an Rückgabefunktion
+function fnReadCsv(csvFile,fnCallback)
+{
+// http://michaelsoriano.com/working-with-jquerys-ajax-promises-and-deferred-objects/
+ $.ajax({ 
+	type: "GET", 
+	url: csvFile,
+	dataType: "text", 
+	contentType: "application/x-www-form-urlencoded",
+	error: function(objXML, textStatus, errorThrown) {
+		alert("Mat-O-Wahl ERROR - Reading CSV-file \n\nCode - objXML-Status: "+objXML.status+" \n\nCode - textStatus: "+textStatus+" \n\nCode - errorThrown: "+errorThrown+" \n\nName and folder of CSV-file should be: "+csvFile+" \n\nPossible solutions: Check for capital letters. Extension of file? File in the wrong folder? Are you working on a local machine or a server? e.g. XHR-access for Google Chrome via --allow-file-access-from-files (Issue 40787)?"); }
+	})
+  .done(function(data) {
+    // console.log('success', data) 
+	console.log("Mat-o-Wahl load: "+csvFile);
+	fnCallback(data);
+  })
+  .fail(function(xhr) {
+    console.log('Mat-O-Wahl file error - ', xhr);	
+  });
+	
 }
 
 
 // Senden der persoenlichen Ergebnisse an den Server (nach Einwilligung)
+// Aufruf aus fnEvaluation()
 function fnSendResults(arResults, arPersonalPositions)
 {
 	var strResults = arResults.join(",");
@@ -158,15 +193,18 @@ function fnSendResults(arResults, arPersonalPositions)
 	
 	$.get(statsServer, { mowpersonal: strPersonalPositions, mowparties: strResults } );
 
-	alert("Daten gesendet an Server:"+statsServer+" mowpersonal: "+strPersonalPositions+" mowparties: "+strResults+"")
+	console.log("Mat-O-Wahl. Daten gesendet an Server: "+statsServer+" - mowpersonal: "+strPersonalPositions+" - mowparties: "+strResults+"")
 }
 
 
-// Auslesen der Zeile und speichern der Werte in Arrays
+// v.0.3 DEPRECATED
+// Auslesen der Zeile und speichern der Werte in Arrays (aus fnShowQuestions() und fnReadPositions())
+/*
 function fnSplitLines(csvData,modus)
 {
 	// Auftrennen am Zeilenumbruch 
  	var arZeilen = csvData.split("\n");
+	// 
  
 	for(i = 0; i <= arZeilen.length-1; i++)
 	{
@@ -184,6 +222,7 @@ function fnSplitLines(csvData,modus)
 		}
 		else
 		{
+			// 
 			if (modus == 1)
 			{
 				// Fragen in globales Array schreiben
@@ -199,9 +238,11 @@ function fnSplitLines(csvData,modus)
 		} // end: if-else posSeparator < 0
 	} // end: for
 }
+*/
 
-
+// v.0.3 DEPRECATED
 // entfernt die Anführungszeichen am Anfang und Ende aus den CSV-Daten, falls vorhanden (MS Excel & OO Calc fügen diese ein)
+/*
 function fnClearQuotes(string)
 {
 	var strLength = string.length;
@@ -221,7 +262,7 @@ function fnClearQuotes(string)
 
 	return string;
 }
-
+*/
 
 
 // Berechnet Prozentwerte
@@ -232,6 +273,33 @@ function fnPercentage(value,max)
 	return percent; 
 }
 
+// v.0.3 NEU
+// CSV-Daten in Array einlesen (aus fnShowQuestions() und fnReadPositions())
+function fnTransformCsvToArray(csvData,modus)
+{
+	// benutzt externe jquery-csv-Bibliothek
+	arZeilen = $.csv.toArrays(csvData, {separator: ""+separator+""});
+	
+	for(i = 0; i <= arZeilen.length-1; i++)
+	{
+		// console.log("i: "+i+" m: "+modus+" v0: "+arZeilen[i][0]+" v1: "+arZeilen[i][1] )	
+		valueOne = arZeilen[i][0];
+		valueTwo = arZeilen[i][1];
+		
+		if (modus == 1)
+		{
+			// FRAGEN in globales Array schreiben
+			arQuestionsShort.push(valueOne);
+			arQuestionsLong.push(valueTwo);
+		}
+		else
+		{
+			// ANTWORTEN und Meinungen in globales Array schreiben
+				arPartyPositions.push(valueOne);
+				arPartyOpinions.push(valueTwo);
+		}  // end: if-else modus == 1	
+	}  // end: for
+}
 
 // wandelt den String aus der DEFINITION.JS in ein ARRAY um - einfacher fuer den Benutzer
 function fnTransformDefinitionStringToArray(strName)
@@ -246,7 +314,9 @@ function fnTransformDefinitionStringToArray(strName)
 }
 
 
+// v.0.3 DEPRECATED
 // ersetzt die Position (-1, 0, 1) mit dem passenden Bild
+/*
 function fnTransformPositionToImage(position)
 {
 	var arImages = new Array("contra_icon.png","neutral_icon.png","pro_icon.png")
@@ -258,13 +328,48 @@ function fnTransformPositionToImage(position)
 			positionImage = arImages[(z+1)];
 		}
 	}
-	return positionImage;	
+	return positionImage;
+}
+*/
+
+// v.0.3 NEU
+// ersetzt die Position (-1, 0, 1) mit dem passenden Button
+function fnTransformPositionToButton(position)
+{
+	var arButtons = new Array("btn-danger","btn-warning","btn-success")
+	var positionButton = "btn-default";
+	for (z = -1; z <= 1; z++)
+	{
+	 	if (z == position)
+		{
+			positionButton = arButtons[(z+1)];
+		}
+	}
+	return positionButton;
 }
 
-// ersetzt die Position (-1, 0, 1) mit der passenden Farbe
+// v.0.3 NEU
+// ersetzt die Position (-1, 0, 1) mit dem passenden Icon
+function fnTransformPositionToIcon(position)
+{
+	var arIcons = new Array("&#x2716;","&#x25EF;","&#x2714;")
+	var positionIcon = "&#x21B7;";
+	for (z = -1; z <= 1; z++)
+	{
+	 	if (z == position)
+		{
+			positionIcon = arIcons[(z+1)];
+		}
+	}
+	return positionIcon;
+}
+
+// ersetzt die Partei-Position (-1, 0, 1) mit der passenden Farbe
 function fnTransformPositionToColor(position)
 {
-	var arColors = new Array("#ff0000","#ffff00","#00ff00")
+	// red, yellow, green - "#ff0000","#ffff00","#00ff00"
+	// Bootstrap-colors: https://github.com/twbs/bootstrap/blob/master/dist/css/bootstrap.css
+	var arColors = new Array("#d9534f","#f0ad4e","#5cb85c")
 	var positionColor = "#c0c0c0";
 	for (z = -1; z <= 1; z++)
 	{
@@ -278,11 +383,11 @@ function fnTransformPositionToColor(position)
 }
 
 
-// ersetzt die Position (-1, 0, 1) mit dem passenden Text
+// ersetzt die Partei-Position (-1, 0, 1) mit dem passenden Text
 function fnTransformPositionToText(position)
 {
-	var arText = new Array("Stimme dagegen","Egal/Wei&szlig; nicht","Stimme daf&uuml;r")
-	var positionText = "&Uuml;bersprungen";
+	var arText = new Array("[-]","[o]","[+]")
+	var positionText = "[/]";
 	for (z = -1; z <= 1; z++)
 	{
 	 	if (z == position)
@@ -294,22 +399,31 @@ function fnTransformPositionToText(position)
 	
 }
 
-
-// Gibt ein Bild für den Balken in der Auswertung entsprechend der Prozentzahl Uebereinstimmung zurück
+// Gibt ein Bild/CSS-Klasse für den Balken in der Auswertung entsprechend der Prozentzahl Uebereinstimmung zurück
 function fnBarImage(percent)
 {
-	if (percent <= 33)
-	{ var barImage = "contra_px.png"; }
-	else if (percent <= 66)
-	{ var barImage = "neutral_px.png"; }
-	else
-	{ var barImage = "pro_px.png"; }
+	// bis v.0.3 mit PNG-Bildern, danach mit farblicher Bootstrap-Progressbar
+	
+	if (percent <= 33) { 
+		// var barImage = "contra_px.png"; 
+		var barImage = "bg-danger"; 
+	}
+	else if (percent <= 66) { 
+		// var barImage = "neutral_px.png"; 
+		var barImage = "bg-warning"; 
+	}
+	else { 
+		// var barImage = "pro_px.png"; 
+		var barImage = "bg-success"; 
+	}
 	
 	return barImage;
 }
 
 
-// Berechnet die "mittlere" Farbe aus Text und Hintergrund für die Tabellenzeilen in der Auswertung -> 0.2.4.1 DEPRECATED -> built in CSS ODD
+// Berechnet die "mittlere" Farbe aus Text und Hintergrund für die Tabellenzeilen in der Auswertung 
+// 0.2.4.1 DEPRECATED -> built in CSS ODD
+/*
 function DEPRECATED_fnCreateMiddleColor()
 {
 	var bodyTextcolor = $("body").css("color");
@@ -350,9 +464,12 @@ function DEPRECATED_fnCreateMiddleColor()
 	var middleColor = "rgb("+middleR+","+middleG+","+middleB+")";
 	return middleColor;
 }
+*/
 
 
-// wandelt HEX in DEC um -> 0.2.4.1 DEPRECATED -> built in CSS ODD
+// wandelt HEX in DEC um 
+// 0.2.4.1 DEPRECATED -> built in CSS ODD
+/*
 function DEPRECATED_fnTransformHexToDec(color)
 {
 	var colorR = color.substr(0,2);
@@ -366,9 +483,11 @@ function DEPRECATED_fnTransformHexToDec(color)
 	var colorRGB = "rgb("+colorR+","+colorG+","+colorB+")";
 	return colorRGB;
 }
+*/
 
-
+// v.0.3 DEPRECATED
 // Bei Klick auf "Details anzeigen/verbergen", pruefe ob Partei angezeigt werden soll fuer Vergleich 
+/*
 function fnStartToggleTableRow(questionLength)
 {
 //	for (x = 0; x <= (arPartyFiles.length-1); x++) // Ver 0.2.3.2
@@ -378,8 +497,9 @@ function fnStartToggleTableRow(questionLength)
 		fnToggleTablerow(arSortParties[x],questionLength); // 
 	}
 }
+*/
 
-// neu BenKob
+// 02/2015 BenKob (doppelte Wertung)
 function fnToggleSelfPosition(i)
 {
 	arPersonalPositions[i]--;
@@ -387,34 +507,43 @@ function fnToggleSelfPosition(i)
 		{arPersonalPositions[i]=99}
 	if (arPersonalPositions[i]==98) 
 		{arPersonalPositions[i]=1}
-	var positionImage = fnTransformPositionToImage(arPersonalPositions[i]);
-	var positionColor = fnTransformPositionToColor(arPersonalPositions[i]);
+//	var positionImage = fnTransformPositionToImage(arPersonalPositions[i]);
+	var positionButton = fnTransformPositionToButton(arPersonalPositions[i]);
+	var positionIcon = fnTransformPositionToIcon(arPersonalPositions[i]);
+	// var positionColor = fnTransformPositionToColor(arPersonalPositions[i]);
 	var positionText  = fnTransformPositionToText(arPersonalPositions[i]);
-	$("#selfPosition"+i).attr("src", "img/"+positionImage);
+	
+	// $("#selfPosition"+i).attr("src", "img/"+positionImage);
+	$("#selfPosition"+i).removeClass("btn-danger btn-warning btn-success btn-default").addClass(positionButton);
+	$("#selfPosition"+i).html(positionIcon);
 	$("#selfPosition"+i).attr("alt", positionText);
 	$("#selfPosition"+i).attr("title", positionText);
-	$(".positionRow"+i).css("border","1px solid "+positionColor);
+	// $(".positionRow"+i).css("border","1px solid "+positionColor);
 	fnReEvaluate();
 }
 
-// neu BenKob
+// 02/2015 BenKob (doppelte Wertung)
 function fnToggleDouble(i)
 {
 	arVotingDouble[i]=!arVotingDouble[i];
 	if(arVotingDouble[i])
 	{
-		$("#doubleIcon"+i).attr("src","img/double-yes_icon.png");
+		// $("#doubleIcon"+i).attr("src","img/double-yes_icon.png");
+		$("#doubleIcon"+i).removeClass("btn-outline-dark").addClass("btn-dark");
 		$("#doubleIcon"+i).attr("title","'Frage wird doppelt gewertet");
 	}
 	else
 	{
-		$("#doubleIcon"+i).attr("src","img/double-no_icon.png");
+		// $("#doubleIcon"+i).attr("src","img/double-no_icon.png");
+		$("#doubleIcon"+i).removeClass("btn-dark").addClass("btn-outline-dark");
 		$("#doubleIcon"+i).attr("title","'Frage wird einfach gewertet");
 	}
 	fnReEvaluate();
 }
 
+// v.0.3 DEPRECATED
 // Einblenden/Ausblenden der Spalte mit den Parteipositionen
+/*
 function fnToggleTablerow(partyId, questionLength)
 {
 
@@ -478,16 +607,21 @@ function fnToggleTablerow(partyId, questionLength)
 	}
 	
 }
+*/
 
 
-// 
+// v.0.3 DEPRECATED
+/*
 function fnCalculatePieChart(radius,prozent,divName)
 {
 	var faktor = (25 - prozent) / 50 * -1;
 	fnDrawPieChart(radius,faktor,divName);
 }
+*/
 
+// v.0.3 DEPRECATED
 // zeichnet einen Kreis, Halbkreis, Viertelkreis usw.
+/*
 function fnDrawPieChart(radius,faktor,divName)
 {
 	//var canvas = document.getElementById(divName);
@@ -517,3 +651,4 @@ function fnDrawPieChart(radius,faktor,divName)
     	canvas.fill();
 	}
 }
+*/
