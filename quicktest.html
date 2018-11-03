@@ -20,12 +20,11 @@
 	
 	<!-- Mat-o-Wahl JAVASCRIPT und CSS - dynamisch eingebunden auf Basis DEFINITION.JS -->
 	<script type="text/javascript">
-	//<![CDATA[
 	document.writeln("<link rel='stylesheet' type='text/css' href='styles/"+design+".css' />");
-	//]]>
 	</script>
 	
 	<!-- Mat-o-Wahl JAVASCRIPT -->
+	<script type="text/javascript" src="system/jquery.csv-0.8.9.min.js"></script>
 	<script type="text/javascript" src="system/general.js"></script>	
 	<script type="text/javascript" src="system/quicktest.js"></script>
 
@@ -65,8 +64,8 @@
 			</div>
 		</div>
 
-		<div class="row" id="testOther">
-			<div class="col" lang="de" >
+		<div class="row">
+			<div class="col" lang="de" id="testOtherDe">
 				<b>
 				DE: Wenn diese Meldung auch nach mehreren Minuten nicht verschwindet und JavaScript aktiviert ist, haben Sie entweder einen sehr langsamen Rechner, 
 				einen sehr umfangreichen Fragebogen oder ein echtes Problem in den Definitions-Dateien. 
@@ -87,7 +86,7 @@
 				<br /> Richtig: 
 				<br /> <i>var fileQuestions = &quot;Fragen.csv&quot;;</i>
 			</div>
-			<div class="col" lang="en">
+			<div class="col" lang="en" id="testOtherEn">
 				<b>
 				EN: If this message is still showing after some minutes and JavaScript is active, you have either a very slow computer, a very complex questionnaire or a real problem with the preferences like
 				a <a href="data/definition.js">setting</a>, that is not enclosed by &quot;quotes&quot; or one of the following wrong settings:
@@ -153,20 +152,15 @@
 </div>
 
 <script type="text/javascript">
-//<![CDATA[
+
 	fnTestStart();
 
 	var jetzt = new Date();
 	var sekunden = jetzt.getTime(); 
 
-	// System nicht aus dem Cache laden lassen, sondern immer mit neuem Parameter
-//	var div = document.getElementById("extras");
-//	div.innerHTML += " - Test <a href='quicktest.html?"+sekunden+"'>neu starten<\/a>?";
-	
+	// System nicht aus dem Cache laden lassen, sondern immer mit neuem Parameter	
 	$("#restart").attr("href","quicktest.html?"+sekunden);
 	
-
-//]]>
 </script>
 
 </body>
