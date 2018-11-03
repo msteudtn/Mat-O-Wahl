@@ -31,10 +31,8 @@ table { }
 
 td { 
 	border: 1px solid #C0C0C0; 
-	padding: 5px;
-	-moz-border-radius: 3px; 
-	-khtml-border-radius: 3px;
-	border-radius: 3px; 
+	padding: 5px;	
+	border-radius: 3px;
 	font-size:110%;
  	}
 
@@ -69,11 +67,11 @@ tr:nth-child(even) {
 
 
 /* VOTING-Tabelle mit den Knoepfen Ja / Nein / Egal / Ueberspringen / Doppelt */
-/* VOTING-Table with buttons Yes / no / No Opinion / Skip / Twice */
+/* VOTING-Table with buttons Yes / No / No Opinion / Skip / Twice */
 #voting { margin-top:10px; }
 
 #votingPro, #votingNeutral, #votingContra, #votingSkip, #votingDouble { 
-	cursor:pointer; 
+	/* cursor:pointer; */
 	}
 
 #votingSkip, #votingDouble { 
@@ -103,39 +101,17 @@ tr:nth-child(even) {
 
 /* Social Media DIV und zugehoerige Buttons */
 /* Social media DIV and corresponding buttons */
-#social-media { 
-	width:600px; 
-	padding: 10px;
-	margin: auto auto; 
-	}
-
-
-.social-media-button {
-    padding: 5px;
-	margin: 5px;
-    text-align: center;	
-	font-weight: 400;
-	opacity: 0.75;
-	border-radius: 3px;
-}
-
-.social-media-button:hover {
-	opacity: 1;
-	cursor: pointer;
-	transition: all 0.2s linear;
-}
-
-#social-facebook {
+.social-facebook {
     background: #4560a3;
-	color: #fff;
+	color: #c0c0c0;
 }
 
-#social-twitter {
+.social-twitter {
     background: #68ace3;
 	color: #fff;
 }
 
-#social-mail {
+.social-mail {
     background: #c6c6c6;
 	color: #fff;
 }
