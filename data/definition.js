@@ -75,7 +75,7 @@ var strPartyFiles = "Apfelpartei.csv, Bananenpartei.csv, Citronenpartei.csv , Ne
 
 // 1.2.2. Liste der Parteinamen - kurz
 // 1.2.2. List of party names - short
-var strPartyNamesShort = "APPD,Bananen,TBC,Neutrale";
+var strPartyNamesShort = "&#x1F464; APPD,Bananen,&#x1F464; TBC,Neutrale";
 
 // 1.2.3. Liste der Parteinamen - lang
 // 1.2.2. List of party names - long
@@ -90,9 +90,9 @@ var strPartyLogosImg = " appel.png  , banane.jpg, tbc.gif,    egal.png   ";
 var intPartyLogosImgWidth = 50;
 var intPartyLogosImgHeight = 25;
 
-// 1.2.5. Internetseiten der Parteien/Kandidaten ohne http:// - Link oeffnet sich im neuen Fenster.
-// 1.2.5. Website of parties/candidates without http:// - Link opens in a new window.
-var strPartyInternet = "www.appelpartei.ap, www.banane.ba, www.die-citronen.ca, www.neutrale-partei.np";
+// 1.2.5. Internetseiten der Parteien/Kandidaten beginnend mit http(s):// - Link oeffnet sich im neuen Fenster.
+// 1.2.5. Website of parties/candidates starting with http(s):// - Link opens in a new window.
+var strPartyInternet = "http://www.appelpartei.ap, https://www.banane.ba, https://www.die-citronen.ca, http://www.neutrale-partei.np";
 
 // DEPRECATED v.0.3
 // 1.2.6. Anzahl der Parteien, die in der detaillierten Auswertung sofort angezeigt werden sollen. 0 = alle
@@ -156,9 +156,9 @@ var imprintTechnicsEmail = "info@hans-wurst-webdesign-obsthausen.com";
 // 1.4.5. (optional) Sources of pictures
 var imprintPictures = "Wikipedia, Max Mustermann, Foto Franz Frankfurt, Neutrale Partei";
 
-// 1.4.6. (optional) Link zu einer Datenschutzerklaerung ohne http:// - erlaubt die anonyme Statistik
-// 1.4.6. (optional) Link to a privacy policy without http:// - allows the anonymous statistics
-var imprintPrivacyUrl = "www.hans-wurst-webdesign-obsthausen.com/datenschutz.html";
+// 1.4.6. (optional) Link zu einer Datenschutzerklaerung beginnend mit http(s):// - erlaubt die anonyme Statistik
+// 1.4.6. (optional) Link to a privacy policy starting with http(s):// - allows the anonymous statistics
+var imprintPrivacyUrl = "http://www.hans-wurst-webdesign-obsthausen.com/datenschutz.html";
 // --------------------------------------------------------------------
 
 
