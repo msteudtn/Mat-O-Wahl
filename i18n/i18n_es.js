@@ -8,7 +8,7 @@ var TEXT_VOTING_SKIP = "Saltar"
 var TEXT_VOTING_DOUBLE = "Este tema es muy importante para mi"
 
 // Statistic
-var TEXT_ALLOW_STATISTIC = "Permitir analisis anonimo de resultados. Vease <a href='http://"+imprintPrivacyUrl+"' target='_blank'>protección de datos</a>."
+var TEXT_ALLOW_STATISTIC = "Permitir analisis anonimo de resultados. Vease <a href='"+imprintPrivacyUrl+"' target='_blank'>protección de datos</a>."
 
 // Footer
 var TEXT_IMPRINT = "Terminos y condiciones"

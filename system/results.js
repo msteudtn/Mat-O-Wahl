@@ -91,8 +91,8 @@ function fnResultsResultsfileToArray(csvData)
 function fnResultsMowparties()
 {
 
-	var arResultsMowpartiesSum = new Array(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
-	$("#debug").empty();
+	var arResultsMowpartiesSum = new Array(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
+
 	$("#resultsParties").empty();
 
 	for (i = 0; i <= arMowparties.length-1; i++)
@@ -100,13 +100,9 @@ function fnResultsMowparties()
 
 		for (j = 0; j <= arPartyNamesShort.length-1; j++)
 		{
-//				$("#debug").append("<br /> i: "+i+" j: "+j+" val: "+arMowparties[i][j])
-//				$("#debug").append("<br /> X: "+i+" X: "+j+" val: "+arResultsMowpartiesSum[j])
-
 				// Anzahl der Übereinstimmungen aufsummieren
 				temp = 1*arMowparties[i][j] + 1*arResultsMowpartiesSum[j]
 				arResultsMowpartiesSum[j] = temp;
-//				$("#debug").append("<br /> Yi: "+i+" Yj: "+j+" val: "+arResultsMowpartiesSum[j])
 
 		} // end for j-arPartyNamesShort
 
@@ -184,8 +180,6 @@ function fnResultsMowparties()
 function fnResultsMowpersonal()
 {
 
-//	$("#debug").empty();
-
 	for (i = 0; i <= arQuestionsShort.length-1; i++)
 	{
 
@@ -197,8 +191,6 @@ function fnResultsMowpersonal()
 
 		for (j = 0; j <= arMowpersonal.length-1; j++)
 		{
-//			$("#debug").append("<br /> i: "+i+" j: "+j+" val: "+arMowpersonal[j][i])
-
 			// Info: 
 			// arMowpersonal[i][j] = zeilenweises Lesen
 			// arMowpersonal[j][i] = spaltenweises Lesen -> benoetigt fuer Summe
@@ -225,14 +217,7 @@ function fnResultsMowpersonal()
 
 	var maxValues = arMowpersonal.length;
 	var posQuestion = 0;
-/*
-	$("#debug").append("<br /> X i: "+i+" j: "+j+" contra: "+arMowpersonalSumContra+" max: "+maxValues)
-	$("#debug").append("<br /> X i: "+i+" j: "+j+" neutral: "+arMowpersonalSumNeutral+" max: "+maxValues)
-	$("#debug").append("<br /> X i: "+i+" j: "+j+" pro: "+arMowpersonalSumPro+" max: "+maxValues)
-	$("#debug").append("<br /> X i: "+i+" j: "+j+" skip: "+arMowpersonalSumSkip+" max: "+maxValues)
 
-	$("#debug").append("<br /> ")
-*/
 	// Array durchlaufen und anzeigen
 	$("#resultsQuestions").empty();
 
@@ -319,7 +304,6 @@ function fnResultsMowpersonal()
 // Abstimmungen nach Zeiten (Tagen)
 function fnResultsTimes()
 {
-	$("#debug").empty();
 	$("#resultsTimes").empty();
 
 	arDatum = [];
@@ -353,14 +337,12 @@ function fnResultsTimes()
         if ( arDatum[i] == arDatum[(i+1)])
 		{
 			counter++;
-//			$("#debug").append("<br /> JA i:"+i+": "+arDatum[i]);
         } 
 		// Datum stimmt nicht überein -> Daten speichern
 		else 
 		{
 			arDatumSortiert.push(arDatum[i]);
 			arCounter.push(counter);
-//			$("#debug").append("<br /> NEIN i:"+i+": "+arDatum[i]+" Counter: "+counter);
 			counter = 1;
         }
 
@@ -395,7 +377,6 @@ function fnResultsTimes()
 
 	$("#resultsTimes").append(content)
 
-//	$("#debug").append("<br /> <br /> arDatumSortiert:"+arDatumSortiert+" <br /> arCounter:"+arCounter);
     
 //    return [a, arCounter];
 // var result = foo(arr);
@@ -403,6 +384,7 @@ function fnResultsTimes()
 
 
 }
+
 
 
 

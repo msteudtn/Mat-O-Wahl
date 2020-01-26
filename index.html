@@ -13,15 +13,30 @@
   <meta name="author" content="Mathias Steudtner"/>
   <meta name="description" content="Mat-O-Wahl" />
   
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<!-- BOOTSTRAP + JQUERY --- START -->
 
-	<!-- Latest compiled and minified JavaScript -->
-	<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-	
+		<!-- ONLINE (deactivated) - Compiled and minified Bootstrap CSS -->
+		<!--	
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+		-->
 
-	<!-- Mat-o-Wahl EINSTELLUNGEN (Javascript) -->
+		<!-- LOCAL COPY (alternative) - Compiled and minified Bootstrap CSS -->
+		<link rel="stylesheet" href="system/bootstrap4/css/bootstrap.min.css">
+
+		<!-- ONLINE (deactivated) - Compiled and minified Bootstrap + jQuery JavaScript -->
+		<!--
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+		-->
+
+		<!-- LOCAL COPY (alternative) - Compiled and minified Bootstrap + jQuery JavaScript -->
+		<script src="system/jquery3/jquery-3.4.1.min.js"></script>
+		<script src="system/bootstrap4/js/bootstrap.min.js"></script>
+
+	<!-- BOOTSTRAP + JQUERY --- END -->
+
+
+	<!-- Mat-o-Wahl EINSTELLUNGEN / PREFERENCES (Javascript) -->
 	<script type="text/javascript" src="data/definition.js"></script>
 	
 	<!-- Mat-o-Wahl JAVASCRIPT und CSS - dynamisch eingebunden auf Basis DEFINITION.JS -->
@@ -38,11 +53,16 @@
 	<link rel="stylesheet" type="text/css" href="styles/speechbubble.css">
 	<link rel="stylesheet" type="text/css" href="styles/bootstrap-flat-toggle-switch.css">	
 	
-	<!-- Mat-o-Wahl JAVASCRIPT -->
+	<!-- Mat-o-Wahl JAVASCRIPT - immer / always -->
 	<script type="text/javascript" src="system/jquery.csv-0.8.9.min.js"></script>
 	<script type="text/javascript" src="system/general.js"></script>
 	<script type="text/javascript" src="system/output.js"></script>
-	
+
+	<!-- Mat-o-Wahl JAVASCRIPT - Addon (optional) -->
+
+	<!--
+	<script type="text/javascript" src="extras/addon_results_textfilter_by_button.js"></script>
+	-->
 </head>
 <body>
 
@@ -53,6 +73,10 @@
 
 		<div class="row">
 			<div class="col">
+
+				<div id="descriptionAddonTop">
+					<!-- Platzhalter / Placeholder -->
+				</div>
 
 				<div id="heading1">
 					<h1>&Uuml;berschrift zur Wahl/Thema der Wahl <br /> Main Headline </h1>
@@ -72,6 +96,11 @@
 					<br /> Question(s) on the different party/candidate positions
 					</p>
 				</div>
+
+				<div id="descriptionAddonBottom">
+					<!-- Platzhalter / Placeholder -->
+				</div>
+
 			
 			</div>
 		</div>
@@ -80,19 +109,28 @@
 	<!-- 2. ERGEBNISSE / RESULTS -->
 
 		<div class="row">
-			<div class="col">	
+			<div class="col">
 	
-				<div id="headingResults">
-					<h3>&Uuml;berschrift f&uuml;r die Ergebnisse/Resultate <br /> Headline for the results</h3>
+				<div id="resultsAddonTop">
+					<!-- Platzhalter / Placeholder -->
+				</div>
+
+				<div id="resultsHeading">
+					&Uuml;berschrift f&uuml;r die Ergebnisse/Resultate (ungenutzt) <br /> Headline for the results (unused) 
 				</div>
 				
 				<div id="resultsShort">
-					<p>Ergebnisse / Resultate der Parteien in tabellarischer Form <br /> Table with results (short)</p>
+					Ergebnisse / Resultate der Parteien in tabellarischer Form <br /> Table with results (short) - DOM / id = "resultsShortTable"
 				</div>
 
 				<div id="resultsLong">
-					<p>Detaillierte Ergebnisse / Resultate mit eigener Meinung in tabellarischer Form <br /> Table with results (long / detailed)</p>
+					Detaillierte Ergebnisse / Resultate mit eigener Meinung in tabellarischer Form <br /> Table with results (long / detailed)
 				</div>
+
+				<div id="resultsAddonBottom">
+					<!-- Platzhalter / Placeholder -->
+				</div>
+
 
 			</div>
 		</div>
@@ -113,8 +151,11 @@
 				<button type="button" id="votingContra" class="btn btn-danger btn-lg btn-block">[&#x2716;] Contra</button>
 			</div>
 
+			<!-- Force next columns to break to new line (Bootstrap 4.4+) -->
+			<div class="w-100"></div>
+
 			<div class="col">
-				<button type="button" id="votingSkip" class="btn btn-default btn-lg btn-block">[&#x21B7;] Skip</button>
+				<button type="button" id="votingSkip" class="btn btn-secondary btn-lg btn-block">[&#x21B7;] Skip</button>
 			</div>
 			
 			<div class="col">
@@ -159,7 +200,7 @@
 		</div>
 	
 	
-	<!-- 6. IMPRESSUM, NEUSTART, SOCIAL MEDIA / IMPRINT, RESTART, SOCIAL MEDIA -->
+	<!-- 6. FUSSZEILE: IMPRESSUM, NEUSTART, SOCIAL MEDIA / FOOTER: IMPRINT, RESTART, SOCIAL MEDIA -->
 
 		<div class="row">	
 			<div class="col">

@@ -1,9 +1,9 @@
-﻿
+
 To Do (einfach)
 ---------------
-- Ueberlegungen zur Verlinkung - "http" oder "https" als Standard?
 - Ueberlegung zum Aendern der Lizenz von GPL zu AGPL - https://de.wikipedia.org/wiki/GNU_Affero_General_Public_License
 - Pruefen: Unterschiede beim Einlesen von MAC-Dateien zu WIN oder *IX-Dateien?
+- Vorschaubilder in der resultsShort-Tabelle mit Bootstrap anpassen
 
 To Do (etwas komplizierter)
 ---------------------------
@@ -12,10 +12,28 @@ To Do (etwas komplizierter)
 - optionale Abfrage vor der Umfrage, z.B.: "Welche Partei würden Sie normalerweise wählen?" Vergleiche www.bahn-o-mat.de
 - Wechsel von Arrays (wo die Daten gespeichert sind) hin zu HTML5-Datenbanktechniken (z.B. IndexedDB, evtl. WebStorage)
 - jumpToQuestion-Tabelle unter den Fragen per Bootstrap-Gridsystem automatisch skalieren
-
+- Statistik / Auswertung in Addon auslagern (ab 0.4+)
 
 Versionen:
 ----------
+
+0.4.0.20200125
+
+- INDEX.HTML
+\- update Bootstrap to 4.4.1
+\- update jQuery to 3.4.1
+\- local copies of Bootstrap and jQuery for better compliance with EU General Data Protection Regulation (GDPR - Datenschutz-Grundverordnung / EU-DSGVO)
+\- new addon-interface. "#descriptionAddonTop", "#descriptionAddonBottom", "#resultsAddonTop", "#resultsAddonBottom"
+   Probably best to use with "MutationObserver" https://developer.mozilla.org/de/docs/Web/API/MutationObserver 
+- DEFINITION.JS, OUTPUT.JS, i18N
+\- links to external pages need the full URL with http(s):// now. Before, I linked to (unsecure) http:// directly.  
+- ADDON_RESULTS_TEXTFILTER_BY_BUTTON.JS
+\- first addon: Selection-Buttons for joint elections (e.g. town council + mayor, z.B. Stadtrat + Bürgermeister)
+
+........20190929 zehn Jahre! / ten years! :)
+........20191027 Landtagswahl in Thüringen
+........20190901 Landtagswahl in Brandenburg und Sachsen
+........20190526 Europawahl
 
 0.3.0.20181103
 

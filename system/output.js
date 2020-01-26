@@ -16,12 +16,18 @@ function fnStart()
 	$("#content").empty(); // Fragen
 	
 	// Bereich - Ergebnisse
-	$("#headingResults").empty();
+	$("#resultsHeading").empty();
 	$("#resultsShort").empty();
 	$("#resultsLong").empty();
 	
 	// Bereich - Footer
 	$("#keepStatsQuestion").empty();
+
+	// Platzhalter für Addon-DIVs
+	$("#descriptionAddonTop").empty();
+	$("#descriptionAddonBottom").empty();
+	$("#resultsAddonTop").empty();
+	$("#resultsAddonBottom").empty();
 	
 	//////////////////////////////////////////////////////////////////
 	// TEXTE
@@ -186,8 +192,6 @@ function fnShowQuestionNumber(questionNumber)
 		// Übergabe an Tabellen zur Darstellung/Ausgabe
 		fnEvaluationShort(arResults);
 		fnEvaluationLong(arResults);
-
-//		$("#debug").append("<br /> i:"+i+" "+arSortParties+" <br />"+arResults)
 	} 
 	
 }
@@ -287,9 +291,11 @@ function fnEvaluationShort(arResults)
 	// Alten Inhalt des DIVs loeschen
 	$("#heading2").empty().hide();	
 	$("#content").empty().hide();
+	$("#explanation").empty().hide();	
 	
 	// Anzeige der Ergebnisse
-	$("#heading2").append("<h2>"+TEXT_RESULTS_MATCHES_GENERAL+"</h2>").fadeIn(500);
+//	$("#heading2").append("<h2>"+TEXT_RESULTS_MATCHES_GENERAL+"</h2>").fadeIn(500);
+	$("#resultsHeading").append("<h2>"+TEXT_RESULTS_MATCHES_GENERAL+"</h2>").fadeIn(500);
 
 	var numberOfQuestions=arQuestionsShort.length;
 	//Anzahl der Maximalpunkte ermitteln
@@ -305,7 +311,7 @@ function fnEvaluationShort(arResults)
 	}
 	if (maxPoints==0)
 		{maxPoints=1;}
-	var tableContent = "<table width='100%'>"	
+	var tableContent = "<table id='resultsShortTable' width='100%'>"
 	
 	for (i = 0; i <= (arPartyFiles.length-1); i++)
 	{
@@ -330,7 +336,7 @@ function fnEvaluationShort(arResults)
 		
 		tableContent += "<td width='30%'>"
 			tableContent += arPartyNamesLong[partyNum];
-			tableContent += " (<a href='http://"+arPartyInternet[partyNum]+"' target='_blank' title='"+arPartyNamesLong[partyNum]+"'>";		
+			tableContent += " (<a href='"+arPartyInternet[partyNum]+"' target='_blank' title='"+arPartyNamesLong[partyNum]+"'>";		
 			tableContent += arPartyNamesShort[partyNum];
 			tableContent += "</a>)";
 		tableContent += "</td>"
@@ -394,7 +400,7 @@ function fnEvaluationLong(arResults)
 	tableContent += " <p>"+TEXT_RESULTS_MATCHES_DETAILS_INFO+"</p>";
 
 	
-	tableContent += "<table width='100%'>";
+	tableContent += "<table width='100%' id='resultsLongTable'>";
 		
 	// Kopfzeile der Tabelle
 	

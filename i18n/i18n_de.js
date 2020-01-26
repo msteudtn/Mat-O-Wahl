@@ -8,7 +8,7 @@ var TEXT_VOTING_SKIP = "Überspringen"
 var TEXT_VOTING_DOUBLE = "Pers. wichtiges Thema"
 
 // Statistic
-var TEXT_ALLOW_STATISTIC = "Anonyme Auswertung (Wahlprognose) erlauben. Siehe <a href='http://"+imprintPrivacyUrl+"' target='_blank'>Datenschutzerklärung</a>."
+var TEXT_ALLOW_STATISTIC = "Anonyme Auswertung (Wahlprognose) erlauben. Siehe <a href='"+imprintPrivacyUrl+"' target='_blank'>Datenschutzerklärung</a>."
 
 // Footer
 var TEXT_IMPRINT = "Impressum"
