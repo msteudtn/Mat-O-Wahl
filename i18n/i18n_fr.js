@@ -8,7 +8,7 @@ var TEXT_VOTING_SKIP = "passer"
 var TEXT_VOTING_DOUBLE = "plus important"
 
 // Statistic
-var TEXT_ALLOW_STATISTIC = "Autoriser l'évaluation anonyme (prévision électorale). Voir <a href='http://"+imprintPrivacyUrl+"' target='_blank'>politique de confidentialité</a>."
+var TEXT_ALLOW_STATISTIC = "Autoriser l'évaluation anonyme (prévision électorale). Voir <a href='"+imprintPrivacyUrl+"' target='_blank'>politique de confidentialité</a>."
 
 // Footer
 var TEXT_IMPRINT = "Empreinte"
