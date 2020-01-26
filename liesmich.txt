@@ -1,26 +1,27 @@
-﻿Mat-O-Wahl - Ein einfach zu bedienender, freier Wahl-O-Mat Klon fuer jedermann
+ENGLISH -> README.TXT
+
+Mat-O-Wahl - Ein einfach zu bedienender, freier Wahl-O-Mat Klon fuer jedermann
 
 BEDIENUNG / INSTALLATION
 ************************
 
-Im Verzeichnis EXTRAS befinden sich weitere Beispiele.
+1.) ZIP-Archiv entpacken
+
+2.) Datei /DATA/DEFINITION.JS mit einem Texteditor bearbeiten.
+    Sie koennen alle Dateinamen im DATA-Verzeichnis, mit Ausnahme der DEFINITION.JS, frei vergeben.
+
+3.) Testen mit INDEX.HTML oder QUICKTEST.HTML 
+
+Optional: Im Verzeichnis EXTRAS befinden sich weitere Beispiele.
 Die Inhalte muessen lediglich in das DATA-Verzeichnis entpackt werden.
 Alle alten Inhalte muessen davor natuerlich aus dem DATA-Verzeichnis geloescht werden.
 
-Sie koennen alle Dateinamen im DATA-Verzeichnis, mit Ausnahme der DEFINITION.JS, frei vergeben.
-Ihre Fragen-Datei koennte z.B. auch QUESTIONS.CSV oder BLUB.CSV heissen anstelle von FRAGEN.CSV.
-Sie muessen nur darauf achten, dass Sie auch in der DEFINITION.JS die richtigen Namen eingetragen haben.
-
-Ausserdem muss die Reihenfolge innerhalb der Listen stimmen.
-Sie duerfen also nicht bei den Parteidateien "A-Partei.csv, B-Partei.csv" 
-schreiben und bei den Parteinamen dann "B-Partei, A-Partei".
-
-Zum Ueberpruefen der Werte, koennen Sie die QUICKTEST.HTML starten.
-Diese zeigt Ihnen alle Daten aus der Konfiguration (DEFINITION.JS) an
-und weist auf eventuelle Fehler hin.
+HILFE / KONTAKT
+***************
 
 Weitere Informationen online unter http://www.mat-o-wahl.de
 oder in der Hilfedatei im Verzeichnis /SYSTEM
+oder per E-Mail (siehe unten).
 
 LIZENZ
 ******
