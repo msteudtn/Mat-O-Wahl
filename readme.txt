@@ -1,26 +1,28 @@
+DEUTSCH -> LIESMICH.TXT
+
 Mat-O-Wahl (*) - A simple to handle, free "Voting-Machine" / "Electoral Compass" clone for everybody 
 
 USE / INSTALLATION
 ******************
 
-You can find further examples in the folder EXTRAS.
+1.) Unpack ZIP archive
+
+
+2.) Edit /DATA/DEFINITION.JS with a text-editor.
+    You can change all filenames in the DATA folder to your needs except the DEFINITION.JS.
+
+3.) Test settings using INDEX.HTML or QUICKTEST.HTML 
+
+Optional: You can find further examples in the folder EXTRAS.
 Simply unpack its contents to the DATA folder
 (and delete the other content from the DATA folder before, of course).
 
-You can freely change all filenames in the DATA folder to your needs except the DEFINITION.JS.
-Your file for the questions could be QUESTIONS.CSV or BLUB.CSV instead of FRAGEN.CSV.
-Just take care, that you enter the right name in the DEFINITION.JS.
-
-In addition, the order of lists have to correspond.
-You can not write "A-Party.csv, B-Party.csv" for the files
-and change it to "B-Party, A-Party" in the names-list.
-
-To check your settings, you can start the QUICKTEST.HTML.
-It shows you all data from the configuration file (DEFINITION.JS)
-and points out possible errors.
+HELP / CONTACT
+***************
 
 You can find further information on-line at http://www.mat-o-wahl.de
-or in the help under /SYSTEM
+or in the help-file under /SYSTEM
+or via email (see below)
 
 LICENSE
 *******
