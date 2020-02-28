@@ -1,6 +1,10 @@
-ENGLISH VERSION -> https://github.com/msteudtn/Mat-O-Wahl/blob/master/readme.md
+ENGLISH TEXT -> https://github.com/msteudtn/Mat-O-Wahl/blob/master/readme.md
 
 # Mat-O-Wahl - Ein einfach zu bedienender, freier Wahl-O-Mat Klon fuer jedermann
+
+## LIVE-DEMO
+
+https://www.mat-o-wahl.de/ -> Ausprobieren (DE)
 
 ## BEDIENUNG / INSTALLATION
 
@@ -16,18 +20,18 @@ ENGLISH VERSION -> https://github.com/msteudtn/Mat-O-Wahl/blob/master/readme.md
 Die Inhalte muessen lediglich in das DATA-Verzeichnis entpackt werden.
 Alle alten Inhalte muessen davor natuerlich aus dem DATA-Verzeichnis geloescht werden.
 
-## HILFE / KONTAKT
-
-- Weitere Informationen online unter http://www.mat-o-wahl.de
-- oder in der Hilfedatei im Verzeichnis /SYSTEM
-- oder per E-Mail (siehe unten).
-
 ## LIZENZ
 
 GPL 3 (siehe Verzeichnis /SYSTEM oder http://choosealicense.com/licenses/gpl-v3/)
 - Quellcode, Lizenz und größere Änderungen müssen kenntlich gemacht werden.
 - Änderungen, Weitergabe, sowie kommerzielle und private Nutzung erlaubt.
 - Keine Garantie für Softwareschäden. 
+
+## HILFE / KONTAKT
+
+- Weitere Informationen online unter http://www.mat-o-wahl.de
+- oder in der Hilfedatei im Verzeichnis /SYSTEM
+- oder per E-Mail (siehe unten).
 
 Wenn Sie den Mat-O-Wahl einsetzen, wuerde ich mich ueber eine kurze Mitteilung von Ihnen freuen.
 
