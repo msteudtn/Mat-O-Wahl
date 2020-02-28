@@ -14,7 +14,8 @@ https://www.mat-o-wahl.de/ -> Try It (EN) :gb: :us:
 2. **Edit** /DATA/DEFINITION.JS with a text-editor (best use one with syntax-highlighting).
     You can change all filenames in the DATA folder to your needs except the DEFINITION.JS.
 
-3. **Test settings** using INDEX.HTML or QUICKTEST.HTML 
+3. **Test settings** using INDEX.HTML or QUICKTEST.HTML
+   (works best on http://localhost/ or your private webspace)
 
 **Optional:** You can find further examples in the folder EXTRAS.
 Simply unpack its contents to the DATA folder
