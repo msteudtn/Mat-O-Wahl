@@ -1,10 +1,10 @@
-ENGLISH TEXT -> https://github.com/msteudtn/Mat-O-Wahl/blob/master/readme.md
+ENGLISH TEXT -> https://github.com/msteudtn/Mat-O-Wahl/blob/master/readme.md :gb: :us:
 
 # Mat-O-Wahl - Ein einfach zu bedienender, freier Wahl-O-Mat Klon fuer jedermann
 
 ## LIVE-DEMO
 
-https://www.mat-o-wahl.de/ -> Ausprobieren (DE)
+https://www.mat-o-wahl.de/ -> Ausprobieren (DE) :de:
 
 ## BEDIENUNG / INSTALLATION
 
