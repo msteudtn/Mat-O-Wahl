@@ -1,6 +1,10 @@
-DEUTSCHE VERSION -> https://github.com/msteudtn/Mat-O-Wahl/blob/master/liesmich.md
+DEUTSCHER TEXT -> https://github.com/msteudtn/Mat-O-Wahl/blob/master/liesmich.md
 
 # Mat-O-Wahl (*) - A simple to handle, free "Voting-Machine" / "Electoral Compass" clone for everybody 
+
+## LIVE-DEMO
+
+https://www.mat-o-wahl.de/ -> Try It (EN)
 
 ## USE / INSTALLATION
 
@@ -16,18 +20,18 @@ DEUTSCHE VERSION -> https://github.com/msteudtn/Mat-O-Wahl/blob/master/liesmich.
 Simply unpack its contents to the DATA folder
 (and delete the other content from the DATA folder before, of course).
 
-## HELP / CONTACT
-
-- You can find further information on-line at http://www.mat-o-wahl.de
-- or in the help-file under /SYSTEM
-- or via email (see below)
-
 ## LICENSE
 
 GPL 3 (see folder /SYSTEM or http://choosealicense.com/licenses/gpl-v3/)
 - Required: Disclose Source, License and copyright notice, State Changes 
 - Permitted: Commercial Use, Distribution, Modification, Patent Use, Private Use 
 - Forbidden: Hold Liable
+
+## HELP / CONTACT
+
+- You can find further information on-line at http://www.mat-o-wahl.de
+- or in the help-file under /SYSTEM
+- or via email (see below)
 
 If you should use the Mat-O-Wahl, I would be happy about a short notice from you by email.
 
