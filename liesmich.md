@@ -15,6 +15,7 @@ https://www.mat-o-wahl.de/ -> Ausprobieren (DE) :de:
    Sie koennen alle Dateinamen im DATA-Verzeichnis, mit Ausnahme der DEFINITION.JS, frei vergeben.
 
 3. **Testen mit INDEX.HTML** oder QUICKTEST.HTML 
+   (am besten auf http://localhost/ oder im privaten Webspace) 
 
 **Optional:** Im Verzeichnis EXTRAS befinden sich weitere Beispiele.
 Die Inhalte muessen lediglich in das DATA-Verzeichnis entpackt werden.
