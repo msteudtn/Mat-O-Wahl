@@ -1,10 +1,10 @@
-DEUTSCHER TEXT -> https://github.com/msteudtn/Mat-O-Wahl/blob/master/liesmich.md
+DEUTSCHER TEXT -> https://github.com/msteudtn/Mat-O-Wahl/blob/master/liesmich.md :de: 
 
 # Mat-O-Wahl (*) - A simple to handle, free "Voting-Machine" / "Electoral Compass" clone for everybody 
 
 ## LIVE-DEMO
 
-https://www.mat-o-wahl.de/ -> Try It (EN)
+https://www.mat-o-wahl.de/ -> Try It (EN) :gb: :us:
 
 ## USE / INSTALLATION
 
