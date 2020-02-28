@@ -13,14 +13,30 @@
   <meta name="author" content="Mathias Steudtner"/>
   <meta name="description" content="Mat-O-Wahl" />
   
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<!-- BOOTSTRAP + JQUERY --- START -->
 
-	<!-- Latest compiled and minified JavaScript -->
-	<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+		<!-- ONLINE (deactivated) - Compiled and minified Bootstrap CSS -->
+		<!--	
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+		-->
 
-	<!-- Mat-o-Wahl EINSTELLUNGEN (Javascript) -->
+		<!-- LOCAL COPY (alternative) - Compiled and minified Bootstrap CSS -->
+		<link rel="stylesheet" href="system/bootstrap4/css/bootstrap.min.css">
+
+		<!-- ONLINE (deactivated) - Compiled and minified Bootstrap + jQuery JavaScript -->
+		<!--
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+		-->
+
+		<!-- LOCAL COPY (alternative) - Compiled and minified Bootstrap + jQuery JavaScript -->
+		<script src="system/jquery3/jquery-3.4.1.min.js"></script>
+		<script src="system/bootstrap4/js/bootstrap.min.js"></script>
+
+	<!-- BOOTSTRAP + JQUERY --- END -->
+
+
+	<!-- Mat-o-Wahl EINSTELLUNGEN / PREFERENCES (Javascript) -->
 	<script type="text/javascript" src="data/definition.js"></script>
 	
 	<!-- Mat-o-Wahl JAVASCRIPT und CSS - dynamisch eingebunden auf Basis DEFINITION.JS -->
@@ -28,8 +44,7 @@
 	document.writeln("<link rel='stylesheet' type='text/css' href='styles/"+design+".css' />");
 	</script>
 
-	
-	<!-- Mat-o-Wahl JAVASCRIPT -->
+	<!-- Mat-o-Wahl JAVASCRIPT - immer / always -->
 	<script type="text/javascript" src="system/jquery.csv-0.8.9.min.js"></script>
 	<script type="text/javascript" src="system/general.js"></script>
 	<script type="text/javascript" src="system/results.js"></script>

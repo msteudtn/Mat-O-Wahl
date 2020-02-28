@@ -12,10 +12,19 @@ To Do (etwas komplizierter)
 - optionale Abfrage vor der Umfrage, z.B.: "Welche Partei würden Sie normalerweise wählen?" Vergleiche www.bahn-o-mat.de
 - Wechsel von Arrays (wo die Daten gespeichert sind) hin zu HTML5-Datenbanktechniken (z.B. IndexedDB, evtl. WebStorage)
 - jumpToQuestion-Tabelle unter den Fragen per Bootstrap-Gridsystem automatisch skalieren
-- Statistik / Auswertung in Addon auslagern (ab 0.4+)
+- Statistik / Anonyme Auswertung in Addon auslagern (ab 0.4+)
 
-Versionen:
-----------
+Versions:
+---------
+
+0.4.1.20200228
+
+- QUICKTEST.HTML, RESULTS.HTML, IMPRINT.HTML
+\- local copies of Bootstrap and jQuery
+- i18n, OUTPUT.JS
+\- moved Unicode-characters from OUTPUT.JS into i18n, e.g. [agree-tickbox]
+- DEFINITION.JS, OUTPUT.JS
+\- added option/link for own legal notice (Impressum)
 
 0.4.0.20200125
 
@@ -27,7 +36,7 @@ Versionen:
    Probably best to use with "MutationObserver" https://developer.mozilla.org/de/docs/Web/API/MutationObserver 
 - DEFINITION.JS, OUTPUT.JS, i18N
 \- links to external pages need the full URL with http(s):// now. Before, I linked to (unsecure) http:// directly.  
-- ADDON_RESULTS_TEXTFILTER_BY_BUTTON.JS
+- EXTRAS/ADDON_RESULTS_TEXTFILTER_BY_BUTTON.JS
 \- first addon: Selection-Buttons for joint elections (e.g. town council + mayor, z.B. Stadtrat + Bürgermeister)
 
 ........20190929 zehn Jahre! / ten years! :)

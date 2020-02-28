@@ -40,11 +40,11 @@ function fnStart()
 	//////////////////////////////////////////////////////////////////
 	// BUTTONS
 	
-	$("#votingPro").html("[&#x2714;] "+TEXT_VOTING_PRO)
-	$("#votingNeutral").html("[&#x25EF;] "+TEXT_VOTING_NEUTRAL)
-	$("#votingContra").html("[&#x2716;] "+TEXT_VOTING_CONTRA)
-	$("#votingSkip").html("[&#x21B7;] "+TEXT_VOTING_SKIP)
-	$("#votingDouble").html("[x2] "+TEXT_VOTING_DOUBLE)
+	$("#votingPro").html(TEXT_VOTING_PRO)
+	$("#votingNeutral").html(TEXT_VOTING_NEUTRAL)
+	$("#votingContra").html(TEXT_VOTING_CONTRA)
+	$("#votingSkip").html(TEXT_VOTING_SKIP)
+	$("#votingDouble").html(TEXT_VOTING_DOUBLE)
 	
 	//////////////////////////////////////////////////////////////////
 	// FOOTER
@@ -63,13 +63,16 @@ function fnStart()
 	}
 
 	// Impressum
-	$("#imprint").html("[§] "+TEXT_IMPRINT);
+	// Text aus i18n einfügen
+	$("#imprint").html(TEXT_IMPRINT);
+	// Link aus definition.js einfügen
+	$("#imprint").attr("href", imprintLink)
 	
 	// Neustart / Wiederholung
 	var jetzt = new Date();
 	var sekunden = jetzt.getTime(); 
 	$("#restart").attr("href","index.html?"+sekunden);
-	$("#restart").html("[&#x21BB;] "+TEXT_RESTART);
+	$("#restart").html(TEXT_RESTART);
 	
 	//////////////////////////////////////////////////////////////////
 	// FRAGEN UND ANTWORTEN in Arrays einlesen

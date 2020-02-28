@@ -13,26 +13,38 @@
   <meta name="author" content="Mathias Steudtner"/>
   <meta name="description" content="Mat-O-Wahl" />
   
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<!-- BOOTSTRAP + JQUERY --- START -->
 
-	<!-- Latest compiled and minified JavaScript -->
-	<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+		<!-- ONLINE (deactivated) - Compiled and minified Bootstrap CSS -->
+		<!--	
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+		-->
 
-	<!-- <script type="text/javascript" src="system/jquery-1.3.2.min.js"></script> -->
+		<!-- LOCAL COPY (alternative) - Compiled and minified Bootstrap CSS -->
+		<link rel="stylesheet" href="../system/bootstrap4/css/bootstrap.min.css">
 
-	<!-- Mat-o-Wahl JAVASCRIPT -->
-	<script type="text/javascript" src="../system/general.js"></script>
+		<!-- ONLINE (deactivated) - Compiled and minified Bootstrap + jQuery JavaScript -->
+		<!--
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+		-->
+
+		<!-- LOCAL COPY (alternative) - Compiled and minified Bootstrap + jQuery JavaScript -->
+		<script src="../system/jquery3/jquery-3.4.1.min.js"></script>
+		<script src="../system/bootstrap4/js/bootstrap.min.js"></script>
+
+	<!-- BOOTSTRAP + JQUERY --- END -->
+	
+	<!-- Mat-o-Wahl EINSTELLUNGEN / PREFERENCES (Javascript) -->
 	<script type="text/javascript" src="../data/definition.js"></script>
 
-
-	<link rel="stylesheet" type="text/css" href="styles/speechbubble.css">
-	<link rel="stylesheet" type="text/css" href="styles/bootstrap-flat-toggle-switch.css">
-	
+	<!-- Mat-o-Wahl JAVASCRIPT und CSS - dynamisch eingebunden auf Basis DEFINITION.JS -->
 	<script type="text/javascript">
 	document.writeln("<link rel='stylesheet' type='text/css' href='../styles/"+design+".css' />");
 	</script>
+
+	<!-- Mat-o-Wahl JAVASCRIPT - immer / always -->
+	<script type="text/javascript" src="../system/general.js"></script>	
 
 </head>
 <body>
@@ -68,10 +80,7 @@
 			</p>
 
 			<p>
-			Der Mat-O-Wahl arbeitet nach dem Vorbild des "Wahl-O-Mat". Dieser wird in Deutschland von der "Bundeszentrale f&uuml;r politische Bildung" (bpb) herausgegeben.
-			Weitere Informationen zur Rezeption des Wahl-O-Mat bieten die Seiten der Universit&auml;ten
-			<a href="http://www.uni-siegen.de/wahlomat/ergebnisse_online.html?lang=de" target="_blank">Siegen</a> und
-			<a href="http://www.wahl-o-mat.uni-duesseldorf.de/" target="_blank">D&uuml;sseldorf</a>.
+			Der Mat-O-Wahl arbeitet nach dem Vorbild des "Wahl-O-Mat". Dieser wird in Deutschland von der "Bundeszentrale f&uuml;r politische Bildung" (bpb) herausgegeben.			
 			</p>			
 		</div>
 		<div class="col" lang="en">

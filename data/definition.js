@@ -4,10 +4,12 @@
 
 // DE: Bei Problemen benutzen Sie bitte die /QUICKTEST.HTML 
 // oder lesen in der /SYSTEM/MAT-O-WAHL-HILFE.PDF nach.
+// Diese Datei am besten in einem Editor mit Syntaxhervorhebung bearbeiten. z.B. Notepad++, gedit, kate, ...
 
 // ********************************************************************
 
 // EN: Please try QUICKTEST.HTML in case of problems.
+// Edit this file with an editor that uses syntax-highlighting, e.g.  Notepad++, gedit, kate, ...
 
 ///////////////////////////////////////////////////////////////////////
 // 1. ALLGEMEINE / EINFACHE EINSTELLUNGEN:
@@ -86,7 +88,7 @@ var strPartyNamesLong = "Appelpartei Deutschlands, Bananenrepublikpartei , Tradi
 var strPartyLogosImg = " appel.png  , banane.jpg, tbc.gif,    egal.png   ";
 
 // DEMNÄCHST VERALTET und wird ersetzt durch schicke, automatisch skalierte Bilder (Bootstrap) 
-// TO BE DEPRECATED and to be replaced with fancy automatic sized images (Bootstrap) 
+// TO BE DEPRECATED and to be replaced with fancy, automatic sized images (Bootstrap) 
 var intPartyLogosImgWidth = 50;
 var intPartyLogosImgHeight = 25;
 
@@ -121,43 +123,50 @@ var explainingText = "Am 30. Februar finden in Obsthausen Wahlen statt. Sie k&ou
 // 1.4. IMPRESSUM, KONTAKT:
 // 1.4. IMPRINT, CONTACT:
 // 
-// DE: Sie können auch Ihre eigene Erklärung benutzen. Muster finden Sie z.B. auf:
-// http://www.e-recht24.de/muster-disclaimer.htm oder http://www.datenschutz-generator.de/
-// 
-// Auch wenn Sie keine (oder eigene) Angaben machen, so lassen Sie bitte die Variablen stehen.
-// Loeschen Sie stattdessen einfach den Text, z.B.
-// var imprintEditorialNames = "";
 
 // ********************************************************************
 
-// EN: If you already have your own legal notice, you can link to it here
-//
+// DE: Option A) Eigenes Impressum -> Link anpassen, Option B ignorieren
+// Muster finden Sie z.B. auf: http://www.e-recht24.de/muster-disclaimer.htm oder http://www.datenschutz-generator.de/
+
+// EN: Option A) own legal notice -> change link, ignore option B
+// 1.4.A  
+var imprintLink = "system/imprint.html"
+
+// ********************************************************************
+
+// Option B) (kurzes) Mat-o-Wahl-Impressum nutzen.
+// Wenn Sie keine (oder eigene) Angaben machen, so lassen Sie bitte die Variablen stehen.
+// Loeschen Sie stattdessen einfach den Text, z.B.
+// var imprintEditorialNames = "";
+
+// Option B) Use (short) legal notice of Mat-o-Wahl.
 // If you prefer to leave these information blank, please do not delete these lines 
 // but only its content, e.g.
 // var imprintEditorialNames = "";
 
-// 1.4.1. (optional) Redaktion: Person(en), die die Fragen ausgearbeitet hat
-// 1.4.1. (optional) Editor: Person(s), who worked on the questions
+// 1.4.B.1. (optional) Redaktion: Person(en), die die Fragen ausgearbeitet hat
+// 1.4.B.1. (optional) Editor: Person(s), who worked on the questions
 var imprintEditorialNames = "Max Mustermann, Martina Mustermann, Harry Hirsch";
 
-// 1.4.2. (optional) Redaktion: Kontakt-E-Mail
-// 1.4.2. (optional) Editor: Contact email
+// 1.4.B.2. (optional) Redaktion: Kontakt-E-Mail
+// 1.4.B.2. (optional) Editor: Contact email
 var imprintEditorialEmail = "max@mustermann-politikfreund.de";
 
-// 1.4.3. (optional) Technik: Person(en), die das System aufgesetzt hat
-// 1.4.3. (optional) Programming: Person(s), who set up the system
+// 1.4.B.3. (optional) Technik: Person(en), die das System aufgesetzt hat
+// 1.4.B.3. (optional) Programming: Person(s), who set up the system
 var imprintTechnicsNames = "Max Mustermann, Hans Wurst";
 
-// 1.4.4. (optional) Technik: Kontakt-E-Mail
-// 1.4.4. (optional) Programming: Contact email
+// 1.4.B.4. (optional) Technik: Kontakt-E-Mail
+// 1.4.B.4. (optional) Programming: Contact email
 var imprintTechnicsEmail = "info@hans-wurst-webdesign-obsthausen.com";
 
-// 1.4.5. (optional) Quellenangaben zu den Bildern
-// 1.4.5. (optional) Sources of pictures
+// 1.4.B.5. (optional) Quellenangaben zu den Bildern
+// 1.4.B.5. (optional) Sources of pictures
 var imprintPictures = "Wikipedia, Max Mustermann, Foto Franz Frankfurt, Neutrale Partei";
 
-// 1.4.6. (optional) Link zu einer Datenschutzerklaerung beginnend mit http(s):// - erlaubt die anonyme Statistik
-// 1.4.6. (optional) Link to a privacy policy starting with http(s):// - allows the anonymous statistics
+// 1.4.B.6. (optional) Link zu einer Datenschutzerklaerung beginnend mit http(s):// - erlaubt die anonyme Statistik
+// 1.4.B.6. (optional) Link to a privacy policy starting with http(s):// - allows the anonymous statistics
 var imprintPrivacyUrl = "http://www.hans-wurst-webdesign-obsthausen.com/datenschutz.html";
 // --------------------------------------------------------------------
 
@@ -199,16 +208,16 @@ var language = "de";
 // As a result you'll get the list of personal choices in a variable "mowpersonal" (-1,0,1,99) 
 // and a list with the number of party-matches as "mowparties" (5,1,0,2).
 // Separator for these variables is a comma gain. ;-)
-// The script and Mat-O-Wahl should be on the same domain.
+// The script and Mat-O-Wahl must be on the same domain.
 
 var statsRecord = 1;
 var statsServer = "http://localhost/extras/vote.php";
 
-// -> Ergebnis an Statistik gesendet: / Result sent to statistic
+// -> POST-Aufruf der gesendeten Ergebnisse / POST-Call of sent results:
 // http://localhost/extras/vote.php?mowpersonal=-1,0,1,99&mowparties=5,1,0,2
 
-// (*) In der OUTPUT.JS etwa auf Zeile 29 kann man die Checkbox automatisch als 
+// (*) In der OUTPUT.JS etwa auf Zeile 60 kann man die Checkbox automatisch als 
 // "checked" / angeklickt definieren. Das entspricht dem Opt-In Verfahren.
 
-// (*) In OUTPUT.JS at around line 29 you can define the checkbox as "checked".
+// (*) In OUTPUT.JS at around line 60 you can define the checkbox as "checked".
 // This would be an opt-in method.

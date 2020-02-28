@@ -1,18 +1,18 @@
 // TEXTES FRANCAISES http://www.mat-o-wahl.de
 
 // Buttons
-var TEXT_VOTING_PRO = "voter pour"
-var TEXT_VOTING_NEUTRAL = "sans opinion"
-var TEXT_VOTING_CONTRA = "voter contre"
-var TEXT_VOTING_SKIP = "passer"
-var TEXT_VOTING_DOUBLE = "plus important"
+var TEXT_VOTING_PRO = "[&#x2714;] voter pour"
+var TEXT_VOTING_NEUTRAL = "[&#x25EF;] sans opinion"
+var TEXT_VOTING_CONTRA = "[&#x2716;] voter contre"
+var TEXT_VOTING_SKIP = "[&#x21B7;] passer"
+var TEXT_VOTING_DOUBLE = "[x2] plus important"
 
 // Statistic
 var TEXT_ALLOW_STATISTIC = "Autoriser l'évaluation anonyme (prévision électorale). Voir <a href='"+imprintPrivacyUrl+"' target='_blank'>politique de confidentialité</a>."
 
 // Footer
-var TEXT_IMPRINT = "Empreinte"
-var TEXT_RESTART = "Relancer le questionnaire"
+var TEXT_IMPRINT = "[§] Empreinte"
+var TEXT_RESTART = "[&#x21BB;] Relancer le questionnaire"
 
 // Results
 var TEXT_RESULTS_MATCHES_GENERAL = "Accord avec les positions"
