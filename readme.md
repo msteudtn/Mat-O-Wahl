@@ -33,7 +33,7 @@ GPL 3 (see folder /SYSTEM or http://choosealicense.com/licenses/gpl-v3/)
 - or in the help-file under /SYSTEM
 - or via email (see below)
 
-If you should use the Mat-O-Wahl, I would be happy about a short notice from you by email.
+If you should find Mat-O-Wahl useful, I would be happy about a short notice from you by email.
 
 mathias . steudtner (a) gmx . net
 
