@@ -14,10 +14,11 @@ To Do (etwas komplizierter)
 - jumpToQuestion-Tabelle unter den Fragen per Bootstrap-Gridsystem automatisch skalieren
 - Statistik / Anonyme Auswertung in Addon auslagern (ab 0.4+)
 
-Versionen:
-----------
+Versions:
+---------
 
 0.4.1.20200228
+
 - QUICKTEST.HTML, RESULTS.HTML, IMPRINT.HTML
 \- local copies of Bootstrap and jQuery
 - i18n, OUTPUT.JS
