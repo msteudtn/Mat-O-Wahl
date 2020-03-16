@@ -17,6 +17,21 @@ To Do (etwas komplizierter)
 Versions:
 ---------
 
+0.5.0.2020xxxx
+
+- DEFINITION.JS, IMPRINT.HTML
+\- complete change: focus on registered societies (eingetragener Verein, e.V.)
+                    and adjustments to current legal situation.
+		    * Still, this is NOT a PERFECT imprint. *
+		    * Dies ist KEIN PERFEKTES Impressum! *
+
+- DEFINITION.JS, answers.CSV
+\- complete change: only ONE file for the answers instead of independet CSV-files 
+   (before: "party-A.csv, B-party.csv, ...". Now: "party-answers.csv")
+   Reason: CSV-files got loaded at different times on slow connections (mobile EDGE, modem, ...)
+	   This ended up in wrong results. 
+	   An alternative would be synchronous calls but this blocks the browser. :(
+
 0.4.1.20200228
 
 - QUICKTEST.HTML, RESULTS.HTML, IMPRINT.HTML
