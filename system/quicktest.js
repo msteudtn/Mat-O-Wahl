@@ -5,17 +5,24 @@
 
 function fnTestStart()
 {
-	// FRAGEN UND ANTWORTEN in Arrays einlesen
+	// FRAGEN in Arrays einlesen
 	fnReadCsv("data/"+fileQuestions+"",fnTestReadQuestions)
 
-	for (i = 0; i <= arPartyFiles.length-1; i++)
+	// PARTEIEN und ANTWORTEN in Arrays einlesen
+	fnReadCsv("data/"+fileAnswers+"",fnTestReadPositions)
+
+/*
+	// bis v 0.5 - mehrere Partei-CSV-Dateien
+	for (i = 0; i <= intParties-1; i++)
 	{
 		// Zeitversetzt starten, damit Reihenfolge auch stimmt. 500, 750, 1000, 1250ms, ... später
 		// Funktioniert aber nicht 100% wenn eine große Datei dazwischen ist :(
 		window.setTimeout("fnReadCsv('data/"+arPartyFiles[i]+"',"+fnTestReadPositions+")",500+i*250);	
 	}
+*/
 
-	window.setTimeout("fnTestShowAll()",500+i*300);		// warten bis alle Dateien eingelesen wurden.
+	// 1 sec. warten bis alle Dateien eingelesen wurden.
+	window.setTimeout("fnTestShowAll()",1000);
 }
 
 // 
@@ -28,7 +35,7 @@ function fnTestReadQuestions(csvData)
 
 
 
-// Einlesen der Parteipositionen
+// Einlesen der Parteipositionen und -informationen
 function fnTestReadPositions(csvData)
 {
 	// Zeilenweises Einlesen der Parteipositionen und Vergleichen
@@ -70,24 +77,26 @@ function fnTestShowAll()
 
 	// EXISTENZ DER VARIABLEN
 	arVariablen = new Array("fileQuestions", 
-		"strPartyFiles", 
-		"strPartyNamesShort", 
-		"strPartyNamesLong", 
-		"strPartyLogosImg", 
+		"intQuestions",
+		"fileAnswers",
+		"intParties",
 		"intPartyLogosImgWidth", 
 		"intPartyLogosImgHeight", 
-		"strPartyInternet", 
 		"heading1",
 		"heading2",
 		"explainingText",
-		"imprintEditorialNames",
-		"imprintEditorialEmail",
-		"imprintTechnicsNames",
-		"imprintTechnicsEmail",
+		"imprintLink",
+		"imprintGeneral",
+		"imprintContact",
+		"imprintVATid",
+		"imprintDisputeResultion",
+		"imprintEditors",
+		"imprintProgramming",
 		"imprintPictures",
 		"imprintPrivacyUrl",
 		"separator",
 		"design",
+		"language",
 		"statsRecord",
 		"statsServer")
 
@@ -128,23 +137,44 @@ function fnTestShowAll()
 		.append("<br /> <b> Beschreibender Text / Description:</b> "+explainingText);
 
 
-	// FRAGEN			
+	// FRAGEN	
+	$("#testQuestions").append("Name der <b>Datei</b> mit den Fragen / Name of <b>file</b> with questions: ")
+		.append("<a class='btn btn-outline-dark btn-block btn-sm' role='button' href='data/"+fileQuestions+"' target='_blank'>"+fileQuestions+"</a>")
+		// .append("<a href='data/"+fileQuestions+"' target='_blank'>"+fileQuestions+"</a>")
+
+	$("#testQuestions").append("<p>Hier sollten <strong>"+intQuestions+" Fragen</strong> stehen.</p>")
+
+
 	for (i = 0; i <= (arQuestionsShort.length-1); i++)
 	{
 		$("#testQuestions").append(" "+(i+1)+". <b>"+arQuestionsShort[i]+"</b> - "+arQuestionsLong[i]+ "<br />")		
 		var numberOfQuestions = i;
 	}
 
-	$("#testQuestions").append("<br /> Name der <b>Datei</b> mit den Fragen / Name of <b>file</b> with questions: ")
-		.append("<a class='btn btn-outline-dark btn-block btn-sm' role='button' href='data/"+fileQuestions+"' target='_blank'>"+fileQuestions+"</a>")
-		// .append("<a href='data/"+fileQuestions+"' target='_blank'>"+fileQuestions+"</a>")
 	
 
 	// ANTWORTEN
-	for (i = 0; i <= (arPartyFiles.length-1); i++)
+
+	$("#testAnswers").append("Name der <b>Datei</b> mit den Antworten und Partei-Informationen / Name of <b>file</b> with questions and party-information: ")
+		.append("<a class='btn btn-outline-dark btn-block btn-sm' role='button' href='data/"+fileAnswers+"' target='_blank'>"+fileAnswers+"</a>")
+
+	$("#testAnswers").append("<p>Hier sollten <strong>"+intParties+" Parteien</strong> stehen.</p>")
+
+	for (i = 0; i <= (intParties-1); i++)
 	{
 		$("#testAnswers")
-		.append("<h3>"+(i+1)+". "+arPartyNamesShort[i]+ " - "+arPartyNamesLong[i]+"</h3>")
+		.append("<hr>")
+		.append("<h3>"+(i+1)+". Name (kurz): "+arPartyNamesShort[i]+ " </h3> ")
+		.append("<p>Name (ausführlich): "+arPartyNamesLong[i]+"</p>")
+		.append("<p> Beschreibung: "+arPartyDescription[i]+"</p>")
+		.append("<p> Webseite: <a href='http://"+arPartyInternet[i]+"' target='_blank' title='"+arPartyNamesLong[i]+"'>"+arPartyInternet[i]+"</a> </p>")
+		.append("<p> Bild: <img src='"+arPartyLogosImg[i]+"' width='"+intPartyLogosImgWidth+"' height='"+intPartyLogosImgHeight+"' alt='"+arPartyNamesLong[i]+"' title='"+arPartyNamesLong[i]+"' /> </p>")
+		.append("<p> Bild-URL: "+arPartyLogosImg[i]+"</p>")
+
+//		.append("<br />")
+//		.append("<a class='btn btn-outline-dark btn-block btn-sm' role='button' href='data/"+arPartyFiles[i]+"' target='_blank' >"+arPartyFiles[i]+"</a>")
+		// .append("<br /> Positionen und Antworten in Datei namens: <a href='data/"+arPartyFiles[i]+"' target='_blank' >"+arPartyFiles[i]+"</a>")
+
 		
  		var jStart = i * (numberOfQuestions+1); // 0*6=6, 1*6=6, 2*6=12;
  		var jEnd = jStart + numberOfQuestions; // 0+6=6; 6+6=12; 12+6=18
@@ -167,37 +197,38 @@ function fnTestShowAll()
 				.append("<br />");	
 		}
 		
-		$("#testAnswers")
-		.append("<br /> Bild: <img src='data/"+arPartyLogosImg[i]+"' width='50' height='25' alt='"+arPartyNamesLong[i]+"' title='"+arPartyNamesLong[i]+"' />")
-		.append(" - URL: <a href='http://"+arPartyInternet[i]+"' target='_blank' title='"+arPartyNamesLong[i]+"'>"+arPartyInternet[i]+"</a>")
-		.append("<a class='btn btn-outline-dark btn-block btn-sm' role='button' href='data/"+arPartyFiles[i]+"' target='_blank' >"+arPartyFiles[i]+"</a>")
-		// .append("<br /> Positionen und Antworten in Datei namens: <a href='data/"+arPartyFiles[i]+"' target='_blank' >"+arPartyFiles[i]+"</a>")
-		
 		$("#testAnswers").append("<br />");
 	}
 	
 	
 	// KONTAKT/IMPRESSUM
-	$("#testImprint").append("<b>Name - Redaktionelle Leitung / Editors:</b> "+imprintEditorialNames)
+	$("#testImprint").append("<b> Allgemeine Angaben gemäß § 5 TMG / General information</b> "+imprintGeneral+ "")
 		.append("<br />")
-		.append("<br /> <b>E-Mail - Redaktionelle Leitung / Editors:</b> <a href='mailto:"+imprintEditorialEmail+"'>"+imprintEditorialEmail+"</a>")
+		.append("<br /> <b>Kontaktdaten / Contact details:</b> "+imprintContact+ "")
 		.append("<br />")
-		.append("<br /> <b>Name - Technische Leitung / Programming:</b> "+imprintTechnicsNames)
+		.append("<br /> <b>(optional) Umsatzsteuer-ID / (optional) VAT-ID:</b> "+imprintVATid+ "")
 		.append("<br />")
-		.append("<br /> <b>E-Mail - Technische Leitung / Programming:</b> <a href='mailto:"+imprintTechnicsEmail+"'>"+imprintTechnicsEmail+"</a>")
+		.append("<br /> <b>Verbraucher­streit­beilegung / Online Dispute Resolution:</b> "+imprintDisputeResultion+ "")
+		.append("<br />")
+		.append("<br /> <b>Redaktion / Editors:</b> "+imprintEditors)
+		.append("<br />")
+		.append("<br /> <b>Technik / Programming:</b> "+imprintProgramming)
 		.append("<br />")
 		.append("<br /> <b>Bilder / Pictures:</b> "+imprintPictures)
 		.append("<br />")
 		.append("<br /> <b>Datenschutz / Privacy:</b> <a href='http://"+imprintPrivacyUrl+"' target='_blank'>"+imprintPrivacyUrl+"</a>");
 		
 
+	// BERECHNUNGEN - ab V 0.5 eigentlich nicht mehr nötig
+
+/*
 	
 	// Zusammenhang zwischen Anzahl der Parteien und Fragen zu Parteipositionen
-	if ( (arPartyFiles.length * arQuestionsShort.length) != arPartyPositions.length )
+	if ( (intParties * arQuestionsShort.length) != arPartyPositions.length )
 	{
 		counterError++;
 		$("#testOtherDe").append("<b>("+counterError+").</b>")
-			.append(" Das Produkt aus Parteien ("+arPartyFiles.length+") mal Fragen ("+arQuestionsShort.length+") ist ungleich der Gesamtzahl der Parteiantworten ("+arPartyPositions.length+" anstelle von erwarteten "+(arPartyFiles.length * arQuestionsShort.length)+").")
+			.append(" Das Produkt aus Parteien ("+intParties+") mal Fragen ("+arQuestionsShort.length+") ist ungleich der Gesamtzahl der Parteiantworten ("+arPartyPositions.length+" anstelle von erwarteten "+(intParties * arQuestionsShort.length)+").")
 			.append(" M&ouml;glicherweise Ursachen daf&uuml;r k&ouml;nnen z.B. sein: ")
 			.append(" <br /> - es wurde eine Frage zu viel/zu wenig angegeben, ")
 			.append(" <br /> - eine Partei hat eine Frage nicht beantwortet, ")
@@ -212,7 +243,7 @@ function fnTestShowAll()
 			.append("<br /> ");
 			
 		$("#testOtherEn").append("<b>("+counterError+").</b>")
-			.append("The Product of parties ("+arPartyFiles.length+") multiplied with questions ("+arQuestionsShort.length+") is unequal the total number of party-answers ("+arPartyPositions.length+". Expected value: "+(arPartyFiles.length * arQuestionsShort.length)+").")
+			.append("The Product of parties ("+intParties+") multiplied with questions ("+arQuestionsShort.length+") is unequal the total number of party-answers ("+arPartyPositions.length+". Expected value: "+(intParties * arQuestionsShort.length)+").")
 			.append(" Possible causes: ")
 			.append(" <br /> - There's one question too much/less, ")
 			.append(" <br /> - a party did not answer a question, ")
@@ -227,15 +258,19 @@ function fnTestShowAll()
 			.append("<br /> ");			
 	}
 
+*/
+
+
+/*
 	// Anzahl der Parteien in Datei	
-	if (arPartyFiles.length <= 0)
+	if (intParties <= 0)
 	{
 		counterError++;
 		$("#testOtherDe").append("<b>("+counterError+").</b>")
-			.append(" Es wurde keine Liste mit Parteipositionen angegeben (strPartyFiles). ")
+			.append(" Es wurde keine Liste mit Parteipositionen angegeben (intParties). ")
 			.append(" <br /> ");
 		$("#testOtherEn").append("<b>("+counterError+").</b>")
-			.append(" No list with party positions defined (strPartyFiles). ")
+			.append(" No list with party positions defined (intParties). ")
 			.append(" <br /> ");
 	}
 
@@ -263,6 +298,7 @@ function fnTestShowAll()
 			.append(" <br /> ");
 	}
 
+*/
 	
 	// Werte fuer "Wahlprognose" pruefen
 	if (statsRecord == 1)
@@ -291,50 +327,54 @@ function fnTestShowAll()
 		}
 	}
 
+
+/*
 	// Laenge der Arrays vergleichen
-	if (arPartyFiles.length != arPartyNamesShort.length)
+	if (intParties != arPartyNamesShort.length)
 	{
 		counterError++;
 		$("#testOtherDe").append("<b>("+counterError+").</b>")
-			.append(" Die Anzahl der Werte in der <a href='javascript:fnTestAlertVariable(\""+strPartyFiles+"\")'>strPartyFiles</a>-Liste ("+arPartyFiles.length+") ist ungleich der Werte in der <a href='javascript:fnTestAlertVariable(\""+strPartyNamesShort+"\")'>strPartyNamesShort</a>-Liste ("+arPartyNamesShort.length+").")
+			.append(" Die Anzahl der Werte in der <a href='javascript:fnTestAlertVariable(\""+intParties+"\")'>strPartyFiles</a>-Liste ("+intParties+") ist ungleich der Werte in der <a href='javascript:fnTestAlertVariable(\""+strPartyNamesShort+"\")'>strPartyNamesShort</a>-Liste ("+arPartyNamesShort.length+").")
 			.append("<br />");	
 		$("#testOtherEn").append("<b>("+counterError+").</b>")
-			.append(" The number of values in <a href='javascript:fnTestAlertVariable(\""+strPartyFiles+"\")'>strPartyFiles</a>-list ("+arPartyFiles.length+") is unequal to the number of values in <a href='javascript:fnTestAlertVariable(\""+strPartyNamesShort+"\")'>strPartyNamesShort</a>-list ("+arPartyNamesShort.length+").")
+			.append(" The number of values in <a href='javascript:fnTestAlertVariable(\""+intParties+"\")'>strPartyFiles</a>-list ("+intParties+") is unequal to the number of values in <a href='javascript:fnTestAlertVariable(\""+strPartyNamesShort+"\")'>strPartyNamesShort</a>-list ("+arPartyNamesShort.length+").")
 			.append("<br />");	
 	}
 
-	if (arPartyFiles.length != arPartyNamesLong.length)
+	if (intParties != arPartyNamesLong.length)
 	{
 		counterError++;
 		$("#testOtherDe").append("<b>("+counterError+").</b>")
-			.append(" Die Anzahl der Werte in der <a href='javascript:fnTestAlertVariable(\""+strPartyFiles+"\")'>strPartyFiles</a>-Liste ("+arPartyFiles.length+") ist ungleich der Werte in der <a href='javascript:fnTestAlertVariable(\""+strPartyNamesLong+"\")'>strPartyNamesLong</a>-Liste ("+arPartyNamesLong.length+").")
+			.append(" Die Anzahl der Werte in der <a href='javascript:fnTestAlertVariable(\""+intParties+"\")'>strPartyFiles</a>-Liste ("+intParties+") ist ungleich der Werte in der <a href='javascript:fnTestAlertVariable(\""+strPartyNamesLong+"\")'>strPartyNamesLong</a>-Liste ("+arPartyNamesLong.length+").")
 			.append("<br />");
 		$("#testOtherEn").append("<b>("+counterError+").</b>")
-			.append(" The number of values in <a href='javascript:fnTestAlertVariable(\""+strPartyFiles+"\")'>strPartyFiles</a>-list ("+arPartyFiles.length+") is unequal to the number of values in <a href='javascript:fnTestAlertVariable(\""+strPartyNamesLong+"\")'>strPartyNamesLong</a>-list ("+arPartyNamesLong.length+").")
+			.append(" The number of values in <a href='javascript:fnTestAlertVariable(\""+strPartyFiles+"\")'>strPartyFiles</a>-list ("+intParties+") is unequal to the number of values in <a href='javascript:fnTestAlertVariable(\""+strPartyNamesLong+"\")'>strPartyNamesLong</a>-list ("+arPartyNamesLong.length+").")
 			.append("<br />");
 	}
 
-	if (arPartyFiles.length != arPartyLogosImg.length)
+	if (intParties != arPartyLogosImg.length)
 	{
 		counterError++;
 		$("#testOtherDe").append("<b>("+counterError+").</b>")
-			.append(" Die Anzahl der Werte in der <a href='javascript:fnTestAlertVariable(\""+strPartyFiles+"\")'>strPartyFiles</a>-Liste ("+arPartyFiles.length+") ist ungleich der Werte in der <a href='javascript:fnTestAlertVariable(\""+strPartyLogosImg+"\")'>strPartyLogosImg</a>-Liste ("+arPartyLogosImg.length+").")
+			.append(" Die Anzahl der Werte in der <a href='javascript:fnTestAlertVariable(\""+strPartyFiles+"\")'>strPartyFiles</a>-Liste ("+intParties+") ist ungleich der Werte in der <a href='javascript:fnTestAlertVariable(\""+strPartyLogosImg+"\")'>strPartyLogosImg</a>-Liste ("+arPartyLogosImg.length+").")
 			.append("<br />");
 		$("#testOtherEn").append("<b>("+counterError+").</b>")
-			.append(" The number of values in <a href='javascript:fnTestAlertVariable(\""+strPartyFiles+"\")'>strPartyFiles</a>-Liste ("+arPartyFiles.length+") is unequal to the number of values in <a href='javascript:fnTestAlertVariable(\""+strPartyLogosImg+"\")'>strPartyLogosImg</a>-list ("+arPartyLogosImg.length+").")
+			.append(" The number of values in <a href='javascript:fnTestAlertVariable(\""+strPartyFiles+"\")'>strPartyFiles</a>-Liste ("+intParties+") is unequal to the number of values in <a href='javascript:fnTestAlertVariable(\""+strPartyLogosImg+"\")'>strPartyLogosImg</a>-list ("+arPartyLogosImg.length+").")
 			.append("<br />");			
 	} 
 
-	if (arPartyFiles.length != arPartyInternet.length)
+	if (intParties != arPartyInternet.length)
 	{
 		counterError++;
 		$("#testOtherDe").append("<b>("+counterError+").</b>")
-			.append(" Die Anzahl der Werte in der <a href='javascript:fnTestAlertVariable(\""+strPartyFiles+"\")'>strPartyFiles</a>-Liste ("+arPartyFiles.length+") ist ungleich der Werte in der <a href='javascript:fnTestAlertVariable(\""+strPartyInternet+"\")'>strPartyInternet</a>-Liste ("+arPartyInternet.length+").")
+			.append(" Die Anzahl der Werte in der <a href='javascript:fnTestAlertVariable(\""+strPartyFiles+"\")'>strPartyFiles</a>-Liste ("+intParties+") ist ungleich der Werte in der <a href='javascript:fnTestAlertVariable(\""+strPartyInternet+"\")'>strPartyInternet</a>-Liste ("+arPartyInternet.length+").")
 			.append("<br />");
 		$("#testOtherEn").append("<b>("+counterError+").</b>")
-			.append(" The number of values in <a href='javascript:fnTestAlertVariable(\""+strPartyFiles+"\")'>strPartyFiles</a>-Liste ("+arPartyFiles.length+") is unequal to the number of values in <a href='javascript:fnTestAlertVariable(\""+strPartyInternet+"\")'>strPartyInternet</a>-list ("+arPartyInternet.length+").")
+			.append(" The number of values in <a href='javascript:fnTestAlertVariable(\""+strPartyFiles+"\")'>strPartyFiles</a>-Liste ("+intParties+") is unequal to the number of values in <a href='javascript:fnTestAlertVariable(\""+strPartyInternet+"\")'>strPartyInternet</a>-list ("+arPartyInternet.length+").")
 			.append("<br />");			
 	}
+
+*/
 
 	// Abschlussevaluation	
 	if (counterError > 0)
