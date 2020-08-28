@@ -51,7 +51,6 @@
 
 	<!-- Mat-o-Wahl CSS -->
 	<link rel="stylesheet" type="text/css" href="styles/speechbubble.css">
-	<link rel="stylesheet" type="text/css" href="styles/bootstrap-flat-toggle-switch.css">	
 	
 	<!-- Mat-o-Wahl JAVASCRIPT - immer / always -->
 	<script type="text/javascript" src="system/jquery.csv-0.8.9.min.js"></script>
@@ -187,14 +186,12 @@
 		<div class="row" id="keepStats">
 			<div class="col">
 			
-				<label class="switch">
-					<input type="checkbox" id="keepStatsCheckbox" />
-					<span class="slider"></span>
-				</label>
-				
-				<span id="keepStatsQuestion">
+				<div class="custom-control custom-switch">
+					<input type="checkbox" class="custom-control-input" id="keepStatsCheckbox" />
+					<label class="custom-control-label" for="keepStatsCheckbox" id="keepStatsQuestion">
 					Statistik erlauben? <br /> Allow statistics?
-				</span>	
+					</label>
+				</div>
 				
 			</div>
 		</div>
