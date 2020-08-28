@@ -1,0 +1,30 @@
+
+- Anleitung für Linux
+- Windows sollte ähnlich funktionieren
+- Python Programmiersprache benötigt https://www.python.org/
+
+
+1.) Terminal / Kommandozeile öffnen
+
+2.) Python-Version herausfinden
+
+python -V
+
+
+3.A) Python 3.x:
+
+cd ~/Downloads/Mat-o-Wahl && python3 -m http.server 8082 
+
+
+3.B) Python 2.x:
+
+cd ~/Downloads/Mat-o-Wahl && python -m SimpleHTTPServer 8082 
+
+
+4.) http://localhost aufrufen
+    Das Verzeichnis "/home/Linux_Nutzername/Downloads/Mat-o-Wahl" ist nun unter localhost erreichbar.
+
+
+Quellen: 
+https://wiki.ubuntuusers.de/Instant_Webserver/
+https://developer.mozilla.org/en-US/docs/Learn/Common_questions/set_up_a_local_testing_server
