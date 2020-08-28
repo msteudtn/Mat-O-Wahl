@@ -44,7 +44,8 @@
 	</script>
 
 	<!-- Mat-o-Wahl JAVASCRIPT - immer / always -->
-	<script type="text/javascript" src="../system/general.js"></script>	
+	<script type="text/javascript" src="../system/imprint.js"></script>
+	<script type="text/javascript" src="../system/general.js"></script>
 
 </head>
 <body>
@@ -68,62 +69,58 @@
 	<a href="../data/definition.js" target="_blank">configuration file</a>. 
 	</p>
 	</noscript>
-	
+
+	<!-- IMPRESSUM -->	
 
 	<div class="row">
 		<div class="col">
-
-			<h1>Impressum</h1>
-
 			<h2>Angaben gem&auml;&szlig; &sect; 5 TMG</h2>
-			<p>Muster e. V.<br />
-			Musterstra&szlig;e 111<br />
-			Geb&auml;ude 44<br />
-			90210 Musterstadt</p>
-
-			<p>Vereinsregister: VR 12 3456<br />
-			Registergericht: Amtsgericht Musterstadt</p>
-
-			<p><strong>Vertreten durch:</strong><br />
-			Vorstand: Dr. Harry Mustermann<br />
-			Luise Beispiel</p>
-
-			<h2>Kontakt</h2>
-			<p>Telefon: +49 (0) 123 44 55 66<br />
-			Telefax: +49 (0) 123 44 55 99<br />
-			E-Mail: mustermann@musterfirma.de<br />
-			Web: musterfirma.de</p>
+			<p id="imprintGeneral"></p>
+		</div>
+		<div class="col">
+			<h2>Kontakt / Contact</h2>
+			<p id="imprintContact"></p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
 
 			<h2>Umsatzsteuer-ID</h2>
-			<p>Umsatzsteuer-Identifikationsnummer gem&auml;&szlig; &sect; 27 a Umsatzsteuergesetz:<br />
-			DE 999 999 999</p>
-
+			<p id="imprintVATid"></p>
+			
+		</div>
+		<div class="col">
 			<h2>Verbraucher&shy;streit&shy;beilegung / Universal&shy;schlichtungs&shy;stelle</h2>
-			<p>Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
-
-			<p>Quelle: <a href="https://www.e-recht24.de">eRecht24</a></p>
-
+			<p id="imprintDisputeResultion"></p>
 		</div>
 	</div>
 	
+	<div class="row">
+		<div class="col">
+			<p>Quelle: <a href="https://www.e-recht24.de">eRecht24</a></p>
+		</div>
+	</div>
+
 
 	<div class="row">
 		<div class="col">
 			<h2>Redaktionelle Leitung / Editors</h2>
 			
-			<p id="idImprintEditorialNames"></p>
-			<p id="idImprintEditorialEmail"></p>		
+			<p id="imprintEditors"></p>
 		</div>
+
 		<div class="col">
 			<h2>Technische Leitung / Programming</h2>
 
-			<p id="idImprintTechnicsNames"></p>
-			<p id="idImprintTechnicsEmail"></p>		
-		</div>			
+			<p id="imprintProgramming"></p>
+		</div>
+	</div>
+
+	<div class="row">
 		<div class="col">
 			<h2>Bilder / Pictures</h2>
 			
-			<p id="idImprintPictures">Bilder mit freundlicher Genehmigung von / Pictures with permission from: </p>
+			<p id="imprintPictures"></p>
 		</div>			
 		<div class="col">
 			<h2>Datenschutz / Privacy</h2>
@@ -132,7 +129,7 @@
 		</div>
 	</div>
 
-	<!-- 1. BESCHREIBUNG -->
+	<!-- BESCHREIBUNG MAT-O-WAHL -->
 
 	<h2>Allgemeine Informationen / General Information</h2>
 
@@ -222,47 +219,9 @@
 
 
 <script type="text/javascript">
-
-if ( (!imprintEditorialNames) && (!imprintEditorialEmail) )
-{
-	$("#idImprintEditorialNames").append("keine Angaben / No information available.");
-}
-else
-{
-	$("#idImprintEditorialNames").append(imprintEditorialNames);
-	$("#idImprintEditorialEmail").append("<a href='mailto:"+imprintEditorialEmail+"'>"+imprintEditorialEmail+"</a>");
-}
-
-if ( (!imprintTechnicsNames) && (!imprintTechnicsEmail) )
-{
-	$("#idImprintTechnicsNames").append("keine Angaben / No information available.");
-}
-else
-{
-	$("#idImprintTechnicsNames").append(imprintTechnicsNames);
-	$("#idImprintTechnicsEmail").append("<a href='mailto:"+imprintTechnicsEmail+"'>"+imprintTechnicsEmail+"</a>");
-}
-
-if (!imprintPictures)
-{
-	$("#idImprintPictures").append("keine Angaben / No information available.");
-}
-else
-{
-	$("#idImprintPictures").append(imprintPictures);
-}
-
-if (imprintPrivacyUrl.length > 0)
-{
-	$("#idImprintPrivacy").append("Datenschutzerkl&auml;rung / Privacy Policy: <a href='http://"+imprintPrivacyUrl+"' target='_blank'>"+imprintPrivacyUrl+"</a>");
-}
-else
-{
-	$("#idImprintPrivacy").append("Keine Datenschutzerkl&auml;rung vorhanden / No privacy policy available.");
-}
-
-$("#versionNumber").append(version);
-
+	$(document).ready(function() { 
+		fnShowImprint(); 		
+	});
 </script>
 
 </body>
