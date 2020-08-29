@@ -322,19 +322,20 @@ function fnEvaluationShort(arResults)
 			tableContent += arPartyNamesShort[partyNum];
 			tableContent += "</a>)";
 
-			// Beschreibung der Partei - falls vorhanden
-			// nur die ersten 32 Zeichen anzeigen. 
+			// Beschreibung der Partei - falls in der CSV vorhanden.
+			// Nur die ersten 32 Zeichen anzeigen. 
 			// Danach abschneiden und automatisch ein/ausblenden (Funktionsaufbau weiter unten)
-			if (arPartyDescription[partyNum])
+			// Wenn keine Beschreibung gewünscht, dann "0" eintragen.
+			intPartyDescriptionPreview = 32
+			if ( (arPartyDescription[partyNum]) && (intPartyDescriptionPreview > 0) )
 			{
 				tableContent += "<p style='cursor: pointer;'> &bull; "
-				tableContent += arPartyDescription[partyNum].substr(0,32)
+				tableContent += arPartyDescription[partyNum].substr(0,intPartyDescriptionPreview)
 				tableContent += "<span id='resultsShortPartyDescriptionDots"+partyNum+"'>...</span>"
 				tableContent += "<span id='resultsShortPartyDescription"+partyNum+"'>"
-				tableContent += arPartyDescription[partyNum].substr(32,1024)
+				tableContent += arPartyDescription[partyNum].substr(intPartyDescriptionPreview,1024)
 				tableContent += "</span> </p>"
 			}
-
 
 		tableContent += "</td>"
 
