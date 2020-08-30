@@ -102,29 +102,48 @@ var fileAnswers = "Obsthausen_Parteien.csv";
 var intParties = 4;
 
 
-// 	DEMNÄCHST VERALTET und wird ersetzt durch schicke, automatisch skalierte Bilder (Bootstrap) 
-// 	TO BE DEPRECATED and to be replaced with fancy, automatic sized images (Bootstrap) 
+/*
+ 	1.5. BILDGROESSE des PARTEILOGOS (am Ende)
+	DE: Die Breite und Höhe kann in Pixel und Prozent angegeben werden. 
 
-var intPartyLogosImgWidth = 50;
-var intPartyLogosImgHeight = 25;
+	********************************************************************
+
+	1.5. PICTURE SIZE OF PARTY-LOGO (at the end)
+	EN: Width and height can be defined in pixels or percent. 
+
+
+	Beispiele / Examples:
+	var intPartyLogosImgWidth = 50;
+	var intPartyLogosImgHeight = 25;
+
+	var intPartyLogosImgWidth = "10%";
+	var intPartyLogosImgHeight = "10%";
+
+	var intPartyLogosImgWidth = 50;
+	var intPartyLogosImgHeight = "";
+
+*/ 
+
+var intPartyLogosImgWidth = "10%";
+var intPartyLogosImgHeight = "10%";
 
 
 // 	--------------------------------------------------------------------
 
 
-// 	1.5. UeBERSCHRIFTEN UND TEXTE / 1.5. HEADLINES AND TEXTS:
+// 	1.6. UeBERSCHRIFTEN UND TEXTE / 1.6. HEADLINES AND TEXTS:
 
-// 	1.5.1. Hauptueberschrift / 1.5.1. Main headline
+// 	1.6.1. Hauptueberschrift / 1.6.1. Main headline
 
 var heading1 = "Fruchtkorbwahlen";
 
 
-// 	1.5.2. Zweite Ueberschrift / 1.5.2. Second Headline
+// 	1.6.2. Zweite Ueberschrift / 1.6.2. Second Headline
 
 var heading2 = "Die Wahl zur neuen Regierung in Obsthausen.";
 
 
-// 	1.5.3. Kurzer Text um was es bei der Wahl geht / 1.5.3. Short (descriptive) text on what's the election about
+// 	1.6.3. Kurzer Text um was es bei der Wahl geht / 1.6.3. Short (descriptive) text on what's the election about
 
 var explainingText = "Am 30. Februar finden in Obsthausen Wahlen statt. Sie k&ouml;nnen sich hier alle Parteipositionen anschauen und miteinander vergleichen. Dies ist keine Wahlempfehlung, sondern ein Informationsangebot zu Wahlen!"; 
 
@@ -132,9 +151,9 @@ var explainingText = "Am 30. Februar finden in Obsthausen Wahlen statt. Sie k&ou
 // 	--------------------------------------------------------------------
 
 /*
-	1.6. IMPRESSUM, KONTAKT: 1.6. LEGAL NOTICE, CONTACT:
+	1.7. IMPRESSUM, KONTAKT: 1.7. LEGAL NOTICE, CONTACT:
 
-	1.6.A  
+	1.7.A  
 
 	DE: Option A) Eigenes Impressum (empfohlen) -> Link anpassen und Option B ignorieren!
 	Muster finden Sie z.B. auf: http://www.e-recht24.de/ oder http://www.datenschutz-generator.de/
@@ -170,7 +189,7 @@ var explainingText = "Am 30. Februar finden in Obsthausen Wahlen statt. Sie k&ou
 
 */
 
-// 	1.6.B.1: Allgemeines. "Angaben gemäß § 5 TMG" / General information
+// 	1.7.B.1: Allgemeines. "Angaben gemäß § 5 TMG" / General information
 
 var imprintGeneral = `<p>Muster e. V.<br /> 
 			Musterstra&szlig;e 111<br />
@@ -185,7 +204,7 @@ var imprintGeneral = `<p>Muster e. V.<br />
 			Luise Beispiel</p>`
 
 
-// 	1.6.B.2: Kontaktdaten / Contact details
+// 	1.7.B.2: Kontaktdaten / Contact details
 
 var imprintContact = `<p>Telefon: +49 (0) 123 44 55 66<br />
 			Telefax: +49 (0) 123 44 55 99<br />
@@ -193,13 +212,13 @@ var imprintContact = `<p>Telefon: +49 (0) 123 44 55 66<br />
 			Web: musterfirma.de</p>`
 
 
-//	1.6.B.3: (optional) Umsatzsteuer-ID / (optional) VAT-ID
+//	1.7.B.3: (optional) Umsatzsteuer-ID / (optional) VAT-ID
 
 var imprintVATid = `<p>Umsatzsteuer-Identifikationsnummer gem&auml;&szlig; &sect; 27 a Umsatzsteuergesetz:<br />
 			DE 999 999 999</p>`
 
 
-//	1.6.B.4: 
+//	1.7.B.4: 
 //	(optional) Verbraucher­streit­beilegung / Universal­schlichtungs­stelle
 //	(optional) Online Dispute Resolution for consumers by European Commission
 
@@ -207,7 +226,7 @@ var imprintDisputeResultion = `<p>Die Europäische Kommission stellt eine Plattf
 				<p>Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>`
 
 
-//	1.6.B.5
+//	1.7.B.5
 //	(optional) Redaktion: Person(en), die die Fragen ausgearbeitet hat
 //	(optional) Editor: Person(s), who worked on the questions
 
@@ -215,7 +234,7 @@ var imprintEditors = `<p>Max Mustermann, Martina Mustermann, Harry Hirsch</p>
 		     <p> <a href='mailto:max@mustermann-politikfreund.de'>max@mustermann-politikfreund.de</a></p>`;
 
 
-//	1.6.B.6
+//	1.7.B.6
 //	(optional) Technik: Person(en), die das System aufgesetzt hat
 //	(optional) Programming: Person(s), who set up the system
 
@@ -223,7 +242,7 @@ var imprintProgramming = `<p>Max Mustermann, Hans Wurst</p>
 			<p> <a href='mailto:info@hans-wurst-webdesign-obsthausen.com'>E-Mailadresse</a> </p>`;
 
 
-//	1.6.B.7
+//	1.7.B.7
 //	(optional) Quellenangaben zu den Bildern
 //	(optional) Sources of pictures
 
@@ -231,7 +250,7 @@ var imprintPictures = `<p> Bilder mit freundlicher Genehmigung von / Pictures wi
 			<br /> Wikipedia, Max Mustermann, Foto Franz Frankfurt, Neutrale Partei`;
 
 
-//	1.6.B.8
+//	1.7.B.8
 //	(optional) Link zu einer Datenschutzerklaerung beginnend mit http(s):- erlaubt die anonyme Statistik
 //	(optional) Link to a privacy policy starting with http(s):- allows the anonymous statistics
 
