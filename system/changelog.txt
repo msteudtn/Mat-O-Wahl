@@ -16,10 +16,10 @@ To Do (etwas komplizierter)
 
 To Do (Features)
 ----------------
-- Vorschaubilder in der resultsShort-Tabelle mit Bootstrap anpassen
 - optionale Abfrage vor der Umfrage, z.B.: "Welche Partei würden Sie normalerweise wählen?" Vergleiche www.bahn-o-mat.de
 - jumpToQuestion-Tabelle unter den Fragen: per Bootstrap-Gridsystem automatisch skalieren
 - More than two answers (yes/no) like in https://github.com/JohnboyJovi/Mat-O-Wahl-multiAnswer -> "agree a lot, agree, -, disagree, disagree a lot"
+- Update jquery-csv to a new version (https://github.com/typeiii/jquery-csv) or "CSV-ES"-project (https://github.com/vanillaes/csv)
 
 
 To Do (Bugfixes)
@@ -30,7 +30,7 @@ To Do (Bugfixes)
 Versions:
 ---------
 
-0.5.0.20200828
+0.5.0.20200830
 
 - DEFINITION.JS, answers.CSV
 \- complete change: only ONE file for the parties and answers instead of independet CSV-files 
@@ -70,6 +70,9 @@ Versions:
 
 - QUICKTEST.HTML, QUICKTEST.JS
 \- adaption to new DEFINITION.JS
+
+- DEFINITION.JS
+\- Picture size in percent (%) instead of pixels (px)
 
 - VERSION.TXT renamed to CHANGELOG.TXT
 
