@@ -3,19 +3,79 @@ To Do (einfach)
 ---------------
 - Ueberlegung zum Aendern der Lizenz von GPL zu AGPL - https://de.wikipedia.org/wiki/GNU_Affero_General_Public_License
 - Pruefen: Unterschiede beim Einlesen von MAC-Dateien zu WIN oder *IX-Dateien?
-- Vorschaubilder in der resultsShort-Tabelle mit Bootstrap anpassen
+- Hilfe-PDF aktualisieren
+- QUICKTEST aktualisieren
+
 
 To Do (etwas komplizierter)
 ---------------------------
-- Pruefen ob der AJAX-Bug (0.2.3.2) bereinigt ist: Bei unterschiedlich grossen Parteiantwort-CSV-Dateien kann es passieren, dass die Dateien unterschiedlich schnell geladen werden und dann falsch zugeordnet. -> Ajax "Promises" verwenden
 - Quellcode aufraeumen, optimieren und besser dokumentieren.
-- optionale Abfrage vor der Umfrage, z.B.: "Welche Partei würden Sie normalerweise wählen?" Vergleiche www.bahn-o-mat.de
 - Wechsel von Arrays (wo die Daten gespeichert sind) hin zu HTML5-Datenbanktechniken (z.B. IndexedDB, evtl. WebStorage)
-- jumpToQuestion-Tabelle unter den Fragen per Bootstrap-Gridsystem automatisch skalieren
 - Statistik / Anonyme Auswertung in Addon auslagern (ab 0.4+)
+
+
+To Do (Features)
+----------------
+- optionale Abfrage vor der Umfrage, z.B.: "Welche Partei würden Sie normalerweise wählen?" Vergleiche www.bahn-o-mat.de
+- jumpToQuestion-Tabelle unter den Fragen: per Bootstrap-Gridsystem automatisch skalieren
+- More than two answers (yes/no) like in https://github.com/JohnboyJovi/Mat-O-Wahl-multiAnswer -> "agree a lot, agree, -, disagree, disagree a lot"
+- Update jquery-csv to a new version (https://github.com/typeiii/jquery-csv) or "CSV-ES"-project (https://github.com/vanillaes/csv)
+
+
+To Do (Bugfixes)
+----------------
+- if you skip questions, you can't change it later in the "resultsLongTable". GENERAL.JS -> fnToggleSelfPosition()
+
 
 Versions:
 ---------
+
+0.5.0.20200830
+
+- DEFINITION.JS, answers.CSV
+\- complete change: only ONE file for the parties and answers instead of independet CSV-files 
+   (before: "party-A.csv, B-party.csv, ...". Now: "party+answers.csv")
+   Reason: CSV-files got loaded at different times on slow connections (mobile EDGE, modem, ...)
+	   This ended up in wrong results. (AJAX-bug)
+	   An alternative would be synchronous calls but this blocks the browser. :(
+   New: All information on the party goes in the ANSWERS-file too. (like: www, party-name, ...)
+ 	Possiblity to add a party description 
+
+- OUTPUT.JS
+\- Informationen zu Parteien beim Klick ein-/ausblenden (so wie bei den Antworten in der unteren Tabelle)
+\- Partei-Bild rechtsbündig neben Parteinamen in der gleichen Zelle
+\- Punkt-Bewertung verschoben in Fortschrittsbalken 
+\- jumpToQuestion-Tabelle unter den Fragen: bei onMouseOver() die Frage anzeigen
+\- Bilder müssen nun mit genauem Pfad angegeben werden, z.B. "data/image.jpg" oder "https://domain.com/images/pic.jpg"
+
+- DEFINITION.JS, IMPRINT.HTML, new: IMPRINT.JS 
+\- complete change: focus on German registered societies ("eingetragener Verein, e.V.")
+                    and adjustments to current legal situation.
+		    * Still, this is NOT a PERFECT imprint. *
+		    * Dies ist KEIN PERFEKTES Impressum! *
+\- Note on how to refer to Mat-o-Wahl if you use your own imprint
+
+- GENERAL.JS
+\- arPersonal with corrected values for statistics (Thanks to Marius Nisslmueller)
+   before: -1,0,1 -> now: -2,-1,0,1,2
+
+- EXTRAS\STATISTICS
+\- example of MySQL-Table and PHP-script for statistics / counter (Thanks to Marius Nisslmueller)
+
+- EXTRAS\startSimplePythonServer.txt
+\- Kurzanleitung zum Starten eines http-Servers
+
+- INDEX.HTML
+\- Built-In Bootstrap toogle-switch "custom-control custom-switch" instead of "Flat Toggle Switch" by https://bootsnipp.com/snippets/z8b8y 
+
+- QUICKTEST.HTML, QUICKTEST.JS
+\- adaption to new DEFINITION.JS
+
+- DEFINITION.JS
+\- Picture size in percent (%) instead of pixels (px)
+
+- VERSION.TXT renamed to CHANGELOG.TXT
+
 
 0.4.1.20200228
 

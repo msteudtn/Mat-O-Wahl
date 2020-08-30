@@ -3,7 +3,7 @@
 // License: GPL 3
 // Mathias Steudtner http://www.medienvilla.com
 
-var version = "0.4.1.20200228"
+var version = "0.5.0.20200830"
 
 // Globale Variablen
 var arQuestionsShort = new Array();	// Kurzform der Fragen: Atomkraft, Flughafenausbau, ...
@@ -12,23 +12,41 @@ var arQuestionsLong = new Array();		// Langform der Frage: Soll der Flughafen au
 var arPartyPositions = new Array();	// Position der Partei als Zahl aus den CSV-Dateien (1/0/-1)
 var arPartyOpinions = new Array();		// Begründung der Parteien aus den CSV-Dateien
 var arPersonalPositions = new Array();	// eigene Position als Zahl (1/0/-1)
-var arVotingDouble = new Array();
+var arVotingDouble = new Array();	// eigene Position als Zahl (2/1/0/-1/-2)
 
-var arPartyFiles = new Array();		// Liste mit den Dateinamen der Parteipositionen
+// var arPartyFiles = new Array();		// Liste mit den Dateinamen der Parteipositionen
 var arPartyNamesShort = new Array();	// Namen der Parteien - kurz
 var arPartyNamesLong = new Array();	// Namen der Parteien - lang
-var arPartyLogosImg = new Array();		// Logos der Parteien
+var arPartyDescription = new Array();	// Beschreibung der Datei
 var arPartyInternet = new Array();		// Internetseiten der Parteien
+var arPartyLogosImg = new Array();		// Logos der Parteien
 
-var arSortParties=new Array();		//Nummern der Listen, nach Punkten sortiert
+var arSortParties=new Array();		// Nummern der Listen, nach Punkten sortiert
 
-var activeQuestion=0; //aktuell angezeigte Frage
+var activeQuestion=0; //aktuell angezeigte Frage (output.js)
 
-arPartyFiles 	= fnTransformDefinitionStringToArray(strPartyFiles);
-arPartyNamesShort = fnTransformDefinitionStringToArray(strPartyNamesShort);
-arPartyNamesLong= fnTransformDefinitionStringToArray(strPartyNamesLong);
-arPartyLogosImg	= fnTransformDefinitionStringToArray(strPartyLogosImg);
-arPartyInternet	= fnTransformDefinitionStringToArray(strPartyInternet);
+
+// Einlesen der CSV-Datei und Weitergabe an Rückgabefunktion "fnCallback"
+function fnReadCsv(csvFile,fnCallback)
+{
+// http://michaelsoriano.com/working-with-jquerys-ajax-promises-and-deferred-objects/
+ $.ajax({ 
+	type: "GET", 
+	url: csvFile,
+	dataType: "text", 
+	contentType: "application/x-www-form-urlencoded",
+	error: function(objXML, textStatus, errorThrown) {
+		alert("Mat-O-Wahl ERROR - Reading CSV-file \n\nCode - objXML-Status: "+objXML.status+" \n\nCode - textStatus: "+textStatus+" \n\nCode - errorThrown: "+errorThrown+" \n\nName and folder of CSV-file should be: "+csvFile+" \n\nPossible solutions: Check for capital letters. Extension of file? File in the wrong folder? Are you working on a local machine or a server? e.g. XHR-access for Google Chrome via --allow-file-access-from-files (Issue 40787)?"); }
+		})
+	.done(function(data) {
+		// console.log('success', data) 
+		console.log("Mat-o-Wahl load: "+csvFile);
+		fnCallback(data);
+		})
+	.fail(function(xhr) {
+		console.log('Mat-O-Wahl file error - ', xhr);	
+		});	
+}
 
 
 // Anzeige der Fragen (aus fnStart())
@@ -46,7 +64,7 @@ function fnShowQuestions(csvData)
 
 
 
-// Einlesen der Parteipositionen (aus fnStart())
+// Einlesen der Parteipositionen und Partei-Informationen (aus fnStart())
 function fnReadPositions(csvData)
 {
 	// Einlesen der Parteipositionen und Vergleichen
@@ -56,7 +74,7 @@ function fnReadPositions(csvData)
 
 
 // Auswertung (Berechnung)
-// Gibt ein Array "arResults" zurück für fnEvaluationShort() und fnEvaluationLong();
+// Gibt ein Array "arResults" zurück für fnEvaluationShort() und fnEvaluationLong() und fnReEvaluate();
 // Aufruf am Ende aller Fragen in fnShowQuestionNumber() und beim Prüfen auf die "doppelte Wertung" in fnReEvaluate()
 function fnEvaluation()
 {
@@ -69,13 +87,18 @@ function fnEvaluation()
 	$("#keepStats").hide();
 
 	// Anzahl der Fragen bestimmen, da Positions-Array ein Vielfaches aus Fragen * Parteien enthält.
-	var numberOfQuestions = arQuestionsLong.length;		// 3 Fragen
-	var numberOfPositions = arPartyPositions.length; // 12 = 3 Fragen * 4 Parteien
+//	var numberOfQuestions = arQuestionsLong.length;		// 3 Fragen
+//	var numberOfPositions = arPartyPositions.length; // 12 = 3 Fragen * 4 Parteien
+
+	var numberOfQuestions = intQuestions;		// 3 Fragen
+	var numberOfPositions = intQuestions * intParties; // 12 = 3 Fragen * 4 Parteien
+
 	var indexPartyInArray = -1; // Berechnung der Position des Index der aktuellen Partei
 	var positionsMatch = 0;	// Zaehler fuer gemeinsame Positionen
 
 	var arResults = new Array();
-	for (i = 0; i <= (arPartyFiles.length-1); i++)
+//	for (i = 0; i <= (arPartyFiles.length-1); i++)
+	for (i = 0; i <= (intParties-1); i++)
 	{
 		arResults.push(0);	// Array mit leeren Werten füllen		
 	}
@@ -121,66 +144,11 @@ function fnEvaluation()
 	{
 	}
 
-	$("#keepStats").hide().empty();
+	$("#keepStats").hide().empty();	
 
+//	console.log(arResults)
 	return arResults;
 
-}
-
-
-/*
-// ALTERNATIV - Einlesen der CSV-Datei und Weitergabe an Rückgabefunktion - einfacher aber ohne Fehlercode
-function ALT2_fnReadCsv(csvFile,fnCallback)
-{
-
- $.get(csvFile, function(data) {  
-    fnCallback(data);
- } );
-	
-}
-*/
-
-/*
-// Einlesen der CSV-Datei und Weitergabe an Rückgabefunktion
-function fnReadCsv_ORIGINAL(csvFile,fnCallback)
-{
-
- $.ajax({ 
-	type: "GET", 
-	url: csvFile,
-	dataType: "text", 
-	contentType: "application/x-www-form-urlencoded",
-	async: false,
-	success: function(data) {  
-		fnCallback(data); },
-	error: function(objXML, textStatus, errorThrown) {
-		alert("Mat-O-Wahl ERROR - Reading CSV-file \n\nCode - objXML-Status: "+objXML.status+" \n\nCode - textStatus: "+textStatus+" \n\nCode - errorThrown: "+errorThrown+" \n\nName and folder of CSV-file should be: "+csvFile+" \n\nPossible solutions: Check for capital letters. Extension of file? File in the wrong folder? Are you working on a local machine or a server? e.g. XHR-access for Google Chrome via --allow-file-access-from-files (Issue 40787)?"); }
-	} );
-
-}
-*/
-
-// Einlesen der CSV-Datei und Weitergabe an Rückgabefunktion
-function fnReadCsv(csvFile,fnCallback)
-{
-// http://michaelsoriano.com/working-with-jquerys-ajax-promises-and-deferred-objects/
- $.ajax({ 
-	type: "GET", 
-	url: csvFile,
-	dataType: "text", 
-	contentType: "application/x-www-form-urlencoded",
-	error: function(objXML, textStatus, errorThrown) {
-		alert("Mat-O-Wahl ERROR - Reading CSV-file \n\nCode - objXML-Status: "+objXML.status+" \n\nCode - textStatus: "+textStatus+" \n\nCode - errorThrown: "+errorThrown+" \n\nName and folder of CSV-file should be: "+csvFile+" \n\nPossible solutions: Check for capital letters. Extension of file? File in the wrong folder? Are you working on a local machine or a server? e.g. XHR-access for Google Chrome via --allow-file-access-from-files (Issue 40787)?"); }
-	})
-  .done(function(data) {
-    // console.log('success', data) 
-	console.log("Mat-o-Wahl load: "+csvFile);
-	fnCallback(data);
-  })
-  .fail(function(xhr) {
-    console.log('Mat-O-Wahl file error - ', xhr);	
-  });
-	
 }
 
 
@@ -188,81 +156,24 @@ function fnReadCsv(csvFile,fnCallback)
 // Aufruf aus fnEvaluation()
 function fnSendResults(arResults, arPersonalPositions)
 {
+	// Korrektur der Parteiposition (-1,0,1) mit den Informationen aus der doppelten Wertung (-2,-1,0,1,2)
+	// Marius Nisslmueller, Bad Honnef, Juni 2020
+	arPersonalPositionsForStats = arPersonalPositions.slice(); // Damit arPersonalPositions nicht verändert wird
+	for(let i=0; i<arPersonalPositionsForStats.length; i++){
+		if(arVotingDouble[i]){
+		    arPersonalPositionsForStats[i] *= 2; 
+		}
+	}
+
+
 	var strResults = arResults.join(",");
-	var strPersonalPositions = arPersonalPositions.join(",");
+	// var strPersonalPositions = arPersonalPositions.join(",");
+	var strPersonalPositions = arPersonalPositionsForStats.join(",");
 	
 	$.get(statsServer, { mowpersonal: strPersonalPositions, mowparties: strResults } );
 
 	console.log("Mat-O-Wahl. Daten gesendet an Server: "+statsServer+" - mowpersonal: "+strPersonalPositions+" - mowparties: "+strResults+"")
 }
-
-
-// v.0.3 DEPRECATED
-// Auslesen der Zeile und speichern der Werte in Arrays (aus fnShowQuestions() und fnReadPositions())
-/*
-function fnSplitLines(csvData,modus)
-{
-	// Auftrennen am Zeilenumbruch 
- 	var arZeilen = csvData.split("\n");
-	// 
- 
-	for(i = 0; i <= arZeilen.length-1; i++)
-	{
-
-		var posSeparator = arZeilen[i].indexOf(separator);	// CSV Zeile am ERSTEN Komma/Semikolon auftrennen
-		var valueOne = arZeilen[i].substring(0,posSeparator);	// Frage in einem Stichwort
-		var valueTwo = arZeilen[i].substring((posSeparator+1),arZeilen[i].length); // Ausformulierte Frage 
-		
-		valueOne = fnClearQuotes(valueOne);
-		valueTwo = fnClearQuotes(valueTwo);
-		
-		if (posSeparator < 0)
-		{
-			// Fehler, kein Eintrag auf dieser Zeile oder zu weit gezählt.
-		}
-		else
-		{
-			// 
-			if (modus == 1)
-			{
-				// Fragen in globales Array schreiben
-				arQuestionsShort.push(valueOne);
-				arQuestionsLong.push(valueTwo);
-			}
-			else
-			{
-				// Antworten und Meinungen in globales Array schreiben
-				 	arPartyPositions.push(valueOne);
-				 	arPartyOpinions.push(valueTwo);
-			}  // end if-else modus == 1
-		} // end: if-else posSeparator < 0
-	} // end: for
-}
-*/
-
-// v.0.3 DEPRECATED
-// entfernt die Anführungszeichen am Anfang und Ende aus den CSV-Daten, falls vorhanden (MS Excel & OO Calc fügen diese ein)
-/*
-function fnClearQuotes(string)
-{
-	var strLength = string.length;
-	// wenn letztes Zeichen Anführungszeichen ist ...
-	if (string.charAt((strLength-1)) == '"')
-	{
-		string = string.substr(0,(strLength-1));
-	}
-	
-	// wenn erstes Zeichen Anführungszeichen ist ...
-	if (string.charAt(0) == '"') // nur Mozilla
-	{
-		string = string.substr(1,(strLength-1));
-	}
-	
-	string = string.replace(/""/g, '"');	// doppelte Anfuehrungszeichen ersetzen (ergibt Anfuerungszeichen im Text)
-
-	return string;
-}
-*/
 
 
 // Berechnet Prozentwerte
@@ -280,57 +191,72 @@ function fnTransformCsvToArray(csvData,modus)
 	// benutzt externe jquery-csv-Bibliothek
 	arZeilen = $.csv.toArrays(csvData, {separator: ""+separator+""});
 	
+//	console.log(arZeilen.length+ " Part "+intParties+" quest: "+intQuestions )
+
+
+	// Number of lines per party for MODULO-Operation on the ANSWERS-file
+	// There are five (5) lines with information on the party + "intQuestions" lines + an empty line
+	// Example "Obsthausen"/"Fruitville" = 5 + 6 + 1 = 12
+	// Example "Springfield" = 5 + 15 + 1 = 21
+	var numberOfLines = 6 + intQuestions 
+
 	for(i = 0; i <= arZeilen.length-1; i++)
 	{
-		// console.log("i: "+i+" m: "+modus+" v0: "+arZeilen[i][0]+" v1: "+arZeilen[i][1] )	
+		// console.log("i: "+i+" m: "+modus+" val0: "+arZeilen[i][0]+" val1: "+arZeilen[i][1] )	
 		valueOne = arZeilen[i][0];
 		valueTwo = arZeilen[i][1];
 		
+		// FRAGEN in globales Array schreiben (z.B. aus FRAGEN.CSV)
 		if (modus == 1)
 		{
-			// FRAGEN in globales Array schreiben
 			arQuestionsShort.push(valueOne);
 			arQuestionsLong.push(valueTwo);
 		}
+		// ANTWORTEN und Meinungen in globales Array schreiben (z.B. aus PARTEIEN.CSV)
 		else
 		{
-			// ANTWORTEN und Meinungen in globales Array schreiben
-				arPartyPositions.push(valueOne);
-				arPartyOpinions.push(valueTwo);
+			// v.0.5 NEU
+			// ALLE Partei-Informationen in einer CSV-Datei
+			modulo = i % numberOfLines;
+			if ( (modulo == 0) && (valueTwo != "undefined") )
+			{ 
+				// Parteinamen - kurz
+				arPartyNamesShort.push(valueTwo)
+			}
+			else if ( (modulo == 1) && (valueTwo != "undefined") )
+			{ 
+				// Parteinamen - lang
+				arPartyNamesLong.push(valueTwo)
+			}
+			else if ( (modulo == 2) && (valueTwo != "undefined") )
+			{ 
+				// Beschreibung der Partei (optional)
+				arPartyDescription.push(valueTwo)
+//				console.log("i: "+i+ " value: "+valueTwo)
+			}
+			else if ( (modulo == 3) && (valueTwo != "undefined") )
+			{ 
+				// Webseite der Partei
+				arPartyInternet.push(valueTwo)
+			}
+			else if ( (modulo == 4) && (valueTwo != "undefined") )
+			{ 
+				// Logo der Partei
+				arPartyLogosImg.push(valueTwo)
+			}
+			else if (valueTwo)
+			{
+				// Positionen und Erklärungen
+				arPartyPositions.push(valueOne); // -1,0,1
+				arPartyOpinions.push(valueTwo); // Erklärung zur Zahl
+			}
+			else 
+			{
+				// nothing to do. Just empty lines in the CSV-file
+			}
 		}  // end: if-else modus == 1	
 	}  // end: for
 }
-
-// wandelt den String aus der DEFINITION.JS in ein ARRAY um - einfacher fuer den Benutzer
-function fnTransformDefinitionStringToArray(strName)
-{
-	var arName = new Array();
-	var arName = strName.split(",")
-	for (i = 0; i <= arName.length-1; i++)
-	{ 
-		arName[i] = jQuery.trim(arName[i]); 
-	} 
-	return arName;
-}
-
-
-// v.0.3 DEPRECATED
-// ersetzt die Position (-1, 0, 1) mit dem passenden Bild
-/*
-function fnTransformPositionToImage(position)
-{
-	var arImages = new Array("contra_icon.png","neutral_icon.png","pro_icon.png")
-	var positionImage = "skip_icon.png";
-	for (z = -1; z <= 1; z++)
-	{
-	 	if (z == position)
-		{
-			positionImage = arImages[(z+1)];
-		}
-	}
-	return positionImage;
-}
-*/
 
 // v.0.3 NEU
 // ersetzt die Position (-1, 0, 1) mit dem passenden Button
@@ -421,84 +347,6 @@ function fnBarImage(percent)
 }
 
 
-// Berechnet die "mittlere" Farbe aus Text und Hintergrund für die Tabellenzeilen in der Auswertung 
-// 0.2.4.1 DEPRECATED -> built in CSS ODD
-/*
-function DEPRECATED_fnCreateMiddleColor()
-{
-	var bodyTextcolor = $("body").css("color");
-	var bodyBackcolor = $("body").css("background-color");
-	
-	if (bodyTextcolor.charAt(0) == "#")
-	{	bodyTextcolor = fnTransformHexToDec(bodyTextcolor.substr(1,6)); }
-	if (bodyBackcolor.charAt(0) == "#")
-	{	bodyBackcolor = fnTransformHexToDec(bodyBackcolor.substr(1,6)); }
-
-	var arBodyTextcolorRgb = bodyTextcolor.split(",");
-	var arBodyBackcolorRgb = bodyBackcolor.split(",");
-
-	var bodyTextcolorR = arBodyTextcolorRgb[0].substr(4,3);	// 255
-	var bodyTextcolorG = arBodyTextcolorRgb[1].substr(0,4);	// 0
-	var bodyTextcolorB = arBodyTextcolorRgb[2].substr(0,(arBodyTextcolorRgb[2].length-1));
-
-	var bodyBackcolorR = arBodyBackcolorRgb[0].substr(4,3);	// 0
-	var bodyBackcolorG = arBodyBackcolorRgb[1].substr(0,4);	// 255
-	var bodyBackcolorB = arBodyBackcolorRgb[2].substr(0,(arBodyBackcolorRgb[2].length-1));
-
-	var bodyBackcolorR = parseInt(bodyBackcolorR);
-	var bodyBackcolorG = parseInt(bodyBackcolorG);
-	var bodyBackcolorB = parseInt(bodyBackcolorB);
-	
-	var bodyTextcolorR = parseInt(bodyTextcolorR);
-	var bodyTextcolorG = parseInt(bodyTextcolorG);
-	var bodyTextcolorB = parseInt(bodyTextcolorB);
-
-	var middleR = Math.round( (bodyBackcolorR + bodyTextcolorR) / 2);	// (255 + 0)/2 = 128
-	var middleG = Math.round( (bodyBackcolorG + bodyTextcolorG) / 2);	// (0 + 255)/2 = 128
-	var middleB = Math.round( (bodyBackcolorB + bodyTextcolorB) / 2);
-	
-	var middleR = Math.round( ( bodyBackcolorR + (middleR - bodyBackcolorR)/2) ); // 0 + (128 - 0)/2 = 0 + 128/2 = 0 + 64 = 64 
-	var middleG = Math.round( ( bodyBackcolorG + (middleG - bodyBackcolorG)/2) ); // 255 + (128 - 255)/2 = 255 + -128/2 = 255 - 64 = 192
-	var middleB = Math.round( ( bodyBackcolorB + (middleB - bodyBackcolorB)/2) );
-	
-	var middleColor = "rgb("+middleR+","+middleG+","+middleB+")";
-	return middleColor;
-}
-*/
-
-
-// wandelt HEX in DEC um 
-// 0.2.4.1 DEPRECATED -> built in CSS ODD
-/*
-function DEPRECATED_fnTransformHexToDec(color)
-{
-	var colorR = color.substr(0,2);
-	var colorG = color.substr(2,2);
-	var colorB = color.substr(4,2);
-	
-	var colorR = parseInt(colorR.toUpperCase(),16)
-	var colorG = parseInt(colorG.toUpperCase(),16)
-	var colorB = parseInt(colorB.toUpperCase(),16)
-	
-	var colorRGB = "rgb("+colorR+","+colorG+","+colorB+")";
-	return colorRGB;
-}
-*/
-
-// v.0.3 DEPRECATED
-// Bei Klick auf "Details anzeigen/verbergen", pruefe ob Partei angezeigt werden soll fuer Vergleich 
-/*
-function fnStartToggleTableRow(questionLength)
-{
-//	for (x = 0; x <= (arPartyFiles.length-1); x++) // Ver 0.2.3.2
-	for (x = 0; x <= (arSortParties.length-1); x++) // 
-	{		
-//		fnToggleTablerow(x,questionLength); // Ver 0.2.3.2
-		fnToggleTablerow(arSortParties[x],questionLength); // 
-	}
-}
-*/
-
 // 02/2015 BenKob (doppelte Wertung)
 function fnToggleSelfPosition(i)
 {
@@ -519,6 +367,9 @@ function fnToggleSelfPosition(i)
 	$("#selfPosition"+i).attr("alt", positionText);
 	$("#selfPosition"+i).attr("title", positionText);
 	// $(".positionRow"+i).css("border","1px solid "+positionColor);
+
+//	console.log("toggle funktion i: "+i)
+
 	fnReEvaluate();
 }
 
@@ -541,114 +392,3 @@ function fnToggleDouble(i)
 	fnReEvaluate();
 }
 
-// v.0.3 DEPRECATED
-// Einblenden/Ausblenden der Spalte mit den Parteipositionen
-/*
-function fnToggleTablerow(partyId, questionLength)
-{
-
-	// Pruefwert fuer checked (1) / unchecked in der Tabelle von #resultsShort
-	var value = $("#party"+partyId+"").attr("checked");
-	
-	var multiplier = arPartyFiles.length + 2; // beginne ab Spalte 3
-
-	// Partei ist angeklickt fuer detaillierte Auswertung
-	if (value == true)
-	{
-
-		$("#resultsLong").fadeIn();		// sicherstellen, dass die Tabelle auch angezeigt wird. 
-		
-		// Spalte einblenden
-		$("#partyNameCell"+partyId).fadeIn(500);
-		
-		for (z = 0; z <= questionLength-1; z++)
-		{	
-			var cellId = partyId + 2 + (z * multiplier);	// naechste Zelle in Spalte XY
-			var time = 500+i*100;
-			$("#partyPositionCell"+cellId).fadeIn(time);
-	
-//		$("#debug").append("<br /> A val:"+value+" partyId:"+partyId+" cellId: "+cellId)
-		}
-	}
-	// Partei ist nicht angeklickt fuer detaillierte Auswertung ...
-	else
-	{
-		// ... und Long-Tabelle wird bereits angezeigt
-		if( $('#resultsLong').is(':visible'))
-		{
-
-			// Spalte langsam ausblenden
-			$("#partyNameCell"+partyId).fadeOut(500);
-			
-			for (z = 0; z <= questionLength-1; z++)
-			{	
-				var cellId = partyId + 2 + (z * multiplier);	// naechste Zelle in Spalte XY
-				var time = 500+i*100;
-				$("#partyPositionCell"+cellId).fadeOut(time);			
-//				$("#debug").append("<br /> B val:"+value+" partyId:"+partyId+" cellId: "+cellId)
-			}
-		}
-		// ... aber Long-Tabelle ist ausgeblendet
-		else if( $('#resultsLong').is(':hidden'))
-		{
-
-//		$("#debug").append("<br /> C val:"+value+" partyId:"+partyId)
-
-			// Spalte einfach so ausblenden - bei fadeOut muss das Element sichtbar sein			
-		   $("#partyNameCell"+partyId).hide();
-			for (z = 0; z <= questionLength-1; z++)
-			{	
-				var cellId = partyId + 2 + (z * multiplier);	// naechste Zelle in Spalte XY
-				var time = 500+i*100;
-				$("#partyPositionCell"+cellId).hide();			
-			}
-		}
-
-	}
-	
-}
-*/
-
-
-// v.0.3 DEPRECATED
-/*
-function fnCalculatePieChart(radius,prozent,divName)
-{
-	var faktor = (25 - prozent) / 50 * -1;
-	fnDrawPieChart(radius,faktor,divName);
-}
-*/
-
-// v.0.3 DEPRECATED
-// zeichnet einen Kreis, Halbkreis, Viertelkreis usw.
-/*
-function fnDrawPieChart(radius,faktor,divName)
-{
-	//var canvas = document.getElementById(divName);
-	var canvas = document.getElementById("pieChart");
-	if (canvas.getContext)
-	{
-		canvas = canvas.getContext('2d');
-
-		// Rahmen um Kreis zeichnen
-		bodyTextcolor = $("body").css("color");
-		canvas.strokeStyle = bodyTextcolor;
-		canvas.lineWidth = 1.0;
-		canvas.beginPath();
-		canvas.moveTo(radius, radius);	// Startposition festlegen (= Mittelpkt)
-    	canvas.arc(radius, radius, radius, Math.PI*-0.5, Math.PI*2, false);
-		canvas.stroke();    	
-    	canvas.closePath();		
-
-		// Kreis zeichnen
-		canvas.fillStyle = bodyTextcolor;
-		canvas.beginPath();	   
-    	canvas.moveTo(radius, radius);	// Startposition festlegen (= Mittelpkt)
-    	// http://canvas.quaese.de/index.php?nav=6,35&doc_id=24
-    	// arc(x, y, radius, startAngle, endAngle, anticlockwise)
-   	canvas.arc(radius, radius, radius, Math.PI*-0.5, Math.PI*faktor, false);
-    	canvas.closePath();
-    	canvas.fill();
-	}
-}
-*/

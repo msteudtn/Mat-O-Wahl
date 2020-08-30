@@ -52,7 +52,7 @@ function fnStart()
 	// Wenn Datenschutzerklärung vorhanden UND Auswertung gewünscht ...
 	if ((imprintPrivacyUrl.length > 0) && (statsRecord) )
 	{
-		/// $("#keepStatsQuestion").append("Siehe <a href='http://"+imprintPrivacyUrl+"' target='_blank'>Datenschutzerkl&auml;rung.</a>");
+		/// $("#keepStatsQuestion").append("Siehe <a href='https://"+imprintPrivacyUrl+"' target='_blank'>Datenschutzerkl&auml;rung.</a>");
 		$("#keepStatsQuestion").append(TEXT_ALLOW_STATISTIC);		
 //		$("#keepStatsCheckbox").attr("checked",true); // Zeile auskommentieren/aktivieren und OptIn erzwingen - bitte mit Bedacht benutzen.
 		$("#keepStats").fadeIn(1000);
@@ -62,7 +62,7 @@ function fnStart()
 		$("#keepStatsCheckbox").attr("checked",false);	// Falls jmd. bauernschlau in der INDEX.HTML checked="checked" eingetragen hat -> OptOut
 	}
 
-	// Impressum
+	// Impressum auf Startseite ersetzen
 	// Text aus i18n einfügen
 	$("#imprint").html(TEXT_IMPRINT);
 	// Link aus definition.js einfügen
@@ -79,14 +79,8 @@ function fnStart()
 	// (a) Fragen 
 	fnReadCsv("data/"+fileQuestions,fnShowQuestions)
 
-	// (b) Antworten der Parteien 
-	for (i = 0; i <= arPartyFiles.length-1; i++)
-	{
-		// Zeitversetzt starten, damit Reihenfolge auch stimmt. 500, 750, 1000, 1250ms, ... später
-		// Funktioniert aber nicht 100% wenn eine große Datei dazwischen ist :(
-		window.setTimeout("fnReadCsv('data/"+arPartyFiles[i]+"',"+fnReadPositions+")",500+i*250);	
-	}
-	
+	// (b) Antworten der Parteien und Partei-Informationen
+	fnReadCsv("data/"+fileAnswers,fnReadPositions)
 
 	//arVotingDouble initialisieren
 	for (i=0;i<arQuestionsShort.length;i++)
@@ -126,14 +120,6 @@ function fnShowQuestionNumber(questionNumber)
 		$("#voting").fadeOut(500).hide();
 		
 		// Neuen Inhalt schreiben
-		/*
-		// v 0.3 - DEPRECATED - kein Kreisdiagramm mehr, sondern Bootstrap-Progressbar
-		$("#headingContent").append("<p>")
-			.append("<canvas id='pieChart' width='"+bodyTextSize+"' height='"+bodyTextSize+"'></canvas> ")
-			.append("Frage "+(questionNumber+1)+"/"+arQuestionsLong.length)
-			.append(" - "+arQuestionsShort[questionNumber])
-			.append("</p>");
-		*/
 		
 		// Bootstrap-Progressbar
 		var percent = fnPercentage((questionNumber+1),arQuestionsLong.length);
@@ -141,10 +127,7 @@ function fnShowQuestionNumber(questionNumber)
 
 		$("#content").append("<strong>"+arQuestionsShort[questionNumber]+" </strong> - ");
 		$("#content").append(""+arQuestionsLong[questionNumber]+"");
-
-		// var percent = fnPercentage((questionNumber+1),arQuestionsLong.length);
-		// fnCalculatePieChart(Math.floor(bodyTextSize/2),percent,"pieChart");
-		
+	
 		$("#content").fadeIn(500);
 		$("#voting").fadeIn(500);
 		
@@ -174,7 +157,6 @@ function fnShowQuestionNumber(questionNumber)
 		// Checkbox für doppelte Bewertung 
 	  	$("#votingDouble").attr('checked', arVotingDouble[questionNumber]);
 		// und Bild/Button zuruecksetzen
-		// $("#imageVotingDouble").attr("src","img/double-no_icon.png");
 		$("#votingDouble").removeClass( "btn-dark" ).addClass( "btn-outline-dark" );
 	}
 	
@@ -185,7 +167,8 @@ function fnShowQuestionNumber(questionNumber)
 		
 		//Parteien sortieren
 		arSortParties=new Array();
-		for (i = 0; i < arPartyFiles.length; i++)
+//		for (i = 0; i < arPartyFiles.length; i++)
+		for (i = 0; i < intParties; i++)
 			{
 				arSortParties[i]=i;				
 			}
@@ -204,21 +187,17 @@ function fnChangeVotingDouble()
 {
 
 	arVotingDouble[activeQuestion]=!(arVotingDouble[activeQuestion]);
-	// strImgSrc = $("#imageVotingDouble").attr("src"); // vor Version 0.3: mit Bildern, statt Buttons
 	strBtnSrc = $("#votingDouble").hasClass("btn-outline-dark");
 	
-	// if (strImgSrc == "img/double-no_icon.png") // vor Version 0.3: mit Bildern, statt Buttons
 	if (strBtnSrc)
 	// wenn vorher unwichtig -> jetzt doppelt werten
 	{
-		// $("#imageVotingDouble").attr("src","img/double-yes_icon.png");
 		$("#votingDouble").removeClass( "btn-outline-dark" ).addClass( "btn-dark" );
 		$("#jumpToQuestionNr"+(activeQuestion+1)+"").css("font-weight","bold");
 	}
 	// wenn vorher wichtig -> jetzt wieder auf normal setzen
 	else
 	{
-		// $("#imageVotingDouble").attr("src","img/double-no_icon.png");
 		$("#votingDouble").removeClass( "btn-dark" ).addClass( "btn-outline-dark" );
 		$("#jumpToQuestionNr"+(activeQuestion+1)+"").css("font-weight","normal");
 	}
@@ -231,8 +210,6 @@ function fnJumpToQuestionNumber(questionNumber)
 	// alten Inhalt ausblenden und loeschen
 	$("#jumpToQuestion").fadeOut(500).empty().hide();
 
-	// "Mittelfarbe" aus Hintergrund und Text bestimmen.
-	// var middleColor = fnCreateMiddleColor(); // -> 0.2.4.1 DEPRECATED -> built in CSS ODD
 
 	var maxQuestionsPerLine = 12;  // z.B. 16
 
@@ -256,7 +233,7 @@ function fnJumpToQuestionNumber(questionNumber)
 		var modulo = i % questionsPerLine;
 		// neue Zeile
 		if (modulo == 1) { tableContent += "<tr>"; }
-		tableContent += "<td align='center' id='jumpToQuestionNr"+i+"' title='"+arQuestionsShort[(i-1)]+"'>"; 
+		tableContent += "<td align='center' id='jumpToQuestionNr"+i+"' title='"+arQuestionsShort[(i-1)]+" - "+arQuestionsLong[(i-1)]+"'>"; 
 		tableContent += "<a href='javascript:fnShowQuestionNumber("+(i-2)+")' style='display:block;'>"+i+" </a>"; 
 		tableContent += "</td>";
 		if (modulo == 0) { tableContent += "</tr>"; }
@@ -287,7 +264,7 @@ function fnJumpToQuestionNumber(questionNumber)
 	
 }
 
-// Anzeige der Ergebnisse - zusammengefasst (Prozentwerte)
+// Anzeige der Ergebnisse - zusammengefasst (Prozentwerte) - nur Parteien
 // Array arResults kommt von fnEvaluation
 function fnEvaluationShort(arResults)
 {
@@ -316,45 +293,67 @@ function fnEvaluationShort(arResults)
 		{maxPoints=1;}
 	var tableContent = "<table id='resultsShortTable' width='100%'>"
 	
-	for (i = 0; i <= (arPartyFiles.length-1); i++)
+	for (i = 0; i <= (intParties-1); i++)
 	{
 		var partyNum=arSortParties[i];
 		var percent = fnPercentage(arResults[partyNum],maxPoints)
 
-//		var barImage = fnBarImage(percent);
-		
-		tableContent += "<tr>"
 
-//			v.0.3 DEPRECATED - ab nun gleich alle Parteien anzeigen und keine Auswahl mehr zulassen
-/*
-		tableContent += "<td>"
-//			tableContent += "<input type='checkbox' id='party"+partyNum+"' name='party"+partyNum+"' value='"+partyNum+"' /> "
-			tableContent += "<input type='checkbox' name='party"+partyNum+"' id='party"+partyNum+"' onclick='fnStartToggleTableRow("+numberOfQuestions+")' value='0' /> "
-		tableContent += "</td>"
-*/
+		// Bilder in eigener Spalte -> deaktiviert seit V 0.5 
+		// -> Bilder nun rechtsbündig neben Parteinamen
+/*	
+		tableContent += "<tr>"
 
 		tableContent += "<td width='20%'>"
 			tableContent += "<img src='data/"+arPartyLogosImg[partyNum]+"' width='"+intPartyLogosImgWidth+"' height='"+intPartyLogosImgHeight+"' alt='"+arPartyNamesLong[partyNum]+"' title='"+arPartyNamesLong[partyNum]+"' /> "
 		tableContent += "</td>"
+*/
 		
-		tableContent += "<td width='30%'>"
+		tableContent += "<td width='60%' id='resultsShortParty"+partyNum+"'>"
+
+
+			tableContent += "<img src='"+arPartyLogosImg[partyNum]+"' width='"+intPartyLogosImgWidth+"' height='"+intPartyLogosImgHeight+"' class='rounded float-right' alt='"+arPartyNamesLong[partyNum]+"' style='margin-left: 10px;' />"
+
+			tableContent += "<span style='font-weight: 600;'>"
 			tableContent += arPartyNamesLong[partyNum];
-			tableContent += " (<a href='"+arPartyInternet[partyNum]+"' target='_blank' title='"+arPartyNamesLong[partyNum]+"'>";		
+			tableContent += "</span>" 
+
+			tableContent += " (&#8663; <a href='"+arPartyInternet[partyNum]+"' target='_blank' title='"+arPartyNamesLong[partyNum]+"'>";		
 			tableContent += arPartyNamesShort[partyNum];
 			tableContent += "</a>)";
+
+			// Beschreibung der Partei - falls in der CSV vorhanden.
+			// Nur die ersten 32 Zeichen anzeigen. 
+			// Danach abschneiden und automatisch ein/ausblenden (Funktionsaufbau weiter unten)
+			// Wenn keine Beschreibung gewünscht, dann "0" eintragen.
+			intPartyDescriptionPreview = 32
+			if ( (arPartyDescription[partyNum]) && (intPartyDescriptionPreview > 0) )
+			{
+				tableContent += "<p style='cursor: pointer;'> &bull; "
+				tableContent += arPartyDescription[partyNum].substr(0,intPartyDescriptionPreview)
+				tableContent += "<span id='resultsShortPartyDescriptionDots"+partyNum+"'>...</span>"
+				tableContent += "<span id='resultsShortPartyDescription"+partyNum+"'>"
+				tableContent += arPartyDescription[partyNum].substr(intPartyDescriptionPreview,1024)
+				tableContent += "</span> </p>"
+			}
+
 		tableContent += "</td>"
+
 		
-		tableContent += "<td width='10%'>"
+		// Punktwertung in eigener Spalte -> deaktiviert seit V 0.5 
+		// -> Punkte nun direkt im Fortschrittsbalken zusammen mit Prozenten
+/*
+		tableContent += "<td width='10%' style='text-align:center;'>"
 			tableContent += "<span id='partyPoints"+partyNum+"'>"+arResults[partyNum]+"/"+maxPoints+"</span>"
 		tableContent += "</td>"
-/*
-		tableContent += "<td width='105'>"
-			tableContent += " <img id='partyBar"+partyNum+"' src='img/"+barImage+"' height='12' width='"+percent+"' alt='"+percent+"%' title='"+percent+"%' border='1' />"
-		tableContent += "</td>"
 */
+
+		// Prozentwertung
 		tableContent += "<td width='40%'>"
 			tableContent += "<div class='progress'>"
-			tableContent += "	<div class='progress-bar' role='progressbar' id='partyBar"+partyNum+"' style='width:"+percent+"%'>"+percent+"%</div> "
+//			tableContent += "	<div class='progress-bar' role='progressbar' id='partyBar"+partyNum+"' style='width:"+percent+"%'> "+percent+"% ("+arResults[partyNum]+"/"+maxPoints+") </div> "
+			tableContent += "	<div class='progress-bar' role='progressbar' id='partyBar"+partyNum+"' style='width:"+percent+"%'>JUST_A_PLACEHOLDER_TEXT - SEE FUNCTION fnReEvaluate()</div> "
+
 			tableContent += "</div>"
 		tableContent += "</td>"
 
@@ -367,11 +366,6 @@ function fnEvaluationShort(arResults)
 	// Anzeigen der detaillierten Tabelle
 	tableContent += "</table>";
 
-	/*
-	tableContent += "<button type='button' class='btn btn-secondary btn-lg btn-block' id='resultsShortToggle'>"
-	tableContent += "Detaillierte Auswertung ein-/ausblenden.";
-	tableContent += "</button>"
-	*/
 
 	// Daten in Browser schreiben
 	$("#resultsShort").append(tableContent).fadeIn(750); 
@@ -380,17 +374,32 @@ function fnEvaluationShort(arResults)
 	// -> enthält Aufruf für farbliche Progressbar (muss hier ja nicht extra wiederholt werden)
 	fnReEvaluate()
 	
-	// Anzeigen der detaillierten Ergebnisse
-	/*
-	$("#resultsShortToggle").click(function () { 
-		// fnStartToggleTableRow(numberOfQuestions);
-		$("#resultsLong").toggle(500);
-	});
-	*/
+
+	// Click-Funktion auf PARTEINAME-Zeile legen zum Anzeigen des BESCHREIBUNG-SPAN (direkt darunter)
+	// "[In a FOR-loop] you can use the let keyword, which makes the i variable local to the loop instead of global"
+	// 	https://stackoverflow.com/questions/4091765/assign-click-handlers-in-for-loop
+	for (let i = 0; i <= (intParties-1); i++)
+	{
+		// Klickfunktion - bei Überschrift
+		$("#resultsShortParty"+i).click(function () { 
+				$("#resultsShortPartyDescription"+i).toggle(500);
+				$("#resultsShortPartyDescriptionDots"+i).toggle(500);
+			});	
+		// Klickfunktion - bei Beschreibung
+		/*
+		$("#resultsShortPartyDescription"+i).click(function () { 
+				$("#resultsShortPartyDescription"+i).toggle(500);
+			});
+		*/
+		// am Anfang ausblenden
+		$("#resultsShortPartyDescription"+i).fadeOut(500);
+		$("#resultsShortPartyDescriptionDots"+i).fadeIn(500);
+	}
+
 }
 
 
-// Anzeige der Ergebnisse - detailliert
+// Anzeige der Ergebnisse - detailliert, Fragen und Antworten
 // Array arResults kommt von fnEvaluation
 function fnEvaluationLong(arResults)
 {
@@ -406,29 +415,7 @@ function fnEvaluationLong(arResults)
 	tableContent += "<table width='100%' id='resultsLongTable'>";
 		
 	// Kopfzeile der Tabelle
-	
-	// v.0.3. DEPRECATED
-	/*
-	tableContent += "<tr>";
-	for (i = -2; i <= (arPartyFiles.length-1); i++)
-	{
-		if (i == -2)
-		{ var picName = ""; }	// erste Zelle
-		else if (i == -1)
-		{ var picName = "Sie"; }	// zweite Zelle
-		else
-		{
-			var partyNum=arSortParties[i];
-			var picName = "<img src='data/"+arPartyLogosImg[partyNum]+"' width='"+intPartyLogosImgWidth+"' height='"+intPartyLogosImgHeight+"' alt='"+arPartyNamesLong[partyNum]+"' title='"+arPartyNamesLong[partyNum]+"' /> ";
-		}
 		
-		tableContent += "<th id='partyNameCell"+partyNum+"'>";
-			tableContent += picName; 
-		tableContent += "</th>";
-	}
-	tableContent += "</tr>";
-	*/
-	
 	// v.0.3 NEU: nur noch zwei Spalten
 	tableContent += "<tr>";
 	tableContent += " <th> </th>"; 
@@ -440,28 +427,14 @@ function fnEvaluationLong(arResults)
 	// var cellId = -1;	// cellId ist für das Ausblenden der Spalten wichtig.
 	for (i = 0; i <= (arQuestionsLong.length-1); i++)
 	{
-		// var positionImage = fnTransformPositionToImage(arPersonalPositions[i]);
 		var positionButton = fnTransformPositionToButton(arPersonalPositions[i]);
 		var positionIcon = fnTransformPositionToIcon(arPersonalPositions[i]);
-		// var positionColor = fnTransformPositionToColor(arPersonalPositions[i]);	// eigene Meinung - wird unten auch wieder genutzt als Rahmen für Parteipositionsbild
 		var positionText  = fnTransformPositionToText(arPersonalPositions[i]);
 		
-		// zu überarbeiten! -> Änderung von 0.2.3.2 auf 0.2.4
-		// Brauche ich die noch, da die cellId sowieso berechnet wird?
-		// cellId++;	// erste Spalte - Beschreibung
-		// cellId++;	// zweite Spalte - eignene Meinung 1/0/-1
-
 		tableContent += "<tr>";
 		
 			// 1. Spalte: eigene Meinung + doppelte Wertung
 			tableContent += "<td style='text-align:center'>";
-/*			
-				tableContent += "<img src='img/"+positionImage+
-						"' height='20' width='20' id='selfPosition"+i+
-						"' class='positionRow"+i+
-						"' onclick='fnToggleSelfPosition("+i+")' alt='"+positionText+
-						"' title='"+positionText+"' style='cursor:pointer;' /> ";
-*/ 
 				tableContent += "<button type='button' id='selfPosition"+i+"' "+
 					" class='btn "+positionButton+" btn-sm' "+ 
 					" onclick='fnToggleSelfPosition("+i+")' "+ 
@@ -473,22 +446,12 @@ function fnEvaluationLong(arResults)
 				
 				if (arVotingDouble[i])
 				{
-/*
-					tableContent += "<img src='img/double-yes_icon.png"+
-						"' height='20' width='20' id='doubleIcon"+i+
-						"' onclick='fnToggleDouble("+i+")' style='cursor:pointer;' title='Frage wird doppelt gewertet' />";
-*/						
 					tableContent += "<button type='button' class='btn btn-dark btn-sm' "+
 						" id='doubleIcon"+i+"' "+
 						" onclick='fnToggleDouble("+i+")' title='Frage wird doppelt gewertet'>x2</button>";						
 				}
 				else			
 				{
-/*					
-				tableContent += "<img src='img/double-no_icon.png"+
-						"' height='20' width='20' id='doubleIcon"+i+
-						"' onclick='fnToggleDouble("+i+")' style='cursor:pointer;' title='Frage wird einfach gewertet' />";
-*/						
 				tableContent += "<button type='button' class='btn btn-outline-dark btn-sm' "+
 						" id='doubleIcon"+i+"' "+
 						" onclick='fnToggleDouble("+i+")' title='Frage wird einfach gewertet'>x2</button>";
@@ -498,36 +461,12 @@ function fnEvaluationLong(arResults)
 			tableContent += "</td>";
 
 			// 2. Spalte: Frage (kurz und lang)
-			tableContent += "<td id='resultsLongQuestion"+i+"'>";
+			tableContent += "<td id='resultsLongQuestion"+i+"' style='cursor: pointer;'>";
 				tableContent += "<strong>"+arQuestionsShort[i]+"</strong>: ";
 				tableContent += arQuestionsLong[i];
-			tableContent += "</td>";			
+			tableContent += "</td>";	
 			
 			// var multiplier = arPartyFiles.length + 2; 
-
-			// v.0.3 DEPRECATED		
-			/*
-			// 3. bis n. Spalte - Parteipositionen anzeigen
-			for (j = 0; j <= (arPartyFiles.length-1); j++)
-			{
-				var partyNum=arSortParties[j];
-				// cellId++; /// VER 0.2.3.2
-				var cellId = partyNum + 2 + (i * multiplier);
-				var partyPositionsRow = partyNum * arQuestionsLong.length + i;
-				var positionImage = fnTransformPositionToImage(arPartyPositions[partyPositionsRow]);
-                                var positionText = fnTransformPositionToText(arPartyPositions[partyPositionsRow]);
-
-				// Inhalt der Zelle
-				tableContent += "<td title='" + arPartyNamesShort[partyNum] + ": " + positionText + ( arPartyOpinions[partyPositionsRow] === "" ? "" : ": " + arPartyOpinions[partyPositionsRow] ) + "' align='center' id='partyPositionCell" + cellId + "'>";
-
-// VER 0.2.1 			tableContent += "<td title='"+arPartyNamesShort[j]+": "+arPartyOpinions[partyPositionsRow]+"' align='center' id='partyPositionCell"+cellId+"'>";
-					tableContent += "<img class='positionRow"+i+
-							"' src='img/"+positionImage+
-							"' height='20' width='20' alt='"+arPartyOpinions[partyPositionsRow]+
-							"' style='border:1px solid "+positionColor+"' />";
-				tableContent += " </td>";
-			}
-			*/
 
 		tableContent += "</tr> ";
 
@@ -536,8 +475,9 @@ function fnEvaluationLong(arResults)
 		tableContent += " <td> </td> ";
 		tableContent += " <td> </td> ";		
 		tableContent += " <td>";
+
 		// darunterliegende Zeile - Parteipositionen anzeigen
-			for (j = 0; j <= (arPartyFiles.length-1); j++)
+			for (j = 0; j <= (intParties-1); j++)
 			{
 				var partyNum=arSortParties[j];
 				// cellId++; /// VER 0.2.3.2
@@ -551,12 +491,6 @@ function fnEvaluationLong(arResults)
 
 				// Inhalt der Zelle
 				tableContent += "<p>"
-/*				
-				tableContent += "<img class='positionRow"+i+
-							"' src='img/"+positionImage+
-							"' height='20' width='20' alt='"+arPartyOpinions[partyPositionsRow]+
-							"' style='border:1px solid "+positionColor+"' /> ";
-*/							
 				tableContent += "<button type='button' class='btn "+positionButton+" btn-sm' disabled "+
 						" alt='"+arPartyOpinions[partyPositionsRow]+"'>"+
 						" "+positionIcon+"</button>";							
@@ -565,18 +499,6 @@ function fnEvaluationLong(arResults)
 				tableContent += "</p>";
 			}
 		tableContent += "</td> </tr> ";
-
-	/*
-		tableContent += "<tr> ";
-				tableContent += "<td style='font-size:80%;'>";
-					tableContent += "<strong>Hinweis:</strong> Eigene Position und Wertung noch mal ändern? Einfach in der Spalte das Symbol anklicken! ";
-				tableContent += "</td>";
-				tableContent += "<td style='font-size:150%; font-weight:bold;'>";
-					tableContent += " &#10550; &#10550; ";
-				tableContent += "</td>";
-		tableContent += "</tr> ";
-	*/
-
 		
 	} // end if
 		
@@ -589,46 +511,20 @@ function fnEvaluationLong(arResults)
 	// Click-Funktion auf FRAGE-(und ANTWORT)-Zeile legen zum Anzeigen der ANTWORT-Zeile (direkt darunter)
 	// "[In a FOR-loop] you can use the let keyword, which makes the i variable local to the loop instead of global"
 	// 	https://stackoverflow.com/questions/4091765/assign-click-handlers-in-for-loop
-	for (let i = 0; i <= (arQuestionsLong.length-1); i++)
+//	for (let i = 0; i <= (arQuestionsLong.length-1); i++)
+	for (let i = 0; i <= (intQuestions-1); i++)
 	{
+		// Klickfunktion - bei Überschrift
 		$("#resultsLongQuestion"+i).click(function () { 
 				$("#resultsLongAnswersToQuestion"+i).toggle(500);
 			});	
-
+		// Klickfunktion - bei Beschreibung
 		$("#resultsLongAnswersToQuestion"+i).click(function () { 
 				$("#resultsLongAnswersToQuestion"+i).toggle(500);
-			});	
-		
+			});
+		// am Anfang ausblenden
 		$("#resultsLongAnswersToQuestion"+i).fadeOut(500);
-	}
-
-	
-
-	
-	// 0.2.4.1 DEPRECATED -> built in CSS ODD
-	// var middleColor = fnCreateMiddleColor()
-	// $("tr:odd").css("background-color", middleColor);
-
-
-	// 0.3. DEPRECATED -> raus. Es werden nun sofort alle Parteien angezeigt
-	/*
-	// Markieren der ersten XY Parteien in der SHORT-Tabelle und Verstecken der übrigen Spalten in der LONG-Tabelle
-	if (intPartyDefaultShow <= 0)
-	{ intPartyDefaultShow = arPartyFiles.length; }
-	 
-	// erste XY Parteien markieren
-	for (i = 0; i <= (intPartyDefaultShow - 1); i++)
-	{
-		$("#party"+arSortParties[i]+"").attr("checked",true);		
-	}
-	
-	// restliche Parteien nicht markieren - eigentlich sinnlos :-/
-	for (i = intPartyDefaultShow; i <= (arPartyFiles.length - 1); i++)
-	{
-		$("#party"+arSortParties[i]+"").attr("checked",false);
-	}
-	*/
-	
+	}	
 	
 } // end function
 
@@ -642,9 +538,13 @@ function fnReEvaluate()
 {
 	//Ergebniss neu auswerten und Anzeige aktualisieren
 	arResults=fnEvaluation();
+
 	//Anzahl der Maximalpunkte ermitteln
 	var maxPoints = 0;
-	for (i=0;i<arQuestionsShort.length;i++)
+
+//	for (i=0;i<arQuestionsShort.length;i++)
+	for (i=0; i<intQuestions; i++)
+
 	{
 		if (arPersonalPositions[i]<99)
 		{
@@ -655,24 +555,17 @@ function fnReEvaluate()
 	}
 	if(maxPoints==0)
 		{maxPoints=1};
-	for (i = 0; i <= (arPartyFiles.length-1); i++)
+//	for (i = 0; i <= (arPartyFiles.length-1); i++)
+	for (i = 0; i <= (intParties-1); i++)
 	{
 		var percent = fnPercentage(arResults[i],maxPoints)
 		
 		// bis v.0.3 mit PNG-Bildern, danach mit farblicher Bootstrap-Progressbar
 		var barImage = fnBarImage(percent);
-		
-		// v.0.3 DEPRECATED - ersetzt durch Bootstrap-Progressbar
-		/*	
-		$("#partyBar"+i).attr("src","img/"+barImage);
-		$("#partyBar"+i).attr("width",percent);
-		$("#partyBar"+i).attr("alt",percent+"%");
-		$("#partyBar"+i).attr("title",percent+"%");
-		*/
-		
+				
 		// neu ab v.0.3 - Bootstrap-Progressbar
 		$("#partyBar"+i).width(percent+"%")
-		$("#partyBar"+i).text(percent+"%");
+		$("#partyBar"+i).text(percent+"% (" + arResults[i]+" / "+maxPoints+ ")");
 		$("#partyBar"+i).removeClass("bg-success bg-warning bg-danger").addClass(barImage);
 
 		$("#partyPoints"+i).html(arResults[i]+"/"+maxPoints);

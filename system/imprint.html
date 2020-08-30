@@ -44,7 +44,8 @@
 	</script>
 
 	<!-- Mat-o-Wahl JAVASCRIPT - immer / always -->
-	<script type="text/javascript" src="../system/general.js"></script>	
+	<script type="text/javascript" src="../system/imprint.js"></script>
+	<script type="text/javascript" src="../system/general.js"></script>
 
 </head>
 <body>
@@ -62,17 +63,76 @@
 	<a href="../data/definition.js" target="_blank">Konfigurationsdatei</a> werfen. 
 	</p>
 
-	<p lang="de">
+	<p lang="en">
 	Attention - Javascript needed to show the contact details.
 	As an alternative you can take a look into the 
 	<a href="../data/definition.js" target="_blank">configuration file</a>. 
 	</p>
 	</noscript>
+
+	<!-- IMPRESSUM -->	
+
+	<div class="row">
+		<div class="col">
+			<h2>Angaben gem&auml;&szlig; &sect; 5 TMG</h2>
+			<p id="imprintGeneral"></p>
+		</div>
+		<div class="col">
+			<h2>Kontakt / Contact</h2>
+			<p id="imprintContact"></p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+
+			<h2>Umsatzsteuer-ID</h2>
+			<p id="imprintVATid"></p>
+			
+		</div>
+		<div class="col">
+			<h2>Verbraucher&shy;streit&shy;beilegung / Universal&shy;schlichtungs&shy;stelle</h2>
+			<p id="imprintDisputeResultion"></p>
+		</div>
+	</div>
 	
-	<!-- 1. BESCHREIBUNG -->
+	<div class="row">
+		<div class="col">
+			<p>Quelle: <a href="https://www.e-recht24.de">eRecht24</a></p>
+		</div>
+	</div>
+
+
+	<div class="row">
+		<div class="col">
+			<h2>Redaktionelle Leitung / Editors</h2>
+			
+			<p id="imprintEditors"></p>
+		</div>
+
+		<div class="col">
+			<h2>Technische Leitung / Programming</h2>
+
+			<p id="imprintProgramming"></p>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col">
+			<h2>Bilder / Pictures</h2>
+			
+			<p id="imprintPictures"></p>
+		</div>			
+		<div class="col">
+			<h2>Datenschutz / Privacy</h2>
+	
+			<p id="idImprintPrivacy"></p>	
+		</div>
+	</div>
+
+	<!-- BESCHREIBUNG MAT-O-WAHL -->
 
 	<h2>Allgemeine Informationen / General Information</h2>
-	
+
 	<div class="row">
 		<div class="col" lang="de">
 			<p>
@@ -91,33 +151,9 @@
 			<p>
 			Mat-O-Wahl is based on the "Wahl-O-Mat" - the German version of the "StemWizer" (The Netherlands), "Electoral Compass" (USA) or "Smartvote" (Switzerland).
 			</p>			
-		</div>			
+		</div>	
 	</div>
 
-	<div class="row">
-		<div class="col">
-			<h2>Redaktionelle Leitung / Editors</h2>
-			
-			<p id="idImprintEditorialNames"></p>
-			<p id="idImprintEditorialEmail"></p>		
-		</div>
-		<div class="col">
-			<h2>Technische Leitung / Programming</h2>
-
-			<p id="idImprintTechnicsNames"></p>
-			<p id="idImprintTechnicsEmail"></p>		
-		</div>			
-		<div class="col">
-			<h2>Bilder / Pictures</h2>
-			
-			<p id="idImprintPictures">Bilder mit freundlicher Genehmigung von / Pictures with permission from: </p>
-		</div>			
-		<div class="col">
-			<h2>Datenschutz / Privacy</h2>
-	
-			<p id="idImprintPrivacy"></p>	
-		</div>			
-	</div>
 
 	<h2>Lizenz / License</h2>
 	
@@ -183,47 +219,9 @@
 
 
 <script type="text/javascript">
-
-if ( (!imprintEditorialNames) && (!imprintEditorialEmail) )
-{
-	$("#idImprintEditorialNames").append("keine Angaben / No information available.");
-}
-else
-{
-	$("#idImprintEditorialNames").append(imprintEditorialNames);
-	$("#idImprintEditorialEmail").append("<a href='mailto:"+imprintEditorialEmail+"'>"+imprintEditorialEmail+"</a>");
-}
-
-if ( (!imprintTechnicsNames) && (!imprintTechnicsEmail) )
-{
-	$("#idImprintTechnicsNames").append("keine Angaben / No information available.");
-}
-else
-{
-	$("#idImprintTechnicsNames").append(imprintTechnicsNames);
-	$("#idImprintTechnicsEmail").append("<a href='mailto:"+imprintTechnicsEmail+"'>"+imprintTechnicsEmail+"</a>");
-}
-
-if (!imprintPictures)
-{
-	$("#idImprintPictures").append("keine Angaben / No information available.");
-}
-else
-{
-	$("#idImprintPictures").append(imprintPictures);
-}
-
-if (imprintPrivacyUrl.length > 0)
-{
-	$("#idImprintPrivacy").append("Datenschutzerkl&auml;rung / Privacy Policy: <a href='http://"+imprintPrivacyUrl+"' target='_blank'>"+imprintPrivacyUrl+"</a>");
-}
-else
-{
-	$("#idImprintPrivacy").append("Keine Datenschutzerkl&auml;rung vorhanden / No privacy policy available.");
-}
-
-$("#versionNumber").append(version);
-
+	$(document).ready(function() { 
+		fnShowImprint(); 		
+	});
 </script>
 
 </body>

@@ -4,7 +4,7 @@
 // Mathias Steudtner http://www.medienvilla.com
 
 // Datei mit den ERGEBNISSEN. Im Beispiel der VOTE.PHP heißt sie TEST.TXT
-var fileResults = "extras/test.txt";
+var fileResults = "extras/statistics/test.txt";
 
 // GLOBALE VARIABLEN
 var arQuestionsShort = new Array();		// Kurzform der Fragen: Atomkraft, Flughafenausbau, ...
@@ -26,21 +26,25 @@ function fnResultsStart()
 	// Datei mit den FRAGEN in Array einlesen
 	fnReadCsv("data/"+fileQuestions+"",fnResultsQuestionsToArray);
 
+	// Antworten der Parteien und Partei-Informationen
+	fnReadCsv("data/"+fileAnswers,fnReadPositions)
+
 	$("#resultsInformation").empty();
 	$("#resultsInformation").append("Benutzte Datei zur Auswertung: ")
 	$("#resultsInformation").append("<strong><a href="+fileResults+">"+fileResults+"</a></strong>")
 	$("#resultsInformation").append("<br /> Datei-Einstellung kann geändert werden in: system/results.js (Variable: fileResults)")
-	$("#resultsInformation").append("<p> Umfangreichere Auswertungen sind mit ihrer Lieblings-Tabellenkalkulation möglich. (Excel, Open-/LibreOffice Calc, ...) Siehe auch die Beispieldatei im ZIP-Archiv. </p>");
+	$("#resultsInformation").append("<p> Umfangreichere Auswertungen sind mit ihrer Lieblings-Tabellenkalkulation möglich. (Excel, Open-/LibreOffice Calc, ...) Siehe auch die Beispieldatei im Ordner. </p>");
 
 	// Datei mit den ERGEBNISSEN in Array einlesen
 	// Im Beispiel der VOTE.PHP heißt sie TEST.TXT
 	fnReadCsv(fileResults,fnResultsResultsfileToArray);
 
+
 	// NAMEN DER PARTEIEN in Array einlesen
-	arPartyNamesShort = fnTransformDefinitionStringToArray(strPartyNamesShort);
+//	arPartyNamesShort = fnTransformDefinitionStringToArray(strPartyNamesShort);
 
 	// LOGOS der Parteien in Array einlesen
-	arPartyLogosImg	= fnTransformDefinitionStringToArray(strPartyLogosImg);
+//	arPartyLogosImg	= fnTransformDefinitionStringToArray(strPartyLogosImg);
 }
 
 
@@ -110,17 +114,18 @@ function fnResultsMowparties()
 
 	// PARTEI-AUSWERTUNG Nr. 1
 	var maxPointsPerParty = arMowparties.length * arQuestionsShort.length;
-	$("#resultsParties").append("<p>"+arMowparties.length+" Abstimmungen x "+arQuestionsShort.length+" Fragen = maximal "+maxPointsPerParty+" Punkte pro Partei.</p>")
+	$("#resultsParties").append("<p>"+arMowparties.length+" Abstimmungen x "+intQuestions+" Fragen = maximal "+maxPointsPerParty+" Punkte pro Partei.</p>")
 
 	content = "";
 	content += "<table>";
-	for (i = 0; i <= arPartyNamesShort.length-1; i++)	
+//	for (i = 0; i <= arPartyNamesShort.length-1; i++)
+	for (i = 0; i <= intParties-1; i++)	
 	{
 		var percent = fnPercentage(arResultsMowpartiesSum[i],maxPointsPerParty);
 
 		content += "<tr>";
 			content += "<td>";
-				content += " <img src='data/"+arPartyLogosImg[i]+"' height='"+(intPartyLogosImgHeight/2)+"' width='"+(intPartyLogosImgWidth/2)+"' border='1'> ";
+				content += " <img src='"+arPartyLogosImg[i]+"' height='"+(intPartyLogosImgHeight)+"' width='"+(intPartyLogosImgWidth)+"' border='1'> ";
 				content += " "+arPartyNamesShort[i]
 			content += "</td>";
 			content += "<td>";
@@ -143,16 +148,17 @@ function fnResultsMowparties()
 
 	// PARTEI-AUSWERTUNG Nr. 2
 	var maxPointsTotal = maxPointsPerParty * arPartyLogosImg.length;
-	$("#resultsParties").append("<p>"+maxPointsPerParty+" Punkte/Partei x "+arPartyLogosImg.length+" Parteien = maximal "+maxPointsTotal+" Punkte insgesamt.</p>")
+	$("#resultsParties").append("<p>"+maxPointsPerParty+" Punkte/Partei x "+intParties+" Parteien = maximal "+maxPointsTotal+" Punkte insgesamt.</p>")
 
 	content = "";
 	content += "<table>";
-	for (i = 0; i <= arPartyNamesShort.length-1; i++)	
+//	for (i = 0; i <= arPartyNamesShort.length-1; i++)
+	for (i = 0; i <= intParties-1; i++)	
 	{
 		var percent = fnPercentage(arResultsMowpartiesSum[i],maxPointsTotal);
 		content += "<tr>";
 			content += "<td>";
-				content += " <img src='data/"+arPartyLogosImg[i]+"' height='"+(intPartyLogosImgHeight/2)+"' width='"+(intPartyLogosImgWidth/2)+"' border='1'> ";
+				content += " <img src='"+arPartyLogosImg[i]+"' height='"+(intPartyLogosImgHeight)+"' width='"+(intPartyLogosImgWidth)+"' border='1'> ";
 				content += " "+arPartyNamesShort[i]+"";
 			content += "</td>";
 			content += "<td>";
@@ -180,7 +186,8 @@ function fnResultsMowparties()
 function fnResultsMowpersonal()
 {
 
-	for (i = 0; i <= arQuestionsShort.length-1; i++)
+//	for (i = 0; i <= arQuestionsShort.length-1; i++)
+	for (i = 0; i <= intQuestions-1; i++)
 	{
 
 		// Zuruecksetzen der Zaehler
@@ -204,7 +211,7 @@ function fnResultsMowpersonal()
 			else
 			{ counterSkip++ }
 
-		} // end for arQuestionsShort j
+		} // end for intQuestions j
 
 		// Abspeichern der gezaehlten Werte für diese Spalte / Frage
 
@@ -223,7 +230,8 @@ function fnResultsMowpersonal()
 
 	content = "";
 	content += "<table>";
-	for (i = 0; i <= arQuestionsShort.length-1; i++)
+//	for (i = 0; i <= arQuestionsShort.length-1; i++)
+	for (i = 0; i <= intQuestions-1; i++)
 	{
 		// immer vier Werte im Array pro Frage
 
