@@ -105,7 +105,7 @@ function mow_addon_textfilter_filter_table(search_keyword, status) {
 
 	// Loop through all table rows, and hide those who don't match the search query
 	for (i = 0; i < tr.length; i++) {
-		td = tr[i].getElementsByTagName("td")[1]; // 0 = erste Spalte
+		td = tr[i].getElementsByTagName("td")[0]; // 0 = erste Spalte. Dort ist das gesuchte TEXTFILTER_SEARCH_KEYWORD
 		if (td) {
 			txtValue = td.textContent || td.innerText;
 
