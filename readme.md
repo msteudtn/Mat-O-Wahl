@@ -30,7 +30,7 @@ GPL 3 (see folder /SYSTEM or http://choosealicense.com/licenses/gpl-v3/)
 
 ## HELP / CONTACT
 
-- You can find further information on-line at http://www.mat-o-wahl.de
+- You can find further information on-line at https://www.mat-o-wahl.de
 - or in the help-file under /SYSTEM
 - or via email (see below)
 
