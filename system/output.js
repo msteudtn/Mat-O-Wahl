@@ -464,7 +464,7 @@ function fnEvaluationLong(arResults)
 			tableContent += "<td id='resultsLongQuestion"+i+"' style='cursor: pointer;'>";
 				tableContent += "<strong>"+arQuestionsShort[i]+"</strong>: ";
 				tableContent += arQuestionsLong[i];
-			tableContent += "</td>";			
+			tableContent += "</td>";	
 			
 			// var multiplier = arPartyFiles.length + 2; 
 
@@ -475,6 +475,7 @@ function fnEvaluationLong(arResults)
 		tableContent += " <td> </td> ";
 		tableContent += " <td> </td> ";		
 		tableContent += " <td>";
+
 		// darunterliegende Zeile - Parteipositionen anzeigen
 			for (j = 0; j <= (intParties-1); j++)
 			{
