@@ -165,11 +165,11 @@ function fnTestShowAll()
 		$("#testAnswers")
 		.append("<hr>")
 		.append("<h3>"+(i+1)+". Name (kurz): "+arPartyNamesShort[i]+ " </h3> ")
-		.append("<p>Name (ausführlich): "+arPartyNamesLong[i]+"</p>")
-		.append("<p> Beschreibung: "+arPartyDescription[i]+"</p>")
-		.append("<p> Webseite: <a href='http://"+arPartyInternet[i]+"' target='_blank' title='"+arPartyNamesLong[i]+"'>"+arPartyInternet[i]+"</a> </p>")
-		.append("<p> Bild: <img src='"+arPartyLogosImg[i]+"' width='"+intPartyLogosImgWidth+"' height='"+intPartyLogosImgHeight+"' alt='"+arPartyNamesLong[i]+"' title='"+arPartyNamesLong[i]+"' /> </p>")
-		.append("<p> Bild-URL: "+arPartyLogosImg[i]+"</p>")
+		.append("<p> <b>Name (ausführlich):</b> "+arPartyNamesLong[i]+"</p>")
+		.append("<p> <b>Beschreibung:</b> "+arPartyDescription[i]+"</p>")
+		.append("<p> <b>Webseite: </b><a href='http://"+arPartyInternet[i]+"' target='_blank' title='"+arPartyNamesLong[i]+"'>"+arPartyInternet[i]+"</a> </p>")
+		.append("<p> <b>Bild:</b> <img src='"+arPartyLogosImg[i]+"' width='"+intPartyLogosImgWidth+"' height='"+intPartyLogosImgHeight+"' alt='"+arPartyNamesLong[i]+"' title='"+arPartyNamesLong[i]+"' /> </p>")
+		.append("<p> <b>Bild-URL:</b> "+arPartyLogosImg[i]+"</p>")
 
 //		.append("<br />")
 //		.append("<a class='btn btn-outline-dark btn-block btn-sm' role='button' href='data/"+arPartyFiles[i]+"' target='_blank' >"+arPartyFiles[i]+"</a>")
@@ -179,6 +179,9 @@ function fnTestShowAll()
  		var jStart = i * (numberOfQuestions+1); // 0*6=6, 1*6=6, 2*6=12;
  		var jEnd = jStart + numberOfQuestions; // 0+6=6; 6+6=12; 12+6=18
  		var jCounter = 0;
+
+		$("#testAnswers")
+		.append("<b>Antworten auf die Fragen</b> <br /> ")
  		
 		for (j = jStart; j <= jEnd; j++)
 		{
