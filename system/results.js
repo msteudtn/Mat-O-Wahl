@@ -33,7 +33,7 @@ function fnResultsStart()
 	$("#resultsInformation").append("Benutzte Datei zur Auswertung: ")
 	$("#resultsInformation").append("<strong><a href="+fileResults+">"+fileResults+"</a></strong>")
 	$("#resultsInformation").append("<br /> Datei-Einstellung kann geändert werden in: system/results.js (Variable: fileResults)")
-	$("#resultsInformation").append("<p> Umfangreichere Auswertungen sind mit ihrer Lieblings-Tabellenkalkulation möglich. (Excel, Open-/LibreOffice Calc, ...) Siehe auch die Beispieldatei im ZIP-Archiv. </p>");
+	$("#resultsInformation").append("<p> Umfangreichere Auswertungen sind mit ihrer Lieblings-Tabellenkalkulation möglich. (Excel, Open-/LibreOffice Calc, ...) Siehe auch die Beispieldatei im Ordner. </p>");
 
 	// Datei mit den ERGEBNISSEN in Array einlesen
 	// Im Beispiel der VOTE.PHP heißt sie TEST.TXT
@@ -125,7 +125,7 @@ function fnResultsMowparties()
 
 		content += "<tr>";
 			content += "<td>";
-				content += " <img src='"+arPartyLogosImg[i]+"' height='"+(intPartyLogosImgHeight/2)+"' width='"+(intPartyLogosImgWidth/2)+"' border='1'> ";
+				content += " <img src='"+arPartyLogosImg[i]+"' height='"+(intPartyLogosImgHeight)+"' width='"+(intPartyLogosImgWidth)+"' border='1'> ";
 				content += " "+arPartyNamesShort[i]
 			content += "</td>";
 			content += "<td>";
@@ -158,7 +158,7 @@ function fnResultsMowparties()
 		var percent = fnPercentage(arResultsMowpartiesSum[i],maxPointsTotal);
 		content += "<tr>";
 			content += "<td>";
-				content += " <img src='"+arPartyLogosImg[i]+"' height='"+(intPartyLogosImgHeight/2)+"' width='"+(intPartyLogosImgWidth/2)+"' border='1'> ";
+				content += " <img src='"+arPartyLogosImg[i]+"' height='"+(intPartyLogosImgHeight)+"' width='"+(intPartyLogosImgWidth)+"' border='1'> ";
 				content += " "+arPartyNamesShort[i]+"";
 			content += "</td>";
 			content += "<td>";
