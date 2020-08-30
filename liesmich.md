@@ -30,7 +30,7 @@ GPL 3 (siehe Verzeichnis /SYSTEM oder http://choosealicense.com/licenses/gpl-v3/
 
 ## HILFE / KONTAKT
 
-- Weitere Informationen online unter http://www.mat-o-wahl.de
+- Weitere Informationen online unter https://www.mat-o-wahl.de
 - oder in der Hilfedatei im Verzeichnis /SYSTEM
 - oder per E-Mail (siehe unten).
 
