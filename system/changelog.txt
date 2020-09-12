@@ -16,10 +16,15 @@ To Do (etwas komplizierter)
 
 To Do (Features)
 ----------------
-- optionale Abfrage vor der Umfrage, z.B.: "Welche Partei würden Sie normalerweise wählen?" Vergleiche www.bahn-o-mat.de
+- optionale Abfrage vor der Umfrage, z.B.: "Welche Partei würden Sie normalerweise wählen?" Vergleiche alte Version des www.bahn-o-mat.de
 - jumpToQuestion-Tabelle unter den Fragen: per Bootstrap-Gridsystem automatisch skalieren
+- jumpToQuestion-Tabelle unter den Fragen: Alternative Ansicht: Keine Nummerierung (Mat-o-Wahl), sondern Punkte und Sterne (Wahl-o-Mat)
 - More than two answers (yes/no) like in https://github.com/JohnboyJovi/Mat-O-Wahl-multiAnswer -> "agree a lot, agree, -, disagree, disagree a lot"
 - Update jquery-csv to a new version (https://github.com/typeiii/jquery-csv) or "CSV-ES"-project (https://github.com/vanillaes/csv)
+- Update Bootstrap to latest version
+- Results: Add 2nd option to sort party-answers by parties. Currently sorted by theses. (like Wahl-o-Mat)
+- "Sprechblase" soll jumpToQuestion-Tabelle (unten) folgen. -> Sprechblase erweitern oder neuer DIV um Buttons? -> Was ist beim Zeilenumbruch nach X Fragen in der jumpToQuestion-Tabelle?
+- Überschriften (var headingX) ausblenden in der mobilen Ansicht (Bootstrap-CSS)
 
 
 To Do (Bugfixes)
