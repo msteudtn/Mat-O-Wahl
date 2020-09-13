@@ -9,27 +9,27 @@ To Do (einfach)
 
 To Do (etwas komplizierter)
 ---------------------------
-- Quellcode aufraeumen, optimieren und besser dokumentieren.
-- Wechsel von Arrays (wo die Daten gespeichert sind) hin zu HTML5-Datenbanktechniken (z.B. IndexedDB, evtl. WebStorage)
-- remove all jquery, use JavaScript-Framework like VUE.JS, ANGULAR or REACT
+- Technik: Quellcode aufraeumen, optimieren und besser dokumentieren.
+- Technik: Wechsel von Arrays (wo die Daten gespeichert sind) hin zu HTML5-Datenbanktechniken (z.B. IndexedDB, evtl. WebStorage)
+- Technik: remove all jquery, use JavaScript-Framework like VUE.JS, ANGULAR or REACT
 
 To Do (Features)
 ----------------
-- optionale Abfrage vor der Umfrage, z.B.: "Welche Partei würden Sie normalerweise wählen?" Vergleiche alte Version des www.bahn-o-mat.de
-- jumpToQuestion-Tabelle unter den Fragen: per Bootstrap-Gridsystem automatisch skalieren
-- jumpToQuestion-Tabelle unter den Fragen: Alternative Ansicht: Keine Nummerierung (Mat-o-Wahl), sondern Punkte und Sterne (Wahl-o-Mat)
-- More than two answers (yes/no) like in https://github.com/JohnboyJovi/Mat-O-Wahl-multiAnswer -> "agree a lot, agree, -, disagree, disagree a lot"
-- Update jquery-csv to a new version (https://github.com/typeiii/jquery-csv) or "CSV-ES"-project (https://github.com/vanillaes/csv)
-- Update Bootstrap to latest version
-- Results: Add 2nd option to sort party-answers by parties. Currently sorted by theses. (like Wahl-o-Mat)
-- "Sprechblase" soll jumpToQuestion-Tabelle (unten) folgen. -> Sprechblase erweitern oder neuer DIV um Buttons? -> Was ist beim Zeilenumbruch nach X Fragen in der jumpToQuestion-Tabelle?
-- Überschriften (var headingX) ausblenden in der mobilen Ansicht (Bootstrap-CSS)
+- Technik: optionale Abfrage vor der Umfrage, z.B.: "Welche Partei würden Sie normalerweise wählen?" Vergleiche alte Version des www.bahn-o-mat.de
+- Technik: More than two answers (yes/no) like in https://github.com/JohnboyJovi/Mat-O-Wahl-multiAnswer -> "agree a lot, agree, -, disagree, disagree a lot"
+- Technik: Update jquery-csv to a new version (https://github.com/typeiii/jquery-csv) or "CSV-ES"-project (https://github.com/vanillaes/csv)
+- Technik: Update Bootstrap to latest version
+- Technik: Results: Add 2nd option to sort party-answers by parties. Currently sorted by theses. (like Wahl-o-Mat)
+- Technik / Design: "Sprechblase" soll jumpToQuestion-Tabelle (unten) folgen. -> Sprechblase erweitern oder neuer DIV um Buttons? -> Was ist beim Zeilenumbruch nach X Fragen in der jumpToQuestion-Tabelle?
+- Design: Überschriften (var headingX) ausblenden in der mobilen Ansicht (Bootstrap-CSS)
+- Design: jumpToQuestion-Tabelle unter den Fragen: per Bootstrap-Gridsystem automatisch skalieren
+- Design: jumpToQuestion-Tabelle unter den Fragen: Alternative Ansicht: Keine Nummerierung (Mat-o-Wahl), sondern Punkte und Sterne (Wahl-o-Mat)
 
 
 To Do (Bugfixes)
 ----------------
-- if you skip questions, you can't change it later in the "resultsLongTable". GENERAL.JS -> fnToggleSelfPosition()
-- if DEFINITION.JS / "var statsRecord = 0" the slide-button is still visible -> remove!
+- Technik: if you skip questions, you can't change it later in the "resultsLongTable". GENERAL.JS -> fnToggleSelfPosition()
+- Technik: if DEFINITION.JS / "var statsRecord = 0" the slide-button is still visible -> remove!
 
 
 Versions:
