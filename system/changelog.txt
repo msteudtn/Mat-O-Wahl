@@ -11,8 +11,7 @@ To Do (etwas komplizierter)
 ---------------------------
 - Quellcode aufraeumen, optimieren und besser dokumentieren.
 - Wechsel von Arrays (wo die Daten gespeichert sind) hin zu HTML5-Datenbanktechniken (z.B. IndexedDB, evtl. WebStorage)
-- Statistik / Anonyme Auswertung in Addon auslagern (ab 0.4+)
-
+- remove all jquery, use JavaScript-Framework like VUE.JS, ANGULAR or REACT
 
 To Do (Features)
 ----------------
@@ -30,6 +29,7 @@ To Do (Features)
 To Do (Bugfixes)
 ----------------
 - if you skip questions, you can't change it later in the "resultsLongTable". GENERAL.JS -> fnToggleSelfPosition()
+- if DEFINITION.JS / "var statsRecord = 0" the slide-button is still visible -> remove!
 
 
 Versions:
