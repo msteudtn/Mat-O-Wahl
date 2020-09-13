@@ -16,6 +16,7 @@ To Do (etwas komplizierter)
 To Do (Features)
 ----------------
 - Technik: optionale Abfrage vor der Umfrage, z.B.: "Welche Partei würden Sie normalerweise wählen?" Vergleiche alte Version des www.bahn-o-mat.de
+- Technik: Add-On "Textfilter" erweitern auf mehrere Wahlen, z.B. Stadtrat, Bürgermeister, Landrat. Bisher nur 2 Wahlen möglich.
 - Technik: More than two answers (yes/no) like in https://github.com/JohnboyJovi/Mat-O-Wahl-multiAnswer -> "agree a lot, agree, -, disagree, disagree a lot"
 - Technik: Update jquery-csv to a new version (https://github.com/typeiii/jquery-csv) or "CSV-ES"-project (https://github.com/vanillaes/csv)
 - Technik: Update Bootstrap to latest version
