@@ -22,7 +22,7 @@ To Do (Features)
 - Technik: Update Bootstrap to latest version
 - Technik: Results: Add 2nd option to sort party-answers by parties. Currently sorted by theses. (like Wahl-o-Mat)
 - Technik / Design: "Sprechblase" soll jumpToQuestion-Tabelle (unten) folgen. -> Sprechblase erweitern oder neuer DIV um Buttons? -> Was ist beim Zeilenumbruch nach X Fragen in der jumpToQuestion-Tabelle?
-- Design: Überschriften (var headingX) ausblenden in der mobilen Ansicht (Bootstrap-CSS)
+- Design: Überschriften (var headingX) ausblenden in der mobilen Ansicht (Bootstrap-CSS) ... oder ab der zweiten Frage? ... oder prinzipiell vor die Abfragen verlagern?
 - Design: jumpToQuestion-Tabelle unter den Fragen: per Bootstrap-Gridsystem automatisch skalieren
 - Design: jumpToQuestion-Tabelle unter den Fragen: Alternative Ansicht: Keine Nummerierung (Mat-o-Wahl), sondern Punkte und Sterne (Wahl-o-Mat)
 
