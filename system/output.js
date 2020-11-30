@@ -462,8 +462,11 @@ function fnEvaluationLong(arResults)
 
 			// 2. Spalte: Frage (kurz und lang)
 			tableContent += "<td id='resultsLongQuestion"+i+"' style='cursor: pointer;'>";
+				tableContent += "<div style='display:inline-; float:left'>"
 				tableContent += "<strong>"+arQuestionsShort[i]+"</strong>: ";
 				tableContent += arQuestionsLong[i];
+				tableContent += "</div>"
+				tableContent += "<div style='display:inline; float:right'>&#x2335;</div>";
 			tableContent += "</td>";	
 			
 			// var multiplier = arPartyFiles.length + 2; 
