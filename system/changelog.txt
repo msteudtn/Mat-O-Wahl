@@ -12,6 +12,7 @@ To Do (etwas komplizierter)
 - Technik: Quellcode aufraeumen, optimieren und besser dokumentieren.
 - Technik: Wechsel von Arrays (wo die Daten gespeichert sind) hin zu HTML5-Datenbanktechniken (z.B. IndexedDB, evtl. WebStorage)
 - Technik: remove all jquery, use JavaScript-Framework like VUE.JS, ANGULAR or REACT
+- Creator / Configurator: Survey-Tool with basic questions and automatic creation of Mat-o-Wahl ZIP-file.
 
 To Do (Features)
 ----------------
@@ -35,6 +36,15 @@ To Do (Bugfixes)
 
 Versions:
 ---------
+
+0.5.0.1.20201130
+
+- answers.CSV
+\- short descritpion / explanation in first row
+
+- OUTPUT.JS
+\- open brackets (&#x2335;) to show, that you can open "#resultsLong"-table for further details on parties
+
 
 0.5.0.20200830
 
