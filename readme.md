@@ -11,8 +11,9 @@ https://www.mat-o-wahl.de/ -> Ausprobieren (DE) :de:
 1. ZIP-Archiv **herunterladen und entpacken**
    (Github -> oben rechts -> Clone or download -> Download ZIP)
 
-2. Datei /DATA/DEFINITION.JS in einem **Texteditor (am besten mit Syntaxhervorhebung) bearbeiten**.
-   Sie koennen alle Dateinamen im DATA-Verzeichnis, mit Ausnahme der DEFINITION.JS, frei vergeben.
+2a. Datei /DATA/DEFINITION.JS in einem **Texteditor (am besten mit Syntaxhervorhebung) bearbeiten**.   
+
+2b. Fragen- und Antworten-CSV-Datei in einem **Texteditor oder einer Tabellenkalkulation (MS Excel, LO Calc, ...) bearbeiten**. Der Dateiname kann frei gewählt werden.
 
 3. **Testen mit INDEX.HTML** oder QUICKTEST.HTML 
    (am besten auf http://localhost/ oder im privaten Webspace) 
@@ -57,8 +58,9 @@ https://www.mat-o-wahl.de/ -> Try It (EN) :gb: :us:
 1. **Download and unpack** ZIP archive
     (Github -> top right -> Clone or download -> Download ZIP)
 
-2. **Edit** /DATA/DEFINITION.JS with a text-editor (best use one with syntax-highlighting).
-    You can change all filenames in the DATA folder to your needs except the DEFINITION.JS.
+2a. **Edit** /DATA/DEFINITION.JS with a text-editor (best use one with syntax-highlighting).
+
+2b. **Edit** CSV-text file for questiosn and answers with a text-editor or spread-sheet-software (MS Excel. LO Calc, ...)
 
 3. **Test settings** using INDEX.HTML or QUICKTEST.HTML
    (works best on http://localhost/ or your private webspace)
