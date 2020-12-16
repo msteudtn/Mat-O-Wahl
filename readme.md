@@ -29,6 +29,12 @@ Alle alten Inhalte muessen davor natuerlich aus dem DATA-Verzeichnis geloescht w
 - kein npm oder eine andere Paketverwaltung nötig
 - Wissen, wie man eine Textdatei und/oder eine Tabellenkalkulation öffnet
 
+## Mat-o-Wahl und DSGVO
+
+- Alle Verarbeitungen passieren innerhalb des Browsers des Nutzers
+- keine Datenerhebung auf dem Server (nur optional für eine Statistik - Ausnahme: Standardmäßige Erfassung der Zugriffe durch den Webhosting-Anbieter, z.B. IP-Adresse und Uhrzeit)
+- keine Aufruf von externen Dateien (z.B. Content Delivery Network / CDN, Facebook-Plugins, Bootstrap, jQuery) - alles inklusive 
+
 ## LIZENZ
 
 GPL 3 (siehe Verzeichnis /SYSTEM oder http://choosealicense.com/licenses/gpl-v3/)
@@ -75,6 +81,12 @@ Simply unpack its contents to the DATA folder
 - no PHP or MySQL / MariaDB needed (optional for statistics)
 - no npm or any other packaging manager needed
 - knowing, how to open a text-file and/or a spread-sheet-software 
+
+## Mat-o-Wahl and GDPR
+
+- All calculations happen inside the user's browsers 
+- No data is collected on a server (optional for statistics - Exception: default access-logging by your webhosting-provider, i.e. IP-address and time)
+- No external files (e.g. Content Delivery Network / CDN, Facebook-plugins, Bootstrap, jQuery) - all included 
 
 ## LICENSE
 
