@@ -33,7 +33,7 @@ Alle alten Inhalte muessen davor natuerlich aus dem DATA-Verzeichnis geloescht w
 
 - Alle Verarbeitungen passieren innerhalb des Browsers des Nutzers
 - keine Datenerhebung auf dem Server (nur optional für eine Statistik - Ausnahme: Standardmäßige Erfassung der Zugriffe durch den Webhosting-Anbieter, z.B. IP-Adresse und Uhrzeit)
-- keine Aufruf von externen Dateien (z.B. Content Delivery Network / CDN, Facebook-Plugins, Bootstrap, jQuery) - alles inklusive 
+- kein Aufruf von externen Dateien (z.B. Content Delivery Network / CDN, Bootstrap, jQuery, kein Social Media-Plugin) - alles inklusive 
 
 ## LIZENZ
 
@@ -86,7 +86,7 @@ Simply unpack its contents to the DATA folder
 
 - All calculations happen inside the user's browsers 
 - No data is collected on a server (optional for statistics - Exception: default access-logging by your webhosting-provider, i.e. IP-address and time)
-- No external files (e.g. Content Delivery Network / CDN, Facebook-plugins, Bootstrap, jQuery) - all included 
+- No external files (e.g. Content Delivery Network / CDN, Bootstrap, jQuery, no Social Media-plugin) - all included 
 
 ## LICENSE
 
