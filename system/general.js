@@ -3,7 +3,7 @@
 // License: GPL 3
 // Mathias Steudtner http://www.medienvilla.com
 
-var version = "0.5.0.1.20201130"
+var version = "0.5.1.20201230"
 
 // Globale Variablen
 var arQuestionsShort = new Array();	// Kurzform der Fragen: Atomkraft, Flughafenausbau, ...
@@ -103,7 +103,7 @@ function fnEvaluation()
 		arResults.push(0);	// Array mit leeren Werten füllen		
 	}
 
-	// Vergleichen der Positionen
+	// Vergleichen der Positionen (= Fragen x Parteien)
 	for (i = 0; i <= (numberOfPositions-1); i++)
 	{
 		var modulo = i % numberOfQuestions;	// 0=0,3,6,9 ; 1=1,4,7,10 ; 2=2,5,8,11
@@ -116,20 +116,23 @@ function fnEvaluation()
 		// Frage wurde nicht uebersprungen per SKIP (99) oder GEHE ZUR NAECHSTEN FRAGE (-)
 		if ( (arPersonalPositions[modulo] < 99) ) 
 		{
-			var faktor=1; //Faktor ist 1 normal und 2 wenn Frage doppelt gewertet werden soll
+			var faktor=1; // Faktor ist 1 normal und 2, wenn Frage doppelt gewertet werden soll
 			if(arVotingDouble[modulo])
 				{faktor=2;}
-			// Bei Uebereinstimmung, Zaehler um eins erhoehen		
+
+			// Bei Uebereinstimmung der persönlichen Meinung (1,0,-1) mit Partei-Antwort (1,0-1), den Zaehler (Anzahl Übereinstimmungen) um eins erhoehen	
 			if (arPartyPositions[i] == arPersonalPositions[modulo])
 			{
 				positionsMatch+=faktor;
-				arResults[indexPartyInArray] = positionsMatch; 
+				arResults[indexPartyInArray] = positionsMatch;
+
 			}
-			// Partei ist neutral -> 0,5 Punkte vergeben
-			else if ( (arPartyPositions[i] == 0) )
+			// Eigene Meinung ist neutral ODER Partei ist neutral -> 0,5 Punkte vergeben
+			else if ( (arPersonalPositions[modulo] == 0) || (arPartyPositions[i] == 0) )
 			{
 				positionsMatch+=0.5*faktor;
-				arResults[indexPartyInArray] = positionsMatch;			
+				arResults[indexPartyInArray] = positionsMatch;
+
 			} // end: if arPartyPosition-i = arPersonalPosition
 		} // end: Frage nicht uebersprungen
 	} // end: for numberOfQuestions
