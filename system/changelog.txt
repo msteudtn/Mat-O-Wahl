@@ -37,6 +37,12 @@ To Do (Bugfixes)
 Versions:
 ---------
 
+0.5.1.20201230
+
+- GENERAL.JS
+\- update algorithm for results (before: no half points if party said yes or no) 
+ -> better compliance with original Wahl-o-Mat https://www.bpb.de/system/files/dokument_pdf/Rechenmodell%20des%20Wahl-O-Mat%202019.pdf
+
 0.5.0.1.20201130
 
 - answers.CSV
