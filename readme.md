@@ -53,7 +53,7 @@ Wenn Sie den Mat-O-Wahl einsetzen, wuerde ich mich ueber eine kurze Mitteilung v
 mathias . steudtner (a) gmx . net
 
 
-# Mat-O-Wahl (*) - A simple to handle, free "Voting-Machine" / "Electoral Compass" clone for everybody 
+# Mat-O-Wahl (*) - A simple to handle, free "Voting Advice Application" / "Electoral Compass" clone for everybody 
 
 ## LIVE-DEMO
 
