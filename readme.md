@@ -9,7 +9,7 @@ https://www.mat-o-wahl.de/ -> Ausprobieren (DE) :de:
 ## BEDIENUNG / INSTALLATION
 
 1. ZIP-Archiv **herunterladen und entpacken**
-   (Github -> oben rechts -> Clone or download -> Download ZIP)
+   (Github -> oben rechts -> Code -> Download ZIP)
 
 2. Datei /DATA/DEFINITION.JS in einem **Texteditor (am besten mit Syntaxhervorhebung) bearbeiten**.   
 
@@ -62,11 +62,11 @@ https://www.mat-o-wahl.de/ -> Try It (EN) :gb: :us:
 ## USE / INSTALLATION
 
 1. **Download and unpack** ZIP archive
-    (Github -> top right -> Clone or download -> Download ZIP)
+    (Github -> top right -> Code -> Download ZIP)
 
 2. **Edit** /DATA/DEFINITION.JS with a text-editor (best use one with syntax-highlighting).
 
-3. **Edit** CSV-text file for questiosn and answers with a text-editor or spread-sheet-software (MS Excel. LO Calc, ...)
+3. **Edit** CSV-text file for questions and answers with a text-editor or spread-sheet-software (MS Excel. LO Calc, ...)
 
 4. **Test settings** using INDEX.HTML or QUICKTEST.HTML
    (works best on http://localhost/ or your private webspace)
