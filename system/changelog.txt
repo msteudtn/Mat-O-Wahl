@@ -5,6 +5,8 @@ To Do (einfach)
 - Pruefen: Unterschiede beim Einlesen von MAC-Dateien zu WIN oder *IX-Dateien?
 - Hilfe-PDF aktualisieren
 - QUICKTEST aktualisieren
+- Prüfen: wenn "var statsRecord = 0" aktiv ist, sollte der Schieberegler für die Statistik nicht angezeigt werden
+- Anzeige / Aufklappen aller Partei-Antworten in der unteren Tabelle (Detailansicht / zu den einzelnen Thesen)
 
 
 To Do (etwas komplizierter)
