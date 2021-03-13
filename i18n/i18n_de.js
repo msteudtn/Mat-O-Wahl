@@ -15,7 +15,10 @@ var TEXT_IMPRINT = "[§] Impressum"
 var TEXT_RESTART = "[&#x21BB;] Fragebogen neu starten"
 
 // Results
-var TEXT_RESULTS_MATCHES_GENERAL = "Übereinstimmung mit den Positionen"
-var TEXT_RESULTS_MATCHES_DETAILS = "Detaillierte Auswertung"
-var TEXT_RESULTS_MATCHES_DETAILS_INFO = "Sie können Ihre eigene Meinung in der ersten Spalte noch einmal anpassen und das neue Ergebnis überprüfen. <br /> Die <strong>Antworten der Parteien</strong> erhalten Sie <strong>beim Klick auf die Frage</strong>."
-var TEXT_RESULTS_MATCHES_DETAILS_TABLE = "Fragen und Partei-Antworten"
+var TEXT_RESULTS_HEADING = "Übereinstimmung mit den Positionen"
+
+var TEXT_RESULTS_INFO_THESES = "Sie können Ihre eigene Meinung in der ersten Spalte noch einmal anpassen und das neue Ergebnis überprüfen. <br /> Die <strong>Antworten der Parteien</strong> erhalten Sie <strong>beim Klick auf die Frage</strong>."
+var TEXT_RESULTS_INFO_PARTIES = "Dies ist eine Übersicht aller Parteien und ihrer Antworten."
+
+var TEXT_RESULTS_BUTTON_THESES = "Begründungen - Fragen und Antworten anzeigen"
+var TEXT_RESULTS_BUTTON_PARTIES= "Standpunkte - Parteien und Antworten anzeigen"

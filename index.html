@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <meta name="keywords" content="Mat-O-Wahl, MatOWahl, Demokratie, Wahlen, elections, vote, Wahlbeteiligung, Fragebogen, Antworten, Positionen, These, Entscheidung, Hilfe, Politik, B&uuml;rgermeister, Stadtrat, Kommunalwahl, Fachschaftsrat, Studentenrat, StuRa, Studentenparlament, Studierendenparlament, StuPa, AStA, Kreisrat, Landrat, Volksabstimmung, Plebiszit, Klon, clone, Alternative, GPL, Open Source, JavaScript, Freeware, kostenlos, Election Compass, Voting Advice Application, VAA"/>
+  <meta name="keywords" content="Mat-O-Wahl, MatOWahl, Demokratie, Wahlen, elections, vote, Wahlbeteiligung, Fragebogen, Antworten, Positionen, Entscheidung, Hilfe, Politik, B&uuml;rgermeister, Stadtrat, Kommunalwahl, Fachschaftsrat, Studentenrat, StuRa, Studentenparlament, Studierendenparlament, StuPa, AStA, Kreisrat, Landrat, Volksabstimmung, Plebiszit, Klon, clone, Alternative, GPL, Open Source, JavaScript, Freeware, kostenlos"/>
   <meta name="robots" content="index, follow" />
   <meta name="language" content="de" />
   <meta name="Content-Language" content="de" />
@@ -70,105 +70,143 @@
 
 	<!-- 1. BESCHREIBUNG / DESCRIPTION -->
 
-		<div class="row">
-			<div class="col">
+	<main>
 
-				<div id="descriptionAddonTop">
-					<!-- Platzhalter / Placeholder -->
-				</div>
+		<section>
 
-				<div id="heading1">
-					<h1>&Uuml;berschrift zur Wahl/Thema der Wahl <br /> Main Headline </h1>
-				</div>
+			<div class="row">
+				<div class="col">
 
-				<div id="heading2">
-					<h2>Unter&uuml;berschrift <br /> Second headline</h2> 
-				</div>
+					<div id="descriptionAddonTop">
+						<!-- Platzhalter / Placeholder -->
+					</div>
+
+					<div id="heading1">
+						<h1>&Uuml;berschrift zur Wahl/Thema der Wahl <br /> Main Headline </h1>
+					</div>
+
+					<div id="heading2" class="d-none d-md-block">
+						<h2>Unter&uuml;berschrift <br /> Second headline</h2> 
+					</div>
+					
+					<div id="explanation" class="d-none d-md-block">
+						<p>Kurze Beschreibung der Wahl, wer wird gew&auml;hlt, wann, warum, f&uuml;r wie lange, usw. <br /> Short (explaining) text on what's the election about</p>
+					</div>
+					
+					<div id="content" class="bubble" tabindex="1" title="These / Frage">
+						<p>
+						Frage(n) zu den verschiedenen Positionen an die Parteien bzw. Kandidaten.
+						<br /> Question(s) on the different party/candidate positions
+						</p>
+					</div>
+
+					<div id="descriptionAddonBottom">
+						<!-- Platzhalter / Placeholder -->
+					</div>
+
 				
-				<div id="explanation">
-					<p>Kurze Beschreibung der Wahl, wer wird gew&auml;hlt, wann, warum, f&uuml;r wie lange, usw. <br /> Short (explaining) text on what's the election about</p>
 				</div>
-				
-				<div id="content" class="bubble">
-					<p>
-					Frage(n) zu den verschiedenen Positionen an die Parteien bzw. Kandidaten.
-					<br /> Question(s) on the different party/candidate positions
-					</p>
-				</div>
-
-				<div id="descriptionAddonBottom">
-					<!-- Platzhalter / Placeholder -->
-				</div>
-
-			
 			</div>
-		</div>
 
+		</section>
 		
 	<!-- 2. ERGEBNISSE / RESULTS -->
 
-		<div class="row">
-			<div class="col">
-	
-				<div id="resultsAddonTop">
-					<!-- Platzhalter / Placeholder -->
+		<section>
+
+			<div class="row">
+				<div class="col">
+		
+					<div id="resultsAddonTop">
+						<!-- Platzhalter / Placeholder -->
+					</div>
+
+					<div id="resultsHeading">
+						&Uuml;berschrift f&uuml;r die Ergebnisse/Resultate (ungenutzt) <br /> Headline for the results (unused) 
+					</div>
+					
+					<div id="resultsShort">
+						Ergebnisse / Resultate der Parteien in tabellarischer Form <br /> Table with results (short) - DOM / id = "resultsShortTable"
+					</div>
+
+				</div>
+			</div>
+
+			<!-- 
+				Auswahlknoepfe für die detaillierten Ergebnisse. Text in i18n.
+				Buttons for detailled resuts. Labels in i18n.
+			-->
+			<div class="row" id="resultsButtons">
+
+				<div class="col">
+					<button type="button" id="resultsButtonTheses" class="btn btn-primary btn-block" accesskey="q" onclick="$('#resultsByThesis').toggle(500); $('#resultsByParty').fadeOut(500);">[?] Show questions</button>
 				</div>
 
-				<div id="resultsHeading">
-					&Uuml;berschrift f&uuml;r die Ergebnisse/Resultate (ungenutzt) <br /> Headline for the results (unused) 
+				<div class="col">
+					<button type="button" id="resultsButtonParties" class="btn btn-primary btn-block" accesskey="p" onclick="$('#resultsByParty').toggle(500); $('#resultsByThesis').fadeOut(500);">[#] Show parties</button>
 				</div>
-				
-				<div id="resultsShort">
-					Ergebnisse / Resultate der Parteien in tabellarischer Form <br /> Table with results (short) - DOM / id = "resultsShortTable"
-				</div>
-
-				<div id="resultsLong">
-					Detaillierte Ergebnisse / Resultate mit eigener Meinung in tabellarischer Form <br /> Table with results (long / detailed)
-				</div>
-
-				<div id="resultsAddonBottom">
-					<!-- Platzhalter / Placeholder -->
-				</div>
-
 
 			</div>
-		</div>
 
+			<div class="row">
+				<div class="col">
+
+					<div id="resultsByThesis">
+						Detaillierte Ergebnisse / Resultate mit eigener Meinung in tabellarischer Form <br /> Table with results (long / detailed)
+					</div>
+
+					<div id="resultsByParty">
+						Detaillierte Ergebnisse / Resultate mit eigener Meinung in tabellarischer Form <br /> Table with results (long / detailed)
+					</div>
+
+					<div id="resultsAddonBottom">
+						<!-- Platzhalter / Placeholder -->
+					</div>
+
+				</div>
+			</div>
+
+		</section>
 		
 	<!-- 3. BUTTONS -->
-		
-		<div class="row" id="voting">
-			<div class="col">
-				<button type="button" id="votingPro" class="btn btn-success btn-lg btn-block">[&#x2714;] Pro</button>
-			</div>
 
-			<div class="col">
-				<button type="button" id="votingNeutral" class="btn btn-warning btn-lg btn-block">[&#x25EF;] Neutral</button>
-			</div>
+		<section>
+			<div class="row" id="voting">
+				<div class="col">
+					<button type="button" id="votingPro" class="btn btn-success btn-lg btn-block" accesskey="+">[&#x2714;] Pro</button>
+				</div>
 
-			<div class="col">
-				<button type="button" id="votingContra" class="btn btn-danger btn-lg btn-block">[&#x2716;] Contra</button>
-			</div>
+				<div class="col">
+					<button type="button" id="votingNeutral" class="btn btn-warning btn-lg btn-block" accesskey="0">[&#x25EF;] Neutral</button>
+				</div>
 
-			<!-- Force next columns to break to new line (Bootstrap 4.4+) -->
-			<div class="w-100"></div>
+				<div class="col">
+					<button type="button" id="votingContra" class="btn btn-danger btn-lg btn-block" accesskey="-">[&#x2716;] Contra</button>
+				</div>
 
-			<div class="col">
-				<button type="button" id="votingSkip" class="btn btn-secondary btn-lg btn-block">[&#x21B7;] Skip</button>
-			</div>
-			
-			<div class="col">
-				<button type="button" id="votingDouble" onclick="fnChangeVotingDouble()" class="btn btn-outline-dark btn-lg btn-block">[x2] Important</button>
-			</div>
-		</div> 
+				<!-- Force next columns to break to new line (Bootstrap 4.4+) -->
+				<div class="w-100"></div>
+
+				<div class="col">
+					<button type="button" id="votingSkip" class="btn btn-secondary btn-lg btn-block" accesskey="/">[&#x21B7;] Skip</button>
+				</div>
+				
+				<div class="col">
+					<button type="button" id="votingDouble" onclick="fnChangeVotingDouble()" class="btn btn-outline-dark btn-lg btn-block" accesskey="#">[x2] Important</button>
+				</div>
+			</div> 
+
+		</section>
+	</main>
 
 	<!-- 4. FORTSCHRITTSZÄHLER / PROGRESS COUNTER -->
 
 		<div class="progress" id="progress">
-			<div class="progress-bar" id="progress-bar" style="width:10%"></div>
+			<div class="progress-bar" id="progress-bar" style="width:10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
 		</div>
 
-	
+
+	<nav>	
 		<div class="row">
 			<div class="col">
 			
@@ -180,6 +218,7 @@
 			</div>
 		</div>
 
+	</nav>
 		
 	<!-- 5. CHECKBOX: STATISTIK j/n / STATISTICS y/n -->		
 
@@ -198,6 +237,8 @@
 	
 	
 	<!-- 6. FUSSZEILE: IMPRESSUM, NEUSTART, SOCIAL MEDIA / FOOTER: IMPRINT, RESTART, SOCIAL MEDIA -->
+
+	<footer>
 
 		<div class="row">	
 			<div class="col">
@@ -218,6 +259,8 @@
 				Twitter</a>
 			</div>
 		</div>
+
+	</footer>
 	
 </div>
 

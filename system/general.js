@@ -3,7 +3,7 @@
 // License: GPL 3
 // Mathias Steudtner http://www.medienvilla.com
 
-var version = "0.5.1.20201230"
+var version = "0.6.0.20210313-BMBF-PTF-AP1"
 
 // Globale Variablen
 var arQuestionsShort = new Array();	// Kurzform der Fragen: Atomkraft, Flughafenausbau, ...
@@ -74,7 +74,7 @@ function fnReadPositions(csvData)
 
 
 // Auswertung (Berechnung)
-// Gibt ein Array "arResults" zurück für fnEvaluationShort() und fnEvaluationLong() und fnReEvaluate();
+// Gibt ein Array "arResults" zurück für fnEvaluationShort() und fnEvaluationByThesis() und fnReEvaluate();
 // Aufruf am Ende aller Fragen in fnShowQuestionNumber() und beim Prüfen auf die "doppelte Wertung" in fnReEvaluate()
 function fnEvaluation()
 {
@@ -203,7 +203,14 @@ function fnTransformCsvToArray(csvData,modus)
 	// Example "Springfield" = 5 + 15 + 1 = 21
 	var numberOfLines = 6 + intQuestions 
 
-	for(i = 0; i <= arZeilen.length-1; i++)
+	if (modus == 1) // Fragen / Questions
+	{ lastLine = intQuestions}
+	else
+	{ lastLine = (5 + intQuestions + 1) * intParties -1} // Partien und Antworten / Parties and answers
+
+
+//	for(i = 0; i <= arZeilen.length-1; i++)
+	for(i = 0; i <= lastLine-1; i++)
 	{
 		// console.log("i: "+i+" m: "+modus+" val0: "+arZeilen[i][0]+" val1: "+arZeilen[i][1] )	
 		valueOne = arZeilen[i][0];
@@ -221,6 +228,7 @@ function fnTransformCsvToArray(csvData,modus)
 			// v.0.5 NEU
 			// ALLE Partei-Informationen in einer CSV-Datei
 			modulo = i % numberOfLines;
+
 			if ( (modulo == 0) && (valueTwo != "undefined") )
 			{ 
 				// Parteinamen - kurz
@@ -247,7 +255,7 @@ function fnTransformCsvToArray(csvData,modus)
 				// Logo der Partei
 				arPartyLogosImg.push(valueTwo)
 			}
-			else if (valueTwo)
+			else if ( (modulo > 4) && (modulo <= (intQuestions+4) ) )
 			{
 				// Positionen und Erklärungen
 				arPartyPositions.push(valueOne); // -1,0,1
@@ -259,7 +267,8 @@ function fnTransformCsvToArray(csvData,modus)
 			}
 		}  // end: if-else modus == 1	
 	}  // end: for
-}
+
+} // end: function
 
 // v.0.3 NEU
 // ersetzt die Position (-1, 0, 1) mit dem passenden Button

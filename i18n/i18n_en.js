@@ -15,7 +15,10 @@ var TEXT_IMPRINT = "[ยง] Legal Notice"
 var TEXT_RESTART = "[&#x21BB;] Restart questionnaire"
 
 // Results
-var TEXT_RESULTS_MATCHES_GENERAL = "Your match with the different positions"
-var TEXT_RESULTS_MATCHES_DETAILS = "Detailed analysis"
-var TEXT_RESULTS_MATCHES_DETAILS_INFO = "You can adjust your own opinion in the first row and reevaluate the result. <br /> Answers to the questions are shown on click on the corresponding question."
-var TEXT_RESULTS_MATCHES_DETAILS_TABLE = "Questions and answers of parties"
+var TEXT_RESULTS_HEADING = "Your match with the different positions"
+
+var TEXT_RESULTS_INFO_THESES = "You can adjust your own opinion in the first row and reevaluate the result. <br /> Answers to the questions are shown on click on the corresponding question."
+var TEXT_RESULTS_INFO_PARTIES = "Analysis"
+
+var TEXT_RESULTS_BUTTON_THESES = "Questions and answers of parties"
+var TEXT_RESULTS_BUTTON_PARTIES= "All answers of the parties"

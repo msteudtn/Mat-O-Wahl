@@ -392,7 +392,3 @@ function fnResultsTimes()
 
 
 }
-
-
-
-

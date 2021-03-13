@@ -3,12 +3,12 @@
 /* BODY: background color, font, size and color */
 body {
 	font-family:Verdana, Arial, Helvetica, sans-serif; 
-	font-size:10pt; 
+/*	font-size:10pt; */
 	color:#000000; 
 
 	background-color: #FFE08F;
 	background-image: linear-gradient(#EFC04F, #FFE08F); 
-    background-attachment: fixed;
+	background-attachment: fixed;
 	}
 
 /* UeBERSCHRIFTEN */
@@ -29,19 +29,32 @@ a:hover { color:#FF0000; text-decoration:none; }
 /* TABLES */
 table { }
 
+/*
+Alle Tabelleneigenschaften werden über BOOTSTRAP-Klassen geregelt. z.B.
+All Table-properties are ruled by BOOTSTRAP-classes, e.g.
+	class='table table-bordered table-striped table-hover'
+	https://getbootstrap.com/docs/4.4/content/tables/
+*/
+
+
+/*
 td { 
 	border: 1px solid #C0C0C0; 
 	padding: 5px;	
 	border-radius: 3px;
 	font-size:110%;
  	}
+*/
 
 /* gerade Spalten auf Ergebnisseite in anderer Farbe */
 /* even rows on result-page in different color */
+
+/*
 tr:nth-child(even) {
 	background: #FFE08F;
 	}
 
+*/
 	
 /* Ueberschrift zur Wahl/Thema der Wahl - Formate schon durch <h1> und <h2> geregelt */
 /* Headline for the election/topic - formats already defined by <h1> and <h2> */
@@ -115,3 +128,15 @@ tr:nth-child(even) {
     background: #c6c6c6;
 	color: #fff;
 }
+
+/* Plus und Minus beim Aufklappen der detaillierten Ansicht */
+/* https://www.w3schools.com/howto/howto_js_collapsible.asp */
+
+.resultsByThesisQuestionCollapsePlus:after {
+	content: '\02795'; /* Plus */
+}
+
+.resultsByThesisQuestionCollapseMinus:after {
+	content: "\2796"; /* Minus */
+}
+
