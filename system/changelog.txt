@@ -5,8 +5,6 @@ To Do (einfach)
 - Pruefen: Unterschiede beim Einlesen von MAC-Dateien zu WIN oder *IX-Dateien?
 - Hilfe-PDF aktualisieren
 - QUICKTEST aktualisieren
-- Prüfen: wenn "var statsRecord = 0" aktiv ist, sollte der Schieberegler für die Statistik nicht angezeigt werden
-- Anzeige / Aufklappen aller Partei-Antworten in der unteren Tabelle (Detailansicht / zu den einzelnen Thesen)
 
 
 To Do (etwas komplizierter)
@@ -23,26 +21,65 @@ To Do (Features)
 - Technik: More than two answers (yes/no) like in https://github.com/JohnboyJovi/Mat-O-Wahl-multiAnswer -> "agree a lot, agree, -, disagree, disagree a lot"
 - Technik: Update jquery-csv to a new version (https://github.com/typeiii/jquery-csv) or "CSV-ES"-project (https://github.com/vanillaes/csv)
 - Technik: Update Bootstrap to latest version
-- Technik: Results: Add 2nd option to sort party-answers by parties. Currently sorted by theses. (like Wahl-o-Mat)
 - Technik / Design: "Sprechblase" soll jumpToQuestion-Tabelle (unten) folgen. -> Sprechblase erweitern oder neuer DIV um Buttons? -> Was ist beim Zeilenumbruch nach X Fragen in der jumpToQuestion-Tabelle?
 - Design: Überschriften (var headingX) ausblenden in der mobilen Ansicht (Bootstrap-CSS) ... oder ab der zweiten Frage? ... oder prinzipiell vor die Abfragen verlagern?
 - Design: jumpToQuestion-Tabelle unter den Fragen: per Bootstrap-Gridsystem automatisch skalieren
 - Design: jumpToQuestion-Tabelle unter den Fragen: Alternative Ansicht: Keine Nummerierung (Mat-o-Wahl), sondern Punkte und Sterne (Wahl-o-Mat)
+- Design: 0.6.0.2021xxxx-BMBF-PTF-AP1 - show only parties and fadeIn() answers later
 
 
 To Do (Bugfixes)
 ----------------
 - Technik: if you skip questions, you can't change it later in the "resultsLongTable". GENERAL.JS -> fnToggleSelfPosition()
 - Technik: if DEFINITION.JS / "var statsRecord = 0" the slide-button is still visible -> remove!
+- Technik: Addon_Results_Textfilter only works on "old" table "#resultsByThesis" but not yet on "#resultsByParty" (new since v.0.6)
 
 
 Versions:
 ---------
 
+0.6.0.2021xxxx-BMBF-PTF-AP4
+- To Do: UX improvements
+
+
+0.6.0.2021xxxx-BMBF-PTF-AP3
+- To Do: question in the beginning for the favorite party
+
+
+0.6.0.2021xxxx-BMBF-PTF-AP2
+- To Do: textfilter_addon for multiple elections
+
+
+0.6.0.20210313-BMBF-PTF-AP1
+
+- OUTPUT.JS, INDEX.HTML
+\- Show a list of all parties and their answers (fnEvaluationByParty())
+\- renamed: "#resultsLong" -> "#resultsByThesis", "fnEvaluationLong()" -> "fnEvaluationByThesis()"
+\- Bugfix: Hide privacy-statement if "statsRecord" in DEFINITION.JS is set to 0/false
+
+- i18n
+\- removed: TEXT_RESULTS_MATCHES_DETAILS, TEXT_RESULTS_MATCHES_DETAILS_TABLE
+\- renamed: TEXT_RESULTS_MATCHES_DETAILS_INFO -> TEXT_RESULTS_INFO_THESES; TEXT_RESULTS_MATCHES_GENERAL -> TEXT_RESULTS_HEADING
+\- new: TEXT_RESULTS_INFO_PARTIES, TEXT_RESULTS_BUTTON_THESES, TEXT_RESULTS_BUTTON_PARTIES
+
+GENERAL.JS
+\- Bugfix: If a party did not answer a question, the line was not selected from the CSV file. (e.g. CSV content: "1;")
+
+DEFAULT.CSS, OUTPUT.JS
+\- removed: body -> "font-size"; all definitions for "table" in DEFAULT.CSS
+\- instead: Bootstrap's class='table table-bordered table-striped table-hover' in OUTPUT.JS
+
+INDEX.HTML, DEFINITION.JS
+\- "var heading2", "var explainingText" / "#heading2", "#explanation" only shown on screens larger than Bootstrap's "medium" (>= 768px)
+
+- OUTPUT.JS
+\- replaced open brackets (&#x2335;) from v.0.5.0.1. with +/- sign to indicate open/close.
+
+
 0.5.1.20201230
 
 - GENERAL.JS
-\- update algorithm for results (before: no half points if party said yes or no) 
+\- Bugfix: Update algorithm for results (before: no half points if party said yes or no) 
  -> better compliance with original Wahl-o-Mat https://www.bpb.de/system/files/dokument_pdf/Rechenmodell%20des%20Wahl-O-Mat%202019.pdf
 
 0.5.0.1.20201130
