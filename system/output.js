@@ -5,7 +5,6 @@
 
 function fnStart()
 {
-
 	// alte Inhalte loeschen
 	
 	// Bereich -  Überschriften, Erklärung zur Wahl
@@ -18,7 +17,8 @@ function fnStart()
 	// Bereich - Ergebnisse
 	$("#resultsHeading").empty();
 	$("#resultsShort").empty();
-	$("#resultsLong").empty();
+	$("#resultsByThesis").empty();
+	$("#resultsByParty").empty();
 	
 	// Bereich - Footer
 	$("#keepStatsQuestion").empty();
@@ -38,7 +38,7 @@ function fnStart()
 	$("#explanation").append(explainingText);
 
 	//////////////////////////////////////////////////////////////////
-	// BUTTONS
+	// BUTTONS - Waehlen (Voting)
 	
 	$("#votingPro").html(TEXT_VOTING_PRO)
 	$("#votingNeutral").html(TEXT_VOTING_NEUTRAL)
@@ -46,10 +46,16 @@ function fnStart()
 	$("#votingSkip").html(TEXT_VOTING_SKIP)
 	$("#votingDouble").html(TEXT_VOTING_DOUBLE)
 	
+	// BUTTONS - Ergebnisse (Results)
+	$("#resultsButtons").hide()
+	$("#resultsButtonTheses").html(TEXT_RESULTS_BUTTON_THESES)
+	$("#resultsButtonParties").html(TEXT_RESULTS_BUTTON_PARTIES)
+
 	//////////////////////////////////////////////////////////////////
 	// FOOTER
 
 	// Wenn Datenschutzerklärung vorhanden UND Auswertung gewünscht ...
+	$("#keepStats").hide()
 	if ((imprintPrivacyUrl.length > 0) && (statsRecord) )
 	{
 		/// $("#keepStatsQuestion").append("Siehe <a href='https://"+imprintPrivacyUrl+"' target='_blank'>Datenschutzerkl&auml;rung.</a>");
@@ -124,9 +130,11 @@ function fnShowQuestionNumber(questionNumber)
 		// Bootstrap-Progressbar
 		var percent = fnPercentage((questionNumber+1),arQuestionsLong.length);
 		$("#progress-bar").width(percent+"%")
+		$("#progress-bar").attr("aria-valuenow",percent)
 
 		$("#content").append("<strong>"+arQuestionsShort[questionNumber]+" </strong> - ");
 		$("#content").append(""+arQuestionsLong[questionNumber]+"");
+		$("#content").attr("title","These "+(questionNumber+1)+": "+arQuestionsShort[questionNumber]+" - "+arQuestionsLong[questionNumber])
 	
 		$("#content").fadeIn(500);
 		$("#voting").fadeIn(500);
@@ -176,8 +184,12 @@ function fnShowQuestionNumber(questionNumber)
 		arSortParties.sort(function(a,b){return arResults[b]-arResults[a];});
 
 		// Übergabe an Tabellen zur Darstellung/Ausgabe
-		fnEvaluationShort(arResults);
-		fnEvaluationLong(arResults);
+		fnEvaluationShort(arResults);	// Kurzüberblick mit Progress-bar
+		fnEvaluationByThesis(arResults);	// Thesen + Partei-Antworten
+		fnEvaluationByParty(arResults) 	// Liste der Parteien mit ihren Antworten (ab v.0.6)
+
+		// Buttons einblenden für detaillierte Ergebnisse
+		$("#resultsButtons").fadeIn(500);
 	} 
 	
 }
@@ -214,12 +226,14 @@ function fnJumpToQuestionNumber(questionNumber)
 	var maxQuestionsPerLine = 12;  // z.B. 16
 
 	// Wenn mehr als XY Fragen vorhanden, dann erstelle eine zweite/dritte/... Zeile
-	if (arQuestionsLong.length >= maxQuestionsPerLine)
+	if (intQuestions >= maxQuestionsPerLine)
 	{
-		var tableRows = arQuestionsLong.length / maxQuestionsPerLine;	// nicht mehr als 16 Fragen pro Zeile
-			 tableRows = Math.ceil(tableRows);	// 17 Fragen / 16 = 1,06 ### 31 Fragen / 16 = 1,9 -> 2 Zeilen
-		var questionsPerLine = arQuestionsLong.length / tableRows;		// 23 Fragen / 2 Zeilen = 12 & 11 Fragen/Zeile
+
+		var tableRows = arQuestionsLong.length / maxQuestionsPerLine;		/* z.B. nicht mehr als 16 Fragen pro Zeile */
+			 tableRows = Math.ceil(tableRows);				/* 17 Fragen / 16 = 1,06 ### 31 Fragen / 16 = 1,9 -> 2 Zeilen */
+		var questionsPerLine = arQuestionsLong.length / tableRows;		/* 23 Fragen / 2 Zeilen = 12 & 11 Fragen/Zeile */
 			 questionsPerLine = Math.ceil(questionsPerLine);
+
 	}
 	else
 	{
@@ -227,7 +241,7 @@ function fnJumpToQuestionNumber(questionNumber)
 	}
 
 	// Tabelle aufbauen	
-	var tableContent = "<table width='100%'>";
+	var tableContent = "<table width='100%' class='table table-bordered table-striped table-hover'>";
 	for (i = 1; i <= arQuestionsLong.length; i++)
 	{
 		var modulo = i % questionsPerLine;
@@ -274,8 +288,7 @@ function fnEvaluationShort(arResults)
 	$("#explanation").empty().hide();	
 	
 	// Anzeige der Ergebnisse
-//	$("#heading2").append("<h2>"+TEXT_RESULTS_MATCHES_GENERAL+"</h2>").fadeIn(500);
-	$("#resultsHeading").append("<h2>"+TEXT_RESULTS_MATCHES_GENERAL+"</h2>").fadeIn(500);
+	$("#resultsHeading").append("<h2>"+TEXT_RESULTS_HEADING+"</h2>").fadeIn(500);
 
 	var numberOfQuestions=arQuestionsShort.length;
 	//Anzahl der Maximalpunkte ermitteln
@@ -291,7 +304,7 @@ function fnEvaluationShort(arResults)
 	}
 	if (maxPoints==0)
 		{maxPoints=1;}
-	var tableContent = "<table id='resultsShortTable' width='100%'>"
+	var tableContent = "<table id='resultsShortTable' width='100%' class='table table-bordered table-striped table-hover'>"
 	
 	for (i = 0; i <= (intParties-1); i++)
 	{
@@ -352,7 +365,7 @@ function fnEvaluationShort(arResults)
 		tableContent += "<td width='40%'>"
 			tableContent += "<div class='progress'>"
 //			tableContent += "	<div class='progress-bar' role='progressbar' id='partyBar"+partyNum+"' style='width:"+percent+"%'> "+percent+"% ("+arResults[partyNum]+"/"+maxPoints+") </div> "
-			tableContent += "	<div class='progress-bar' role='progressbar' id='partyBar"+partyNum+"' style='width:"+percent+"%'>JUST_A_PLACEHOLDER_TEXT - SEE FUNCTION fnReEvaluate()</div> "
+			tableContent += "	<div class='progress-bar' role='progressbar' id='partyBar"+partyNum+"' style='width:"+percent+"%;' aria-valuenow='"+percent+"' aria-valuemin='0' aria-valuemax='100'>JUST_A_PLACEHOLDER_TEXT - SEE FUNCTION fnReEvaluate()</div> "
 
 			tableContent += "</div>"
 		tableContent += "</td>"
@@ -399,30 +412,31 @@ function fnEvaluationShort(arResults)
 }
 
 
-// Anzeige der Ergebnisse - detailliert, Fragen und Antworten
+// Anzeige der Ergebnisse - detailliert, Fragen und Antworten der Parteien
 // Array arResults kommt von fnEvaluation
-function fnEvaluationLong(arResults)
+function fnEvaluationByThesis(arResults)
 {
-	// $("#resultsLong").hide();
+	// $("#resultsByThesis").hide();
 
 	var tableContent = "";
 
-	tableContent += "<h2>"+TEXT_RESULTS_MATCHES_DETAILS+"</h2>";	
+//	tableContent += "<h2>"+TEXT_RESULTS_MATCHES_DETAILS+"</h2>";	
 
-	tableContent += " <p>"+TEXT_RESULTS_MATCHES_DETAILS_INFO+"</p>";
+	tableContent += " <p>"+TEXT_RESULTS_INFO_THESES+"</p>";
 
 	
-	tableContent += "<table width='100%' id='resultsLongTable'>";
+	tableContent += "<table width='100%' id='resultsByThesisTable' class='table table-bordered table-striped table-hover'>";
 		
 	// Kopfzeile der Tabelle
 		
 	// v.0.3 NEU: nur noch zwei Spalten
+/*
 	tableContent += "<tr>";
 	tableContent += " <th> </th>"; 
 	tableContent += " <th> </th>"; 
-	tableContent += " <th>"+TEXT_RESULTS_MATCHES_DETAILS_TABLE+"</th>";
+	tableContent += " <th> </th>"; 
 	tableContent += "</tr>";
-
+*/
 	// Inhalt
 	// var cellId = -1;	// cellId ist für das Ausblenden der Spalten wichtig.
 	for (i = 0; i <= (arQuestionsLong.length-1); i++)
@@ -461,12 +475,13 @@ function fnEvaluationLong(arResults)
 			tableContent += "</td>";
 
 			// 2. Spalte: Frage (kurz und lang)
-			tableContent += "<td id='resultsLongQuestion"+i+"' style='cursor: pointer;'>";
+			tableContent += "<td id='resultsByThesisQuestion"+i+"' style='cursor: pointer;'>";
 				tableContent += "<div style='display:inline-; float:left'>"
 				tableContent += "<strong>"+arQuestionsShort[i]+"</strong>: ";
 				tableContent += arQuestionsLong[i];
 				tableContent += "</div>"
-				tableContent += "<div style='display:inline; float:right'>&#x2335;</div>";
+				// Einklappen / Aufklappen ("Collapside")
+				tableContent += "<div style='display:inline; float:right' id='resultsByThesisQuestion"+i+"collapse' class='resultsByThesisQuestionCollapsePlus'> </div>";
 			tableContent += "</td>";	
 			
 			// var multiplier = arPartyFiles.length + 2; 
@@ -474,7 +489,7 @@ function fnEvaluationLong(arResults)
 		tableContent += "</tr> ";
 
 		// v.0.3 Parteiantworten gleich unter der Frage anzeigen
-		tableContent += "<tr id='resultsLongAnswersToQuestion"+i+"'> ";
+		tableContent += "<tr id='resultsByThesisAnswersToQuestion"+i+"'> ";
 		tableContent += " <td> </td> ";
 		tableContent += " <td> </td> ";		
 		tableContent += " <td>";
@@ -495,10 +510,10 @@ function fnEvaluationLong(arResults)
 				// Inhalt der Zelle
 				tableContent += "<p>"
 				tableContent += "<button type='button' class='btn "+positionButton+" btn-sm' disabled "+
-						" alt='"+arPartyOpinions[partyPositionsRow]+"'>"+
+						" alt='"+positionText+"' title='"+positionText+"'>"+
 						" "+positionIcon+"</button>";							
 							
-				tableContent += "<strong>" + arPartyNamesShort[partyNum] + "</strong>: " + positionText + ( arPartyOpinions[partyPositionsRow] === "" ? "" : ": " + arPartyOpinions[partyPositionsRow] ) + " ";
+				tableContent += "<strong>" + arPartyNamesShort[partyNum] + "</strong>: " + ( arPartyOpinions[partyPositionsRow] === "" ? "" : "" + arPartyOpinions[partyPositionsRow] ) + " ";
 				tableContent += "</p>";
 			}
 		tableContent += "</td> </tr> ";
@@ -508,7 +523,10 @@ function fnEvaluationLong(arResults)
 	tableContent += "</table>";
 	
 	// Daten in Browser schreiben
-	$("#resultsLong").append(tableContent);
+	$("#resultsByThesis").append(tableContent);
+
+	// und am Anfang ausblenden
+	$("#resultsByThesis").hide();
 	
 	
 	// Click-Funktion auf FRAGE-(und ANTWORT)-Zeile legen zum Anzeigen der ANTWORT-Zeile (direkt darunter)
@@ -517,19 +535,146 @@ function fnEvaluationLong(arResults)
 //	for (let i = 0; i <= (arQuestionsLong.length-1); i++)
 	for (let i = 0; i <= (intQuestions-1); i++)
 	{
-		// Klickfunktion - bei Überschrift
-		$("#resultsLongQuestion"+i).click(function () { 
-				$("#resultsLongAnswersToQuestion"+i).toggle(500);
-			});	
-		// Klickfunktion - bei Beschreibung
-		$("#resultsLongAnswersToQuestion"+i).click(function () { 
-				$("#resultsLongAnswersToQuestion"+i).toggle(500);
+		// Klickfunktion - bei Überschriftenzeile
+		$("#resultsByThesisQuestion"+i).click(function () { 
+				$("#resultsByThesisAnswersToQuestion"+i).toggle(500);
+				// $("#resultsByThesisQuestion"+i+"collapse").html("+ &#x2795"); // Plus
+				// $("#resultsByThesisQuestion"+i+"collapse").html("- &#x2796"); // Minus
+//				$(".resultsByThesisQuestionCollapsePlus").toggleClass("resultsByThesisQuestionCollapseMinus")
+				$("#resultsByThesisQuestion"+i+" .resultsByThesisQuestionCollapsePlus").toggleClass("resultsByThesisQuestionCollapseMinus")
+			});
+
+		/*
+		// Klickfunktion - bei der detaillierten Beschreibung (hat immer "Schließen" als Ergebnis)
+		$("#resultsByThesisAnswersToQuestion"+i).click(function () { 
+				$("#resultsByThesisAnswersToQuestion"+i).toggle(500);
+				$("#resultsByThesisQuestion"+i+"collapse").html("+ &#x2795"); // Plus
 			});
 		// am Anfang ausblenden
-		$("#resultsLongAnswersToQuestion"+i).fadeOut(500);
+
+		*/
+
+		$("#resultsByThesisAnswersToQuestion"+i).fadeOut(500);
 	}	
-	
+
+
+	/* ToDo - Zu Erledigen: Plus und Minus statt \/ beim Aufklappen der detaillierten Ansicht
+
+	var coll = document.getElementsByClassName("resultsByThesisQuestionCollapsePlus");
+	var i;
+
+	for (i = 0; i < coll.length; i++) {
+		coll[i].addEventListener("click", function() {
+			this.classList.toggle("resultsByThesisQuestionCollapseMinus");
+		});
+	}
+	*/ 	
+
 } // end function
+
+
+// Anzeige der Ergebnisse - detailliert, Sortiert nach Parteien inkl. deren Antworten
+// Array arResults kommt von fnEvaluation
+function fnEvaluationByParty(arResults)
+{
+	
+	var tableContent = "";
+
+	tableContent += " <p>"+TEXT_RESULTS_INFO_PARTIES+"</p>";
+	
+	tableContent += "<table width='100%' id='resultsByPartyTable' class='table table-bordered table-striped table-hover'>";
+
+	for (i = 0; i <= (intParties-1); i++)
+	{
+
+		var partyNum=arSortParties[i];	// partyNum = sortierte Position im Endergebnis, z.B. "Neutrale Partei = 4. Partei in CSV" aber erste im Ergebnis = Nullter Wert im Array[0] = 4
+		tableContent += " <thead class=''>"
+		tableContent += " <tr>"
+		tableContent += "  <td colspan='2'>"
+		tableContent += "  &nbsp; </td>"
+		tableContent += "  <td colspan='2'>"
+
+
+			tableContent += "<img src='"+arPartyLogosImg[partyNum]+"' width='"+intPartyLogosImgWidth+"' height='"+intPartyLogosImgHeight+"' class='rounded float-right' alt='"+arPartyNamesLong[partyNum]+"' style='margin-left: 10px;' />"
+
+//			tableContent += "<span style='font-weight: 600;'>"
+			tableContent += "<h3>" 
+			tableContent += arPartyNamesLong[partyNum];
+			tableContent += "</h3>" 
+//			tableContent += "</span>" 
+
+			tableContent += " (&#8663; <a href='"+arPartyInternet[partyNum]+"' target='_blank' title='"+arPartyNamesLong[partyNum]+"'>";		
+			tableContent += arPartyNamesShort[partyNum];
+			tableContent += "</a>)";
+
+			// Beschreibung der Partei - falls in der CSV vorhanden.
+			tableContent += "<p>"+arPartyDescription[partyNum]+"</p>"
+
+		tableContent += "  </td>"
+		tableContent += " </tr>"
+		tableContent += " </thead>"
+
+		jStart = partyNum * intQuestions // z.B. Citronen Partei = 3. Partei im Array[2] = 2 * 5 Fragen = 10
+		jEnd = jStart + intQuestions -1	// 10 + 5 Fragen -1 = 14
+
+
+		// Anzeige der Partei-Antworten
+		for (j = jStart; j <= jEnd; j++)
+		{
+
+			
+			modulo = j % intQuestions // z.B. arPartyPositions[11] % 5 Fragen = 1 -> arQuestionsShort[1] = 2. Frage		
+			tableContent += " <tr>"
+			tableContent += "  <td class='align-text-top'>"
+			tableContent += " "+(modulo+1)+". <strong>"+arQuestionsShort[modulo]+"</strong> - "+arQuestionsLong[modulo]+ " "
+			tableContent += "  </td>"
+
+			// Icon für eigene eigene Meinung
+			var positionButton = fnTransformPositionToButton(arPersonalPositions[modulo]);
+			var positionIcon = fnTransformPositionToIcon(arPersonalPositions[modulo]);
+			var positionText  = fnTransformPositionToText(arPersonalPositions[modulo]);
+
+			tableContent += "<td style='text-align:center'>";
+			tableContent += "<button type='button' "+
+					" class='btn "+positionButton+" btn-sm' "+ 
+					" alt='"+positionText+"' title='"+positionText+"' disabled>"+
+					" "+positionIcon+"</button>";
+			tableContent += "</td>";
+
+
+			// Icons für Postion der Parteien
+			var positionIcon = fnTransformPositionToIcon(arPartyPositions[j]);
+			var positionButton = fnTransformPositionToButton(arPartyPositions[j]);
+			var positionText  = fnTransformPositionToText(arPartyPositions[j]);
+
+			tableContent += "  <td style='text-align:center'>"
+			tableContent += "<button type='button' "+
+					" class='btn "+positionButton+" btn-sm' "+ 
+					" alt='"+positionText+"' title='"+positionText+"' disabled>"+
+					" "+positionIcon+"</button>";
+			tableContent += "  <td class='align-text-top'>"
+			tableContent += " "+arPartyOpinions[j]
+			tableContent += "  </td>"
+
+			tableContent += " </tr>"
+
+		} // end: for-j
+
+
+		
+	} // end: for-i (intParties)
+	
+	tableContent += "</table>";
+	
+	// Daten in Browser schreiben
+	$("#resultsByParty").append(tableContent);
+
+	// und am Anfang ausblenden
+	$("#resultsByParty").hide();
+
+
+} // end function
+
 
 
 // 02/2015 BenKob
