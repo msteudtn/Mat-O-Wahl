@@ -1,24 +1,24 @@
-// TEXTES ESPAGNOLES http://www.mat-o-wahl.de
+// TEXTES FRANCAISES http://www.mat-o-wahl.de
 
 // Buttons
-var TEXT_VOTING_PRO = "[&#x2714;] Si!"
-var TEXT_VOTING_NEUTRAL = "[&#x25EF;] Neutral / No lo se"
-var TEXT_VOTING_CONTRA = "[&#x2716;] No!"
-var TEXT_VOTING_SKIP = "[&#x21B7;] Saltar"
-var TEXT_VOTING_DOUBLE = "[x2] Este tema es muy importante para mi"
+var TEXT_VOTING_PRO = "[&#x2714;] voter pour"
+var TEXT_VOTING_NEUTRAL = "[&#x25EF;] sans opinion"
+var TEXT_VOTING_CONTRA = "[&#x2716;] voter contre"
+var TEXT_VOTING_SKIP = "[&#x21B7;] passer"
+var TEXT_VOTING_DOUBLE = "[x2] plus important"
 
 // Statistic
-var TEXT_ALLOW_STATISTIC = "Permitir analisis anonimo de resultados. Vease <a href='"+imprintPrivacyUrl+"' target='_blank'>protección de datos</a>."
+var TEXT_ALLOW_STATISTIC = "Autoriser l'évaluation anonyme (prévision électorale). Voir <a href='"+imprintPrivacyUrl+"' target='_blank'>politique de confidentialité</a>."
 
 // Footer
-var TEXT_IMPRINT = "[§] Terminos y condiciones"
-var TEXT_RESTART = "[&#x21BB;] Reiniciar cuestionario"
+var TEXT_IMPRINT = "[§] Empreinte"
+var TEXT_RESTART = "[&#x21BB;] Relancer le questionnaire"
 
 // Results
-var TEXT_RESULTS_HEADING = "Compatibilidad con las posiciones"
+var TEXT_RESULTS_HEADING = "Accord avec les positions"
 
-var TEXT_RESULTS_INFO_THESES = "Puede ajustar su propia opinión en la primera columna y comprobar el nuevo resultado. <br /> Recibirá las respuestas de las partes cuando haga clic en la pregunta."
-var TEXT_RESULTS_INFO_PARTIES = "Análisis"
+var TEXT_RESULTS_INFO_THESES = "Vous pouvez ajuster votre propre opinion dans la première colonne et vérifier le nouveau résultat. <br /> Vous recevrez les réponses des parties lorsque vous cliquerez sur la question."
+var TEXT_RESULTS_INFO_PARTIES = "Évaluation"
 
-var TEXT_RESULTS_BUTTON_THESES = "Preguntas y respuestas partido"
-var TEXT_RESULTS_BUTTON_PARTIES= "Respuestas partidos"
+var TEXT_RESULTS_BUTTON_THESES = "Questions et réponses du parti"
+var TEXT_RESULTS_BUTTON_PARTIES= "Toutes réponses des parties"
