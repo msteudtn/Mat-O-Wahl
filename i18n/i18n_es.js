@@ -15,7 +15,10 @@ var TEXT_IMPRINT = "[§] Terminos y condiciones"
 var TEXT_RESTART = "[&#x21BB;] Reiniciar cuestionario"
 
 // Results
-var TEXT_RESULTS_MATCHES_GENERAL = "Compatibilidad con las posiciones"
-var TEXT_RESULTS_MATCHES_DETAILS = "Análisis detellado en comparación"
-var TEXT_RESULTS_MATCHES_DETAILS_INFO = "Puede ajustar su propia opinión en la primera columna y comprobar el nuevo resultado. <br /> Recibirá las respuestas de las partes cuando haga clic en la pregunta."
-var TEXT_RESULTS_MATCHES_DETAILS_TABLE = "Preguntas y respuestas Partido"
+var TEXT_RESULTS_HEADING = "Compatibilidad con las posiciones"
+
+var TEXT_RESULTS_INFO_THESES = "Puede ajustar su propia opinión en la primera columna y comprobar el nuevo resultado. <br /> Recibirá las respuestas de las partes cuando haga clic en la pregunta."
+var TEXT_RESULTS_INFO_PARTIES = "Análisis"
+
+var TEXT_RESULTS_BUTTON_THESES = "Preguntas y respuestas partido"
+var TEXT_RESULTS_BUTTON_PARTIES= "Respuestas partidos"
