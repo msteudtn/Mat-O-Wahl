@@ -69,7 +69,7 @@ var fileQuestions = "Obsthausen_Fragen.csv";
 
 //	1.2 ANZAHL der FRAGEN / 1.2 NUMBER of QUESTIONS
 
-var intQuestions = 6
+var intQuestions = 6;
 
 
 // 	--------------------------------------------------------------------
@@ -139,11 +139,13 @@ var heading1 = "Fruchtkorbwahlen";
 
 
 // 	1.6.2. Zweite Ueberschrift / 1.6.2. Second Headline
+//	(nur sichtbar ab mittlerer Auflösung / only visible on screens larger than >=768px)
 
 var heading2 = "Die Wahl zur neuen Regierung in Obsthausen.";
 
 
 // 	1.6.3. Kurzer Text um was es bei der Wahl geht / 1.6.3. Short (descriptive) text on what's the election about
+//	(nur sichtbar ab mittlerer Auflösung / only visible on screens larger than >=768px)
 
 var explainingText = "Am 30. Februar finden in Obsthausen Wahlen statt. Sie k&ouml;nnen sich hier alle Parteipositionen anschauen und miteinander vergleichen. Dies ist keine Wahlempfehlung, sondern ein Informationsangebot zu Wahlen!"; 
 
