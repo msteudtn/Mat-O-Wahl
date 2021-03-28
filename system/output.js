@@ -325,7 +325,7 @@ function fnEvaluationShort(arResults)
 		tableContent += "<td width='60%' id='resultsShortParty"+partyNum+"'>"
 
 
-			tableContent += "<img src='"+arPartyLogosImg[partyNum]+"' width='"+intPartyLogosImgWidth+"' height='"+intPartyLogosImgHeight+"' class='rounded float-right' alt='"+arPartyNamesLong[partyNum]+"' style='margin-left: 10px;' />"
+			tableContent += "<img src='"+arPartyLogosImg[partyNum]+"' width='"+intPartyLogosImgWidth+"' height='"+intPartyLogosImgHeight+"' class='rounded float-right' alt='Logo der Partei &#8222;"+arPartyNamesLong[partyNum]+"&#8220' style='margin-left: 10px;' />"
 
 			tableContent += "<span style='font-weight: 600;'>"
 			tableContent += arPartyNamesLong[partyNum];
