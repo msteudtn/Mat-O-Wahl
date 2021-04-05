@@ -55,6 +55,12 @@ tr:nth-child(even) {
 	}
 
 */
+
+.row-striped:nth-child(odd) {
+	/* background: #FFE08F; */
+	background-color: rgba(0, 0, 0, 0.05);
+	}
+
 	
 /* Ueberschrift zur Wahl/Thema der Wahl - Formate schon durch <h1> und <h2> geregelt */
 /* Headline for the election/topic - formats already defined by <h1> and <h2> */
@@ -120,23 +126,44 @@ tr:nth-child(even) {
 }
 
 .social-twitter {
-    background: #68ace3;
+   background: #68ace3;
 	color: #fff;
 }
 
 .social-mail {
-    background: #c6c6c6;
+   background: #c6c6c6;
 	color: #fff;
 }
 
 /* Plus und Minus beim Aufklappen der detaillierten Ansicht */
 /* https://www.w3schools.com/howto/howto_js_collapsible.asp */
 
+/*
 .resultsByThesisQuestionCollapsePlus:after {
-	content: '\02795'; /* Plus */
+	content: '\02795';
 }
 
 .resultsByThesisQuestionCollapseMinus:after {
-	content: "\2796"; /* Minus */
+	content: "\2796"; 
+}
+*/
+
+/* WACG Farben (Barrierefreiheit) 
+   WACG colors (accessibility)
+   https://webaim.org/resources/contrastchecker/ */
+   
+.btn-success {
+	background: #126412;
 }
 
+.bg-success {
+	background: #126412 !important;
+}
+
+.btn-warning {
+	color:#000;
+}
+
+.bg-warning {
+	color:#000;
+}
