@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
   <title>Mat-O-Wahl</title>
   <meta charset="utf-8">
@@ -10,7 +10,7 @@
   <meta name="language" content="de" />
   <meta name="Content-Language" content="de" />
 
-  <meta name="author" content="Mathias Steudtner"/>
+  <meta name="author" content="Mathias Steudtner" />
   <meta name="description" content="Mat-O-Wahl" />
   
 	<!-- BOOTSTRAP + JQUERY --- START -->
@@ -58,7 +58,6 @@
 	<script type="text/javascript" src="system/output.js"></script>
 
 	<!-- Mat-o-Wahl JAVASCRIPT - Addon (optional) -->
-
 	<!--
 	<script type="text/javascript" src="extras/addon_results_textfilter_by_button.js"></script>
 	-->
@@ -93,7 +92,7 @@
 						<p>Kurze Beschreibung der Wahl, wer wird gew&auml;hlt, wann, warum, f&uuml;r wie lange, usw. <br /> Short (explaining) text on what's the election about</p>
 					</div>
 					
-					<div id="content" class="bubble" tabindex="1" title="These / Frage">
+					<div id="content" class="bubble" tabindex="0" title="These / Frage">
 						<p>
 						Frage(n) zu den verschiedenen Positionen an die Parteien bzw. Kandidaten.
 						<br /> Question(s) on the different party/candidate positions
@@ -139,11 +138,11 @@
 			<div class="row" id="resultsButtons">
 
 				<div class="col">
-					<button type="button" id="resultsButtonTheses" class="btn btn-primary btn-block" accesskey="q" onclick="$('#resultsByThesis').toggle(500); $('#resultsByParty').fadeOut(500);">[?] Show questions</button>
+					<button type="button" id="resultsButtonTheses" class="btn btn-secondary btn-block" onclick="$('#resultsByThesis').toggle(500); $('#resultsByParty').fadeOut(500); $('#resultsButtonTheses').addClass('btn-primary').removeClass('btn-secondary'); $('#resultsButtonParties').addClass('btn-secondary').removeClass('btn-primary');">[?] Show questions</button>
 				</div>
 
 				<div class="col">
-					<button type="button" id="resultsButtonParties" class="btn btn-primary btn-block" accesskey="p" onclick="$('#resultsByParty').toggle(500); $('#resultsByThesis').fadeOut(500);">[#] Show parties</button>
+					<button type="button" id="resultsButtonParties" class="btn btn-secondary btn-block" onclick="$('#resultsByParty').toggle(500); $('#resultsByThesis').fadeOut(500); $('#resultsButtonTheses').addClass('btn-secondary').removeClass('btn-primary'); $('#resultsButtonParties').addClass('btn-primary').removeClass('btn-secondary');">[#] Show parties</button>
 				</div>
 
 			</div>
@@ -173,26 +172,26 @@
 		<section>
 			<div class="row" id="voting">
 				<div class="col">
-					<button type="button" id="votingPro" class="btn btn-success btn-lg btn-block" accesskey="+">[&#x2714;] Pro</button>
+					<button type="button" id="votingPro" class="btn btn-success btn-lg btn-block">[&#x2714;] Pro</button>
 				</div>
 
 				<div class="col">
-					<button type="button" id="votingNeutral" class="btn btn-warning btn-lg btn-block" accesskey="0">[&#x25EF;] Neutral</button>
+					<button type="button" id="votingNeutral" class="btn btn-warning btn-lg btn-block">[&#x25EF;] Neutral</button>
 				</div>
 
 				<div class="col">
-					<button type="button" id="votingContra" class="btn btn-danger btn-lg btn-block" accesskey="-">[&#x2716;] Contra</button>
+					<button type="button" id="votingContra" class="btn btn-danger btn-lg btn-block">[&#x2716;] Contra</button>
 				</div>
 
 				<!-- Force next columns to break to new line (Bootstrap 4.4+) -->
 				<div class="w-100"></div>
 
 				<div class="col">
-					<button type="button" id="votingSkip" class="btn btn-secondary btn-lg btn-block" accesskey="/">[&#x21B7;] Skip</button>
+					<button type="button" id="votingSkip" class="btn btn-secondary btn-lg btn-block">[&#x21B7;] Skip</button>
 				</div>
 				
 				<div class="col">
-					<button type="button" id="votingDouble" onclick="fnChangeVotingDouble()" class="btn btn-outline-dark btn-lg btn-block" accesskey="#">[x2] Important</button>
+					<button type="button" id="votingDouble" onclick="fnChangeVotingDouble()" class="btn btn-outline-dark btn-lg btn-block">[x2] Important</button>
 				</div>
 			</div> 
 
@@ -250,7 +249,7 @@
 			</div>			
 			
 			<div class="col">
-				<a class="btn btn-block btn-sm social-facebook" role='button' onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(location.href) + '&title='+encodeURIComponent(document.title), '_blank', 'location=yes,height=480,width=640,scrollbars=yes,status=yes'); return false;" title="Share on Facebook">
+				<a class="btn btn-block btn-sm social-facebook" role='button' style='color:#fff' onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(location.href) + '&title='+encodeURIComponent(document.title), '_blank', 'location=yes,height=480,width=640,scrollbars=yes,status=yes'); return false;" title="Share on Facebook">
 				facebook</a>
 			</div>
 
