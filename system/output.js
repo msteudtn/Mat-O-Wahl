@@ -56,10 +56,9 @@ function fnStart()
 
 	// Wenn Datenschutzerklärung vorhanden UND Auswertung gewünscht ...
 	$("#keepStats").hide()
+	$("#keepStatsQuestion").append(TEXT_ALLOW_STATISTIC);	// WACG: <label> sollte immer befüllt sein 	
 	if ((imprintPrivacyUrl.length > 0) && (statsRecord) )
-	{
-		/// $("#keepStatsQuestion").append("Siehe <a href='https://"+imprintPrivacyUrl+"' target='_blank'>Datenschutzerkl&auml;rung.</a>");
-		$("#keepStatsQuestion").append(TEXT_ALLOW_STATISTIC);		
+	{		
 //		$("#keepStatsCheckbox").attr("checked",true); // Zeile auskommentieren/aktivieren und OptIn erzwingen - bitte mit Bedacht benutzen.
 		$("#keepStats").fadeIn(1000);
 	}
@@ -241,7 +240,7 @@ function fnJumpToQuestionNumber(questionNumber)
 	}
 
 	// Tabelle aufbauen	
-	var tableContent = "<table width='100%' class='table table-bordered table-striped table-hover'>";
+	var tableContent = "<table width='100%' class='table table-bordered table-striped table-hover' aria-role='presentation'>";
 	for (i = 1; i <= arQuestionsLong.length; i++)
 	{
 		var modulo = i % questionsPerLine;
@@ -304,80 +303,77 @@ function fnEvaluationShort(arResults)
 	}
 	if (maxPoints==0)
 		{maxPoints=1;}
-	var tableContent = "<table id='resultsShortTable' width='100%' class='table table-bordered table-striped table-hover'>"
-	
-	for (i = 0; i <= (intParties-1); i++)
-	{
-		var partyNum=arSortParties[i];
-		var percent = fnPercentage(arResults[partyNum],maxPoints)
 
+	var tableContent = ""
+//	tableContent += "<div class='row' id='resultsShortTable'>"
+//		tableContent += "<div class='col'>"
+		tableContent = "<table id='resultsShortTable' class='table table-bordered table-striped table-hover' aria-role='presentation'>"
 
-		// Bilder in eigener Spalte -> deaktiviert seit V 0.5 
-		// -> Bilder nun rechtsbündig neben Parteinamen
-/*	
-		tableContent += "<tr>"
+		for (i = 0; i <= (intParties-1); i++)
+		{
+			var partyNum=arSortParties[i];
+			var percent = fnPercentage(arResults[partyNum],maxPoints)
 
-		tableContent += "<td width='20%'>"
-			tableContent += "<img src='data/"+arPartyLogosImg[partyNum]+"' width='"+intPartyLogosImgWidth+"' height='"+intPartyLogosImgHeight+"' alt='"+arPartyNamesLong[partyNum]+"' title='"+arPartyNamesLong[partyNum]+"' /> "
-		tableContent += "</td>"
-*/
+			// tableContent += "<div class='row border rounded row-striped' id='resultsShortParty"+partyNum+"'>"
+			tableContent += "<tr id='resultsShortParty"+partyNum+"'>"
+
+				// Parteinamen: lang, kurz, Webseite, Beschreibung
+				// tableContent += "<div class='col col-md-7 col-sm-12' >"
+				tableContent += "<td style='width:60%;'>"
+
+					tableContent += "<img src='"+arPartyLogosImg[partyNum]+"' class='rounded img-fluid float-right' alt='Logo "+arPartyNamesLong[partyNum]+"' style='margin-left: 10px; width:"+intPartyLogosImgWidth+"; height:"+intPartyLogosImgHeight+";' />"
+
+					tableContent += "<span style='font-weight: 600;'>"
+					tableContent += arPartyNamesLong[partyNum];
+					tableContent += "</span>" 
+
+					tableContent += " (&#8663; <a href='"+arPartyInternet[partyNum]+"' target='_blank' title='"+arPartyNamesLong[partyNum]+"'>";		
+					tableContent += arPartyNamesShort[partyNum];
+					tableContent += "</a>)";
+
+					// Beschreibung der Partei - falls in der CSV vorhanden.
+					// Nur die ersten 32 Zeichen anzeigen. 
+					// Danach abschneiden und automatisch ein/ausblenden (Funktionsaufbau weiter unten)
+					// Wenn keine Beschreibung gewünscht, dann "0" eintragen.
+					intPartyDescriptionPreview = 32
+					if ( (arPartyDescription[partyNum]) && (intPartyDescriptionPreview > 0) )
+					{
+						tableContent += "<p style='cursor: pointer;'> &bull; "
+						tableContent += arPartyDescription[partyNum].substr(0,intPartyDescriptionPreview)
+						tableContent += "<span id='resultsShortPartyDescriptionDots"+partyNum+"'>...</span>"
+						tableContent += "<span id='resultsShortPartyDescription"+partyNum+"'>"
+						tableContent += arPartyDescription[partyNum].substr(intPartyDescriptionPreview,1024)
+						tableContent += "</span> </p>"
+					}
+
+				// tableContent += "</div>"
+				// tableContent += "</td>"
+
+				// Partei-Logo (automatisch angepasst)
+				// tableContent += "<div class='col col-md-1 d-none d-md-block' >"
+				// tableContent += "<td>"
+				//	tableContent += "<img src='"+arPartyLogosImg[partyNum]+"' class='rounded img-fluid' alt='Logo "+arPartyNamesLong[partyNum]+"' style='margin-left: 10px;' />"
+				// tableContent += "</div>"
+				tableContent += "</td>"
+
+				// Prozentwertung
+				// tableContent += "<div class='col col-md-4 col-sm-12'>"
+				tableContent += "<td style='width:40%;'>"
+					tableContent += "<div class='progress'>"
+					tableContent += "	<div class='progress-bar' role='progressbar' id='partyBar"+partyNum+"' style='width:"+percent+"%;' aria-valuenow='"+percent+"' aria-valuemin='0' aria-valuemax='100'>JUST_A_PLACEHOLDER_TEXT - SEE FUNCTION fnReEvaluate()</div> "
+					tableContent += "</div>"
+				// tableContent += "</div>"
+				tableContent += "</td>"
+
+			// tableContent += "</div>" // end: row (for-i)
+			tableContent += "</tr>" 
 		
-		tableContent += "<td width='60%' id='resultsShortParty"+partyNum+"'>"
+		} // end for
 
-
-			tableContent += "<img src='"+arPartyLogosImg[partyNum]+"' width='"+intPartyLogosImgWidth+"' height='"+intPartyLogosImgHeight+"' class='rounded float-right' alt='"+arPartyNamesLong[partyNum]+"' style='margin-left: 10px;' />"
-
-			tableContent += "<span style='font-weight: 600;'>"
-			tableContent += arPartyNamesLong[partyNum];
-			tableContent += "</span>" 
-
-			tableContent += " (&#8663; <a href='"+arPartyInternet[partyNum]+"' target='_blank' title='"+arPartyNamesLong[partyNum]+"'>";		
-			tableContent += arPartyNamesShort[partyNum];
-			tableContent += "</a>)";
-
-			// Beschreibung der Partei - falls in der CSV vorhanden.
-			// Nur die ersten 32 Zeichen anzeigen. 
-			// Danach abschneiden und automatisch ein/ausblenden (Funktionsaufbau weiter unten)
-			// Wenn keine Beschreibung gewünscht, dann "0" eintragen.
-			intPartyDescriptionPreview = 32
-			if ( (arPartyDescription[partyNum]) && (intPartyDescriptionPreview > 0) )
-			{
-				tableContent += "<p style='cursor: pointer;'> &bull; "
-				tableContent += arPartyDescription[partyNum].substr(0,intPartyDescriptionPreview)
-				tableContent += "<span id='resultsShortPartyDescriptionDots"+partyNum+"'>...</span>"
-				tableContent += "<span id='resultsShortPartyDescription"+partyNum+"'>"
-				tableContent += arPartyDescription[partyNum].substr(intPartyDescriptionPreview,1024)
-				tableContent += "</span> </p>"
-			}
-
-		tableContent += "</td>"
-
-		
-		// Punktwertung in eigener Spalte -> deaktiviert seit V 0.5 
-		// -> Punkte nun direkt im Fortschrittsbalken zusammen mit Prozenten
-/*
-		tableContent += "<td width='10%' style='text-align:center;'>"
-			tableContent += "<span id='partyPoints"+partyNum+"'>"+arResults[partyNum]+"/"+maxPoints+"</span>"
-		tableContent += "</td>"
-*/
-
-		// Prozentwertung
-		tableContent += "<td width='40%'>"
-			tableContent += "<div class='progress'>"
-//			tableContent += "	<div class='progress-bar' role='progressbar' id='partyBar"+partyNum+"' style='width:"+percent+"%'> "+percent+"% ("+arResults[partyNum]+"/"+maxPoints+") </div> "
-			tableContent += "	<div class='progress-bar' role='progressbar' id='partyBar"+partyNum+"' style='width:"+percent+"%;' aria-valuenow='"+percent+"' aria-valuemin='0' aria-valuemax='100'>JUST_A_PLACEHOLDER_TEXT - SEE FUNCTION fnReEvaluate()</div> "
-
-			tableContent += "</div>"
-		tableContent += "</td>"
-
-		tableContent += "</tr>";
-	
-	} // end for
-
-	// $("#resultsShort").append("<p id='resultsShortToggle'>&nbsp; <b style='font-size:150%'>&#10551;</b> <a>Details</a> f&uuml;r oben ausgew&auml;hlte Parteien <a>ein-/ausblenden</a>.</p>");
-
-	// Anzeigen der detaillierten Tabelle
-	tableContent += "</table>";
+		// Anzeigen der detaillierten Tabelle
+//		tableContent += "</div>"; // end: col (resultsShortTable)
+//	tableContent += "</div>"; // end: row (resultsShortTable)
+	tableContent += "</table>"; // end: row (resultsShortTable)
 
 
 	// Daten in Browser schreiben
@@ -420,110 +416,116 @@ function fnEvaluationByThesis(arResults)
 
 	var tableContent = "";
 
-//	tableContent += "<h2>"+TEXT_RESULTS_MATCHES_DETAILS+"</h2>";	
-
 	tableContent += " <p>"+TEXT_RESULTS_INFO_THESES+"</p>";
-
 	
 	tableContent += "<table width='100%' id='resultsByThesisTable' class='table table-bordered table-striped table-hover'>";
-		
-	// Kopfzeile der Tabelle
-		
-	// v.0.3 NEU: nur noch zwei Spalten
-/*
-	tableContent += "<tr>";
-	tableContent += " <th> </th>"; 
-	tableContent += " <th> </th>"; 
-	tableContent += " <th> </th>"; 
-	tableContent += "</tr>";
-*/
-	// Inhalt
-	// var cellId = -1;	// cellId ist für das Ausblenden der Spalten wichtig.
-	for (i = 0; i <= (arQuestionsLong.length-1); i++)
-	{
-		var positionButton = fnTransformPositionToButton(arPersonalPositions[i]);
-		var positionIcon = fnTransformPositionToIcon(arPersonalPositions[i]);
-		var positionText  = fnTransformPositionToText(arPersonalPositions[i]);
-		
-		tableContent += "<tr>";
-		
-			// 1. Spalte: eigene Meinung + doppelte Wertung
-			tableContent += "<td style='text-align:center'>";
-				tableContent += "<button type='button' id='selfPosition"+i+"' "+
-					" class='btn "+positionButton+" btn-sm' "+ 
-					" onclick='fnToggleSelfPosition("+i+")' "+ 
-					" alt='"+positionText+"' title='"+positionText+"'>"+
-					" "+positionIcon+"</button>";
-
-			tableContent += "</td>";	
-			tableContent += "<td style='text-align:center'>";	
+	tableContent += "<caption>"+TEXT_RESULTS_INFO_THESES+"</caption>";
 				
-				if (arVotingDouble[i])
-				{
-					tableContent += "<button type='button' class='btn btn-dark btn-sm' "+
-						" id='doubleIcon"+i+"' "+
-						" onclick='fnToggleDouble("+i+")' title='Frage wird doppelt gewertet'>x2</button>";						
-				}
-				else			
-				{
-				tableContent += "<button type='button' class='btn btn-outline-dark btn-sm' "+
-						" id='doubleIcon"+i+"' "+
-						" onclick='fnToggleDouble("+i+")' title='Frage wird einfach gewertet'>x2</button>";
-
-				}
-				
-			tableContent += "</td>";
-
-			// 2. Spalte: Frage (kurz und lang)
-			tableContent += "<td id='resultsByThesisQuestion"+i+"' style='cursor: pointer;'>";
-				tableContent += "<div style='display:inline-; float:left'>"
-				tableContent += "<strong>"+arQuestionsShort[i]+"</strong>: ";
-				tableContent += arQuestionsLong[i];
-				tableContent += "</div>"
-				// Einklappen / Aufklappen ("Collapside")
-				tableContent += "<div style='display:inline; float:right' id='resultsByThesisQuestion"+i+"collapse' class='resultsByThesisQuestionCollapsePlus'> </div>";
-			tableContent += "</td>";	
-			
-			// var multiplier = arPartyFiles.length + 2; 
-
-		tableContent += "</tr> ";
-
-		// v.0.3 Parteiantworten gleich unter der Frage anzeigen
-		tableContent += "<tr id='resultsByThesisAnswersToQuestion"+i+"'> ";
-		tableContent += " <td> </td> ";
-		tableContent += " <td> </td> ";		
-		tableContent += " <td>";
-
-		// darunterliegende Zeile - Parteipositionen anzeigen
-			for (j = 0; j <= (intParties-1); j++)
+			// Inhalt
+			// var cellId = -1;	// cellId ist für das Ausblenden der Spalten wichtig.
+			for (i = 0; i <= (intQuestions-1); i++)
 			{
-				var partyNum=arSortParties[j];
-				// cellId++; /// VER 0.2.3.2
-				// var cellId = partyNum + 2 + (i * multiplier);
-				var partyPositionsRow = partyNum * arQuestionsLong.length + i;
-				// var positionImage = fnTransformPositionToImage(arPartyPositions[partyPositionsRow]);
-				var positionButton = fnTransformPositionToButton(arPartyPositions[partyPositionsRow]);
-				var positionIcon = fnTransformPositionToIcon(arPartyPositions[partyPositionsRow]);
+				var positionButton = fnTransformPositionToButton(arPersonalPositions[i]);
+				var positionIcon = fnTransformPositionToIcon(arPersonalPositions[i]);
+				var positionText  = fnTransformPositionToText(arPersonalPositions[i]);
 				
-                var positionText = fnTransformPositionToText(arPartyPositions[partyPositionsRow]);
+				tableContent += "<tbody>";
+				tableContent += "<tr>";
+				
+					// 1. Spalte: doppelte Wertung					
+					tableContent += "<th class='text-center'>";
+						if (arVotingDouble[i])
+						{
+							tableContent += "<button type='button' class='btn btn-dark btn-sm' "+
+								" id='doubleIcon"+i+"' "+
+								" onclick='fnToggleDouble("+i+")' title='Frage wird doppelt gewertet'>x2</button>";						
+						}
+						else			
+						{
+						tableContent += "<button type='button' class='btn btn-outline-dark btn-sm' "+
+								" id='doubleIcon"+i+"' "+
+								" onclick='fnToggleDouble("+i+")' title='Frage wird einfach gewertet'>x2</button>";
+		
+						}		
+					tableContent += "</th>";
 
-				// Inhalt der Zelle
-				tableContent += "<p>"
-				tableContent += "<button type='button' class='btn "+positionButton+" btn-sm' disabled "+
-						" alt='"+positionText+"' title='"+positionText+"'>"+
-						" "+positionIcon+"</button>";							
+
+					// 2. Spalte: eigene Meinung
+						tableContent += "<th scope='col' class='text-center'>";
+						tableContent += "<button type='button' id='selfPosition"+i+"' "+
+							" class='btn "+positionButton+" btn-sm' "+ 
+							" onclick='fnToggleSelfPosition("+i+")' "+ 
+							" alt='"+positionText+"' title='"+positionText+"'>"+
+							" "+positionIcon+"</button>";
+					tableContent += "</th>";
+
+		
+					// 3. Spalte: Frage (kurz und lang)
+//					tableContent += "<th id='resultsByThesisQuestion"+i+"' style='cursor: pointer;' scope='col'>";
+					tableContent += "<th id='resultsByThesisQuestion"+i+"' style='' scope='col'>";
+						tableContent += "<div style='display:inline-; float:left'>"
+						tableContent += "<strong>"+arQuestionsShort[i]+"</strong>: ";
+						tableContent += arQuestionsLong[i];
+						tableContent += "</div>"
+						// Einklappen / Aufklappen ("Collapside")
+						
+//						tableContent += "<div style='display:inline; float:right' id='resultsByThesisQuestion"+i+"collapse' class='resultsByThesisQuestionCollapsePlus'> </div>";
+//						tableContent += "<button style='display:inline; float:right;' id='resultsByThesisQuestion"+i+"collapse' class='resultsByThesisQuestionCollapsePlus btn btn-sm btn-outline-secondary' type='button'>+</button>";
+						tableContent += "<button style='display:inline; float:right;' id='resultsByThesisQuestion"+i+"collapse' class='nonexpanded btn btn-sm btn-outline-secondary' type='button'>&#x2795;</button>";
+						
+					tableContent += "</th>";	
+					 
+				tableContent += "</tr>"; // (Fragen)
+				tableContent += "</tbody>";
+		
+				// darunterliegende Zeile - Parteipositionen anzeigen		
+				tableContent += "<tbody id='resultsByThesisAnswersToQuestion"+i+"'>";
+
+						for (j = 0; j <= (intParties-1); j++)
+						{
+							var partyNum=arSortParties[j];
+							var partyPositionsRow = partyNum * intQuestions + i;
+							var positionButton = fnTransformPositionToButton(arPartyPositions[partyPositionsRow]);
+							var positionIcon = fnTransformPositionToIcon(arPartyPositions[partyPositionsRow]);
+			            var positionText = fnTransformPositionToText(arPartyPositions[partyPositionsRow]);
+			            
+			
+							// Inhalt der Zelle
 							
-				tableContent += "<strong>" + arPartyNamesShort[partyNum] + "</strong>: " + ( arPartyOpinions[partyPositionsRow] === "" ? "" : "" + arPartyOpinions[partyPositionsRow] ) + " ";
-				tableContent += "</p>";
-			}
-		tableContent += "</td> </tr> ";
-		
-	} // end if
-		
+							tableContent += "<tr> ";
+								tableContent += " <td class='border-0'> </td> ";
+
+								/*
+								// Die erste Antworten-Spalte [0] ist leer. (in der Frage-Zeile steht hier "Doppelte Wertung [x2]") 
+								// Die Spalte soll aber über alle Antworten gehen, so dass ein optischer Gesamteindruck entsteht.  
+				            if (j == 0) 
+				            {	
+				            	tableContent += " <td rowspan='"+intParties+"'> </td> ";
+				            }
+				            else {}
+				            */								
+								
+								tableContent += " <td headers='resultsByThesisQuestion"+i+"' class='text-center'>";
+									tableContent += "<button type='button' class='btn "+positionButton+" btn-sm' disabled "+
+											" alt='"+positionText+"' title='"+positionText+"'>"+
+											" "+positionIcon+"</button>";
+								tableContent += "</td>";							
+								
+								tableContent += " <td tabindex='0'> ";
+									tableContent += "<strong>" + arPartyNamesShort[partyNum] + "</strong>: " + ( arPartyOpinions[partyPositionsRow] === "" ? "" : "" + arPartyOpinions[partyPositionsRow] ) + " ";
+								//tableContent += "</p>";
+								tableContent += "</td>";
+							tableContent += "</tr>"; 
+						}
+				tableContent += "</tbody>";
+			} // end if
+	
 	tableContent += "</table>";
+
 	
 	// Daten in Browser schreiben
 	$("#resultsByThesis").append(tableContent);
+
 
 	// und am Anfang ausblenden
 	$("#resultsByThesis").hide();
@@ -532,45 +534,40 @@ function fnEvaluationByThesis(arResults)
 	// Click-Funktion auf FRAGE-(und ANTWORT)-Zeile legen zum Anzeigen der ANTWORT-Zeile (direkt darunter)
 	// "[In a FOR-loop] you can use the let keyword, which makes the i variable local to the loop instead of global"
 	// 	https://stackoverflow.com/questions/4091765/assign-click-handlers-in-for-loop
-//	for (let i = 0; i <= (arQuestionsLong.length-1); i++)
 	for (let i = 0; i <= (intQuestions-1); i++)
 	{
+		/*		
 		// Klickfunktion - bei Überschriftenzeile
-		$("#resultsByThesisQuestion"+i).click(function () { 
-				$("#resultsByThesisAnswersToQuestion"+i).toggle(500);
-				// $("#resultsByThesisQuestion"+i+"collapse").html("+ &#x2795"); // Plus
-				// $("#resultsByThesisQuestion"+i+"collapse").html("- &#x2796"); // Minus
-//				$(".resultsByThesisQuestionCollapsePlus").toggleClass("resultsByThesisQuestionCollapseMinus")
-				$("#resultsByThesisQuestion"+i+" .resultsByThesisQuestionCollapsePlus").toggleClass("resultsByThesisQuestionCollapseMinus")
-			});
+		$("#resultsByThesisQuestion"+i).click(function () {
+				$("#resultsByThesisAnswersToQuestion"+i+"").toggle(500);
 
-		/*
-		// Klickfunktion - bei der detaillierten Beschreibung (hat immer "Schließen" als Ergebnis)
-		$("#resultsByThesisAnswersToQuestion"+i).click(function () { 
-				$("#resultsByThesisAnswersToQuestion"+i).toggle(500);
-				$("#resultsByThesisQuestion"+i+"collapse").html("+ &#x2795"); // Plus
+				// Wechsel des PLUS und MINUS-Symbols beim Klick (siehe auch DEFAULT.CSS)
+				// *** ToDo: Button mit Inhalt füllen für ARIA, kein CSS ***
+				// $("#resultsByThesisQuestion"+i+" .resultsByThesisQuestionCollapsePlus").toggleClass("resultsByThesisQuestionCollapseMinus")				
+				
 			});
-		// am Anfang ausblenden
-
 		*/
-
-		$("#resultsByThesisAnswersToQuestion"+i).fadeOut(500);
-	}	
-
-
-	/* ToDo - Zu Erledigen: Plus und Minus statt \/ beim Aufklappen der detaillierten Ansicht
-
-	var coll = document.getElementsByClassName("resultsByThesisQuestionCollapsePlus");
-	var i;
-
-	for (i = 0; i < coll.length; i++) {
-		coll[i].addEventListener("click", function() {
-			this.classList.toggle("resultsByThesisQuestionCollapseMinus");
+		
+		$("#resultsByThesisQuestion"+i+" .nonexpanded").click(function() {
+		var $this = $(this);
+		$("#resultsByThesisAnswersToQuestion"+i+"").toggle(500)
+		
+			$this.toggleClass("expanded");
+		
+			if ($this.hasClass("expanded")) {
+				$this.html("&#x2796;"); // MINUS
+			} else {
+				$this.html("&#x2795;"); // PLUS
+			}
 		});
+
+		// am Anfang die Antworten ausblenden
+//		$("#resultsByThesisAnswersToQuestion"+i).fadeOut(500);	// irgendwie verrutschen die Zeilen bei fadeOut() -> deshalb die css()-Lösung 
+		$("#resultsByThesisAnswersToQuestion"+i+"").css("display","none")
 	}
-	*/ 	
 
 } // end function
+
 
 
 // Anzeige der Ergebnisse - detailliert, Sortiert nach Parteien inkl. deren Antworten
@@ -583,24 +580,27 @@ function fnEvaluationByParty(arResults)
 	tableContent += " <p>"+TEXT_RESULTS_INFO_PARTIES+"</p>";
 	
 	tableContent += "<table width='100%' id='resultsByPartyTable' class='table table-bordered table-striped table-hover'>";
+	tableContent += "<caption>"+TEXT_RESULTS_BUTTON_PARTIES+"</caption>";
 
 	for (i = 0; i <= (intParties-1); i++)
 	{
 
 		var partyNum=arSortParties[i];	// partyNum = sortierte Position im Endergebnis, z.B. "Neutrale Partei = 4. Partei in CSV" aber erste im Ergebnis = Nullter Wert im Array[0] = 4
-		tableContent += " <thead class=''>"
+		tableContent += " <tbody class='' id='resultsByPartyHeading"+i+"'>"
 		tableContent += " <tr>"
 		tableContent += "  <td colspan='2'>"
 		tableContent += "  &nbsp; </td>"
-		tableContent += "  <td colspan='2'>"
+		tableContent += "  <th colspan='2' scope='col' >"
 
+			tableContent += "<img src='"+arPartyLogosImg[partyNum]+"' class='rounded img-fluid float-left' alt='Logo "+arPartyNamesLong[partyNum]+"' style='margin: 10px; width:"+intPartyLogosImgWidth+"; height:"+intPartyLogosImgHeight+";' />"			
 
-			tableContent += "<img src='"+arPartyLogosImg[partyNum]+"' width='"+intPartyLogosImgWidth+"' height='"+intPartyLogosImgHeight+"' class='rounded float-right' alt='"+arPartyNamesLong[partyNum]+"' style='margin-left: 10px;' />"
+//			tableContent += "<img src='"+arPartyLogosImg[partyNum]+"' width='"+intPartyLogosImgWidth+"' height='"+intPartyLogosImgHeight+"' class='rounded float-right' alt='"+arPartyNamesLong[partyNum]+"' style='margin-left: 10px;' />"
+//			tableContent += "<img src='"+arPartyLogosImg[partyNum]+"' class='rounded float-right' alt='Logo "+arPartyNamesLong[partyNum]+"' style='margin-left: 10px;' />"
 
 //			tableContent += "<span style='font-weight: 600;'>"
-			tableContent += "<h3>" 
+			tableContent += "<strong>" 
 			tableContent += arPartyNamesLong[partyNum];
-			tableContent += "</h3>" 
+			tableContent += "</strong>" 
 //			tableContent += "</span>" 
 
 			tableContent += " (&#8663; <a href='"+arPartyInternet[partyNum]+"' target='_blank' title='"+arPartyNamesLong[partyNum]+"'>";		
@@ -610,19 +610,23 @@ function fnEvaluationByParty(arResults)
 			// Beschreibung der Partei - falls in der CSV vorhanden.
 			tableContent += "<p>"+arPartyDescription[partyNum]+"</p>"
 
-		tableContent += "  </td>"
+			tableContent += "<button style='display:inline; float:right;' id='resultsByPartyAnswers"+i+"collapse' class='nonexpanded btn btn-sm btn-outline-secondary' type='button'>&#x2795;</button>";
+
+		tableContent += "  </th>"
 		tableContent += " </tr>"
-		tableContent += " </thead>"
+		tableContent += " </tbody>"
 
 		jStart = partyNum * intQuestions // z.B. Citronen Partei = 3. Partei im Array[2] = 2 * 5 Fragen = 10
 		jEnd = jStart + intQuestions -1	// 10 + 5 Fragen -1 = 14
+
+		tableContent += "<tbody id='resultsByPartyAnswersToQuestion"+i+"'>";
 
 
 		// Anzeige der Partei-Antworten
 		for (j = jStart; j <= jEnd; j++)
 		{
 
-			
+			// Frage
 			modulo = j % intQuestions // z.B. arPartyPositions[11] % 5 Fragen = 1 -> arQuestionsShort[1] = 2. Frage		
 			tableContent += " <tr>"
 			tableContent += "  <td class='align-text-top'>"
@@ -634,7 +638,7 @@ function fnEvaluationByParty(arResults)
 			var positionIcon = fnTransformPositionToIcon(arPersonalPositions[modulo]);
 			var positionText  = fnTransformPositionToText(arPersonalPositions[modulo]);
 
-			tableContent += "<td style='text-align:center'>";
+			tableContent += "<td style='text-align:center; width:10%;'>";
 			tableContent += "<button type='button' "+
 					" class='btn "+positionButton+" btn-sm' "+ 
 					" alt='"+positionText+"' title='"+positionText+"' disabled>"+
@@ -647,19 +651,23 @@ function fnEvaluationByParty(arResults)
 			var positionButton = fnTransformPositionToButton(arPartyPositions[j]);
 			var positionText  = fnTransformPositionToText(arPartyPositions[j]);
 
-			tableContent += "  <td style='text-align:center'>"
+			tableContent += "  <td style='text-align:center; width:10%;'>"
 			tableContent += "<button type='button' "+
 					" class='btn "+positionButton+" btn-sm' "+ 
 					" alt='"+positionText+"' title='"+positionText+"' disabled>"+
 					" "+positionIcon+"</button>";
-			tableContent += "  <td class='align-text-top'>"
+			tableContent += "<span style='display:none;'>"+arPartyNamesShort[partyNum]+"</span>"	// Einfügen (Verstecken) des Parteinamens für Textfilter-Addon (siehe /EXTRAS)
+			tableContent += "  </td>"
+			
+			// Antwort der Partei
+			tableContent += "  <td class='align-text-top' headers='resultsByPartyHeading"+i+"' tabindex='0'>"
 			tableContent += " "+arPartyOpinions[j]
 			tableContent += "  </td>"
 
 			tableContent += " </tr>"
 
 		} // end: for-j
-
+		tableContent += "</tbody>";
 
 		
 	} // end: for-i (intParties)
@@ -669,9 +677,30 @@ function fnEvaluationByParty(arResults)
 	// Daten in Browser schreiben
 	$("#resultsByParty").append(tableContent);
 
-	// und am Anfang ausblenden
+	// und am Anfang Tabelle ausblenden
 	$("#resultsByParty").hide();
 
+	for (let i = 0; i <= (intParties-1); i++)
+	{
+
+		$("#resultsByPartyHeading"+i+" .nonexpanded").click(function() {
+		var $this = $(this);
+		$("#resultsByPartyAnswersToQuestion"+i+"").toggle(500)
+		
+			$this.toggleClass("expanded");
+		
+			if ($this.hasClass("expanded")) {
+				$this.html("&#x2796;"); // MINUS
+			} else {
+				$this.html("&#x2795;"); // PLUS
+			}
+		});
+	
+	// am Anfang die Antworten ausblenden
+//		$("#resultsByPartyAnswersToQuestion"+i).fadeOut(500);	// irgendwie verrutschen die Zeilen bei fadeOut() -> deshalb die css()-Lösung 
+	$("#resultsByPartyAnswersToQuestion"+i+"").css("display","none")
+
+	}
 
 } // end function
 
