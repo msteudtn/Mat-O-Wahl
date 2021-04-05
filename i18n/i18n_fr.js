@@ -15,7 +15,10 @@ var TEXT_IMPRINT = "[§] Empreinte"
 var TEXT_RESTART = "[&#x21BB;] Relancer le questionnaire"
 
 // Results
-var TEXT_RESULTS_MATCHES_GENERAL = "Accord avec les positions"
-var TEXT_RESULTS_MATCHES_DETAILS = "Évaluation détaillée"
-var TEXT_RESULTS_MATCHES_DETAILS_INFO = "Vous pouvez ajuster votre propre opinion dans la première colonne et vérifier le nouveau résultat. <br /> Vous recevrez les réponses des parties lorsque vous cliquerez sur la question."
-var TEXT_RESULTS_MATCHES_DETAILS_TABLE = "Questions et réponses du parti"
+var TEXT_RESULTS_HEADING = "Accord avec les positions"
+
+var TEXT_RESULTS_INFO_THESES = "Vous pouvez ajuster votre propre opinion dans la deuxième colonne et vérifier le nouveau résultat. <br /> Vous recevrez les réponses des parties lorsque vous cliquerez sur la question."
+var TEXT_RESULTS_INFO_PARTIES = "Évaluation"
+
+var TEXT_RESULTS_BUTTON_THESES = "Questions et réponses du parti"
+var TEXT_RESULTS_BUTTON_PARTIES= "Toutes réponses des parties"

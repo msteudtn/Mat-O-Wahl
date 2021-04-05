@@ -309,7 +309,7 @@ var language = "de";
 	The script and Mat-O-Wahl must be on the same domain and network-protocoll. (no "cross origin" / CORS)
 */
 
-var statsRecord = 1;
+var statsRecord = 0;
 var statsServer = "http://localhost/extras/statistics/vote_txt.php";
 
 

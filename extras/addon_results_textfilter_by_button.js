@@ -2,29 +2,27 @@
 // DEFINITIONEN *** DEFINITIONS
 // http://www.mat-o-wahl.de
 
-// 1.) Sonderzeichen oder Zeichenkette für den Filter bestimmen
-// Define special character or string for filter
+// 1.) Sonderzeichen oder Zeichenkette für die Filter (im Array) bestimmen
+// Define special character or string for filter (in an array)
 // Beispiel / example: U+1F464 (128100)	- BUST IN SILHOUETTE (Menschliche Silhouette)
 // https://de.wikipedia.org/wiki/Unicodeblock_Verschiedene_piktografische_Symbole
-var TEXTFILTER_SEARCH_KEYWORD = "&#x1F464;"
+var TEXTFILTER_KEYWORDS = [" ", "&#x1F464;", "[SF]", "&#x25CB;"]
 
-// 2.) Text für Button 1 - Filter
-// Text on button 1 - filter
-var TEXTFILTER_BUTTONTEXT_KEYWORD = "Bürgermeisterkandidaten anzeigen"
+// 2.) Text für Buttons
+// Text on buttons
+var TEXTFILTER_BUTTONTEXTS = ["Alle anzeigen", "Bürgermeisterkandidaten &#x1F464; anzeigen", "Südfrüchte anzeigen", "Runde Früchte anzeigen"]
 
-// 3.) Text für Button 2 - Gegenteil vom Filter
-// Text on button 2 - opposite of filter
-var TEXTFILTER_BUTTONTEXT_NOKEYWORD = "Parteien für Stadtrat anzeigen"
 
-// 4.) Filter-Sonderzeichen in DEFINITION.JS einfügen. Beispiel:
-// Put the filter character(s) in DEFINITION.JS. Example:
-// var strPartyNamesShort = "&#x1F464; APPD,Bananen,&#x1F464; TBC,Neutrale";
+// 3.) Filter-Sonderzeichen in PARTEIEN-ANTWORTEN.CSV einfügen. Beispiel:
+// Put the filter character(s) in PARTY-ANSWERS.CSV. Example:
+// Partei_kurz:;"&#x1F464; APPD"
+// Partei_kurz:;"Bananen [BM]"
 
-// 5.) Folgende Zeile kurz vor </HEAD> der INDEX.HTML einfügen. (ohne "//")
+// 4.) Folgende Zeile kurz vor </HEAD> der INDEX.HTML einfügen. (ohne "//")
 // Add the following line just before </HEAD> of INDEX.HTML (without "//")
 // <script type="text/javascript" src="extras/addon_results_textfilter_by_button.js"></script>
 
-// 6.) Fertig. 
+// 5.) Fertig. 
 // That's it.
 
 ///////////////////////////////////////////////////////////////////////  
@@ -69,90 +67,107 @@ function mow_addon_textfilter_create_buttons() {
 	if (!resultsHeadingContent) {
 		// nix. Noch keine Ergebnisse im DIV
 	}
+	// schreibe Buttons
 	else {
-//		Buttons einfügen
 		divContent = '<div class="row">'
-		divContent += ' <div class="col">'
-		divContent += '  <button id="mow_addon_textfilter_button1" type="button" class="btn btn-secondary btn-block" onclick="mow_addon_textfilter_filter_table(\''+TEXTFILTER_SEARCH_KEYWORD+'\',1);  mow_addon_textfilter_color_buttons(1,2);">'+TEXTFILTER_BUTTONTEXT_KEYWORD+'</button>'
-		divContent += ' </div>'
-		divContent += ' <div class="col">'
-		divContent += '  <button id="mow_addon_textfilter_button2" type="button" class="btn btn-secondary btn-block" onclick="mow_addon_textfilter_filter_table(\''+TEXTFILTER_SEARCH_KEYWORD+'\',0); mow_addon_textfilter_color_buttons(2,1);">'+TEXTFILTER_BUTTONTEXT_NOKEYWORD+'</button>'
-		divContent += ' </div>'
+
+		// gehe durch Array und schreibe Inhalt
+		for (i = 0; i < TEXTFILTER_BUTTONTEXTS.length; i++) {
+			divContent += ' <div class="col">'
+			divContent += '  <button id="mow_addon_textfilter_button'+i+'" type="button" class="btn btn-secondary btn-block" onclick="mow_addon_textfilter_filter_tables(\''+TEXTFILTER_KEYWORDS[i]+'\','+i+');">'+TEXTFILTER_BUTTONTEXTS[i]+'</button>'
+			divContent += ' </div>'
+		} // end: for TEXTFILTER_BUTTONTEXTS.length
+
 		divContent += '</div>'
+
 		$("#resultsAddonTop").append(divContent).fadeIn(750); 
 
-		// ersten Button am Anfang "klicken" um Vorauswahl zu haben
-		document.getElementById("mow_addon_textfilter_button1").click();
+	} // end: else
 
-	}
 }
 
 
 // Filter-Funktion
-// "search_keyword" kommt vom Button
-function mow_addon_textfilter_filter_table(search_keyword, status) {
+// "search_keyword" und "status" kommen vom Button
+// Status = Suchbegriff anzeigen (1) oder ausblenden (0)
+function mow_addon_textfilter_filter_tables(search_keyword, idNumber) {
+	
+	// Button einfaerben
+	mow_addon_textfilter_color_buttons(idNumber)
 
-	// Declare variables
-	var tableShort, tableLong, tr, td, paragraph, i, txtValue;
-	search_keyword = search_keyword.toUpperCase();
 
-	// 1.) OBERE TABELLE resultsShort
-	// https://www.w3schools.com/howto/howto_js_filter_table.asp
+	var search_keyword = search_keyword.toUpperCase();
 
-	// ID der oberen Tabelle (zum Filtern) finden
-	tableShort = document.getElementById("resultsShortTable");
-	tr = tableShort.getElementsByTagName("tr");
+	// obere Tabelle filtern - kurze Übersicht der Ergebnisse mit Prozentbalken
+	mow_addon_textfilter_hide_show_row(search_keyword, "resultsShortTable")
+	
+	// untere Tabelle 1 filtern - Ergebnisse sortiert nach Antworten
+	// Das Filter-Suchwort steht im TBODY mit der ID "resultsByThesisAnswersToQuestion"+j". 
+	// Die Frage steht in der Zeile darüber.
+	for (j = 0; j <= (intQuestions-1); j++) {
+		mow_addon_textfilter_hide_show_row(search_keyword, "resultsByThesisAnswersToQuestion"+j)
+	}
 
-	// Loop through all table rows, and hide those who don't match the search query
-	for (i = 0; i < tr.length; i++) {
-		td = tr[i].getElementsByTagName("td")[0]; // 0 = erste Spalte. Dort ist das gesuchte TEXTFILTER_SEARCH_KEYWORD
-		if (td) {
-			txtValue = td.textContent || td.innerText;
+	// untere Tabelle 2 filtern - Ergebnisse sortiert nach Parteien
+	// Schritt 1: in TBODY den ausgeblendeten Text finden
+	for (j = 0; j <= (intParties-1); j++) {
+		mow_addon_textfilter_hide_show_row(search_keyword, "resultsByPartyAnswersToQuestion"+j)
+	}
 
+	// untere Tabelle 2 filtern - Ergebnisse sortiert nach Parteien
+	// Schritt 2: in der Überschrift den ausgeblendeten Text finden
+	for (j = 0; j <= (intParties-1); j++) {
+		mow_addon_textfilter_hide_show_row(search_keyword, "resultsByPartyHeading"+j)
+	}
+
+
+}
+
+// die eigentliche Filter-Funktion
+// https://www.w3schools.com/howto/howto_js_filter_table.asp
+function mow_addon_textfilter_hide_show_row(search_keyword, tableID) {
+	
+   table = document.getElementById(tableID);
+	zeile = table.getElementsByTagName("tr")
+	// console.log(zeile.length)
+
+	// Durch alle Zeilen gehen und diejenigen verstecken, ohne Suchbegriff.
+	for (i = 0; i < zeile.length; i++) {
+		{
+			// console.log(i+" "+zeile[i].textContent)
+			txtValue = zeile[i].textContent || zeile[i].innerText;
+//			console.log(i+" "+txtValue)
+
+			// wenn Suchbegriff nicht gefunden, dann CSS-display-Eigenschaft zurücksetzen.
 			if (txtValue.toUpperCase().indexOf(search_keyword) > -1) {
-				if (status == 1) { tr[i].style.display = ""; }
-				else { tr[i].style.display = "none" } 
-				
-			} else {
-
-				if (status == 1) { tr[i].style.display = "none";  }
-				else { tr[i].style.display = "" } 
-				
-			}
+				zeile[i].style.display = "" 
+			} 
+			// wenn Suchbegriff gefunden, dann CSS-display-Eigenschaft auf "none".
+			else {
+				zeile[i].style.display = "none" 
+			} 
 		}
 	}
-
-	// 2.) UNTERE TABELLE resultsLong
-	// https://www.w3schools.com/howto/howto_js_filter_lists.asp
-
-	tableLong = document.getElementById("resultsLongTable");
-	paragraph = tableLong.getElementsByTagName('p');
-
-	// Loop through all list items, and hide those who don't match the search query
-	for (i = 0; i < paragraph.length; i++) {
-
-		txtValue = paragraph[i].textContent || paragraph[i].innerText;
-
-		if (txtValue.toUpperCase().indexOf(search_keyword) > -1) {
-			if (status == 1) { paragraph[i].style.display = ""; }
-			else { paragraph[i].style.display = "none" } 
-		} else {
-			if (status == 1) { paragraph[i].style.display = "none"; }
-			else { paragraph[i].style.display = "" }
-	 	}
-	}
+	
 }
 
 
-// aktiven Button grün färben -> wird beim Klick auf Button aktiviert.
-function mow_addon_textfilter_color_buttons(active, inactive) {
+// Den ausgewählten Button aktiv färben -> wird beim Klick auf Button aktiviert.
+function mow_addon_textfilter_color_buttons(idNumber) {
 
-	var buttonactive, buttoninactive 
-	buttonactive = "#mow_addon_textfilter_button"+active 
-	buttoninactive = "#mow_addon_textfilter_button"+inactive 
+	// Array 
+	for (i = 0; i < TEXTFILTER_BUTTONTEXTS.length; i++) {
 
-	$(buttonactive).addClass('btn-primary').removeClass('btn-secondary');
-	$(buttoninactive).addClass('btn-secondary').removeClass('btn-primary');
+		if (i == idNumber)
+		{
+			$("#mow_addon_textfilter_button"+i).addClass('btn-primary').removeClass('btn-secondary');
+		}
+		else
+		{
+			$("#mow_addon_textfilter_button"+i).addClass('btn-secondary').removeClass('btn-primary');
+		}
+
+	} // end: for
 }
 
 
