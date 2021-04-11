@@ -3,7 +3,7 @@
 // License: GPL 3
 // Mathias Steudtner http://www.medienvilla.com
 
-var version = "0.6.0.20210405-BMBF-PTF-AP2"
+var version = "0.6.0.20210411-BMBF-PTF-AP2"
 
 // Globale Variablen
 var arQuestionsShort = new Array();	// Kurzform der Fragen: Atomkraft, Flughafenausbau, ...
@@ -59,7 +59,9 @@ function fnShowQuestions(csvData)
 	// ... und Anzeigen
 	var questionNumber = -1;
 	
-	fnShowQuestionNumber(questionNumber);
+	// v.0.6 - deaktiviert, da nun am Anfang ein Willkommensbildschirm erscheint.
+	// neu: fnHideWelcomeMessage()
+	// fnShowQuestionNumber(questionNumber);
 } 
 
 
@@ -80,10 +82,11 @@ function fnEvaluation()
 {
 
 	// Abstimmungsknöpfe u.a. entfernen 
-	$("#explanation").fadeOut(500).empty();
-	$("#progress").fadeOut(500).empty();
-	$("#voting").empty();
-	$("#jumpToQuestion").empty();
+	$("#sectionDescription").empty().hide();
+	$("#sectionShowQuestions").empty().hide();
+	$("#sectionVotingButtons").empty().hide();	
+	$("#sectionNavigation").empty().hide();
+	
 	$("#keepStats").hide();
 
 	// Anzahl der Fragen bestimmen, da Positions-Array ein Vielfaches aus Fragen * Parteien enthält.
@@ -393,13 +396,13 @@ function fnToggleDouble(i)
 	{
 		// $("#doubleIcon"+i).attr("src","img/double-yes_icon.png");
 		$("#doubleIcon"+i).removeClass("btn-outline-dark").addClass("btn-dark");
-		$("#doubleIcon"+i).attr("title","'Frage wird doppelt gewertet");
+		$("#doubleIcon"+i).attr("title",TEXT_ANSWER_DOUBLE);
 	}
 	else
 	{
 		// $("#doubleIcon"+i).attr("src","img/double-no_icon.png");
 		$("#doubleIcon"+i).removeClass("btn-dark").addClass("btn-outline-dark");
-		$("#doubleIcon"+i).attr("title","'Frage wird einfach gewertet");
+		$("#doubleIcon"+i).attr("title",TEXT_ANSWER_NORMAL);
 	}
 	fnReEvaluate();
 }
