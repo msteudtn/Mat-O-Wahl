@@ -458,7 +458,7 @@ function fnEvaluationByThesis(arResults)
 
 			tableContent += "<thead>";
 				tableContent += "<tr>";
-					tableContent += "<td class='d-none d-md-block'>";	// wird auf kleinen Bildschirmen ausgeblendet (class="d-none d-md-block")
+					tableContent += "<td class=''>";
 					tableContent += "</td>";
 
 					tableContent += "<th class='align-text-top'>";
@@ -484,8 +484,8 @@ function fnEvaluationByThesis(arResults)
 				tableContent += "<tbody>";
 				tableContent += "<tr>";
 				
-					// 1. Spalte: doppelte Wertung - wird auf kleinen Bildschirmen ausgeblendet (class="d-none d-md-block")
-					tableContent += "<th class='text-center d-none d-md-block'>";
+					// 1. Spalte: doppelte Wertung
+					tableContent += "<th class='text-center'>";
 						if (arVotingDouble[i])
 						{
 							tableContent += "<button type='button' class='btn btn-dark btn-sm' "+
@@ -545,7 +545,7 @@ function fnEvaluationByThesis(arResults)
 							// Inhalt der Zelle
 							
 							tableContent += "<tr> ";
-								tableContent += " <td class='border-0 d-none d-md-block'> </td> ";	// erste Spalte ausblenden bei kleinen Bildschirmen
+								tableContent += " <td class='border-0'> </td> ";
 
 								/*
 								// Die erste Antworten-Spalte [0] ist leer. (in der Frage-Zeile steht hier "Doppelte Wertung [x2]") 
