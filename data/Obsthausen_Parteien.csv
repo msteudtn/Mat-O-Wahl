@@ -1,4 +1,4 @@
-Partei_kurz:;"&#x1F464; &#x25CB; APPD"
+Partei_kurz:;"&#x1F464; APPD &#8203; &#8206;"
 Partei_lang:;"Appelpartei Deutschlands"
 Partei_Beschreibung:;"Die Apfelpartei steht seit vielen Jahren für alle Angelegenheiten des Apfels."
 Partei_URL:;"https://www.appelpartei.ap"
@@ -10,7 +10,7 @@ Partei_Bild:;"data/appel.png"
 1;"Ja, Früchte sollen am Baum bleiben, bis sie reif sind."
 1;"Ja, süße Früchte sind toll."
 #
-Partei_kurz:;"Bananen [SF]"
+Partei_kurz:;"Bananen &#8203; &#8205;"
 Partei_lang:;"Bananenrepublikpartei"
 Partei_Beschreibung:;"Warum ist die Banane krumm? Weil niemand in den Urwald zog und die Banane grade bog! - Die Bananenpartei kümmert sich um alle Belange der Bananen."
 Partei_URL:;"https://www.banane.ba"
@@ -22,7 +22,7 @@ Partei_Bild:;"data/banane.jpg"
 -1;"Früchte können schon früher abgenommen werden und im Container reifen.   Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
 1;"Süße Früchte sind lecker.   Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
 #;
-Partei_kurz:;"&#x25CB; [SF] TBC "
+Partei_kurz:;"TBC &#8203; &#8205; &#8206;"
 Partei_lang:;"Tradionelle Bundesdeutsche Citronenpartei"
 Partei_Beschreibung:;"Deutsche, kauft deutsche Zitronen! - Gelb, saftig, sauer - ideal um zum Lachen in den Keller zu gehen."
 Partei_URL:;"https://www.die-citronen.ca"
@@ -34,7 +34,7 @@ Partei_Bild:;"data/tbc.gif"
 -1;Früchte können gern schon frühzeitig abgenommen werden.
 -1;Süße Früchte sind für kleine Mädchen. Echte Männer mögen Zitronen!
 #
-Partei_kurz:;"&#x1F464; Neutrale"
+Partei_kurz:;"&#x1F464; Neutrale &#8203;"
 Partei_lang:;"Neutrale Partei"
 Partei_Beschreibung:;""
 Partei_URL:;"http://www.neutrale-partei.np"
@@ -45,3 +45,4 @@ Partei_Bild:;"data/egal.png"
 0;Ist uns egal.
 0;Ist uns egal.
 0;Ist uns egal.
+

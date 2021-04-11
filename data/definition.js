@@ -133,21 +133,26 @@ var intPartyLogosImgHeight = "10%";
 
 // 	1.6. UeBERSCHRIFTEN UND TEXTE / 1.6. HEADLINES AND TEXTS:
 
-// 	1.6.1. Hauptueberschrift / 1.6.1. Main headline
+// 	1.6.1 Soll am Anfang eine kurze Beschreibung angezeigt (1) werden oder sollen gleich die Fragen (0) starten?
+//		Wenn die Fragen sofort starten, gibt es einen kurzen "Loading"-Hinweis. :(
+// 	Show a short description in the beginning (1) or start with the questions right (0) away?
+//		If you choose for the questions right away, a short "loading" message will appear. :(
 
-var heading1 = "Fruchtkorbwahlen";
+var descriptionShowOnStart = 1;
+
+// 	1.6.2. Hauptueberschrift / 1.6.1. Main headline
+
+var descriptionHeading1 = "Fruchtkorbwahlen";
 
 
-// 	1.6.2. Zweite Ueberschrift / 1.6.2. Second Headline
-//	(nur sichtbar ab mittlerer Auflösung / only visible on screens larger than >=768px)
+// 	1.6.3. Zweite Ueberschrift / 1.6.2. Second Headline
 
-var heading2 = "Die Wahl zur neuen Regierung in Obsthausen.";
+var descriptionHeading2 = "Die Wahl zur neuen Regierung in Obsthausen";
 
 
-// 	1.6.3. Kurzer Text um was es bei der Wahl geht / 1.6.3. Short (descriptive) text on what's the election about
-//	(nur sichtbar ab mittlerer Auflösung / only visible on screens larger than >=768px)
+// 	1.6.4. Kurzer Text um was es bei der Wahl geht / 1.6.3. Short (descriptive) text on what's the election about
 
-var explainingText = "Am 30. Februar finden in Obsthausen Wahlen statt. Sie k&ouml;nnen sich hier alle Parteipositionen anschauen und miteinander vergleichen. Dies ist keine Wahlempfehlung, sondern ein Informationsangebot zu Wahlen!"; 
+var descriptionExplanation = "Am 30. Februar finden in Obsthausen Wahlen statt. Sie k&ouml;nnen sich hier alle Parteipositionen anschauen und miteinander vergleichen. Dies ist <strong>keine Wahlempfehlung</strong>, sondern ein Informationsangebot zu Wahlen! <br /> Zur Auswahl stehen vier Parteien mit unterschiedlichen Meinungen zu kontroversen Themen der Obst- und Frucht-Landschaft."; 
 
 
 // 	--------------------------------------------------------------------

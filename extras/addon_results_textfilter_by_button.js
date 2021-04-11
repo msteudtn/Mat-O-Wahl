@@ -6,7 +6,14 @@
 // Define special character or string for filter (in an array)
 // Beispiel / example: U+1F464 (128100)	- BUST IN SILHOUETTE (Menschliche Silhouette)
 // https://de.wikipedia.org/wiki/Unicodeblock_Verschiedene_piktografische_Symbole
-var TEXTFILTER_KEYWORDS = [" ", "&#x1F464;", "[SF]", "&#x25CB;"]
+// ODER unsichtbare Zeichen / OR invisible characters:
+// https://stackoverflow.com/questions/17978720/invisible-characters-ascii
+// U+200B    Zero-Width Space       &#8203;
+// U+200C    Zero Width Non-Joiner  &#8204;
+// U+200D    Zero Width Joiner      &#8205;
+// U+200E    Left-To-Right Mark     &#8206;
+// U+200F    Right-To-Left Mark     &#8207;
+var TEXTFILTER_KEYWORDS = ["&#8203;", "&#x1F464;", "&#8205;", "&#8206;"]
 
 // 2.) Text für Buttons
 // Text on buttons
@@ -15,8 +22,8 @@ var TEXTFILTER_BUTTONTEXTS = ["Alle anzeigen", "Bürgermeisterkandidaten &#x1F46
 
 // 3.) Filter-Sonderzeichen in PARTEIEN-ANTWORTEN.CSV einfügen. Beispiel:
 // Put the filter character(s) in PARTY-ANSWERS.CSV. Example:
-// Partei_kurz:;"&#x1F464; APPD"
-// Partei_kurz:;"Bananen [BM]"
+// Partei_kurz:;"&#x1F464; APPD &#8203; &#8206;"
+// Partei_kurz:;"Bananen &#8203; &#8205;"
 
 // 4.) Folgende Zeile kurz vor </HEAD> der INDEX.HTML einfügen. (ohne "//")
 // Add the following line just before </HEAD> of INDEX.HTML (without "//")
