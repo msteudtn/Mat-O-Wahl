@@ -5,51 +5,49 @@
 
 function fnStart()
 {
-	// alte Inhalte loeschen
+	// alte Inhalte loeschen bzw. ausblenden
 	
-	// Bereich -  Überschriften, Erklärung zur Wahl
-	$("#heading1").empty();	
-	$("#heading2").empty();	
-	$("#explanation").empty();	
-	// $("#headingContentstatsServer").empty(); // ?
-	$("#content").empty(); // Fragen
-	
-	// Bereich - Ergebnisse
-	$("#resultsHeading").empty();
-	$("#resultsShort").empty();
-	$("#resultsByThesis").empty();
-	$("#resultsByParty").empty();
-	
-	// Bereich - Footer
-	$("#keepStatsQuestion").empty();
-
-	// Platzhalter für Addon-DIVs
+	// 1. Bereich -  Überschriften, Erklärung zur Wahl
+	// sectionDescription
+	$("#descriptionHeading1").empty().append("<h1>"+descriptionHeading1+"</h1>")
+	$("#descriptionHeading2").empty().append("<h2>"+descriptionHeading2+"</h2>");
+	$("#descriptionExplanation").empty().append(descriptionExplanation);
+	$("#descriptionButtonStart").html(TEXT_START)
 	$("#descriptionAddonTop").empty();
 	$("#descriptionAddonBottom").empty();
-	$("#resultsAddonTop").empty();
-	$("#resultsAddonBottom").empty();
 	
-	//////////////////////////////////////////////////////////////////
-	// TEXTE
+	// 2. Bereich - Anzeige der Fragen - am Anfang ausblenden
+	$("#sectionShowQuestions").hide()
+	$("#showQuestionsHeader").empty();
+	$("#showQuestionsQuestion").empty();
 	
-	// Anzeige der Überschriften und Begleittexte
-	$("#heading1").append("<h1>"+heading1+"</h1>")
-	$("#heading2").append("<h2>"+heading2+"</h2>");			
-	$("#explanation").append(explainingText);
-
-	//////////////////////////////////////////////////////////////////
-	// BUTTONS - Waehlen (Voting)
-	
+	// 3. Voting Buttons
+	$("#sectionVotingButtons").hide();
 	$("#votingPro").html(TEXT_VOTING_PRO)
 	$("#votingNeutral").html(TEXT_VOTING_NEUTRAL)
 	$("#votingContra").html(TEXT_VOTING_CONTRA)
 	$("#votingSkip").html(TEXT_VOTING_SKIP)
 	$("#votingDouble").html(TEXT_VOTING_DOUBLE)
 	
-	// BUTTONS - Ergebnisse (Results)
+	// 4. Navigation
+	$("#sectionNavigation").hide();
+	
+	// Bereich - Ergebnisse
+	$("#sectionResults").hide()
+	$("#resultsHeading").empty();
+	$("#resultsShort").empty();
+	$("#resultsByThesis").empty();
+	$("#resultsByParty").empty();
+	$("#resultsAddonTop").empty();
+	$("#resultsAddonBottom").empty();
+
 	$("#resultsButtons").hide()
 	$("#resultsButtonTheses").html(TEXT_RESULTS_BUTTON_THESES)
 	$("#resultsButtonParties").html(TEXT_RESULTS_BUTTON_PARTIES)
+	
+	// Bereich - Footer
+	$("#keepStatsQuestion").empty();
+
 
 	//////////////////////////////////////////////////////////////////
 	// FOOTER
@@ -80,18 +78,48 @@ function fnStart()
 	$("#restart").html(TEXT_RESTART);
 	
 	//////////////////////////////////////////////////////////////////
-	// FRAGEN UND ANTWORTEN in Arrays einlesen
+	// FRAGEN UND ANTWORTEN in Arrays einlesen und Folgefunktionen aufrufen
 	// (a) Fragen 
 	fnReadCsv("data/"+fileQuestions,fnShowQuestions)
 
 	// (b) Antworten der Parteien und Partei-Informationen
 	fnReadCsv("data/"+fileAnswers,fnReadPositions)
 
-	//arVotingDouble initialisieren
+	// arVotingDouble initialisieren
 	for (i=0;i<arQuestionsShort.length;i++)
 		{arVotingDouble[i]=false;
 		arPersonalPositions[i]=99;}
-	$("#votingDouble").attr('checked', false); 
+	$("#votingDouble").attr('checked', false);
+	
+	// Wenn "descriptionShowOnStart = 0" in DEFINITION.JS, dann gleich die Fragen anzeigen
+	if (descriptionShowOnStart) {
+		// nix
+	} else {
+		// Das System ist am Anfang noch nicht fertig geladen. Deshalb müssen wir einen Moment warten. :(		
+		$("#descriptionHeading1").empty().append("<h1>Loading / Lädt</h1>")
+		$("#descriptionHeading2").empty().append("<h2>Please wait a moment / Bitte einen Moment warten</h2>");
+
+		var descriptionExplanationContent = ""
+		descriptionExplanationContent += '<div class="progress">'
+		descriptionExplanationContent += '	<div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width:50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>'
+		descriptionExplanationContent += '</div>'
+		descriptionExplanationContent += "This message disappears in less than 5 seconds. If not something went wrong. / <br /> Diese Nachricht verschwindet in weniger als 5 Sekunden. Andernfalls ist etwas schief gelaufen."
+		
+		$("#descriptionExplanation").empty().append(descriptionExplanationContent);
+				
+		window.setTimeout(fnHideWelcomeMessage, 2500);
+	}
+	
+	 
+}
+
+// Ausblenden der Willkommensmeldung (#sectionDescription)
+// und direkt in die Fragen gehen
+// neu ab v.0.6
+// Aufruf aus fnStart() wenn "descriptionShowOnStart = 0" ODER beim Klick auf Start-Button
+function fnHideWelcomeMessage() { 
+	$('#sectionDescription').hide().empty();
+	fnShowQuestionNumber(-1);	
 }
 
 
@@ -119,52 +147,53 @@ function fnShowQuestionNumber(questionNumber)
 		// bodyTextSize = $("#headingContent").css("font-size");
 		// bodyTextSize = parseInt(bodyTextSize)
 
-		// Alten Inhalt des DIVs loeschen
-		// $("#headingContent").empty();
-		$("#content").fadeOut(500).empty().hide();
-		$("#voting").fadeOut(500).hide();
-		
-		// Neuen Inhalt schreiben
-		
-		// Bootstrap-Progressbar
-		var percent = fnPercentage((questionNumber+1),arQuestionsLong.length);
-		$("#progress-bar").width(percent+"%")
-		$("#progress-bar").attr("aria-valuenow",percent)
+		// Fragen ausblenden und neue Frage einblenden - nur zur besseren Visualisierung
+		$("#sectionShowQuestions").fadeOut(300).hide();		
+			$("#showQuestionsHeader").empty().append("<h2>"+arQuestionsShort[questionNumber]+"</h2>");
+			$("#showQuestionsQuestion").empty().append(arQuestionsLong[questionNumber]);			
+		$("#sectionShowQuestions").fadeIn(300);
 
-		$("#content").append("<strong>"+arQuestionsShort[questionNumber]+" </strong> - ");
-		$("#content").append(""+arQuestionsLong[questionNumber]+"");
-		$("#content").attr("title","These "+(questionNumber+1)+": "+arQuestionsShort[questionNumber]+" - "+arQuestionsLong[questionNumber])
+		
+		// Buttons ausblenden, damit Nutzer nicht zufällig drauf klickt
+		$("#sectionVotingButtons").fadeOut(300).hide();
+		$("#sectionVotingButtons").fadeIn(300);
+
+		// Navigation (Nummer der Frage) ein-/ausblenden		
+		$("#sectionNavigation").fadeOut(300).hide();
+			// Bootstrap-Progressbar
+			var percent = fnPercentage((questionNumber+1),arQuestionsLong.length);
+			$("#progress-bar").width(percent+"%")
+			$("#progress-bar").attr("aria-valuenow",percent)
+		
+			// Klick-Funktion auf Bilder/Buttons legen.
+		   $("#votingPro").click(function () {
+			arPersonalPositions[questionNumber] = 1;
+		   	fnShowQuestionNumber(questionNumber);
+		   });
 	
-		$("#content").fadeIn(500);
-		$("#voting").fadeIn(500);
-		
-		
-		
-		// Klick-Funktion auf Bilder/Buttons legen.
-	   $("#votingPro").click(function () {
-		arPersonalPositions[questionNumber] = 1;
-	   	fnShowQuestionNumber(questionNumber);
-	   });
-
-	   $("#votingNeutral").click(function () { 
-	   	arPersonalPositions[questionNumber] = 0;
-	   	fnShowQuestionNumber(questionNumber);
-	   });
-
-	   $("#votingContra").click(function () { 
-	   	arPersonalPositions[questionNumber] = -1;
-	   	fnShowQuestionNumber(questionNumber);
-	   });
-
-	   $("#votingSkip").click(function () { 
-	   	arPersonalPositions[questionNumber] = 99;
-	   	fnShowQuestionNumber(questionNumber);
-	   });
+		   $("#votingNeutral").click(function () { 
+		   	arPersonalPositions[questionNumber] = 0;
+		   	fnShowQuestionNumber(questionNumber);
+		   });
 	
-		// Checkbox für doppelte Bewertung 
-	  	$("#votingDouble").attr('checked', arVotingDouble[questionNumber]);
-		// und Bild/Button zuruecksetzen
-		$("#votingDouble").removeClass( "btn-dark" ).addClass( "btn-outline-dark" );
+		   $("#votingContra").click(function () { 
+		   	arPersonalPositions[questionNumber] = -1;
+		   	fnShowQuestionNumber(questionNumber);
+		   });
+	
+		   $("#votingSkip").click(function () { 
+		   	arPersonalPositions[questionNumber] = 99;
+		   	fnShowQuestionNumber(questionNumber);
+		   });
+
+			// Checkbox für doppelte Bewertung 
+		  	$("#votingDouble").attr('checked', arVotingDouble[questionNumber]);
+			// und Bild/Button zuruecksetzen
+			$("#votingDouble").removeClass( "btn-dark" ).addClass( "btn-outline-dark" );
+
+		$("#sectionNavigation").fadeIn(300);
+
+	
 	}
 	
 	// Alle Fragen durchgelaufen -> Auswertung
@@ -219,7 +248,7 @@ function fnChangeVotingDouble()
 function fnJumpToQuestionNumber(questionNumber)
 {
 	// alten Inhalt ausblenden und loeschen
-	$("#jumpToQuestion").fadeOut(500).empty().hide();
+	$("#navigationJumpToQuestion").fadeOut(500).empty().hide();
 
 
 	var maxQuestionsPerLine = 12;  // z.B. 16
@@ -252,7 +281,7 @@ function fnJumpToQuestionNumber(questionNumber)
 		if (modulo == 0) { tableContent += "</tr>"; }
 	}
 	tableContent += "</table>";
-	$("#jumpToQuestion").append(tableContent).fadeIn(500);
+	$("#navigationJumpToQuestion").append(tableContent).fadeIn(500);
 
 	// alte Meinungen farblich hervorheben und aktuelle Frage markieren
 	for (i = 1; i <= arQuestionsLong.length; i++)
@@ -281,10 +310,12 @@ function fnJumpToQuestionNumber(questionNumber)
 // Array arResults kommt von fnEvaluation
 function fnEvaluationShort(arResults)
 {
+	
 	// Alten Inhalt des DIVs loeschen
-	$("#heading2").empty().hide();	
-	$("#content").empty().hide();
-	$("#explanation").empty().hide();	
+	// $("#heading2").empty().hide();	
+	// $("#content").empty().hide();
+	$("#sectionShowQuestions").empty().hide();
+	// $("#explanation").empty().hide();	
 	
 	// Anzeige der Ergebnisse
 	$("#resultsHeading").append("<h2>"+TEXT_RESULTS_HEADING+"</h2>").fadeIn(500);
@@ -405,6 +436,10 @@ function fnEvaluationShort(arResults)
 		$("#resultsShortPartyDescriptionDots"+i).fadeIn(500);
 	}
 
+	// $("#results").fadeIn(500);
+	$("#sectionResults").fadeIn(500);
+	
+
 }
 
 
@@ -420,6 +455,23 @@ function fnEvaluationByThesis(arResults)
 	
 	tableContent += "<table width='100%' id='resultsByThesisTable' class='table table-bordered table-striped table-hover'>";
 	tableContent += "<caption>"+TEXT_RESULTS_INFO_THESES+"</caption>";
+
+			tableContent += "<thead>";
+				tableContent += "<tr>";
+					tableContent += "<td class='d-none d-md-block'>";	// wird auf kleinen Bildschirmen ausgeblendet (class="d-none d-md-block")
+					tableContent += "</td>";
+
+					tableContent += "<th class='align-text-top'>";
+					tableContent += TEXT_ANSWER_USER+" &amp; "+TEXT_POSITION_PARTY
+					tableContent += "</th>";
+
+					tableContent += "<th class='align-text-top'>";	
+					tableContent += TEXT_QUESTION+" &amp; "+TEXT_ANSWER_PARTY
+					tableContent += "</th>";
+
+				
+				tableContent += "</tr>";			
+			tableContent += "</thead>";
 				
 			// Inhalt
 			// var cellId = -1;	// cellId ist für das Ausblenden der Spalten wichtig.
@@ -432,19 +484,19 @@ function fnEvaluationByThesis(arResults)
 				tableContent += "<tbody>";
 				tableContent += "<tr>";
 				
-					// 1. Spalte: doppelte Wertung					
-					tableContent += "<th class='text-center'>";
+					// 1. Spalte: doppelte Wertung - wird auf kleinen Bildschirmen ausgeblendet (class="d-none d-md-block")
+					tableContent += "<th class='text-center d-none d-md-block'>";
 						if (arVotingDouble[i])
 						{
 							tableContent += "<button type='button' class='btn btn-dark btn-sm' "+
 								" id='doubleIcon"+i+"' "+
-								" onclick='fnToggleDouble("+i+")' title='Frage wird doppelt gewertet'>x2</button>";						
+								" onclick='fnToggleDouble("+i+")' title='"+TEXT_ANSWER_DOUBLE+"'>x2</button>";						
 						}
 						else			
 						{
 						tableContent += "<button type='button' class='btn btn-outline-dark btn-sm' "+
 								" id='doubleIcon"+i+"' "+
-								" onclick='fnToggleDouble("+i+")' title='Frage wird einfach gewertet'>x2</button>";
+								" onclick='fnToggleDouble("+i+")' title='"+TEXT_ANSWER_NORMAL+"'>x2</button>";
 		
 						}		
 					tableContent += "</th>";
@@ -493,7 +545,7 @@ function fnEvaluationByThesis(arResults)
 							// Inhalt der Zelle
 							
 							tableContent += "<tr> ";
-								tableContent += " <td class='border-0'> </td> ";
+								tableContent += " <td class='border-0 d-none d-md-block'> </td> ";	// erste Spalte ausblenden bei kleinen Bildschirmen
 
 								/*
 								// Die erste Antworten-Spalte [0] ist leer. (in der Frage-Zeile steht hier "Doppelte Wertung [x2]") 
@@ -581,6 +633,30 @@ function fnEvaluationByParty(arResults)
 	
 	tableContent += "<table width='100%' id='resultsByPartyTable' class='table table-bordered table-striped table-hover'>";
 	tableContent += "<caption>"+TEXT_RESULTS_BUTTON_PARTIES+"</caption>";
+
+			tableContent += "<thead>";
+				tableContent += "<tr>";
+					tableContent += "<th class='align-text-top'>";
+					tableContent += TEXT_QUESTION;
+					tableContent += "</th>";
+
+					tableContent += "<th class='align-text-top'>";
+					tableContent += TEXT_ANSWER_USER;
+					tableContent += "</th>";
+
+					tableContent += "<th class='align-text-top'>";
+					tableContent += TEXT_POSITION_PARTY;
+					tableContent += "</th>";
+
+
+					tableContent += "<th class='align-text-top'>";	
+					tableContent += TEXT_ANSWER_PARTY;
+					tableContent += "</th>";
+
+				
+				tableContent += "</tr>";			
+			tableContent += "</thead>";
+
 
 	for (i = 0; i <= (intParties-1); i++)
 	{
@@ -750,3 +826,4 @@ function fnReEvaluate()
 	}
 
 }
+
