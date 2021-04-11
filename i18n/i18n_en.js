@@ -1,6 +1,7 @@
 // ENGLISH LANGUAGE TEXTS http://www.mat-o-wahl.de
 
 // Buttons
+var TEXT_START = "Let's start"
 var TEXT_VOTING_PRO = "[&#x2714;] Agree"
 var TEXT_VOTING_NEUTRAL = "[&#x25EF;] No opinion"
 var TEXT_VOTING_CONTRA = "[&#x2716;] Disagree"
@@ -22,3 +23,13 @@ var TEXT_RESULTS_INFO_PARTIES = "Analysis"
 
 var TEXT_RESULTS_BUTTON_THESES = "Questions and answers of parties"
 var TEXT_RESULTS_BUTTON_PARTIES= "All answers of the parties"
+
+// The following words may be used as ALT-Text or headers on the results-page 
+var TEXT_QUESTION = "Question"
+var TEXT_POSITION_PARTY = "Opinion of party"
+var TEXT_ANSWER_PARTY = "Answer of party"
+var TEXT_ANSWER_USER = "Your answer"
+var TEXT_IMAGE = "picture or logo"
+var TEXT_PARTY = "Party"
+var TEXT_ANSWER_NORMAL = "Question in single rating"
+var TEXT_ANSWER_DOUBLE = "Question in double rating" 
