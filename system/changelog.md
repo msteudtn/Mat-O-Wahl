@@ -48,16 +48,32 @@
 - To Do: question in the beginning for the favorite party
 
 
-### 0.6.0.20210405-BMBF-PTF-AP2
-OUTPUT.JS, EXTRAS/TEXTFILTER
-- textfilter_addon for multiple elections using Arrays
-- use textfilter on all lists: short summary, questions, parties (from AP1)
+### 0.6.0.20210411-BMBF-PTF-AP2
 
-OUTPUT.JS
-- fadeIn() party-answers (AP1) like in question-list
+- DEFINITION.JS, OUTPUT.JS, INDEX.HTML
+  - new option to show/hide description at the beginning (What's the election about)
+  - **renamed variables**
+     - heading1 -> descriptionHeading1
+     - Heading2 -> descriptionHeading2
+     - explanation -> descriptionExplanation
+     - NEW: descriptionShowOnStart
+  - new IDs on <SECTION> for easier fadeIn() / fadeOut()
 
-DEFAULT.CSS
-- adjust Bootstrap-colors for accessibility (WACG)
+- i18n
+  - several **new variables**
+
+- OUTPUT.JS, EXTRAS/TEXTFILTER
+  - textfilter_addon for multiple elections using Arrays
+  - use textfilter on all lists: short summary, questions, parties (from AP1)
+  - use "invisible" charcters for filter
+
+- OUTPUT.JS
+  - fadeIn() party-answers (AP1) like in question-list
+  - hide column [x2] on small screens
+
+- DEFAULT.CSS
+  - adjust Bootstrap-colors for accessibility (WACG)
+  - removed (uncommented) a number of unused stylesheets 
 
 
 ### 0.6.0.20210313-BMBF-PTF-AP1
@@ -321,3 +337,4 @@ Riesigen Dank an Ben Kobrinski (mail@benkob.de) für:
 ......20090927 - Bundestagswahl in Deutschland
 
 http://www.mat-o-wahl.de
+
