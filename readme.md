@@ -2,6 +2,13 @@ ENGLISH DESCRIPTION at the end of the German text ->  :gb: :us:
 
 # Mat-O-Wahl - Ein einfach zu bedienender, freier Wahl-O-Mat Klon fuer jedermann
 
+## AKTUELLES
+
+Von März - August 2021 werden **neue Funktionen** in den Mat-o-Wahl programmiert.
+Sie können die **neueste (getestete) Version** entweder unter den Releases oder unter dem Entwicklungszweig herunterladen.
+ * Release 0.6: https://github.com/msteudtn/Mat-O-Wahl/releases
+ * Entwicklung: https://github.com/msteudtn/Mat-O-Wahl/tree/version-0.6-BMBF-PTF
+
 ## LIVE-DEMO
 
 https://www.mat-o-wahl.de/ -> Ausprobieren (DE) :de:
