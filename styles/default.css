@@ -6,19 +6,22 @@ body {
 /*	font-size:10pt; */
 	color:#000000; 
 
-	background-color: #FFE08F;
-	background-image: linear-gradient(#EFC04F, #FFE08F); 
-	background-attachment: fixed;
+	background-color: #EFC04F;
+	/* background-image: linear-gradient(#EFC04F, #FFE08F); */ 
+	/* background-attachment: fixed; */
 	}
 
 /* UeBERSCHRIFTEN */
 /* HEADLINES */
+/*
 h1 { font-size:150%;}
 h2 { font-size:120%; text-decoration: underline dotted; margin-top: 0.5em; margin-bottom: 0.5em;}
 h3 { font-size:110%;}
+*/
 
 /* LINK-Farbe */
 /* LINK-color */
+
 a { color:#000000; text-decoration:underline;}
 a:link { color:#000000; } 
 a:visited { color:#808080; }
@@ -56,11 +59,12 @@ tr:nth-child(even) {
 
 */
 
+/*
 .row-striped:nth-child(odd) {
 	/* background: #FFE08F; */
 	background-color: rgba(0, 0, 0, 0.05);
 	}
-
+*/
 	
 /* Ueberschrift zur Wahl/Thema der Wahl - Formate schon durch <h1> und <h2> geregelt */
 /* Headline for the election/topic - formats already defined by <h1> and <h2> */
@@ -69,21 +73,25 @@ tr:nth-child(even) {
 
 /* Kurze Beschreibung der Wahl */
 /* Short explanation of election */
+/*
 #explanation { color: #404040; }
+*/
 
 /* Anzeige der aktuellen Frage */
 /* Current question */
+/*
 #content { 
 	font-size: 150%; 
 	}
+*/
 
 /* Farben für Sprechblase.- Form und andere Einstellungen in Datei speechbubble.css */
 /* Colors of the speech bubble.- Form and further settings in file speechbubble.css */
-
+/*
 .bubble { background: #FFE08F; 	border: #000000 solid 1px; }
 .bubble:after { border-color: #FFE08F transparent; }
 .bubble:before { border-color: #000000 transparent; }
-
+*/
 
 /* VOTING-Tabelle mit den Knoepfen Ja / Nein / Egal / Ueberspringen / Doppelt */
 /* VOTING-Table with buttons Yes / No / No Opinion / Skip / Twice */
@@ -148,7 +156,7 @@ tr:nth-child(even) {
 }
 */
 
-/* WACG Farben (Barrierefreiheit) 
+/* Bootstrap Anpassung -> WACG Farben (Barrierefreiheit) 
    WACG colors (accessibility)
    https://webaim.org/resources/contrastchecker/ */
    
@@ -166,4 +174,12 @@ tr:nth-child(even) {
 
 .bg-warning {
 	color:#000;
+}
+
+.btn-primary {
+	background:#0050A0;
+	}
+
+.bg-primary {
+	color:#0050A0;
 }
