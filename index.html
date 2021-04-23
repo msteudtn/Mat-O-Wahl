@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <meta name="keywords" content="Mat-O-Wahl, MatOWahl, Demokratie, Wahlen, elections, vote, Wahlbeteiligung, Fragebogen, Antworten, Positionen, Entscheidung, Hilfe, Politik, B&uuml;rgermeister, Stadtrat, Kommunalwahl, Fachschaftsrat, Studentenrat, StuRa, Studentenparlament, Studierendenparlament, StuPa, AStA, Kreisrat, Landrat, Volksabstimmung, Plebiszit, Klon, clone, Alternative, GPL, Open Source, JavaScript, Freeware, kostenlos"/>
+  <meta name="keywords" content="Mat-O-Wahl, MatOWahl, Demokratie, Wahlen, elections, vote, Wahlbeteiligung, Fragebogen, Antworten, Positionen, Entscheidung, Hilfe, Politik, Vereine, e.V., Mitwirkung, B&uuml;rgermeister, Stadtrat, Kommunalwahl, Fachschaftsrat, Studentenrat, StuRa, Studentenparlament, Studierendenparlament, StuPa, AStA, Kreisrat, Landrat, Volksabstimmung, Plebiszit, Klon, clone, Alternative, GPL, Open Source, JavaScript, Freeware, kostenlos"/>
   <meta name="robots" content="index, follow" />
   <meta name="language" content="de" />
   <meta name="Content-Language" content="de" />
@@ -36,28 +36,34 @@
 	<!-- BOOTSTRAP + JQUERY --- END -->
 
 
-	<!-- Mat-o-Wahl EINSTELLUNGEN / PREFERENCES (Javascript) -->
+	<!-- Mat-o-Wahl EINSTELLUNGEN / SETTINGS (Javascript) -->
 	<script type="text/javascript" src="data/definition.js"></script>
-	
-	<!-- Mat-o-Wahl JAVASCRIPT und CSS - dynamisch eingebunden auf Basis DEFINITION.JS -->
-	<script type="text/javascript">
-	document.writeln("<link rel='stylesheet' type='text/css' href='styles/"+design+".css' />");
 
-	document.writeln("<script type='text/javascript' src='i18n/i18n_"+language+".js'><"+String.fromCharCode(47)+"script>");
-	// $.getScript( "i18n/i18n_"+language+".js", function( data, textStatus, jqxhr ){ }) 
-	// -> wäre eleganter aber lädt zu langsam / unzuverlässig
-	
-	</script>
-	
 	<!-- Mat-o-Wahl JAVASCRIPT - immer / always -->
 	<script type="text/javascript" src="system/jquery.csv-0.8.9.min.js"></script>
 	<script type="text/javascript" src="system/general.js"></script>
 	<script type="text/javascript" src="system/output.js"></script>
 
-	<!-- Mat-o-Wahl JAVASCRIPT - Addon (optional) -->
-	<!--
-	<script type="text/javascript" src="extras/addon_results_textfilter_by_button.js"></script>
-	-->
+
+	<!-- Erweiterte Einstellungen auf Basis DEFINITION.JS - dynamisch eingebunden 
+		  Advanced Settings based on DEFINITION.JS - dynamically included -->	
+	<script>
+	// Mat-o-Wahl CSS Styles 
+	for (i = 0; i<= design.length-1; i++) {
+		document.writeln("<link rel='stylesheet' type='text/css' href='styles/"+design[i]+"' />");	
+	}	
+
+	// Mat-o-Wahl Extras / Add-ons 
+	for (i = 0; i<= addons.length-1; i++) {
+		document.writeln(' <script type="text/javascript" src="'+addons[i]+'"><\/script> ');	
+	}	
+
+	// Mat-o-Wahl Sprache / Language / i18n
+	document.writeln("<script type='text/javascript' src='i18n/i18n_"+language+".js'><\/script>");
+	// $.getScript( "i18n/i18n_"+language+".js", function( data, textStatus, jqxhr ){ }) 
+	// -> wäre eleganter aber lädt zu langsam / unzuverlässig
+	</script>
+	
 </head>
 <body>
 
@@ -70,7 +76,7 @@
 
 		<section id="sectionDescription">
 
-			<div class="row border border-dark rounded" style="height: 60vh; text-overflow: clip; overflow: auto;">
+			<div class="row border border-dark rounded" style="height: 60vh; text-overflow: clip; overflow: auto; margin-top: 1.0em;">
 				<div class="col align-self-center">
 
 					<div id="descriptionAddonTop">
@@ -108,7 +114,7 @@
 
 		<section id="sectionShowQuestions">
 
-			<div class="row" tabindex="0">
+			<div class="row" tabindex="0" style="margin-top: 1.0em;">
 				<div class="col">
 					
 					
