@@ -1,0 +1,31 @@
+/* Bootstrap PROGRESSBAR
+ 	https://getbootstrap.com/docs/4.0/components/progress/ 
+
+	Anpassung WACG Farben (Barrierefreiheit) 
+   Adjust WACG colors (accessibility)
+   https://webaim.org/resources/contrastchecker/ */
+
+
+/* Grün in Ergebnis-Tabelle / Green in Results */
+.bg-success {
+	background: #126412 !important;
+}
+
+
+/* Gelb in Ergebnis-Tabelle / Yellow in Results */
+.bg-warning {
+	color:#000;
+}
+
+/* Rot in Ergebnis-Tabelle / Red in Results */
+.bg-danger {
+}
+
+/* Fortschrittsbalken über Fragen / Progressbar above questions */
+.bg-primary {
+	background:#0050A0;
+}
+
+.progress {
+	margin: 8px;
+}

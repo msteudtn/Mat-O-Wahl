@@ -1,0 +1,31 @@
+/* Bootstrap BUTTONS 
+	https://getbootstrap.com/docs/4.0/components/buttons/
+
+	Anpassung: nur Rahmen, keine Farbe
+	Adjustment: frame only, no colors */
+
+
+/* Transparenz auf alle Knöpfe 
+	Transparency on all buttons */   
+.btn-success, .btn-warning, .btn-secondary, .btn-danger {
+  color: #000;
+  background: rgba(0, 0, 0, 0.0);
+  border-color: #000;
+}
+
+/* dunkles Blau für helle Schrift / dark blue for light font 
+	für diverse Knöpfe / several buttons  */
+.btn-primary {
+	background:#0050A0;
+	}
+
+/* schwarze Schrift für hellen Hintergrund / dark font for light background 
+	bei [+] [-] Knöpfen in den Ergebnistabellen / at the [+] [-] buttons in the results-tables */
+.btn-outline-secondary {
+	color:#000; 
+}
+
+/* Außenabstand / padding */
+.btn {
+	margin: 0.5em;
+}
