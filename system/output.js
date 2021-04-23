@@ -318,7 +318,7 @@ function fnEvaluationShort(arResults)
 	// $("#explanation").empty().hide();	
 	
 	// Anzeige der Ergebnisse
-	$("#resultsHeading").append("<h2>"+TEXT_RESULTS_HEADING+"</h2>").fadeIn(500);
+	$("#resultsHeading").append("<h1>"+TEXT_RESULTS_HEADING+"</h1>").fadeIn(500);
 
 	var numberOfQuestions=arQuestionsShort.length;
 	//Anzahl der Maximalpunkte ermitteln
@@ -336,29 +336,29 @@ function fnEvaluationShort(arResults)
 		{maxPoints=1;}
 
 	var tableContent = ""
-//	tableContent += "<div class='row' id='resultsShortTable'>"
-//		tableContent += "<div class='col'>"
-		tableContent = "<table id='resultsShortTable' class='table table-bordered table-striped table-hover' aria-role='presentation'>"
+	tableContent += "<div class='row' id='resultsShortTable' role='table'>"
+		tableContent += "<div class='col'>"
+//		tableContent = "<table id='resultsShortTable' class='table table-bordered table-striped table-hover' aria-role='presentation'>"
 
 		for (i = 0; i <= (intParties-1); i++)
 		{
 			var partyNum=arSortParties[i];
 			var percent = fnPercentage(arResults[partyNum],maxPoints)
 
-			// tableContent += "<div class='row border rounded row-striped' id='resultsShortParty"+partyNum+"'>"
-			tableContent += "<tr id='resultsShortParty"+partyNum+"'>"
+			tableContent += "<div class='row border rounded mow-row-striped' id='resultsShortParty"+partyNum+"' role='row'>"
+			// tableContent += "<tr id='resultsShortParty"+partyNum+"'>"
 
 				// Parteinamen: lang, kurz, Webseite, Beschreibung
-				// tableContent += "<div class='col col-md-7 col-sm-12' >"
-				tableContent += "<td style='width:60%;'>"
+				tableContent += "<div class='col col-10 col-md-7' role='cell'>"
+				// tableContent += "<td style='width:60%;'>"
 
-					tableContent += "<img src='"+arPartyLogosImg[partyNum]+"' class='rounded img-fluid float-right' alt='Logo "+arPartyNamesLong[partyNum]+"' style='margin-left: 10px; width:"+intPartyLogosImgWidth+"; height:"+intPartyLogosImgHeight+";' />"
+//					tableContent += "<img src='"+arPartyLogosImg[partyNum]+"' class='rounded img-fluid float-right' alt='Logo "+arPartyNamesLong[partyNum]+"' style='margin-left: 10px; width:"+intPartyLogosImgWidth+"; height:"+intPartyLogosImgHeight+";' />"
 
-					tableContent += "<span style='font-weight: 600;'>"
+					tableContent += "<strong>"
 					tableContent += arPartyNamesLong[partyNum];
-					tableContent += "</span>" 
+					tableContent += "</strong>" 
 
-					tableContent += " (&#8663; <a href='"+arPartyInternet[partyNum]+"' target='_blank' title='"+arPartyNamesLong[partyNum]+"'>";		
+					tableContent += " (&#8663; <a href='"+arPartyInternet[partyNum]+"' target='_blank' alt='Link: "+arPartyNamesLong[partyNum]+"' title='Link: "+arPartyNamesLong[partyNum]+"'>";		
 					tableContent += arPartyNamesShort[partyNum];
 					tableContent += "</a>)";
 
@@ -377,34 +377,34 @@ function fnEvaluationShort(arResults)
 						tableContent += "</span> </p>"
 					}
 
-				// tableContent += "</div>"
+				tableContent += "</div>"
 				// tableContent += "</td>"
 
 				// Partei-Logo (automatisch angepasst)
-				// tableContent += "<div class='col col-md-1 d-none d-md-block' >"
+				tableContent += "<div class='col col-2 col-md-1' role='cell'>"
 				// tableContent += "<td>"
-				//	tableContent += "<img src='"+arPartyLogosImg[partyNum]+"' class='rounded img-fluid' alt='Logo "+arPartyNamesLong[partyNum]+"' style='margin-left: 10px;' />"
-				// tableContent += "</div>"
-				tableContent += "</td>"
+					tableContent += "<img src='"+arPartyLogosImg[partyNum]+"' class='rounded img-fluid' alt='Logo "+arPartyNamesLong[partyNum]+"' />"
+				// tableContent += "</td>"
+				tableContent += "</div>"				
 
 				// Prozentwertung
-				// tableContent += "<div class='col col-md-4 col-sm-12'>"
-				tableContent += "<td style='width:40%;'>"
+				tableContent += "<div class='col col-12 col-md-4' role='cell'>"
+				// tableContent += "<td style='width:40%;'>"
 					tableContent += "<div class='progress'>"
 					tableContent += "	<div class='progress-bar' role='progressbar' id='partyBar"+partyNum+"' style='width:"+percent+"%;' aria-valuenow='"+percent+"' aria-valuemin='0' aria-valuemax='100'>JUST_A_PLACEHOLDER_TEXT - SEE FUNCTION fnReEvaluate()</div> "
 					tableContent += "</div>"
-				// tableContent += "</div>"
-				tableContent += "</td>"
+				tableContent += "</div>"
+				// tableContent += "</td>"
 
-			// tableContent += "</div>" // end: row (for-i)
-			tableContent += "</tr>" 
+			tableContent += "</div>" // end: row (for-i)
+			// tableContent += "</tr>" 
 		
 		} // end for
 
 		// Anzeigen der detaillierten Tabelle
-//		tableContent += "</div>"; // end: col (resultsShortTable)
-//	tableContent += "</div>"; // end: row (resultsShortTable)
-	tableContent += "</table>"; // end: row (resultsShortTable)
+		tableContent += "</div>"; // end: col (resultsShortTable)
+	tableContent += "</div>"; // end: row (resultsShortTable)
+//	tableContent += "</table>"; // end: row (resultsShortTable)
 
 
 	// Daten in Browser schreiben
@@ -452,7 +452,7 @@ function fnEvaluationByThesis(arResults)
 	var tableContent = "";
 
 	tableContent += " <p>"+TEXT_RESULTS_INFO_THESES+"</p>";
-	
+	/*
 	tableContent += "<table width='100%' id='resultsByThesisTable' class='table table-bordered table-striped table-hover'>";
 	tableContent += "<caption>"+TEXT_RESULTS_INFO_THESES+"</caption>";
 
@@ -472,6 +472,25 @@ function fnEvaluationByThesis(arResults)
 				
 				tableContent += "</tr>";			
 			tableContent += "</thead>";
+	*/
+	tableContent += "<div class='row' id='resultsByThesisTable' role='table'>"
+		tableContent += "<div class='col'>"
+
+
+			tableContent += "<div class='row border ' role='row'>"; // row header
+				tableContent += "<div class='col col-2' role='columnheader'>";
+				tableContent += "<strong>";
+				tableContent += TEXT_ANSWER_USER+" &amp; "+TEXT_POSITION_PARTY
+				tableContent += "</strong>";
+				tableContent += "</div>";
+
+				tableContent += "<div class='col col-10' role='columnheader'>";
+				tableContent += "<strong>";					
+				tableContent += TEXT_QUESTION+" &amp; "+TEXT_ANSWER_PARTY
+				tableContent += "</strong>";
+				tableContent += "</div>";				
+			tableContent += "</div>"; // row header						
+
 				
 			// Inhalt
 			// var cellId = -1;	// cellId ist für das Ausblenden der Spalten wichtig.
@@ -481,11 +500,21 @@ function fnEvaluationByThesis(arResults)
 				var positionIcon = fnTransformPositionToIcon(arPersonalPositions[i]);
 				var positionText  = fnTransformPositionToText(arPersonalPositions[i]);
 				
-				tableContent += "<tbody>";
-				tableContent += "<tr>";
+				// tableContent += "<tbody>";
+				// tableContent += "<tr>";
+				tableContent += "<div class='row border' role='row'>";
 				
 					// 1. Spalte: doppelte Wertung
-					tableContent += "<th class='text-center'>";
+					// tableContent += "<th class='text-center'>";
+					tableContent += "<div class='col col-2' role='cell'>";
+
+						tableContent += "<button type='button' id='selfPosition"+i+"' "+
+							" class='btn "+positionButton+" btn-sm' "+ 
+							" onclick='fnToggleSelfPosition("+i+")' "+ 
+							" alt='"+TEXT_ANSWER_USER+" : "+positionText+"' title='"+TEXT_ANSWER_USER+" : "+positionText+"'>"+
+							" "+positionIcon+"</button>";
+
+
 						if (arVotingDouble[i])
 						{
 							tableContent += "<button type='button' class='btn btn-dark btn-sm' "+
@@ -499,22 +528,22 @@ function fnEvaluationByThesis(arResults)
 								" onclick='fnToggleDouble("+i+")' title='"+TEXT_ANSWER_NORMAL+"'>x2</button>";
 		
 						}		
-					tableContent += "</th>";
+					// tableContent += "</th>";
+//					tableContent += "</div>";
 
 
 					// 2. Spalte: eigene Meinung
-						tableContent += "<th scope='col' class='text-center'>";
-						tableContent += "<button type='button' id='selfPosition"+i+"' "+
-							" class='btn "+positionButton+" btn-sm' "+ 
-							" onclick='fnToggleSelfPosition("+i+")' "+ 
-							" alt='"+positionText+"' title='"+positionText+"'>"+
-							" "+positionIcon+"</button>";
-					tableContent += "</th>";
+						// tableContent += "<th scope='col' class='text-center'>";
+//						tableContent += "<div class='col-1'>";
+					// tableContent += "</th>";
 
-		
+					tableContent += "</div>";
+
+	
 					// 3. Spalte: Frage (kurz und lang)
 //					tableContent += "<th id='resultsByThesisQuestion"+i+"' style='cursor: pointer;' scope='col'>";
-					tableContent += "<th id='resultsByThesisQuestion"+i+"' style='' scope='col'>";
+//					tableContent += "<th id='resultsByThesisQuestion"+i+"' style='' scope='col'>";
+					tableContent += "<div class='col col-10' id='resultsByThesisQuestion"+i+"' role='cell'>";
 						tableContent += "<div style='display:inline-; float:left'>"
 						tableContent += "<strong>"+arQuestionsShort[i]+"</strong>: ";
 						tableContent += arQuestionsLong[i];
@@ -525,14 +554,24 @@ function fnEvaluationByThesis(arResults)
 //						tableContent += "<button style='display:inline; float:right;' id='resultsByThesisQuestion"+i+"collapse' class='resultsByThesisQuestionCollapsePlus btn btn-sm btn-outline-secondary' type='button'>+</button>";
 						tableContent += "<button style='display:inline; float:right;' id='resultsByThesisQuestion"+i+"collapse' class='nonexpanded btn btn-sm btn-outline-secondary' type='button'>&#x2795;</button>";
 						
-					tableContent += "</th>";	
+					// tableContent += "</th>";
+					tableContent += "</div>";
 					 
-				tableContent += "</tr>"; // (Fragen)
-				tableContent += "</tbody>";
+//				tableContent += "</tr>"; // (Fragen)
+				tableContent += "</div>"; // row (Fragen)
+//				tableContent += "</tbody>";
+		
 		
 				// darunterliegende Zeile - Parteipositionen anzeigen		
-				tableContent += "<tbody id='resultsByThesisAnswersToQuestion"+i+"'>";
+				// tableContent += "<tbody id='resultsByThesisAnswersToQuestion"+i+"'>";
 
+		
+				tableContent += "<div class='row border rounded' id='resultsByThesisAnswersToQuestion"+i+"'> ";
+					tableContent += "<div class='col'>"
+//					tableContent += " <div class='col-2'> </div> ";
+//					tableContent += " <div class='col-10'>";
+							
+						// darunterliegende Zeile - Parteipositionen anzeigen
 						for (j = 0; j <= (intParties-1); j++)
 						{
 							var partyNum=arSortParties[j];
@@ -543,37 +582,28 @@ function fnEvaluationByThesis(arResults)
 			            
 			
 							// Inhalt der Zelle
-							
-							tableContent += "<tr> ";
-								tableContent += " <td class='border-0'> </td> ";
-
-								/*
-								// Die erste Antworten-Spalte [0] ist leer. (in der Frage-Zeile steht hier "Doppelte Wertung [x2]") 
-								// Die Spalte soll aber über alle Antworten gehen, so dass ein optischer Gesamteindruck entsteht.  
-				            if (j == 0) 
-				            {	
-				            	tableContent += " <td rowspan='"+intParties+"'> </td> ";
-				            }
-				            else {}
-				            */								
-								
-								tableContent += " <td headers='resultsByThesisQuestion"+i+"' class='text-center'>";
+							tableContent += " <div class='row mow-row-striped' role='row'> ";
+//								tableContent += " <div class='col-1'> </div> ";
+								tableContent += " <div class='col col-2' role='cell'> ";
+								//tableContent += "<p>"
 									tableContent += "<button type='button' class='btn "+positionButton+" btn-sm' disabled "+
-											" alt='"+positionText+"' title='"+positionText+"'>"+
+											" alt='"+TEXT_ANSWER_PARTY+" : "+positionText+"' title='"+TEXT_ANSWER_PARTY+" : "+positionText+"'>"+
 											" "+positionIcon+"</button>";
-								tableContent += "</td>";							
+								tableContent += "</div>";							
 								
-								tableContent += " <td tabindex='0'> ";
+								tableContent += " <div class='col col-10' role='cell'> ";
 									tableContent += "<strong>" + arPartyNamesShort[partyNum] + "</strong>: " + ( arPartyOpinions[partyPositionsRow] === "" ? "" : "" + arPartyOpinions[partyPositionsRow] ) + " ";
 								//tableContent += "</p>";
-								tableContent += "</td>";
-							tableContent += "</tr>"; 
+								tableContent += "</div>";
+							tableContent += "</div>"; // row 
 						}
-				tableContent += "</tbody>";
+					tableContent += "</div> "; // col (Partei-Antworten)
+				tableContent += "</div> "; // row (Partei-Antworten)
+				
 			} // end if
 	
-	tableContent += "</table>";
-
+		tableContent += "</div>"; // col
+	tableContent += "</div>"; // row
 	
 	// Daten in Browser schreiben
 	$("#resultsByThesis").append(tableContent);
@@ -631,6 +661,7 @@ function fnEvaluationByParty(arResults)
 
 	tableContent += " <p>"+TEXT_RESULTS_INFO_PARTIES+"</p>";
 	
+	/*
 	tableContent += "<table width='100%' id='resultsByPartyTable' class='table table-bordered table-striped table-hover'>";
 	tableContent += "<caption>"+TEXT_RESULTS_BUTTON_PARTIES+"</caption>";
 
@@ -655,100 +686,174 @@ function fnEvaluationByParty(arResults)
 
 				
 				tableContent += "</tr>";			
-			tableContent += "</thead>";
+			tableContent += "</thead>"; 
+		*/
 
+	tableContent += "<div class='row' id='resultsByPartyTable' role='table'>"
+		tableContent += "<div class='col'>"
+
+
+			tableContent += "<div class='row border ' role='row'>"; // row header
+				tableContent += "<div class='col col-10 order-2 col-md-5 order-md-1' role='columnheader'>";
+				tableContent += "<strong>";
+				tableContent += TEXT_QUESTION
+				tableContent += "</strong>";
+				tableContent += "</div>";
+
+				tableContent += "<div class='col col-2 order-1 col-md-1 order-md-2' role='columnheader'>";
+				tableContent += "<strong>";
+				tableContent += TEXT_ANSWER_USER
+				tableContent += "</strong>";
+				tableContent += "</div>";
+
+				tableContent += "<div class='col col-2 order-3 col-md-1 order-md-3' role='columnheader'>";
+				tableContent += "<strong>";
+				tableContent += TEXT_POSITION_PARTY
+				tableContent += "</strong>";
+				tableContent += "</div>";
+
+
+				tableContent += "<div class='col col-10 order-4 col-md-5 order-md-4' role='columnheader'>";
+				tableContent += "<strong>";					
+				tableContent += TEXT_ANSWER_PARTY
+				tableContent += "</strong>";
+				tableContent += "</div>";				
+			tableContent += "</div>"; // row header	
 
 	for (i = 0; i <= (intParties-1); i++)
 	{
 
 		var partyNum=arSortParties[i];	// partyNum = sortierte Position im Endergebnis, z.B. "Neutrale Partei = 4. Partei in CSV" aber erste im Ergebnis = Nullter Wert im Array[0] = 4
+		/*
 		tableContent += " <tbody class='' id='resultsByPartyHeading"+i+"'>"
 		tableContent += " <tr>"
 		tableContent += "  <td colspan='2'>"
 		tableContent += "  &nbsp; </td>"
 		tableContent += "  <th colspan='2' scope='col' >"
+		*/
+		
+//		tableContent += "<div class='row' id='resultsByPartyRow"+i+"' role='row'>";	// Hilfszeile für Textfilter
+//			tableContent += "<div class='col'>";
+		
+		tableContent += "<span id='resultsByPartyHeading"+i+"' >";	// Hilfs-SPAN für Textfilter
+		tableContent += "<div class='row border'  role='row'>";
+				tableContent += "<div class='col col-2' role='cell'>";
 
-			tableContent += "<img src='"+arPartyLogosImg[partyNum]+"' class='rounded img-fluid float-left' alt='Logo "+arPartyNamesLong[partyNum]+"' style='margin: 10px; width:"+intPartyLogosImgWidth+"; height:"+intPartyLogosImgHeight+";' />"			
+				tableContent += "<img src='"+arPartyLogosImg[partyNum]+"' class='img-fluid rounded float-left' alt='Logo "+arPartyNamesLong[partyNum]+"' style='margin: 10px;' />"			
+	
+	//			tableContent += "<img src='"+arPartyLogosImg[partyNum]+"' width='"+intPartyLogosImgWidth+"' height='"+intPartyLogosImgHeight+"' class='rounded float-right' alt='"+arPartyNamesLong[partyNum]+"' style='margin-left: 10px;' />"
+	//			tableContent += "<img src='"+arPartyLogosImg[partyNum]+"' class='rounded float-right' alt='Logo "+arPartyNamesLong[partyNum]+"' style='margin-left: 10px;' />"
+	
+				tableContent += "</div>";
+				tableContent += "<div class='col col-10' role='cell'>";					
+	//			tableContent += "<span style='font-weight: 600;'>"
+				tableContent += "<strong>" 
+				tableContent += arPartyNamesLong[partyNum];
+				tableContent += "</strong>" 
+	//			tableContent += "</span>" 
+	
+				tableContent += " (&#8663; <a href='"+arPartyInternet[partyNum]+"' target='_blank' title='"+arPartyNamesLong[partyNum]+"'>";		
+				tableContent += arPartyNamesShort[partyNum];
+				tableContent += "</a>)";
+	
+				// Beschreibung der Partei - falls in der CSV vorhanden.
+				tableContent += "<p>"+arPartyDescription[partyNum]+"</p>"
+	
+				tableContent += "<button style='display:inline; float:right;' id='resultsByPartyAnswers"+i+"collapse' class='nonexpanded btn btn-sm btn-outline-secondary' type='button'>&#x2795;</button>";
 
-//			tableContent += "<img src='"+arPartyLogosImg[partyNum]+"' width='"+intPartyLogosImgWidth+"' height='"+intPartyLogosImgHeight+"' class='rounded float-right' alt='"+arPartyNamesLong[partyNum]+"' style='margin-left: 10px;' />"
-//			tableContent += "<img src='"+arPartyLogosImg[partyNum]+"' class='rounded float-right' alt='Logo "+arPartyNamesLong[partyNum]+"' style='margin-left: 10px;' />"
-
-//			tableContent += "<span style='font-weight: 600;'>"
-			tableContent += "<strong>" 
-			tableContent += arPartyNamesLong[partyNum];
-			tableContent += "</strong>" 
-//			tableContent += "</span>" 
-
-			tableContent += " (&#8663; <a href='"+arPartyInternet[partyNum]+"' target='_blank' title='"+arPartyNamesLong[partyNum]+"'>";		
-			tableContent += arPartyNamesShort[partyNum];
-			tableContent += "</a>)";
-
-			// Beschreibung der Partei - falls in der CSV vorhanden.
-			tableContent += "<p>"+arPartyDescription[partyNum]+"</p>"
-
-			tableContent += "<button style='display:inline; float:right;' id='resultsByPartyAnswers"+i+"collapse' class='nonexpanded btn btn-sm btn-outline-secondary' type='button'>&#x2795;</button>";
-
+		/*
 		tableContent += "  </th>"
 		tableContent += " </tr>"
 		tableContent += " </tbody>"
+		*/
+				tableContent += "</div>"; // end: col-12 - Überschrift Partei 
+			tableContent += "</div>"; // end: row - Überschrift Partei
+		tableContent += "</span>"; // end: SPAN - Überschrift Partei
 
+
+					
 		jStart = partyNum * intQuestions // z.B. Citronen Partei = 3. Partei im Array[2] = 2 * 5 Fragen = 10
 		jEnd = jStart + intQuestions -1	// 10 + 5 Fragen -1 = 14
 
-		tableContent += "<tbody id='resultsByPartyAnswersToQuestion"+i+"'>";
-
+//		tableContent += "<tbody id='resultsByPartyAnswersToQuestion"+i+"'>";
+		tableContent += "<span id='resultsByPartyAnswersToQuestion"+i+"'> ";	// Hilfs-SPAN für Textfilter
+		tableContent += "<div class='row border rounded'> ";
+			tableContent += "<div class='col'>"
+					
 
 		// Anzeige der Partei-Antworten
 		for (j = jStart; j <= jEnd; j++)
 		{
 
-			// Frage
+			// Zelle - Frage
 			modulo = j % intQuestions // z.B. arPartyPositions[11] % 5 Fragen = 1 -> arQuestionsShort[1] = 2. Frage		
-			tableContent += " <tr>"
-			tableContent += "  <td class='align-text-top'>"
-			tableContent += " "+(modulo+1)+". <strong>"+arQuestionsShort[modulo]+"</strong> - "+arQuestionsLong[modulo]+ " "
-			tableContent += "  </td>"
+			// tableContent += " <tr>"
+			// tableContent += "  <td class='align-text-top'>"
+			tableContent += " <div class='row mow-row-striped' role='row'> ";
+				tableContent += " <div class='col col-10 order-2 col-md-5 order-md-1' role='cell'> ";
+				tableContent += " "+(modulo+1)+". <strong>"+arQuestionsShort[modulo]+"</strong> - "+arQuestionsLong[modulo]+ " "
+			// tableContent += "  </td>"
+				tableContent += "  </div>" // end col-5 Frage
 
-			// Icon für eigene eigene Meinung
+
+			// Zelle - Icon für eigene eigene Meinung
 			var positionButton = fnTransformPositionToButton(arPersonalPositions[modulo]);
 			var positionIcon = fnTransformPositionToIcon(arPersonalPositions[modulo]);
 			var positionText  = fnTransformPositionToText(arPersonalPositions[modulo]);
 
-			tableContent += "<td style='text-align:center; width:10%;'>";
-			tableContent += "<button type='button' "+
-					" class='btn "+positionButton+" btn-sm' "+ 
-					" alt='"+positionText+"' title='"+positionText+"' disabled>"+
-					" "+positionIcon+"</button>";
-			tableContent += "</td>";
+			// tableContent += "<td style='text-align:center; width:10%;'>";
+			tableContent += " <div class='col col-2 order-1 col-md-1 order-md-2' role='cell'> ";
+			
+				tableContent += "<button type='button' "+
+											" class='btn "+positionButton+" btn-sm' "+ 
+											" onclick='fnToggleSelfPosition("+i+")' "+ 
+											" alt='"+TEXT_ANSWER_USER+" : "+positionText+"' title='"+TEXT_ANSWER_USER+" : "+positionText+"'>"+
+											" "+positionIcon+"</button>";
+					
+			// tableContent += "</td>";
+			tableContent += " </div> ";
 
 
-			// Icons für Postion der Parteien
+			// Zelle - Icons für Postion der Parteien
 			var positionIcon = fnTransformPositionToIcon(arPartyPositions[j]);
 			var positionButton = fnTransformPositionToButton(arPartyPositions[j]);
 			var positionText  = fnTransformPositionToText(arPartyPositions[j]);
 
-			tableContent += "  <td style='text-align:center; width:10%;'>"
-			tableContent += "<button type='button' "+
-					" class='btn "+positionButton+" btn-sm' "+ 
-					" alt='"+positionText+"' title='"+positionText+"' disabled>"+
-					" "+positionIcon+"</button>";
+			// tableContent += "  <td style='text-align:center; width:10%;'>"
+			tableContent += " <div class='col col-2 order-3 col-md-1 order-md-3' role='cell'> ";
+				tableContent += "<button type='button' class='btn "+positionButton+" btn-sm' disabled "+
+												" alt='"+TEXT_ANSWER_PARTY+" : "+positionText+"' title='"+TEXT_ANSWER_PARTY+" : "+positionText+"'>"+
+												" "+positionIcon+"</button>";
 			tableContent += "<span style='display:none;'>"+arPartyNamesShort[partyNum]+"</span>"	// Einfügen (Verstecken) des Parteinamens für Textfilter-Addon (siehe /EXTRAS)
-			tableContent += "  </td>"
+			// tableContent += "  </td>"
+			tableContent += " </div> ";
 			
-			// Antwort der Partei
-			tableContent += "  <td class='align-text-top' headers='resultsByPartyHeading"+i+"' tabindex='0'>"
+			// Zelle - Antwort der Partei
+			tableContent += " <div class='col col-10 order-4 col-md-5 order-md-4' role='cell' headers='resultsByPartyHeading"+i+"' tabindex='0'> ";
+			// tableContent += "  <td class='align-text-top' headers='resultsByPartyHeading"+i+"' tabindex='0'>"
 			tableContent += " "+arPartyOpinions[j]
-			tableContent += "  </td>"
+			// tableContent += "  </td>"
+			tableContent += " </div> ";
 
-			tableContent += " </tr>"
+			// tableContent += " </tr>"
+			tableContent += " </div> "; // end: row Anzeige der Partei-Antworten
 
 		} // end: for-j
-		tableContent += "</tbody>";
+		// tableContent += "</tbody>";
+		tableContent += " </div> "; // end col 
+	tableContent += " </div> "; // end row resultsByPartyAnswersToQuestion
+	tableContent += " </span> "; // end span resultsByPartyAnswersToQuestion
+
+//		tableContent += " </div> "; // end col 
+//	tableContent += " </div> "; // end row resultsByPartyRow
 
 		
 	} // end: for-i (intParties)
 	
-	tableContent += "</table>";
+	// tableContent += "</table>";
+		tableContent += " </div> "; // end col 
+	tableContent += " </div> "; // end row resultsByPartyTable
+
 	
 	// Daten in Browser schreiben
 	$("#resultsByParty").append(tableContent);

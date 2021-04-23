@@ -254,7 +254,10 @@ var imprintProgramming = `<p>Max Mustermann, Hans Wurst</p>
 //	(optional) Sources of pictures
 
 var imprintPictures = `<p> Bilder mit freundlicher Genehmigung von / Pictures with permission from: 
-			<br /> Wikipedia, Max Mustermann, Foto Franz Frankfurt, Neutrale Partei`;
+			<br /> Max Mustermann, Foto Franz Frankfurt, Neutrale Partei
+			<br /> Äpfel: Von Glysiak - Eigenes Werk, CC BY-SA 4.0, https://commons.wikimedia.org/w/index.php?curid=8146365
+			<br /> Bananen: Von Steve Hopson, www.stevehopson.com, CC BY-SA 2.5, https://commons.wikimedia.org/w/index.php?curid=1541726
+			<br /> Zitronen: Von André Karwath aka Aka - Eigenes Werk, CC BY-SA 2.5, https://commons.wikimedia.org/w/index.php?curid=59992 `;
 
 
 //	1.7.B.8
@@ -277,13 +280,64 @@ var imprintPrivacyUrl = "https://www.hans-wurst-webdesign-obsthausen.com/datensc
 var separator = ";";
 
 
-//	2.2. Designvorlage (CSS) im Ordner /styles
-//	2.2. Design (CSS) in folder /styles  
+/*	
+	2.2. CSS-Designvorlage(n)  
 
-var design = "default";
+	Der Mat-o-Wahl nutzt das "Bootstrap"-Framework für mobile Ansichten.
+	Alle Standard-Bootstrap-Einstellungen können aber überschrieben werden. 	
+	Die Dateien finden sich im Ordner /STYLES.
+	Beispiele für das DESIGN-Aray:
+
+	********************************************************************
+
+	var design = ["default.css","buttons-colors-on.css", "progressbar.css"];
+	var design = ["default.css","buttons-colors-off.css", "progressbar.css"];
+	var design = ["default.css","buttons-colors-on.css"];
+	var design = ["my-personal-styles.css"];
+
+	********************************************************************
+
+	2.2. CSS-Design(s) 
+
+	Mat-o-Wahl uses the "bootstrap" framework for responsive design.
+	All default settings can be overwritten.
+	You can find the files in the /STYLES folder.
+	Please find some examples above.  
+*/  
+
+var design = ["default.css","buttons-colors-on.css", "progressbar.css"];
 
 
-//	Sprache / Language
+/*
+	2.3. Add-ons / Plug-Ins / Extras  
+
+	Man kann eigene und fremde Addons einbinden. 
+	Einige Beispiele liegen im Ordner /EXTRAS.
+	Die Einstellungen finden sich üblicherweise innerhalb den dortigen Dateien.
+	Beispiele für das ADDONS-Aray:
+
+	********************************************************************
+
+	var addons = ["extras/addon_results_textfilter_by_button.js"]
+	var addons = ["extras/addon_results_textfilter_by_button.js", "extras/addon_whats_your_favorite_party.js"]
+	var addons = []
+	var addons = ["my_folder/my_file.js"]	
+
+	********************************************************************
+
+	2.3. Add-ons / Plug-Ins / Extras
+
+	You can include your own and external add-ons.
+	Some examples are in the folder /EXTRAS.
+	The settings are usually inside the corresponding files.
+	Please find some examples above.  
+
+*/
+
+var addons = []
+
+
+//	2.4 Sprache / Language
 //	see files in folder /i18n/
 
 var language = "de";

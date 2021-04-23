@@ -22,8 +22,6 @@
 - Technik: More than two answers (yes/no) like in https://github.com/JohnboyJovi/Mat-O-Wahl-multiAnswer -> "agree a lot, agree, -, disagree, disagree a lot"
 - Technik: Update jquery-csv to a new version (https://github.com/typeiii/jquery-csv) or "CSV-ES"-project (https://github.com/vanillaes/csv)
 - Technik: Update Bootstrap to latest version
-- Technik / Design: "Sprechblase" soll jumpToQuestion-Tabelle (unten) folgen. -> Sprechblase erweitern oder neuer DIV um Buttons? -> Was ist beim Zeilenumbruch nach X Fragen in der jumpToQuestion-Tabelle?
-- Design: Überschriften (var headingX) ausblenden in der mobilen Ansicht (Bootstrap-CSS) ... oder ab der zweiten Frage? ... oder prinzipiell vor die Abfragen verlagern?
 - Design: jumpToQuestion-Tabelle unter den Fragen: per Bootstrap-Gridsystem automatisch skalieren
 - Design: jumpToQuestion-Tabelle unter den Fragen: Alternative Ansicht: Keine Nummerierung (Mat-o-Wahl), sondern Punkte und Sterne (Wahl-o-Mat)
 - Technik: Include Videos in questions or party-answers
@@ -48,16 +46,18 @@
 - To Do: question in the beginning for the favorite party
 
 
-### 0.6.0.20210411-BMBF-PTF-AP2
+### 0.6.0.20210423-BMBF-PTF-AP2
 
 - DEFINITION.JS, OUTPUT.JS, INDEX.HTML
-  - new option to show/hide description at the beginning (What's the election about)
-  - **renamed variables**
+  - new option to show/hide a description at the beginning (What's the election about). Before, the explanation was always shown and wasted space on small screens.
+  - **renamed variables** in DEFINITION.JS
      - heading1 -> descriptionHeading1
      - Heading2 -> descriptionHeading2
      - explanation -> descriptionExplanation
-     - NEW: descriptionShowOnStart
-  - new IDs on <SECTION> for easier fadeIn() / fadeOut()
+     - **NEW:** descriptionShowOnStart
+  - new IDs on <SECTION> for easier fadeIn() / fadeOut() in INDEX.HTML
+  - new option to include / exlude add-ons via DEFINITION.JS instead of messing in INDEX.HTML
+     - **NEW:** var addons = []
 
 - i18n
   - several **new variables**
@@ -65,27 +65,38 @@
 - OUTPUT.JS, EXTRAS/TEXTFILTER
   - textfilter_addon for multiple elections using Arrays
   - use textfilter on all lists: short summary, questions, parties (from AP1)
-  - use "invisible" charcters for filter
+  - use "invisible" characters for filter (examples in the file in /EXTRAS folder)
 
 - OUTPUT.JS
   - fadeIn() party-answers (AP1) like in question-list
   - hide column [x2] on small screens
+  - The view of the short summary (first list) gets adjusted on small screens (left cell + right cell => upper cell + lower cell)
+  - view of party-answers (AP1) gets adjusted on small screens 
 
-- DEFAULT.CSS
-  - adjust Bootstrap-colors for accessibility (WACG)
+- DEFAULT.CSS, INDEX.HTML, DEFINITION.JS
+  - CSS-Stylesheets are now split into multiple small files separated by topic (default, buttons, progressbar)
+  - Stylesheet can be individually added in DEFINITION.JS
+  - **Changed Type**: "var design" is now an ARRAY and not a STRING
+  - adjusted Bootstrap-colors for accessibility (WACG)
   - removed (uncommented) a number of unused stylesheets 
 
+- QUICKTEST.HTML, QUICKTEST.JS
+  - updated to new variable names
+
+- /DATA
+  - some new example-images of fruits :)
+ 
 
 ### 0.6.0.20210313-BMBF-PTF-AP1
 
 - OUTPUT.JS, INDEX.HTML
   - Show a list of all parties and their answers (fnEvaluationByParty())
-  - renamed: "#resultsLong" -> "#resultsByThesis", "fnEvaluationLong()" -> "fnEvaluationByThesis()"
+  - **renamed**: "#resultsLong" -> "#resultsByThesis", "fnEvaluationLong()" -> "fnEvaluationByThesis()"
   - Bugfix: Hide privacy-statement if "statsRecord" in DEFINITION.JS is set to 0/false
 
 - i18n
-  - removed: TEXT_RESULTS_MATCHES_DETAILS, TEXT_RESULTS_MATCHES_DETAILS_TABLE
-  - renamed: TEXT_RESULTS_MATCHES_DETAILS_INFO -> TEXT_RESULTS_INFO_THESES; TEXT_RESULTS_MATCHES_GENERAL -> TEXT_RESULTS_HEADING
+  - **removed**: TEXT_RESULTS_MATCHES_DETAILS, TEXT_RESULTS_MATCHES_DETAILS_TABLE
+  - **renamed**: TEXT_RESULTS_MATCHES_DETAILS_INFO -> TEXT_RESULTS_INFO_THESES; TEXT_RESULTS_MATCHES_GENERAL -> TEXT_RESULTS_HEADING
   - new: TEXT_RESULTS_INFO_PARTIES, TEXT_RESULTS_BUTTON_THESES, TEXT_RESULTS_BUTTON_PARTIES
 
 - GENERAL.JS
@@ -99,7 +110,7 @@
   - "var heading2", "var explainingText" / "#heading2", "#explanation" only shown on screens larger than Bootstrap's "medium" (>= 768px)
 
 - OUTPUT.JS
-  - replaced open brackets (&#x2335;) from v.0.5.0.1. with +/- sign to indicate open/close.
+  - replaced open brackets (&#x2335;) from v.0.5.0.1. with [+]/[-] sign to indicate open/close (collapse).
 
 
 ### 0.5.1.20201230
@@ -337,4 +348,3 @@ Riesigen Dank an Ben Kobrinski (mail@benkob.de) für:
 ......20090927 - Bundestagswahl in Deutschland
 
 http://www.mat-o-wahl.de
-

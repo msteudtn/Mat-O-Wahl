@@ -82,9 +82,10 @@ function fnTestShowAll()
 		"intParties",
 		"intPartyLogosImgWidth", 
 		"intPartyLogosImgHeight", 
-		"heading1",
-		"heading2",
-		"explainingText",
+		"descriptionShowOnStart",
+		"descriptionHeading1",
+		"descriptionHeading2",
+		"descriptionExplanation",
 		"imprintLink",
 		"imprintGeneral",
 		"imprintContact",
@@ -132,11 +133,11 @@ function fnTestShowAll()
 
 	// BESCHREIBUNG (allgemein) - DESCRIPTION (generally)
 
-	$("#testExplanation").append("<b>1. Überschrift / Heading:</b> "+heading1)
+	$("#testExplanation").append("<b>1. Überschrift / Heading:</b> "+descriptionHeading1)
 		.append("<br />")
-		.append("<br /> <b>2. Überschrift / Heading:</b> "+heading2)
+		.append("<br /> <b>2. Überschrift / Heading:</b> "+descriptionHeading2)
 		.append("<br />")
-		.append("<br /> <b> Beschreibender Text / Description:</b> "+explainingText);
+		.append("<br /> <b> Beschreibender Text / Description:</b> "+descriptionExplanation);
 
 
 	// FRAGEN an die PARTEIEN - QUESTIONS to the parties
