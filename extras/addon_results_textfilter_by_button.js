@@ -25,14 +25,21 @@ var TEXTFILTER_BUTTONTEXTS = ["Alle anzeigen", "Bürgermeisterkandidaten &#x1F46
 // Partei_kurz:;"&#x1F464; APPD &#8203; &#8206;"
 // Partei_kurz:;"Bananen &#8203; &#8205;"
 
-// 4.) Folgende Zeile kurz vor </HEAD> der INDEX.HTML einfügen. (ohne "//")
-// Add the following line just before </HEAD> of INDEX.HTML (without "//")
-// <script type="text/javascript" src="extras/addon_results_textfilter_by_button.js"></script>
+// 4.) In der DEFINITION.JS in den Erweiterten Einstellungen das Add-On eintragen.
+// Add the add-on to the advanced settings in DEFINITION.JS
 
 // 5.) Fertig. 
 // That's it.
 
+
 ///////////////////////////////////////////////////////////////////////  
+
+
+// Hier kommt nur noch Quellcode. Bitte gehen Sie weiter. Hier gibt es nichts zu sehen.
+// That's just source code. Please move on. Nothing to see here.
+
+
+///////////////////////////////////////////////////////////////////////
 
 
 // MutationObserver starten - prüft Änderungen im DOM
@@ -127,16 +134,17 @@ function mow_addon_textfilter_filter_tables(search_keyword, idNumber) {
 		mow_addon_textfilter_hide_show_row(search_keyword, "resultsByPartyHeading"+j)
 	}
 
-
 }
+
 
 // die eigentliche Filter-Funktion
 // https://www.w3schools.com/howto/howto_js_filter_table.asp
 function mow_addon_textfilter_hide_show_row(search_keyword, tableID) {
 	
    table = document.getElementById(tableID);
-	zeile = table.getElementsByTagName("tr")
-	// console.log(zeile.length)
+	// zeile = table.getElementsByTagName("tr")
+	zeile = table.getElementsByClassName("row")
+//	console.log("Anzahl:" +zeile.length+" ID: "+tableID)
 
 	// Durch alle Zeilen gehen und diejenigen verstecken, ohne Suchbegriff.
 	for (i = 0; i < zeile.length; i++) {
