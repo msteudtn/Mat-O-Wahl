@@ -16,7 +16,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `Results` (
   `resultID` int(11) NOT NULL,
   `ip` varchar(255) NOT NULL,
-  `timest` varchar(255) NOT NULL,
+  `timestamp` varchar(255) NOT NULL,
   `personal` varchar(255) NOT NULL,
   `parties` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
