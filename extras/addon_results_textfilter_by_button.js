@@ -2,6 +2,12 @@
 // DEFINITIONEN *** DEFINITIONS
 // http://www.mat-o-wahl.de
 
+// FUNKTION / FUNCTION
+// * Filtert Text in den Ergebnislisten anhand eines Zeichens / Zeichenkette.
+// Nützlich für mehrere Wahlen, z.B. Bürgermeister + Stadtrat
+ // * Filters text in the results based on a character or string.
+// Useful for multiple elections (Mayor + Council) 
+
 // 1.) Sonderzeichen oder Zeichenkette für die Filter (im Array) bestimmen
 // Define special character or string for filter (in an array)
 // Beispiel / example: U+1F464 (128100)	- BUST IN SILHOUETTE (Menschliche Silhouette)
