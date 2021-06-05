@@ -2,17 +2,17 @@
 
 // Buttons
 var TEXT_START = "Let's start"
-var TEXT_VOTING_PRO = "[&#x2714;] Agree"
-var TEXT_VOTING_NEUTRAL = "[&#x25EF;] No opinion"
-var TEXT_VOTING_CONTRA = "[&#x2716;] Disagree"
-var TEXT_VOTING_SKIP = "[&#x21B7;] Skip (don't count)"
-var TEXT_VOTING_DOUBLE = "[x2] Very important to me"
+var TEXT_VOTING_PRO = "Agree"
+var TEXT_VOTING_NEUTRAL = "No opinion"
+var TEXT_VOTING_CONTRA = "Disagree"
+var TEXT_VOTING_SKIP = "Skip (don't count)"
+var TEXT_VOTING_DOUBLE = "Very important to me"
 
 // Statistic
 var TEXT_ALLOW_STATISTIC = "Allow anonymous analytics (prognosis)? See <a href='"+imprintPrivacyUrl+"' target='_blank'>privacy statement</a>."
 
 // Footer
-var TEXT_IMPRINT = "[ยง] Legal Notice"
+var TEXT_IMPRINT = "[§] Legal Notice"
 var TEXT_RESTART = "[&#x21BB;] Restart questionnaire"
 
 // Results
