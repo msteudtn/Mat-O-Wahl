@@ -3,9 +3,8 @@
 ## To Do (einfach)
 
 - Ueberlegung zum Aendern der Lizenz von GPL zu AGPL - https://de.wikipedia.org/wiki/GNU_Affero_General_Public_License
-- Pruefen: Unterschiede beim Einlesen von MAC-Dateien zu WIN oder *IX-Dateien?
+- Pruefen: Unterschiede beim Einlesen von CSV-Dateien zwischen Windows, Mac und Unix?
 - Hilfe-PDF aktualisieren
-- QUICKTEST aktualisieren
 
 
 ## To Do (etwas komplizierter)
@@ -24,22 +23,34 @@
 - Technik: Update Bootstrap to latest version
 - Design: jumpToQuestion-Tabelle unter den Fragen: per Bootstrap-Gridsystem automatisch skalieren
 - Design: jumpToQuestion-Tabelle unter den Fragen: Alternative Ansicht: Keine Nummerierung (Mat-o-Wahl), sondern Punkte und Sterne (Wahl-o-Mat)
-- Technik: Include Videos in questions or party-answers
-- Technik: Add Instagram Button (and maybe some more Social Media)
+- Technik: Include videos in questions or party-answers
+- Technik: Add Instagram Button (and maybe some more Social Media) ... or outsource via https://github.com/heiseonline/shariff
 
 
 ## To Do (Bugfixes)
 
 - Technik: if you skip questions, you can't change it later in the "resultsLongTable". GENERAL.JS -> fnToggleSelfPosition()
-- Technik: if DEFINITION.JS / "var statsRecord = 0" the slide-button is still visible -> remove!
-- Technik: Addon_Results_Textfilter only works on "old" table "#resultsByThesis" but not yet on "#resultsByParty" (new since v.0.6)
 
 
 ## Versions:
 
+### 0.6.0.20210605-BMBF-PTF-APx
 
-### 0.6.0.2021xxxx-BMBF-PTF-AP4
-- To Do: UX improvements
+- **NEW:** EXTRAS/ADDON_CHECK_IFRAME_RESIZE_SAME_DOMAIN.JS
+- **NEW:** EXTRAS/ADDON_CHECK_IFRAME_RESIZE_CROSS_DOMAIN.JS
+  - https://github.com/msteudtn/Mat-O-Wahl/issues/13 - iframe mit variabler Höhe ermöglichen
+  - include Mat-o-Wahl via iframe in an existing site 
+  - can be on the same domain or a different domain   
+  - currently two separate scripts. But should be included into one script eventually
+
+
+### 0.6.0.20210514-BMBF-PTF-AP4
+
+- UX improvements
+  - i18n 
+    - **Removed the icons** (like [x] [o]) from the buttons. Site looks "quieter", now. 
+    - **Re-arranged the order of the buttons** and put "count twice" in front, so people can click it before.
+    - Progress bar is hidden now. Progress is already shown in the table with the numbers below the questions.
 
 
 ### 0.6.0.2021xxxx-BMBF-PTF-AP3

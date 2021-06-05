@@ -2,11 +2,11 @@
 
 // Buttons
 var TEXT_START = "Los geht's!"
-var TEXT_VOTING_PRO = "[&#x2714;] Stimme zu"
-var TEXT_VOTING_NEUTRAL = "[&#x25EF;] Egal/Weiß nicht"
-var TEXT_VOTING_CONTRA = "[&#x2716;] Stimme nicht zu"
-var TEXT_VOTING_SKIP = "[&#x21B7;] Überspringen"
-var TEXT_VOTING_DOUBLE = "[x2] Pers. wichtiges Thema"
+var TEXT_VOTING_PRO = "Stimme zu"
+var TEXT_VOTING_NEUTRAL = "Egal/Weiß nicht"
+var TEXT_VOTING_CONTRA = "Stimme nicht zu"
+var TEXT_VOTING_SKIP = "Überspringen"
+var TEXT_VOTING_DOUBLE = "Doppelt gewichten"
 
 // Statistic
 var TEXT_ALLOW_STATISTIC = "Anonyme Auswertung (Wahlprognose) erlauben. Siehe <a href='"+imprintPrivacyUrl+"' target='_blank'>Datenschutzerklärung</a>."
