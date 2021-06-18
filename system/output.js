@@ -508,8 +508,9 @@ function fnEvaluationByThesis(arResults)
 					// tableContent += "<th class='text-center'>";
 					tableContent += "<div class='col col-2' role='cell'>";
 
-						tableContent += "<button type='button' id='selfPosition"+i+"' "+
-							" class='btn "+positionButton+" btn-sm' "+ 
+						tableContent += "<button type='button' id='' "+
+						// tableContent += "<button type='button' "+
+							" class='btn "+positionButton+" btn-sm selfPosition"+i+" ' "+ 
 							" onclick='fnToggleSelfPosition("+i+")' "+ 
 							" alt='"+TEXT_ANSWER_USER+" : "+positionText+"' title='"+TEXT_ANSWER_USER+" : "+positionText+"'>"+
 							" "+positionIcon+"</button>";
@@ -804,12 +805,13 @@ function fnEvaluationByParty(arResults)
 			// tableContent += "<td style='text-align:center; width:10%;'>";
 			tableContent += " <div class='col col-2 order-1 col-md-1 order-md-2' role='cell'> ";
 			
-				tableContent += "<button type='button' "+
-											" class='btn "+positionButton+" btn-sm' "+ 
-											" onclick='fnToggleSelfPosition("+i+")' "+ 
+				// tableContent += "<button type='button' "+
+				tableContent += "<button type='button' id='' "+
+											" class='btn "+positionButton+" btn-sm selfPosition"+modulo+" '  "+ 
+											" onclick='fnToggleSelfPosition("+modulo+")' "+ 
 											" alt='"+TEXT_ANSWER_USER+" : "+positionText+"' title='"+TEXT_ANSWER_USER+" : "+positionText+"'>"+
 											" "+positionIcon+"</button>";
-					
+						
 			// tableContent += "</td>";
 			tableContent += " </div> ";
 
