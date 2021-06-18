@@ -3,7 +3,7 @@
 // License: GPL 3
 // Mathias Steudtner http://www.medienvilla.com
 
-var version = "0.6.0.20210605-BMBF-PTF-APx"
+var version = "0.6.0.20210618-BMBF-PTF-APx"
 
 // Globale Variablen
 var arQuestionsShort = new Array();	// Kurzform der Fragen: Atomkraft, Flughafenausbau, ...
@@ -377,10 +377,10 @@ function fnToggleSelfPosition(i)
 	var positionText  = fnTransformPositionToText(arPersonalPositions[i]);
 	
 	// $("#selfPosition"+i).attr("src", "img/"+positionImage);
-	$("#selfPosition"+i).removeClass("btn-danger btn-warning btn-success btn-default").addClass(positionButton);
-	$("#selfPosition"+i).html(positionIcon);
-	$("#selfPosition"+i).attr("alt", positionText);
-	$("#selfPosition"+i).attr("title", positionText);
+	$(".selfPosition"+i).removeClass("btn-danger btn-warning btn-success btn-default").addClass(positionButton);
+	$(".selfPosition"+i).html(positionIcon);
+	$(".selfPosition"+i).attr("alt", positionText);
+	$(".selfPosition"+i).attr("title", positionText);
 	// $(".positionRow"+i).css("border","1px solid "+positionColor);
 
 //	console.log("toggle funktion i: "+i)
