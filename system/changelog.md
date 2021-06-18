@@ -34,7 +34,7 @@
 
 ## Versions:
 
-### 0.6.0.20210605-BMBF-PTF-APx
+### 0.6.0.20210618-BMBF-PTF-APx
 
 - **NEW:** EXTRAS/ADDON_CHECK_IFRAME_RESIZE_SAME_DOMAIN.JS
 - **NEW:** EXTRAS/ADDON_CHECK_IFRAME_RESIZE_CROSS_DOMAIN.JS
@@ -43,6 +43,10 @@
   - can be on the same domain or a different domain   
   - currently two separate scripts. But should be included into one script eventually
 
+- GENERAL.JS, OUTPUT.JS
+  - Bugfix: https://github.com/msteudtn/Mat-O-Wahl/issues/27 
+    (buttons in right overview-table (sorted by party) did not change, when changing your view in the left table (sorted by answers))
+    **Changed:** from `id=selfPosition123` to `class=selfPosition123`
 
 ### 0.6.0.20210514-BMBF-PTF-AP4
 
