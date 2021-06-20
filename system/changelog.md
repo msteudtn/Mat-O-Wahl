@@ -34,7 +34,7 @@
 
 ## Versions:
 
-### 0.6.0.20210618-BMBF-PTF-APx
+### 0.6.0.20210620-BMBF-PTF-APx
 
 - **NEW:** EXTRAS/ADDON_CHECK_IFRAME_RESIZE_SAME_DOMAIN.JS
 - **NEW:** EXTRAS/ADDON_CHECK_IFRAME_RESIZE_CROSS_DOMAIN.JS
@@ -42,6 +42,10 @@
   - include Mat-o-Wahl via iframe in an existing site 
   - can be on the same domain or a different domain   
   - currently two separate scripts. But should be included into one script eventually
+
+- **NEW:** EXTRAS/ADDON_LIMIT_RESULTS.JS
+  - https://github.com/msteudtn/Mat-O-Wahl/issues/21 - Nur die ersten 20 (?) Parteien in Tabellen anzeigen und darunter ein Button "Weitere anzeigen"
+  - Show only X parties in the list of results right away. The rest is visible on click.
 
 - GENERAL.JS, OUTPUT.JS
   - Bugfix: https://github.com/msteudtn/Mat-O-Wahl/issues/27 
