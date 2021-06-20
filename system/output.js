@@ -439,7 +439,6 @@ function fnEvaluationShort(arResults)
 	// $("#results").fadeIn(500);
 	$("#sectionResults").fadeIn(500);
 	
-
 }
 
 
