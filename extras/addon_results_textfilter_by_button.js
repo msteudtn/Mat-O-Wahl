@@ -193,6 +193,6 @@ function mow_addon_textfilter_color_buttons(idNumber) {
 
 
 // Start
-$(document).ready(function() { 
-	mow_addon_textfilter_MutationObserver()
-});
+window.onload = function () {
+	mow_addon_textfilter_MutationObserver() 
+}
