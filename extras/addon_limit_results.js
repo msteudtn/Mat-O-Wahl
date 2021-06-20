@@ -113,7 +113,7 @@ function mow_addon_limit_results_create_buttons() {
 }
 
 
-// Aufruf aus fnShowOnlyIntPartiesAtEnd_Buttons() und aus sich selbst
+// Aufruf bei Klick auf den Button und am Anfang "mow_addon_limit_results_create_buttons()"
 function fnShowOnlyIntPartiesAtEnd_Plus(rowStart, rowEnd) {
 
 		
