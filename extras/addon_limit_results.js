@@ -19,7 +19,6 @@
 	********************************************************************
 	
 	Beispiele / Examples:
-	var intPartiesShowAtEnd = 0; // alle Parteien anzeigen / Standard
 	var intPartiesShowAtEnd = 25; // 25 Ergebnisse anzeigen, bei Klick 25 weitere nachladen
 	
 */
