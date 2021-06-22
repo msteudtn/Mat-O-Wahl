@@ -180,6 +180,10 @@ function fnShowOnlyIntPartiesAtEnd_Plus(rowStart, rowEnd) {
 
 
 // Start
+window.addEventListener("load", mow_addon_limit_results__MutationObserver)
+
+/*
 window.onload = function () {
 	mow_addon_limit_results__MutationObserver() 
 }
+*/
