@@ -30,7 +30,8 @@
 */
 
 // Warte bis Seite geladen wurde ...
-window.onload = function() {
+// window.onload = function() {
+ window.addEventListener("load", function(event) {
 
   // Variablen zuweisen ...
   this.container = this.frameElement.contentWindow.document.body;
@@ -51,4 +52,4 @@ window.onload = function() {
   };
   this.watcher = window.requestAnimationFrame(this.watch);
   
-  };
+  });
