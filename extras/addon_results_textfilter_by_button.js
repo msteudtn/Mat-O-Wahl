@@ -193,6 +193,10 @@ function mow_addon_textfilter_color_buttons(idNumber) {
 
 
 // Start
+window.addEventListener("load", mow_addon_textfilter_MutationObserver)
+
+/*
 window.onload = function () {
 	mow_addon_textfilter_MutationObserver() 
 }
+*/
