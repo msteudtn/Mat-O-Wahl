@@ -63,10 +63,10 @@ function fnMatoWahlCrossDomainEventListener(iFrameID) {
 	
 }
 
-
-window.onload = function() {
+// window.onload = function() {
+window.addEventListener("load", function(event) {
 	window.setInterval(resizeCrossDomain, 1500)
-	}
+	})
 
 function resizeCrossDomain() {
   var height = document.getElementsByTagName("html")[0].scrollHeight;
