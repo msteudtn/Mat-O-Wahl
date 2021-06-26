@@ -9,7 +9,12 @@ var TEXT_VOTING_SKIP = "Überspringen"
 var TEXT_VOTING_DOUBLE = "Doppelt gewichten"
 
 // Statistic
-var TEXT_ALLOW_STATISTIC = "Anonyme Auswertung (Wahlprognose) erlauben. Siehe <a href='"+imprintPrivacyUrl+"' target='_blank'>Datenschutzerklärung</a>."
+var TEXT_ALLOW_STATISTIC = "Anonyme Auswertung (Wahlprognose) erlauben. Siehe <a href='"+imprintPrivacyUrl+"' target='_blank'>Datenschutzerklärung</a>." // Variable loeschen!
+
+var TEXT_ALLOW_STATISTIC_TITLE = "Bevor dein Ergebnis erscheint ..."
+var TEXT_ALLOW_STATISTIC_TEXT = "Genehmigst du uns die Übertragung deiner <strong>anonymisierten</strong> Antworten für statistische Zwecke gemäß unserer <a href='"+imprintPrivacyUrl+"' target='_blank'>Datenschutzerklärung</a>? Damit hilfst du uns, den Mat-o-Wahl und die Fragen in Zukunft zu verbessern."
+var TEXT_ALLOW_STATISTIC_YES = "Ja, na klar!"
+var TEXT_ALLOW_STATISTIC_NO = "Nein, danke."
 
 // Footer
 var TEXT_IMPRINT = "[§] Impressum"
