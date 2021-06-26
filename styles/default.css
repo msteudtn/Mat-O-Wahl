@@ -28,6 +28,15 @@ a:hover { color:#FF0000; text-decoration:none; }
 	font-size:90%; 
 	}
 
+/* Willkommensnachricht (erster DIV)
+   Welcome Message (first DIV) */
+#sectionDescription > div:first-of-type {
+    padding: 5% 2%;
+    text-overflow: clip;
+    overflow: auto;
+    margin-top: 1.0em;
+    max-height: 60vh;
+}
 
 /* BOOTSTRAP */
 .row {
