@@ -46,11 +46,16 @@ function fnStart()
 	$("#resultsButtonParties").html(TEXT_RESULTS_BUTTON_PARTIES)
 	
 	// Bereich - Footer
-	$("#keepStatsQuestion").empty();
-
+//	$("#keepStatsQuestion").empty();
+	$("#statisticsModalLabel").html(TEXT_ALLOW_STATISTIC_TITLE)
+	$("#statisticsModalBody").html(TEXT_ALLOW_STATISTIC_TEXT)
+	$("#statisticsModalButtonNo").html(TEXT_ALLOW_STATISTIC_NO)
+	$("#statisticsModalButtonYes").html(TEXT_ALLOW_STATISTIC_YES)
 
 	//////////////////////////////////////////////////////////////////
 	// FOOTER
+
+/*
 
 	// Wenn Datenschutzerklärung vorhanden UND Auswertung gewünscht ...
 	$("#keepStats").hide()
@@ -64,6 +69,7 @@ function fnStart()
 	{
 		$("#keepStatsCheckbox").attr("checked",false);	// Falls jmd. bauernschlau in der INDEX.HTML checked="checked" eingetragen hat -> OptOut
 	}
+*/
 
 	// Impressum auf Startseite ersetzen
 	// Text aus i18n einfügen
@@ -216,8 +222,26 @@ function fnShowQuestionNumber(questionNumber)
 		fnEvaluationByThesis(arResults);	// Thesen + Partei-Antworten
 		fnEvaluationByParty(arResults) 	// Liste der Parteien mit ihren Antworten (ab v.0.6)
 
+
 		// Buttons einblenden für detaillierte Ergebnisse
 		$("#resultsButtons").fadeIn(500);
+		
+		
+		// Abfrage zur Statistik einblenden (v.0.6.)
+		if ((imprintPrivacyUrl.length > 0) && (statsRecord) )
+		{		
+			$('#statisticsModal').modal('show')
+			
+			// Klick-Funktion mit den Ergebnissen zum Senden auf "Ja" legen
+			document.getElementById("statisticsModalButtonYes").addEventListener("click", function() {
+				fnSendResults(arResults, arPersonalPositions)
+				$('#statisticsModal').modal('toggle') 
+  			});
+			
+
+		}
+			
+		
 	} 
 	
 }

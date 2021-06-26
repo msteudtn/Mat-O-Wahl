@@ -319,7 +319,7 @@ var design = ["default.css","buttons-colors-on.css", "progressbar.css"];
 	********************************************************************
 
 	var addons = ["extras/addon_results_textfilter_by_button.js"]
-	var addons = ["extras/addon_results_textfilter_by_button.js", "extras/addon_check_iframe_resize_same_domain.js", "extras/addon_limit_results.js"]
+	var addons = ["extras/addon_results_textfilter_by_button.js", "extras/addon_check_iframe_resize_same_domain.js", "extras/addon_limit_results.js", "extras/addon_favorite_party.js"]
 	var addons = []
 	var addons = ["my_folder/my_file.js"]	
 

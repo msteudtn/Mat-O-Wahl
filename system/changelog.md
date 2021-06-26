@@ -34,7 +34,7 @@
 
 ## Versions:
 
-### 0.6.0.20210620-BMBF-PTF-APx
+### 0.6.0.20210626-BMBF-PTF-APx
 
 - **NEW:** EXTRAS/ADDON_CHECK_IFRAME_RESIZE_SAME_DOMAIN.JS
 - **NEW:** EXTRAS/ADDON_CHECK_IFRAME_RESIZE_CROSS_DOMAIN.JS
@@ -51,6 +51,14 @@
   - Bugfix: https://github.com/msteudtn/Mat-O-Wahl/issues/27 
     (buttons in right overview-table (sorted by party) did not change, when changing your view in the left table (sorted by answers))
     **Changed:** from `id=selfPosition123` to `class=selfPosition123`
+
+- GENERAL.JS, OUTPUT.JS, INDEX.HTML, i18n
+  - Feature: https://github.com/msteudtn/Mat-O-Wahl/issues/35 Abfrage nach statistischer Auswertung als letzter Schritt vor dem Ranking
+  - new: Bootstrap-Modal in INDEX.HTML popping up after the last question and requesting permission for data analytics
+  - removed: toggle-button under the questions to ask for permission
+  - **NEW:** variables in i18n: ` TEXT_ALLOW_STATISTIC_TITLE, TEXT_ALLOW_STATISTIC_TEXT, TEXT_ALLOW_STATISTIC_YES, TEXT_ALLOW_STATISTIC_NO`
+  - https://github.com/msteudtn/Mat-O-Wahl/issues/26 Größe der Beschreibungs-/Willkommensbox definieren
+  - Updated CSS in `/STYLES` and `INDEX.HTML`
 
 ### 0.6.0.20210514-BMBF-PTF-AP4
 
@@ -69,14 +77,14 @@
 
 - DEFINITION.JS, OUTPUT.JS, INDEX.HTML
   - new option to show/hide a description at the beginning (What's the election about). Before, the explanation was always shown and wasted space on small screens.
-  - **renamed variables** in DEFINITION.JS
-     - heading1 -> descriptionHeading1
-     - Heading2 -> descriptionHeading2
-     - explanation -> descriptionExplanation
-     - **NEW:** descriptionShowOnStart
+  - **renamed variables** in `DEFINITION.JS`
+     - `heading1 -> descriptionHeading1`
+     - `heading2 -> descriptionHeading2`
+     - `explanation -> descriptionExplanation`
+     - **NEW:** `descriptionShowOnStart`
   - new IDs on <SECTION> for easier fadeIn() / fadeOut() in INDEX.HTML
-  - new option to include / exlude add-ons via DEFINITION.JS instead of messing in INDEX.HTML
-     - **NEW:** var addons = []
+  - new option to include / exlude add-ons via `DEFINITION.JS` instead of messing in `INDEX.HTML`
+     - **NEW:** `var addons = []`
 
 - i18n
   - several **new variables**
@@ -94,8 +102,8 @@
 
 - DEFAULT.CSS, INDEX.HTML, DEFINITION.JS
   - CSS-Stylesheets are now split into multiple small files separated by topic (default, buttons, progressbar)
-  - Stylesheet can be individually added in DEFINITION.JS
-  - **Changed Type**: "var design" is now an ARRAY and not a STRING
+  - Stylesheet can be individually added in `DEFINITION.JS`
+  - **Changed Type**: `var design` is now an `ARRAY` and not a `STRING`
   - adjusted Bootstrap-colors for accessibility (WACG)
   - removed (uncommented) a number of unused stylesheets 
 
@@ -110,23 +118,23 @@
 
 - OUTPUT.JS, INDEX.HTML
   - Show a list of all parties and their answers (fnEvaluationByParty())
-  - **renamed**: "#resultsLong" -> "#resultsByThesis", "fnEvaluationLong()" -> "fnEvaluationByThesis()"
-  - Bugfix: Hide privacy-statement if "statsRecord" in DEFINITION.JS is set to 0/false
+  - **renamed**: `#resultsLong -> #resultsByThesis`, `fnEvaluationLong() -> fnEvaluationByThesis()`
+  - Bugfix: Hide privacy-statement if `statsRecord` in `DEFINITION.JS` is set to 0/false
 
 - i18n
-  - **removed**: TEXT_RESULTS_MATCHES_DETAILS, TEXT_RESULTS_MATCHES_DETAILS_TABLE
-  - **renamed**: TEXT_RESULTS_MATCHES_DETAILS_INFO -> TEXT_RESULTS_INFO_THESES; TEXT_RESULTS_MATCHES_GENERAL -> TEXT_RESULTS_HEADING
-  - new: TEXT_RESULTS_INFO_PARTIES, TEXT_RESULTS_BUTTON_THESES, TEXT_RESULTS_BUTTON_PARTIES
+  - **removed**: `TEXT_RESULTS_MATCHES_DETAILS, TEXT_RESULTS_MATCHES_DETAILS_TABLE`
+  - **renamed**: `TEXT_RESULTS_MATCHES_DETAILS_INFO -> TEXT_RESULTS_INFO_THESES; TEXT_RESULTS_MATCHES_GENERAL -> TEXT_RESULTS_HEADING`
+  - new: `TEXT_RESULTS_INFO_PARTIES, TEXT_RESULTS_BUTTON_THESES, TEXT_RESULTS_BUTTON_PARTIES`
 
 - GENERAL.JS
   - Bugfix: If a party did not answer a question, the line was not selected from the CSV file. (e.g. CSV content: "1;")
 
 - DEFAULT.CSS, OUTPUT.JS
-  - removed: body -> "font-size"; all definitions for "table" in DEFAULT.CSS
-  - instead: Bootstrap's class='table table-bordered table-striped table-hover' in OUTPUT.JS
+  - removed: body -> "font-size"; all definitions for "table" in `DEFAULT.CSS`
+  - instead: Bootstrap's class='table table-bordered table-striped table-hover' in `OUTPUT.JS`
 
 - INDEX.HTML, DEFINITION.JS
-  - "var heading2", "var explainingText" / "#heading2", "#explanation" only shown on screens larger than Bootstrap's "medium" (>= 768px)
+  - `var heading2, var explainingText` / `#heading2, #explanation` only shown on screens larger than Bootstrap's "medium" (>= 768px)
 
 - OUTPUT.JS
   - replaced open brackets (&#x2335;) from v.0.5.0.1. with [+]/[-] sign to indicate open/close (collapse).
