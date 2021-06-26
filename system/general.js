@@ -3,7 +3,7 @@
 // License: GPL 3
 // Mathias Steudtner http://www.medienvilla.com
 
-var version = "0.6.0.20210620-BMBF-PTF-APx"
+var version = "0.6.0.20210626-BMBF-PTF-APx"
 
 // Globale Variablen
 var arQuestionsShort = new Array();	// Kurzform der Fragen: Atomkraft, Flughafenausbau, ...
@@ -76,7 +76,7 @@ function fnReadPositions(csvData)
 
 
 // Auswertung (Berechnung)
-// Gibt ein Array "arResults" zurück für fnEvaluationShort() und fnEvaluationByThesis() und fnReEvaluate();
+// Gibt ein Array "arResults" zurück für fnEvaluationShort(), fnEvaluationByThesis(), fnEvaluationByParty() und fnReEvaluate();
 // Aufruf am Ende aller Fragen in fnShowQuestionNumber() und beim Prüfen auf die "doppelte Wertung" in fnReEvaluate()
 function fnEvaluation()
 {
@@ -99,7 +99,8 @@ function fnEvaluation()
 	var indexPartyInArray = -1; // Berechnung der Position des Index der aktuellen Partei
 	var positionsMatch = 0;	// Zaehler fuer gemeinsame Positionen
 
-	var arResults = new Array();
+	// var arResults = new Array();
+	var arResults = []
 //	for (i = 0; i <= (arPartyFiles.length-1); i++)
 	for (i = 0; i <= (intParties-1); i++)
 	{
@@ -139,7 +140,9 @@ function fnEvaluation()
 			} // end: if arPartyPosition-i = arPersonalPosition
 		} // end: Frage nicht uebersprungen
 	} // end: for numberOfQuestions
-	
+
+
+/*	
 	// Wenn Nutzer eingewilligt hat ...
 	if ( $("#keepStatsCheckbox").prop("checked")==1)
 	{
@@ -149,8 +152,9 @@ function fnEvaluation()
 	else
 	{
 	}
+*/
 
-	$("#keepStats").hide().empty();	
+//	$("#keepStats").hide().empty();	
 
 //	console.log(arResults)
 	return arResults;
