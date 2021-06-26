@@ -9,7 +9,12 @@ var TEXT_VOTING_SKIP = "Skip (don't count)"
 var TEXT_VOTING_DOUBLE = "Very important to me"
 
 // Statistic
-var TEXT_ALLOW_STATISTIC = "Allow anonymous analytics (prognosis)? See <a href='"+imprintPrivacyUrl+"' target='_blank'>privacy statement</a>."
+var TEXT_ALLOW_STATISTIC = "Allow anonymous analytics (prognosis)? See <a href='"+imprintPrivacyUrl+"' target='_blank'>privacy statement</a>." // to be deleted
+
+var TEXT_ALLOW_STATISTIC_TITLE = "Before we'll show your results ..."
+var TEXT_ALLOW_STATISTIC_TEXT = "Will you allow to use <strong>anonymous</strong> data for statistics according to our <a href='"+imprintPrivacyUrl+"' target='_blank'>privacy statement</a>? This helps to improve this application."
+var TEXT_ALLOW_STATISTIC_YES = "Yes, sure"
+var TEXT_ALLOW_STATISTIC_NO = "No, thanks."
 
 // Footer
 var TEXT_IMPRINT = "[§] Legal Notice"
