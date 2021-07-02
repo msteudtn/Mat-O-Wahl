@@ -34,7 +34,15 @@
 
 ## Versions:
 
-### 0.6.0.20210626-BMBF-PTF-APx
+### 0.6.0.20210702-BMBF-PTF-APx
+
+- **NEW:** EXTRAS/ADDON_CHECK_IFRAME_RESIZE_HOST.JS
+- **NEW:** EXTRAS/ADDON_CHECK_IFRAME_RESIZE_CLIENT.JS
+  - https://github.com/msteudtn/Mat-O-Wahl/issues/25 - iframe mit variabler Höhe - Gleiche und unterschiedliche Domain
+  - include Mat-o-Wahl via iframe in an existing site
+  - can be on the same domain or a different domain
+  - still two separate scripts :( but the same technology for same-domain and cross-domain
+  - **Replacement** for https://github.com/msteudtn/Mat-O-Wahl/issues/13       
 
 - **NEW:** EXTRAS/ADDON_CHECK_IFRAME_RESIZE_SAME_DOMAIN.JS
 - **NEW:** EXTRAS/ADDON_CHECK_IFRAME_RESIZE_CROSS_DOMAIN.JS
