@@ -1,18 +1,18 @@
 
 # read_db_write_text.php
 
-Das PHP-Skript liest die Ergebnisse des Mat-o-Wahl aus der Datenbank aus und speichert sie in der Textdatei `results_db.txt`
+Das PHP-Skript liest die **Ergebnisse des Mat-o-Wahl aus der Datenbank** aus und **speichert sie in der Textdatei** `results_db.txt`
 
 Es kann einfach im Browser aufgerufen werden, z.B. www.unser-buergerverein-in-stadtname.de/wahlcheck/extras/statistics_db/read_db_write_text.php
 
-Die Zugangsdaten zur Datenbank werden automatisch aus `/EXTRAS/STATISTICS/DB_SETTINGS.PHP` ausgelesen. (Es sind die gleichen Zugangsdaten, wie zum Schreiben in die Datenbank.)
+Die **Zugangsdaten zur Datenbank** werden automatisch aus `/EXTRAS/STATISTICS/DB_SETTINGS.PHP` ausgelesen. (Es sind die gleichen Zugangsdaten, wie zum Schreiben in die Datenbank.)
 Die Zugangsdaten müssen natürlich an die eigenen Bedürfnisse angepasst werden. :)
 
-Die Textdatei `results_db.txt` kann dann als Datei-Quelle `var fileResults` in die `/SYSTEM/RESULTS.JS` eingetragen werden.
+Die Textdatei `results_db.txt` kann dann als **Datei-Quelle** `var fileResults` in die `/SYSTEM/RESULTS.JS` eingetragen werden.
 
 # htaccess, htpasswd
 
-Man kann seine Ergebnisse mit einem Passwort vor fremden Zugriffen schützen. Andernfalls hat jeder Besucher Zugriff auf die Statistik-Textdatei (das kann aber auch natürlich genauso gewollt sein).
+Man **kann** seine Ergebnisse mit einem Passwort vor fremden Zugriffen schützen. Andernfalls hat jeder Besucher Zugriff auf die Statistik-Textdatei (das kann aber auch natürlich genauso gewollt sein).
 
 Dazu bitte wie folgt vorgehen:
 
