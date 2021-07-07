@@ -59,11 +59,11 @@
 
 // DE: Dateiname fuer Ergebnisse
 // EN: Filename for results
-$filename = 'test.txt';
+$filename = 'results.txt';
 
 
 // DE: IP-Adresse des Besuchers
-// EN: Ip address of visitor
+// EN: IP address of visitor
 	if (getenv("HTTP_X_FORWARDED_FOR"))
 		{
 		$ip=getenv("HTTP_X_FORWARDED_FOR");
@@ -79,20 +79,25 @@ $filename = 'test.txt';
 // DE: Wenn keine IP gespeichert werden soll, einfach die folgende Zeile auskommentieren.
 // Hierbei wird das soeben erhaltene Ergebnis von "$ip" mit einem "Null-Wert" überschrieben 
 // aber das Format für die simple Auswertung (results.html) bleibt erhalten.
+// -> EMPFOHLENE EINSTELLUNG (gemäß DSGVO), da politische Meinungen abgefragt werden.
 //
 // EN: If you do not wish to save any IP addresses (privacy) please uncomment the following line.
 // It replaces the result of "$ip" with zeros but keeps the right format.
-// 
-// $ip="0.0.0.0";
+// -> SUGGESTED SETTING (according to EDPR) because you're asking for political views 
+	$ip="0.0.0.0";
 
 
 // DE: Daten in Datei schreiben und einzelne Elemente mit Leerzeichen trennen
 // EN: Write data to file and separate with space.
 //
-// (1.) IP-ADDRESS UNIX-TIMESTAMP MOWPERSONAL MOWPARTIES
-// (2.) IP-ADDRESS UNIX-TIMESTAMP M,O,W,P,E,R,S,O,N,A,L M,O,W,P,A,R,T,I,E,S
+// (1.) IP-ADDRESS DATE MOWPERSONAL MOWPARTIES
+// (2.) IP-ADDRESS DATE M,O,W,P,E,R,S,O,N,A,L M,O,W,P,A,R,T,I,E,S
 
-$somecontent = "\n".$ip." ".time()." ".$_GET["mowpersonal"]." ".$_GET["mowparties"];
+// $timestamp = time(); // Unix-Zeitstempel 
+// $timestamp = date("Y-m-d H:i:s"); ausführliches Datumsformat -> nicht empfohlen, da rückverfolgbar über ACCESS.LOG 
+$timestamp = date("Y-m-d");
+
+$somecontent = "\n".$ip." ".$timestamp." ".$_GET["mowpersonal"]." ".$_GET["mowparties"];
 
 // DE: Sichergehen, dass die Datei existiert und beschreibbar ist
 // EN: Let's make sure the file exists and is writable first.
@@ -102,7 +107,7 @@ if (is_writable($filename)) {
     // Der Dateizeiger befindet sich am Ende der Datei, und
     // dort wird $somecontent später mit fwrite() geschrieben.
 
-	// EN: In our example we're opening $filename in append mode.
+	 // EN: In our example we're opening $filename in append mode.
     // The file pointer is at the bottom of the file hence
     // that's where $somecontent will go when we fwrite() it.
     if (!$handle = fopen($filename, "a")) {

@@ -34,26 +34,31 @@
 
 ## Versions:
 
-### 0.6.0.20210702-BMBF-PTF-APx
+### 0.6.0.20210707-BMBF-PTF-APx
 
-- **NEW:** EXTRAS/ADDON_CHECK_IFRAME_RESIZE_HOST.JS
-- **NEW:** EXTRAS/ADDON_CHECK_IFRAME_RESIZE_CLIENT.JS
+- Added option to show statistics from database with the included `RESULTS.HTML` (based on a text-file) 
+  - https://github.com/msteudtn/Mat-O-Wahl/issues/18 - results.js/html so anpassen, dass Statistiken aus Datenbanktabelle visualisiert werden
+  - **NEW:** `EXTRAS/STATISTICS_DB/READ_DB_WRITE_TEXT.PHP` - reads data from database and writes a textfile for `RESULTS.HTML` 
+  - **NEW**: `EXTRAS/STATISTICS/DB_SETTINGS.PHP` - credentials for database. Is used in `READ_DB_WRITE_TEXT.PHP` and `VOTE_DB.PHP` 
+
+- Include Mat-o-Wahl via iframe in an existing site (next try)
   - https://github.com/msteudtn/Mat-O-Wahl/issues/25 - iframe mit variabler Höhe - Gleiche und unterschiedliche Domain
-  - include Mat-o-Wahl via iframe in an existing site
+  - **NEW:** `EXTRAS/ADDON_CHECK_IFRAME_RESIZE_HOST.JS`
+  - **NEW:** `EXTRAS/ADDON_CHECK_IFRAME_RESIZE_CLIENT.JS`
   - can be on the same domain or a different domain
   - still two separate scripts :( but the same technology for same-domain and cross-domain
   - **Replacement** for https://github.com/msteudtn/Mat-O-Wahl/issues/13       
 
-- **NEW:** EXTRAS/ADDON_CHECK_IFRAME_RESIZE_SAME_DOMAIN.JS
-- **NEW:** EXTRAS/ADDON_CHECK_IFRAME_RESIZE_CROSS_DOMAIN.JS
-  - https://github.com/msteudtn/Mat-O-Wahl/issues/13 - iframe mit variabler Höhe ermöglichen
-  - include Mat-o-Wahl via iframe in an existing site 
-  - can be on the same domain or a different domain   
+- Include Mat-o-Wahl via iframe in an existing site
+  - https://github.com/msteudtn/Mat-O-Wahl/issues/13 - iframe mit variabler Höhe ermöglichen 
+  - **NEW:** `EXTRAS/ADDON_CHECK_IFRAME_RESIZE_SAME_DOMAIN.JS`
+  - **NEW:** `EXTRAS/ADDON_CHECK_IFRAME_RESIZE_CROSS_DOMAIN.JS`
+    - can be on the same domain or a different domain   
   - currently two separate scripts. But should be included into one script eventually
 
-- **NEW:** EXTRAS/ADDON_LIMIT_RESULTS.JS
+- Show only X parties in the list of results right away. The rest is visible on click.
   - https://github.com/msteudtn/Mat-O-Wahl/issues/21 - Nur die ersten 20 (?) Parteien in Tabellen anzeigen und darunter ein Button "Weitere anzeigen"
-  - Show only X parties in the list of results right away. The rest is visible on click.
+  - **NEW:** `EXTRAS/ADDON_LIMIT_RESULTS.JS`  
 
 - GENERAL.JS, OUTPUT.JS
   - Bugfix: https://github.com/msteudtn/Mat-O-Wahl/issues/27 

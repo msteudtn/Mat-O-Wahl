@@ -1,0 +1,5 @@
+AuthType Basic
+AuthName "Please enter your login"
+AuthUserFile /var/www/htdocs/mat-o-wahl/extras/statistics_db/.htpasswd
+Require valid-user
+
