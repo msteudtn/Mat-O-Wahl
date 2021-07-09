@@ -28,6 +28,12 @@ A **detailled manual** (in German) can be found online.
 
 :us:  An add-on to load the Mat-o-Wahl in an iframe for your CMS or web-site.
 
+## addon_favorite_party.js
+
+:de: Fragt am Anfang, welche Partei man normalerweise wählen würde. Das Ergebnis wird am Ende farblich hervorgehoben.
+
+:us: Asks for your favorite party at the beginning. The answer is highlighted at the end.
+
 ## addon_limit_results.js
 
 :de: Eine Erweiterung mit der man die **Anzahl der Ergebnisse begrenzen** kann. z.B. "nur die ersten 10 Ergebnisse anzeigen" und dann 10 weitere laden. 
