@@ -40,7 +40,9 @@ Dazu bitte wie folgt vorgehen:
   * Die htpasswd-Datei sollte nicht im gleichen Ordner liegen, wie die htaccess-Datei, sondern woanders, z.B. außerhalb des Web-Bereichs, z.B. `/var/www/geheim/.htpasswd`
  
 * Die beiden Dateien `htaccess` und `htpasswd` müssen noch umbenannt werden. Es muss ein Punkt an den Anfang gestellt werden, so dass sie unter Linux-Systemen als versteckte Dateien ausgeblendet werden, also `.htaccess` und `.htpasswd`. Wenn das unter Windows nicht funktioniert, kann man es nach dem Hochladen auf dem Server erledigen (z.B. mit dem FTP-Programm)
- 
+
+---
+
 :us: You **can** protect your results with a password from unauthorized access. Otherwise anybody can access your statistics-text-file. (But maybe you would like to have public access and this doesn't concern you.)
 
 * This folder has two example files `htaccess` and `htpasswd`. 
