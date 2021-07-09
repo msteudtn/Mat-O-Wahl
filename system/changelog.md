@@ -17,7 +17,6 @@
 
 ## To Do (Features)
 
-- Technik: optionale Abfrage vor der Umfrage, z.B.: "Welche Partei würden Sie normalerweise wählen?" Vergleiche alte Version des www.bahn-o-mat.de
 - Technik: More than two answers (yes/no) like in https://github.com/JohnboyJovi/Mat-O-Wahl-multiAnswer -> "agree a lot, agree, -, disagree, disagree a lot"
 - Technik: Update jquery-csv to a new version (https://github.com/typeiii/jquery-csv) or "CSV-ES"-project (https://github.com/vanillaes/csv)
 - Technik: Update Bootstrap to latest version
@@ -33,6 +32,14 @@
 
 
 ## Versions:
+
+
+### 0.6.0.20210709-BMBF-PTF-AP3
+
+- Question in the beginning to ask for the favorite party
+  - **NEW**: `EXTRAS/ADDON_FAVORITE_PARTY.JS`
+  - highlight chosen party from the beginning at the end
+  
 
 ### 0.6.0.20210707-BMBF-PTF-APx
 
@@ -80,11 +87,6 @@
     - **Removed the icons** (like [x] [o]) from the buttons. Site looks "quieter", now. 
     - **Re-arranged the order of the buttons** and put "count twice" in front, so people can click it before.
     - Progress bar is hidden now. Progress is already shown in the table with the numbers below the questions.
-
-
-### 0.6.0.2021xxxx-BMBF-PTF-AP3
-- To Do: question in the beginning for the favorite party
-
 
 ### 0.6.0.20210423-BMBF-PTF-AP2
 
