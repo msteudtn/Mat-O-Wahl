@@ -11,6 +11,8 @@ Die Beispiel-Tabelle heißt `Results` kann aber auch umbenannt werden. Dann müs
 Um die Statistik zu aktivieren muss der Parameter `var statsRecord` in `/DATA/DEFINITION.JS` auf `1` gesetzt sein. 
 Außerdem muss im Parameter `var statsServer` der Pfad zur `vote_db.php` eingetragen sein.
 
+---
+
 :us: A PHP-script to write the **results of Mat-o-Wahl into a database**.
 
 DB-credentials come from `db_settings.php` and have to be adjusted to your own MySQL / MariaDB-settings.
@@ -31,6 +33,8 @@ Dazu dient die `vote_txt.php`. Sie schreibt ihre Ergebnisse in die `results.txt`
 Auch dieses Skript muss in der `/DATA/DEFINITION.JS` aktiviert werden. (siehe oben)
 
 Die OpenOffice- / LibreOffice-Calc-Datei `example_results.ods` ist ein **Beispiel für eine Auswertung der Textdatei**.
+
+---
 
 :us:  The (bad) alternative to collect statistical data. Instead of using a database this script **uses a text-file**.
 
