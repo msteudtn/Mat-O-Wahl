@@ -3,7 +3,7 @@
 // License: GPL 3
 // Mathias Steudtner http://www.medienvilla.com
 
-var version = "0.6.0.20210707-BMBF-PTF-APx"
+var version = "0.6.0.20210709-BMBF-PTF-AP3"
 
 // Globale Variablen
 var arQuestionsShort = new Array();	// Kurzform der Fragen: Atomkraft, Flughafenausbau, ...
