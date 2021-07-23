@@ -7,5 +7,5 @@
 	$username = "root";
 	$password = "";
 	$dbname = "matowahl";
-	
+	$tablename = "Results";
 ?>
