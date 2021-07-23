@@ -45,12 +45,12 @@
 	$mowPartiesValues = mysqli_real_escape_string($conn, $_GET["mowparties"]);
 
 // Prepare and execute SQL Statement 
-	$sql = "INSERT INTO Results (ip, timestamp, personal, parties) VALUES ('$ip', '$timestamp', '$mowPersonalValues', '$mowPartiesValues')";
+	$sql = "INSERT INTO `$tablename` (ip, timestamp, personal, parties) VALUES ('$ip', '$timestamp', '$mowPersonalValues', '$mowPartiesValues')";
 
 
 // Send data
 	if ($conn->query($sql) === TRUE) {
-	  echo "Mat-o-Wahl: New record created successfully";
+	  echo "Mat-o-Wahl: New record created successfully into table ".$tablename;
 	} else {
 	  echo "Mat-o-Wahl: Error: <strong>" . $sql . " </strong> <br /> Error-Code:" . $conn->error;
 	}
