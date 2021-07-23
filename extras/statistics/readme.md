@@ -5,10 +5,11 @@
 
 Die DB-Zugangsdaten werden aus `db_settings.php` gelesen und müssen an den eigenen MySQL bzw. MariaDB-Server angepasst werden.
 
-Am Anfang muss eine Tabelle in der Datenbank erstellt werden. Dazu gibt kann man die `results_db.sql` in seine Datenbank importieren. 
-Die Beispiel-Tabelle heißt `Results` kann aber auch umbenannt werden. Dann müssen aber auch andere Abfragen in den PHP-Skripten angepasst werden. :)
+Am Anfang muss eine **Tabelle in der Datenbank erstellt** werden. Dazu kann man die `results_db.sql` in seine Datenbank importieren. 
 
-Um die Statistik zu aktivieren muss der Parameter `var statsRecord` in `/DATA/DEFINITION.JS` auf `1` gesetzt sein. 
+Die Beispiel-Tabelle heißt `Results` kann aber auch umbenannt werden. Wenn die Tabelle umbenannt wird (Zeilen 16, 27 und 33 in der `results_db.sql`), muss die `db_settings.php` ebenfalls angepasst werden.
+
+Um die **Statistik zu aktivieren** muss der Parameter `var statsRecord` in `/DATA/DEFINITION.JS` auf `1` gesetzt sein. 
 Außerdem muss im Parameter `var statsServer` der Pfad zur `vote_db.php` eingetragen sein.
 
 ---
@@ -17,10 +18,11 @@ Außerdem muss im Parameter `var statsServer` der Pfad zur `vote_db.php` eingetr
 
 DB-credentials come from `db_settings.php` and have to be adjusted to your own MySQL / MariaDB-settings.
 
-First you have to create a table within the database. The file `results_db.sql` can be imported into the database for that.
-The example table is named `Results` but you can change it to your needs. Of course you have to change the rest of the queries than, too. :)
+First you have to **create a table** within the database. The file `results_db.sql` can be imported into the database for that.
 
-To activate statistics, you have to set the parameter `var statsRecord` in `/DATA/DEFINITION.JS` to `1`.
+The example table is named `Results` but you can change it to your needs. If you change the name (lines 16, 27 and 33 in `results_db.sql`), you have to adjust the settings in `db_settings.php` as well.
+
+To **activate statistics**, you have to set the parameter `var statsRecord` in `/DATA/DEFINITION.JS` to `1`.
 In addition the parameter `var statsServer` has to link to `vote_db.php`.
 
 

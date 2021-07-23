@@ -35,20 +35,23 @@ echo "<p>Current file path and file: <strong>".$_SERVER['SCRIPT_FILENAME']."</st
 	}
 
 	echo "<p> Query SQL ... </p>";
-	$sql = "SELECT ip, timestamp, personal, parties FROM `Results` ";
+	$sql = "SELECT ip, timestamp, personal, parties FROM `$tablename` ";
 	$result = $conn->query($sql);
+
+	$counter = 0;
 
 	if ($result->num_rows > 0) {
 	  // output data of each row
 	  echo "<p> Reading data for file ".$filename." ... </p>";
 	  while($row = $result->fetch_assoc()) {
 	  	
+	  		$counter++;
 	  		$ip          = $row["ip"];
 	  		$timestamp   = $row["timestamp"];
 	  		$mowpersonal = $row["personal"];
 	  		$mowparties  = $row["parties"];
 	  		
-	    	echo "ip: " .$ip. " - Date: " .$timestamp. " Personal: " .$mowpersonal. " Parties: "  .$mowparties. "<br /> ";
+	    	echo $counter." ip: " .$ip. " - Date: " .$timestamp. " Personal: " .$mowpersonal. " Parties: "  .$mowparties. "<br /> ";
 	    
 			$somecontent .= "".$ip." ".$timestamp." ".$mowpersonal." ".$mowparties."\n";   
 	    
@@ -92,4 +95,3 @@ echo "<p>Current file path and file: <strong>".$_SERVER['SCRIPT_FILENAME']."</st
 	    
 
 ?>
-
