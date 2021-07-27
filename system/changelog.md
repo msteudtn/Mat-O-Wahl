@@ -34,6 +34,19 @@
 ## Versions:
 
 
+### stable-v.6.0-BMBF-PTF-20210727
+
+- **Update** for Show only X parties in the list of results right away. The rest is visible on click.
+  - https://github.com/msteudtn/Mat-O-Wahl/issues/21 - Nur die ersten 20 (?) Parteien in Tabellen anzeigen und darunter ein Button "Weitere anzeigen"
+  - `EXTRAS/ADDON_LIMIT_RESULTS.JS`
+  - new: Option to show less results
+  - new / changed: Buttons are shown directly under the (three) result-lists (tables). Before it was just one button at the end. 
+  
+- Slowly starting to **remove jQuery**
+  - **New:** `@keyframes myFadeIn, @keyframes myFadeOut` in `DEFAULT.CSS` to support fading
+  - **New:** functions `fnFadeIn(), fnFadeOut()` in `GENERAL.JS`
+  - e.g. `fnFadeOut(document.getElementById("myId"), 750, 1)` = fade out `#myId` within 750ms and set `display:none` (1)    
+
 ### stable-v.6.0-BMBF-PTF-20210725
 
 - Question in the beginning to ask for the favorite party
