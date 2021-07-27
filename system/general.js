@@ -3,7 +3,7 @@
 // License: GPL 3
 // Mathias Steudtner http://www.medienvilla.com
 
-var version = "stable-v.6.0-BMBF-PTF-20210725"
+var version = "stable-v0.6-BMBF-PTF-20210727"
 
 // Globale Variablen
 var arQuestionsShort = new Array();	// Kurzform der Fragen: Atomkraft, Flughafenausbau, ...
@@ -415,4 +415,43 @@ function fnToggleDouble(i)
 		$("#doubleIcon"+i).attr("title",TEXT_ANSWER_NORMAL);
 	}
 	fnReEvaluate();
+}
+
+
+
+// vanilla JavaScript FadeIn / FadeOut
+// Modus = display: "none / block" ändern (0 = nein, 1 = ja)
+function fnFadeIn(el, time, modus) {
+
+	// Default FadeIn / FadeOut-Time
+	if (!time) {time = 500;}
+
+	// Loading CSS 
+	el.style.animation = "myFadeIn "+time+"ms 1"
+	el.style.opacity = 1;
+
+	if (modus == 1) {
+		el.style.display = ""	
+		el.style.visibility = ""
+	}
+}
+
+// vanilla JavaScript FadeIn / FadeOut
+// Modus = visibility show / hidden ändern (0 = nein, 1 = ja)
+function fnFadeOut(el, time, modus) {
+
+	// Default FadeIn / FadeOut-Time
+	if (!time) {time = 500;}
+
+	// Loading CSS 
+	el.style.animation = "myFadeOut "+time+"ms 1"
+	el.style.opacity = 0;
+
+	// hide element from DOM AFTER opacity is set to 0 (setTimeout)
+	if (modus == 1) {
+		window.setTimeout(function() {
+			el.style.display = "none"	
+			el.style.visibility = "hidden"			
+		}, (time-50));		
+	}
 }
