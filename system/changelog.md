@@ -4,7 +4,6 @@
 
 - Ueberlegung zum Aendern der Lizenz von GPL zu AGPL - https://de.wikipedia.org/wiki/GNU_Affero_General_Public_License
 - Pruefen: Unterschiede beim Einlesen von CSV-Dateien zwischen Windows, Mac und Unix?
-- Hilfe-PDF aktualisieren
 
 
 ## To Do (etwas komplizierter)
@@ -33,10 +32,13 @@
 
 ## Versions:
 
+........20210926 Bundestagswahl in Deutschland 
 
-### stable-v.6.0-BMBF-PTF-20210727
+### 0.6.0.2021xxxx
 
-- **Update** for Show only X parties in the list of results right away. The rest is visible on click.
+#### 0.6.0.stable.20210727 (BMBF-PTF)
+
+- **Update** for "Show only X parties in the list of results right away. The rest is visible on click."
   - https://github.com/msteudtn/Mat-O-Wahl/issues/21 - Nur die ersten 20 (?) Parteien in Tabellen anzeigen und darunter ein Button "Weitere anzeigen"
   - `EXTRAS/ADDON_LIMIT_RESULTS.JS`
   - new: Option to show less results
@@ -47,76 +49,95 @@
   - **New:** functions `fnFadeIn(), fnFadeOut()` in `GENERAL.JS`
   - e.g. `fnFadeOut(document.getElementById("myId"), 750, 1)` = fade out `#myId` within 750ms and set `display:none` (1)    
 
-### stable-v.6.0-BMBF-PTF-20210725
 
-- Question in the beginning to ask for the favorite party
-  - **NEW**: `EXTRAS/ADDON_FAVORITE_PARTY.JS`
+#### 0.6.0.stable.20210723 (BMBF-PTF-APx)
+
+- New setting in `/extras/statistics/db_settings.php` to include the table-name, also.
+  - https://github.com/msteudtn/Mat-O-Wahl/issues/43 - DB-Tabellenname in db_settings.php definieren
+  - Before, only the usual database-credentials were saved in `db_settings.php`
+  - Now, you can add the name of your table as well (if you like)
+  - Find more details in `/extras/statistics/readme.md`
+
+
+#### 0.6.0.stable.20210709 (BMBF-PTF-AP3)
+
+- Question in the beginning to **ask for the favorite party**
+  - **NEW**: `/EXTRAS/ADDON_FAVORITE_PARTY.JS`
   - highlight chosen party from the beginning at the end
+
   
-- Added option to show statistics from database with the included `RESULTS.HTML` (based on a text-file) 
+#### 0.6.0.stable.20210707 (BMBF-PTF-APx)
+
+- Added option to show **statistics from database** with the included `RESULTS.HTML` (based on a text-file) 
   - https://github.com/msteudtn/Mat-O-Wahl/issues/18 - results.js/html so anpassen, dass Statistiken aus Datenbanktabelle visualisiert werden
   - **NEW:** `EXTRAS/STATISTICS_DB/READ_DB_WRITE_TEXT.PHP` - reads data from database and writes a textfile for `RESULTS.HTML` 
   - **NEW**: `EXTRAS/STATISTICS/DB_SETTINGS.PHP` - credentials for database. Is used in `READ_DB_WRITE_TEXT.PHP` and `VOTE_DB.PHP` 
 
-- Include Mat-o-Wahl via iframe in an existing site (next try)
+
+#### 0.6.0.stable.20210702 (BMBF-PTF-APx)
+
+- Include Mat-o-Wahl via `iframe` in an existing site (next try)
   - https://github.com/msteudtn/Mat-O-Wahl/issues/25 - iframe mit variabler Höhe - Gleiche und unterschiedliche Domain
   - **NEW:** `EXTRAS/ADDON_CHECK_IFRAME_RESIZE_HOST.JS`
   - **NEW:** `EXTRAS/ADDON_CHECK_IFRAME_RESIZE_CLIENT.JS`
   - can be on the same domain or a different domain
   - still two separate scripts :( but the same technology for same-domain and cross-domain
-  - **Replacement** for https://github.com/msteudtn/Mat-O-Wahl/issues/13       
+  - **Replacement** for https://github.com/msteudtn/Mat-O-Wahl/issues/13  (see also version 20210605) 
 
-- Include Mat-o-Wahl via iframe in an existing site
-  - https://github.com/msteudtn/Mat-O-Wahl/issues/13 - iframe mit variabler Höhe ermöglichen 
-  - **NEW:** `EXTRAS/ADDON_CHECK_IFRAME_RESIZE_SAME_DOMAIN.JS`
-  - **NEW:** `EXTRAS/ADDON_CHECK_IFRAME_RESIZE_CROSS_DOMAIN.JS`
-    - can be on the same domain or a different domain   
-  - currently two separate scripts. But should be included into one script eventually
+
+#### 0.6.0.stable.20210626 (BMBF-PTF-APx)
+
+- New: Bootstrap-Modal in `INDEX.HTML` popping up **after the last question** and **requesting permission for data analytics**
+  - https://github.com/msteudtn/Mat-O-Wahl/issues/35 Abfrage nach statistischer Auswertung als letzter Schritt vor dem Ranking
+  - `GENERAL.JS, OUTPUT.JS, INDEX.HTML, i18n`
+  - **Removed**: toggle-button under the questions to ask for permission 
+  - **NEW:** variables in i18n: ` TEXT_ALLOW_STATISTIC_TITLE, TEXT_ALLOW_STATISTIC_TEXT, TEXT_ALLOW_STATISTIC_YES, TEXT_ALLOW_STATISTIC_NO`
+
+- Changed the sizing of the welcoming-message
+  - https://github.com/msteudtn/Mat-O-Wahl/issues/26 Größe der Beschreibungs-/Willkommensbox definieren
+  - Updated CSS in `/STYLES` and `INDEX.HTML`
+
+
+#### 0.6.0.stable.20210620 (BMBF-PTF-APx)
 
 - Show only X parties in the list of results right away. The rest is visible on click.
   - https://github.com/msteudtn/Mat-O-Wahl/issues/21 - Nur die ersten 20 (?) Parteien in Tabellen anzeigen und darunter ein Button "Weitere anzeigen"
   - **NEW:** `EXTRAS/ADDON_LIMIT_RESULTS.JS`  
 
-- GENERAL.JS, OUTPUT.JS
-  - Bugfix: https://github.com/msteudtn/Mat-O-Wahl/issues/27 
-    (buttons in right overview-table (sorted by party) did not change, when changing your view in the left table (sorted by answers))
-    **Changed:** from `id=selfPosition123` to `class=selfPosition123`
 
-- GENERAL.JS, OUTPUT.JS, INDEX.HTML, i18n
-  - Feature: https://github.com/msteudtn/Mat-O-Wahl/issues/35 Abfrage nach statistischer Auswertung als letzter Schritt vor dem Ranking
-  - new: Bootstrap-Modal in INDEX.HTML popping up after the last question and requesting permission for data analytics
-  - removed: toggle-button under the questions to ask for permission
-  - **NEW:** variables in i18n: ` TEXT_ALLOW_STATISTIC_TITLE, TEXT_ALLOW_STATISTIC_TEXT, TEXT_ALLOW_STATISTIC_YES, TEXT_ALLOW_STATISTIC_NO`
-  - https://github.com/msteudtn/Mat-O-Wahl/issues/26 Größe der Beschreibungs-/Willkommensbox definieren
-  - Updated CSS in `/STYLES` and `INDEX.HTML`
+#### 0.6.0.stable.20210618 (BMBF-PTF-APx)
 
-- `i18n`
-  - **removed**: `TEXT_RESULTS_MATCHES_DETAILS, TEXT_RESULTS_MATCHES_DETAILS_TABLE`
-  - **renamed**: `TEXT_RESULTS_MATCHES_DETAILS_INFO -> TEXT_RESULTS_INFO_THESES; TEXT_RESULTS_MATCHES_GENERAL -> TEXT_RESULTS_HEADING`
-  - new: `TEXT_RESULTS_INFO_PARTIES, TEXT_RESULTS_BUTTON_THESES, TEXT_RESULTS_BUTTON_PARTIES`
-  - **Removed the icons** (like [x] [o]) from the buttons. Site looks "quieter", now. 
+- Bugfix: https://github.com/msteudtn/Mat-O-Wahl/issues/27 
+  - `GENERAL.JS, OUTPUT.JS`
+  - buttons in right overview-table (sorted by party) did not change, when changing your view in the left table (sorted by answers)
+  - **Changed:** from `id=selfPosition123` to `class=selfPosition123`
+
+........20210606 Landtagswahlen in Sachsen-Anhalt
+
+#### 0.6.0.stable.20210605 (BMBF-PTF-APx)
+
+- Include Mat-o-Wahl via `iframe` in an existing site
+  - https://github.com/msteudtn/Mat-O-Wahl/issues/13 - iframe mit variabler Höhe ermöglichen 
+  - **NEW:** `EXTRAS/ADDON_CHECK_IFRAME_RESIZE_SAME_DOMAIN.JS`
+  - **NEW:** `EXTRAS/ADDON_CHECK_IFRAME_RESIZE_CROSS_DOMAIN.JS`
+  - can be on the same domain or a different domain   
+  - currently two separate scripts. But should be included into one script eventually
+
+
+#### 0.6.0.stable.20210514 (BMBF-PTF-AP4)
+
+- UX improvements
+  - **Removed the icons** (like [x] [o]) from the buttons in `i18n`. Site looks "quieter", now. 
   - **Re-arranged the order of the buttons** and put "count twice" in front, so people can click it before.
   - Progress bar is hidden now. Progress is already shown in the table with the numbers below the questions.
 
-- new option to show/hide a description at the beginning (What's the election about). Before, the explanation was always shown and wasted space on small screens.
- - `DEFINITION.JS, OUTPUT.JS, INDEX.HTML`
-  - **renamed variables** in `DEFINITION.JS`
-     - `heading1 -> descriptionHeading1`
-     - `heading2 -> descriptionHeading2`
-     - `explanation -> descriptionExplanation`
-     - **NEW:** `descriptionShowOnStart`
-  - new IDs on `<SECTION>` for easier fadeIn() / fadeOut() in `INDEX.HTML`
-  - new option to include / exlude add-ons via `DEFINITION.JS` instead of messing in `INDEX.HTML`
-     - **NEW:** `var addons = []`
 
-- textfilter_addon for multiple elections using Arrays
-  - `OUTPUT.JS, EXTRAS/TEXTFILTER`
-    - use textfilter on all lists: short summary, questions, parties (from AP1)
-    - use "invisible" characters for filter (examples in the file in /EXTRAS folder)
+#### 0.6.0.stable.20210423 (BMBF-PTF-AP2)
 
-- OUTPUT.JS
-  - fadeIn() party-answers (AP1) like in question-list
-  - hide column [x2] on small screens
+- new option to include / exlude add-ons via `DEFINITION.JS` instead of messing in `INDEX.HTML`
+   - **NEW:** array `var addons = []`
+
+- adjustments for smalller screens
   - The view of the short summary (first list) gets adjusted on small screens (left cell + right cell => upper cell + lower cell)
   - view of party-answers (AP1) gets adjusted on small screens 
 
@@ -124,25 +145,64 @@
   - `DEFAULT.CSS, INDEX.HTML, DEFINITION.JS`
   - Stylesheet can be individually added in `DEFINITION.JS`
   - **Changed Type**: `var design` is now an `ARRAY` and not a `STRING`
-  - adjusted Bootstrap-colors for accessibility (WACG)
-  - removed (uncommented) a number of unused stylesheets 
 
-- `QUICKTEST.HTML, QUICKTEST.JS`
-  - updated to new variable names
+- updated `QUICKTEST.HTML, QUICKTEST.JS` to new variable names
 
 - some new example-images of fruits in `/DATA` :)
+
+
+#### 0.6.0.stable.20210411 (BMBF-PTF-AP2)
+
+- new option to show/hide a description at the beginning (What's the election about). Before, the explanation was always shown and wasted space on small screens.
+  - `DEFINITION.JS, OUTPUT.JS, INDEX.HTML`
+  - **renamed variables** in `DEFINITION.JS`
+     - `heading1 -> descriptionHeading1`
+     - `heading2 -> descriptionHeading2`
+     - `explanation -> descriptionExplanation`
+     - **NEW:** `descriptionShowOnStart`
+  - **Revert** setting from 20210313: `#descriptionHeading2, #descriptionExplanation` are not hidden on small screens (not needed anymore)
+  - new IDs on `<SECTION>` for easier fadeIn() / fadeOut() in `INDEX.HTML`
+
+- hide column "[x2]" ("important to me") on small screens in `OUTPUT.JS`
+
+- removed (uncommented) a number of unused stylesheets in `DEFAULT.CSS`
+
+
+
+#### 0.6.0.stable.20210405 (BMBF-PTF-AP2)
+
+- textfilter-addon for multiple elections using arrays
+  - `OUTPUT.JS, EXTRAS/TEXTFILTER`
+  - use textfilter on all lists: short summary, questions, parties (from AP1)
+  - use "invisible" characters for filter (examples in the file in `/EXTRAS` folder)
+
+- fadeIn() party-answers (from AP1) like the question-list already does (in `OUTPUT.JS`)
+
+- adjusted Bootstrap-colors for accessibility (WACG) in `DEFAULT.CSS`
+
+........20210314 Landtagswahlen in Rheinland-Pfalz und Baden-Württemberg
+
+#### 0.6.0.stable.20210313 (BMBF-PTF-AP1)
 
 - Show a list of all parties and their answers (fnEvaluationByParty())
   - `OUTPUT.JS, INDEX.HTML`
   - **renamed**: `#resultsLong -> #resultsByThesis`, `fnEvaluationLong() -> fnEvaluationByThesis()`
-  - Bugfix: Hide privacy-statement if `statsRecord` in `DEFINITION.JS` is set to 0/false
 
-- Bugfix: If a party did not answer a question, the line was not selected from the CSV file. (e.g. CSV content: "1;")
-  - in `GENERAL.JS`
+- Bugfix: Hide privacy-statement if `statsRecord` in `DEFINITION.JS` is set to 0/false
+
+- i18n
+  - **removed**: `TEXT_RESULTS_MATCHES_DETAILS, TEXT_RESULTS_MATCHES_DETAILS_TABLE`
+  - **renamed**: `TEXT_RESULTS_MATCHES_DETAILS_INFO -> TEXT_RESULTS_INFO_THESES; TEXT_RESULTS_MATCHES_GENERAL -> TEXT_RESULTS_HEADING`
+  - new: `TEXT_RESULTS_INFO_PARTIES, TEXT_RESULTS_BUTTON_THESES, TEXT_RESULTS_BUTTON_PARTIES`
+
+- Bugfix: If a party did not answer a question, the line was not selected from the CSV file. (e.g. CSV content: "1;") in `GENERAL.JS`
   
 - DEFAULT.CSS, OUTPUT.JS
-  - removed: body -> "font-size"; all definitions for "table" in `DEFAULT.CSS`
-  - instead: Bootstrap's class='table table-bordered table-striped table-hover' in `OUTPUT.JS`
+  - removed: CSS `body -> font-size` and all CSS for `table` in `DEFAULT.CSS`
+  - instead: using Bootstrap's `class='table table-bordered table-striped table-hover` in `OUTPUT.JS`
+
+- INDEX.HTML, DEFINITION.JS
+  - `var heading2, var explainingText / #heading2, #explanation` only shown on screens larger than Bootstrap's "medium" (>= 768px)
 
 - replaced open brackets (&#x2335;) from v.0.5.0.1. with [+]/[-] sign to indicate open/close (collapse) in `OUTPUT.JS`
 
@@ -231,9 +291,9 @@
 - EXTRAS/ADDON_RESULTS_TEXTFILTER_BY_BUTTON.JS
   - first addon: Selection-Buttons for joint elections (e.g. town council + mayor, z.B. Stadtrat + Bürgermeister)
 
-........20190929 zehn Jahre! / ten years! :)
-........20191027 Landtagswahl in Thüringen
-........20190901 Landtagswahl in Brandenburg und Sachsen
+........20190929 zehn Jahre! / ten years! :) \
+........20191027 Landtagswahl in Thüringen \
+........20190901 Landtagswahl in Brandenburg und Sachsen \
 ........20190526 Europawahl
 
 ### 0.3.0.20181103
@@ -249,8 +309,8 @@
 - IMG-folder
   - pictures deleted (CSS instead)
 
-........20181028 Landtagswahl in Hessen
-........20181014 Landtagswahl in Bayern
+........20181028 Landtagswahl in Hessen \
+........20181014 Landtagswahl in Bayern \
 ........20170924 Bundestagswahl in Deutschland
 
 ### 0.2.4.2.20161021
@@ -294,7 +354,7 @@ Riesigen Dank an Ben Kobrinski (mail@benkob.de) für:
 - optische Verbesserungen (Teil-Transparenz bei Buttons, Farbverlauf für Hintergrund, Sprechblase für These, ...)
 - Hilfe-Dokument überarbeitet
 
-........20150215 - Bürgerschaftswahl in Hamburg
+........20150215 - Bürgerschaftswahl in Hamburg \
 ........20140831 - Landtagswahl in Sachsen
 
 ### 0.2.3.2.20140724
@@ -381,4 +441,5 @@ Riesigen Dank an Ben Kobrinski (mail@benkob.de) für:
 
 ......20090927 - Bundestagswahl in Deutschland
 
-http://www.mat-o-wahl.de
+https://de.wikipedia.org/wiki/Liste_von_Wahlen#21._Jahrhundert \
+http://www.mat-o-wahl.de 
