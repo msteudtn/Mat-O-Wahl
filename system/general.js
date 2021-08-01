@@ -174,9 +174,10 @@ function fnSendResults(arResults, arPersonalPositions)
 {
 	// Korrektur der Parteiposition (-1,0,1) mit den Informationen aus der doppelten Wertung (-2,-1,0,1,2)
 	// Marius Nisslmueller, Bad Honnef, Juni 2020
+	// Bedingung für übersprungene Frage hinzugefügt
 	arPersonalPositionsForStats = arPersonalPositions.slice(); // Damit arPersonalPositions nicht verändert wird
 	for(let i=0; i<arPersonalPositionsForStats.length; i++){
-		if(arVotingDouble[i]){
+		if(arVotingDouble[i] && arPersonalPositionsForStats[i] < 99){
 		    arPersonalPositionsForStats[i] *= 2; 
 		}
 	}
