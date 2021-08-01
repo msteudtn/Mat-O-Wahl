@@ -30,13 +30,13 @@ var activeQuestion=0; //aktuell angezeigte Frage (output.js)
 function fnReadCsv(csvFile,fnCallback)
 {
 // http://michaelsoriano.com/working-with-jquerys-ajax-promises-and-deferred-objects/
- $.ajax({
-	type: "GET",
+ $.ajax({ 
+	type: "GET", 
 	url: csvFile,
-	dataType: "text",
+	dataType: "text", 
 	contentType: "application/x-www-form-urlencoded",
 	error: function(objXML, textStatus, errorThrown) {
-		console.log("Mat-O-Wahl ERROR - Reading CSV-file \n Code - objXML-Status: "+objXML.status+" \n Code - textStatus: "+textStatus+" \n Code - errorThrown: "+errorThrown+" \n Name and folder of CSV-file should be: "+csvFile+" \n\nPossible solutions: Check for capital letters? OR check the extension of the file (csv / xls / xlsx)? OR is the file in the wrong folder? OR are you working on a local machine :( instead of a server? See documentation on www.mat-o-wahl.de");
+		console.log("Mat-O-Wahl ERROR - Reading CSV-file \n Code - objXML-Status: "+objXML.status+" \n Code - textStatus: "+textStatus+" \n Code - errorThrown: "+errorThrown+" \n Name and folder of CSV-file should be: "+csvFile+" \n\nPossible solutions: Check for capital letters? OR check the extension of the file (csv / xls / xlsx)? OR is the file in the wrong folder? OR are you working on a local machine :( instead of a server? See documentation on www.mat-o-wahl.de"); 
 		// document.getElementById("descriptionAddonTop").innerHTML("nanu. Da ist etwas schief gegangen.")
 			$("#descriptionExplanation").css("color","red").css("font-size", "150%")
 			text = "<p>Nanu? Da ist etwas schief gegangen. Einige Dateien konnten nicht geladen werden. <br /> Sind Sie ein Besucher der Seite? Dann geben Sie bitte dem Administrator der Webseite Bescheid. <br /> Sind Sie der Administrator? Dann schauen Sie bitte in die Browser-Konsole.</p>"
@@ -45,13 +45,13 @@ function fnReadCsv(csvFile,fnCallback)
 		}
 		})
 	.done(function(data) {
-		// console.log('success', data)
+		// console.log('success', data) 
 		console.log("Mat-o-Wahl load: "+csvFile);
 		fnCallback(data);
 		})
 	.fail(function(xhr) {
-		console.log('Mat-O-Wahl file error - ', xhr);
-		});
+		console.log('Mat-O-Wahl file error - ', xhr);	
+		});	
 }
 
 
@@ -61,14 +61,14 @@ function fnShowQuestions(csvData)
 	// Einlesen der Fragen ...
 	// fnSplitLines(csvData,1);
 	fnTransformCsvToArray(csvData,1)
-
+	
 	// ... und Anzeigen
 	var questionNumber = -1;
-
+	
 	// v.0.6 - deaktiviert, da nun am Anfang ein Willkommensbildschirm erscheint.
 	// neu: fnHideWelcomeMessage()
 	// fnShowQuestionNumber(questionNumber);
-}
+} 
 
 
 
@@ -87,12 +87,12 @@ function fnReadPositions(csvData)
 function fnEvaluation()
 {
 
-	// Abstimmungsknöpfe u.a. entfernen
+	// Abstimmungsknöpfe u.a. entfernen 
 	$("#sectionDescription").empty().hide();
 	$("#sectionShowQuestions").empty().hide();
-	$("#sectionVotingButtons").empty().hide();
+	$("#sectionVotingButtons").empty().hide();	
 	$("#sectionNavigation").empty().hide();
-
+	
 	$("#keepStats").hide();
 
 	// Anzahl der Fragen bestimmen, da Positions-Array ein Vielfaches aus Fragen * Parteien enthält.
@@ -110,7 +110,7 @@ function fnEvaluation()
 //	for (i = 0; i <= (arPartyFiles.length-1); i++)
 	for (i = 0; i <= (intParties-1); i++)
 	{
-		arResults.push(0);	// Array mit leeren Werten füllen
+		arResults.push(0);	// Array mit leeren Werten füllen		
 	}
 
 	// Vergleichen der Positionen (= Fragen x Parteien)
@@ -124,13 +124,13 @@ function fnEvaluation()
 		}
 
 		// Frage wurde nicht uebersprungen per SKIP (99) oder GEHE ZUR NAECHSTEN FRAGE (-)
-		if ( (arPersonalPositions[modulo] < 99) )
+		if ( (arPersonalPositions[modulo] < 99) ) 
 		{
 			var faktor=1; // Faktor ist 1 normal und 2, wenn Frage doppelt gewertet werden soll
 			if(arVotingDouble[modulo])
 				{faktor=2;}
 
-			// Bei Uebereinstimmung der persönlichen Meinung (1,0,-1) mit Partei-Antwort (1,0-1), den Zaehler (Anzahl Übereinstimmungen) um eins erhoehen
+			// Bei Uebereinstimmung der persönlichen Meinung (1,0,-1) mit Partei-Antwort (1,0-1), den Zaehler (Anzahl Übereinstimmungen) um eins erhoehen	
 			if (arPartyPositions[i] == arPersonalPositions[modulo])
 			{
 				positionsMatch+=faktor;
@@ -148,7 +148,7 @@ function fnEvaluation()
 	} // end: for numberOfQuestions
 
 
-/*
+/*	
 	// Wenn Nutzer eingewilligt hat ...
 	if ( $("#keepStatsCheckbox").prop("checked")==1)
 	{
@@ -176,8 +176,8 @@ function fnSendResults(arResults, arPersonalPositions)
 	// Marius Nisslmueller, Bad Honnef, Juni 2020
 	arPersonalPositionsForStats = arPersonalPositions.slice(); // Damit arPersonalPositions nicht verändert wird
 	for(let i=0; i<arPersonalPositionsForStats.length; i++){
-		if(arVotingDouble[i]){
-		    arPersonalPositionsForStats[i] *= 2;
+		if(arVotingDouble[i] && arPersonalPositionsForStats[i] < 99){
+		    arPersonalPositionsForStats[i] *= 2; 
 		}
 	}
 
@@ -185,7 +185,7 @@ function fnSendResults(arResults, arPersonalPositions)
 	var strResults = arResults.join(",");
 	// var strPersonalPositions = arPersonalPositions.join(",");
 	var strPersonalPositions = arPersonalPositionsForStats.join(",");
-
+	
 	$.get(statsServer, { mowpersonal: strPersonalPositions, mowparties: strResults } );
 
 	console.log("Mat-O-Wahl. Daten gesendet an Server: "+statsServer+" - mowpersonal: "+strPersonalPositions+" - mowparties: "+strResults+"")
@@ -197,7 +197,7 @@ function fnPercentage(value,max)
 {
 	var percent = value * 100 / max;
 	percent = Math.round(percent);
-	return percent;
+	return percent; 
 }
 
 // v.0.3 NEU
@@ -206,7 +206,7 @@ function fnTransformCsvToArray(csvData,modus)
 {
 	// benutzt externe jquery-csv-Bibliothek
 	arZeilen = $.csv.toArrays(csvData, {separator: ""+separator+""});
-
+	
 //	console.log(arZeilen.length+ " Part "+intParties+" quest: "+intQuestions )
 
 
@@ -214,7 +214,7 @@ function fnTransformCsvToArray(csvData,modus)
 	// There are five (5) lines with information on the party + "intQuestions" lines + an empty line
 	// Example "Obsthausen"/"Fruitville" = 5 + 6 + 1 = 12
 	// Example "Springfield" = 5 + 15 + 1 = 21
-	var numberOfLines = 6 + intQuestions
+	var numberOfLines = 6 + intQuestions 
 
 	if (modus == 1) // Fragen / Questions
 	{ lastLine = intQuestions}
@@ -225,10 +225,10 @@ function fnTransformCsvToArray(csvData,modus)
 //	for(i = 0; i <= arZeilen.length-1; i++)
 	for(i = 0; i <= lastLine-1; i++)
 	{
-		// console.log("i: "+i+" m: "+modus+" val0: "+arZeilen[i][0]+" val1: "+arZeilen[i][1] )
+		// console.log("i: "+i+" m: "+modus+" val0: "+arZeilen[i][0]+" val1: "+arZeilen[i][1] )	
 		valueOne = arZeilen[i][0];
 		valueTwo = arZeilen[i][1];
-
+		
 		// FRAGEN in globales Array schreiben (z.B. aus FRAGEN.CSV)
 		if (modus == 1)
 		{
@@ -243,28 +243,28 @@ function fnTransformCsvToArray(csvData,modus)
 			modulo = i % numberOfLines;
 
 			if ( (modulo == 0) && (valueTwo != "undefined") )
-			{
+			{ 
 				// Parteinamen - kurz
 				arPartyNamesShort.push(valueTwo)
 			}
 			else if ( (modulo == 1) && (valueTwo != "undefined") )
-			{
+			{ 
 				// Parteinamen - lang
 				arPartyNamesLong.push(valueTwo)
 			}
 			else if ( (modulo == 2) && (valueTwo != "undefined") )
-			{
+			{ 
 				// Beschreibung der Partei (optional)
 				arPartyDescription.push(valueTwo)
 //				console.log("i: "+i+ " value: "+valueTwo)
 			}
 			else if ( (modulo == 3) && (valueTwo != "undefined") )
-			{
+			{ 
 				// Webseite der Partei
 				arPartyInternet.push(valueTwo)
 			}
 			else if ( (modulo == 4) && (valueTwo != "undefined") )
-			{
+			{ 
 				// Logo der Partei
 				arPartyLogosImg.push(valueTwo)
 			}
@@ -274,11 +274,11 @@ function fnTransformCsvToArray(csvData,modus)
 				arPartyPositions.push(valueOne); // -1,0,1
 				arPartyOpinions.push(valueTwo); // Erklärung zur Zahl
 			}
-			else
+			else 
 			{
 				// nothing to do. Just empty lines in the CSV-file
 			}
-		}  // end: if-else modus == 1
+		}  // end: if-else modus == 1	
 	}  // end: for
 
 } // end: function
@@ -344,27 +344,27 @@ function fnTransformPositionToText(position)
 		}
 	}
 	return positionText;
-
+	
 }
 
 // Gibt ein Bild/CSS-Klasse für den Balken in der Auswertung entsprechend der Prozentzahl Uebereinstimmung zurück
 function fnBarImage(percent)
 {
 	// bis v.0.3 mit PNG-Bildern, danach mit farblicher Bootstrap-Progressbar
-
-	if (percent <= 33) {
-		// var barImage = "contra_px.png";
-		var barImage = "bg-danger";
+	
+	if (percent <= 33) { 
+		// var barImage = "contra_px.png"; 
+		var barImage = "bg-danger"; 
 	}
-	else if (percent <= 66) {
-		// var barImage = "neutral_px.png";
-		var barImage = "bg-warning";
+	else if (percent <= 66) { 
+		// var barImage = "neutral_px.png"; 
+		var barImage = "bg-warning"; 
 	}
-	else {
-		// var barImage = "pro_px.png";
-		var barImage = "bg-success";
+	else { 
+		// var barImage = "pro_px.png"; 
+		var barImage = "bg-success"; 
 	}
-
+	
 	return barImage;
 }
 
@@ -373,16 +373,16 @@ function fnBarImage(percent)
 function fnToggleSelfPosition(i)
 {
 	arPersonalPositions[i]--;
-	if (arPersonalPositions[i]==-2)
+	if (arPersonalPositions[i]==-2) 
 		{arPersonalPositions[i]=99}
-	if (arPersonalPositions[i]==98)
+	if (arPersonalPositions[i]==98) 
 		{arPersonalPositions[i]=1}
 //	var positionImage = fnTransformPositionToImage(arPersonalPositions[i]);
 	var positionButton = fnTransformPositionToButton(arPersonalPositions[i]);
 	var positionIcon = fnTransformPositionToIcon(arPersonalPositions[i]);
 	// var positionColor = fnTransformPositionToColor(arPersonalPositions[i]);
 	var positionText  = fnTransformPositionToText(arPersonalPositions[i]);
-
+	
 	// $("#selfPosition"+i).attr("src", "img/"+positionImage);
 	$(".selfPosition"+i).removeClass("btn-danger btn-warning btn-success btn-default").addClass(positionButton);
 	$(".selfPosition"+i).html(positionIcon);
@@ -423,12 +423,12 @@ function fnFadeIn(el, time, modus) {
 	// Default FadeIn / FadeOut-Time
 	if (!time) {time = 500;}
 
-	// Loading CSS
+	// Loading CSS 
 	el.style.animation = "myFadeIn "+time+"ms 1"
 	el.style.opacity = 1;
 
 	if (modus == 1) {
-		el.style.display = ""
+		el.style.display = ""	
 		el.style.visibility = ""
 	}
 }
@@ -440,15 +440,15 @@ function fnFadeOut(el, time, modus) {
 	// Default FadeIn / FadeOut-Time
 	if (!time) {time = 500;}
 
-	// Loading CSS
+	// Loading CSS 
 	el.style.animation = "myFadeOut "+time+"ms 1"
 	el.style.opacity = 0;
 
 	// hide element from DOM AFTER opacity is set to 0 (setTimeout)
 	if (modus == 1) {
 		window.setTimeout(function() {
-			el.style.display = "none"
-			el.style.visibility = "hidden"
-		}, (time-50));
+			el.style.display = "none"	
+			el.style.visibility = "hidden"			
+		}, (time-50));		
 	}
 }
