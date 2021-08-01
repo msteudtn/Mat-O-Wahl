@@ -305,7 +305,7 @@ var separator = ";";
 	Please find some examples above.  
 */  
 
-var design = ["default.css","buttons-colors-on.css", "progressbar.css"];
+var design = ["default.css","buttons-colors-on.css", "progressbar.css", "navigation.css"];
 
 
 /*

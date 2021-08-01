@@ -1,0 +1,27 @@
+/* JumpToQuestion-table custom classes, which can override default bg-classes */
+
+.td-jump-to-question-decline {
+    background-color: #d9534f !important;
+}
+
+.td-jump-to-question-neutral {
+    background-color: #f0ad4e !important;
+}
+
+.td-jump-to-question-approve {
+    background-color: #5cb85c !important;
+}
+
+.td-jump-to-question-skip {
+    color: #c0c0c0;
+    background-color: #c0c0c0;
+}
+
+.td-jump-to-question-voting-double {
+    font-weight: bold;
+}
+
+.td-jump-to-question-current {
+    border-color: #0050A0 !important;
+    background-color: #c0c0c0;
+}

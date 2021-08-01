@@ -296,38 +296,19 @@ function fnJumpToQuestionNumber(questionNumber)
 	var tableContent = "<table width='100%' class='table table-bordered table-striped table-hover' aria-role='presentation'>";
 	for (i = 1; i <= arQuestionsLong.length; i++)
 	{
+		let jumpToQuestionClass = i-1 === questionNumber ? "td-jump-to-question-current" : fnGetJumpToQuestionColorForPosition(arPersonalPositions[(i-1)]);
+		const votingDoubleClass = arVotingDouble[(i-1)] ? " td-jump-to-question-voting-double" : "";
+		jumpToQuestionClass = jumpToQuestionClass  + votingDoubleClass;
 		var modulo = i % questionsPerLine;
 		// neue Zeile
 		if (modulo == 1) { tableContent += "<tr>"; }
-		tableContent += "<td align='center' id='jumpToQuestionNr"+i+"' title='"+arQuestionsShort[(i-1)]+" - "+arQuestionsLong[(i-1)]+"'>"; 
+		tableContent += "<td align='center' id='jumpToQuestionNr"+i+"' title='"+arQuestionsShort[(i-1)]+" - "+arQuestionsLong[(i-1)]+"' class='"+jumpToQuestionClass+"'>";
 		tableContent += "<a href='javascript:fnShowQuestionNumber("+(i-2)+")' style='display:block;'>"+i+" </a>"; 
 		tableContent += "</td>";
 		if (modulo == 0) { tableContent += "</tr>"; }
 	}
 	tableContent += "</table>";
 	$("#navigationJumpToQuestion").append(tableContent).fadeIn(500);
-
-	// alte Meinungen farblich hervorheben und aktuelle Frage markieren
-	for (i = 1; i <= arQuestionsLong.length; i++)
-	{
-		// beantwortete Fragen farblich markieren
-		var positionColor = fnTransformPositionToColor(arPersonalPositions[(i-1)]);
-	   $("#jumpToQuestionNr"+i+"").css("border-color", positionColor);
-	   
-	   // aktuelle Frage markieren
-	   if ((i-1) <= questionNumber)
-	   {
-//	   	$("#jumpToQuestionNr"+i+"").css("background-color", middleColor);	// alt: graue "Mittelfarbe" als Hintergrund
-	   	$("#jumpToQuestionNr"+i+"").css("background-color", positionColor);	// neu (0.2.3.2) Farbe der Auswahl (rot/gruen/...)
-	   }
-
-		if (arVotingDouble[(i-1)])
-		{
-			$("#jumpToQuestionNr"+i+"").css("font-weight","bold");
-		}
-
-	}	
-	
 }
 
 // Anzeige der Ergebnisse - zusammengefasst (Prozentwerte) - nur Parteien
