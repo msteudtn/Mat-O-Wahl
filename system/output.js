@@ -274,6 +274,12 @@ function fnJumpToQuestionNumber(questionNumber)
 	// alten Inhalt ausblenden und loeschen
 	$("#navigationJumpToQuestion").fadeOut(500).empty().hide();
 
+	// Durchlauf des Arrays bis zur ausgewählten Frage und Setzen der 99, falls NaN
+	for (i =0; i<questionNumber; i++) {
+		if (isNaN(arPersonalPositions[i])) {
+			arPersonalPositions[i] = 99;
+		}
+	}
 
 	var maxQuestionsPerLine = 12;  // z.B. 16
 
