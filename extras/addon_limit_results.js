@@ -132,23 +132,29 @@ function mow_addon_limit_results_create_buttons() {
 		
 		// B. linke Tabelle / left list - resultsByThesis
 		// 1. ROW		
-		var element_resultsByThesisTable_col = document.getElementById("resultsByThesisTable").getElementsByClassName("col")[0]
-		var div_element = document.createElement('div');
-		element_resultsByThesisTable_col_row = element_resultsByThesisTable_col.appendChild(div_element)
-		element_resultsByThesisTable_col_row.className = "row"
+		// ALT: bis August 2021: Buttons unter die Tabelle schreiben 
+		// var element_resultsByThesisTable_col = document.getElementById("resultsByThesisTable").getElementsByClassName("col")[0]
+		// NEU: ab August 2021: Buttons unter jede Frage schreiben "resultsByThesisAnswersToQuestionX"
+		for (i = 0; i <= intQuestions-1; i++) {
+			
+			var element_resultsByThesisTable_col = document.getElementById("resultsByThesisAnswersToQuestion"+i).getElementsByClassName("col")[0]
+			var div_element = document.createElement('div');
+			element_resultsByThesisTable_col_row = element_resultsByThesisTable_col.appendChild(div_element)
+			element_resultsByThesisTable_col_row.className = "row"
 
-		// 2a COL left		
-		var div_element = document.createElement('div');
-		element_resultsByThesisTable_col_row_col_left = element_resultsByThesisTable_col_row.appendChild(div_element)
-		element_resultsByThesisTable_col_row_col_left.className = "col"
-		element_resultsByThesisTable_col_row_col_left.innerHTML = buttonContent_Minus
+			// 2a COL left		
+			var div_element = document.createElement('div');
+			element_resultsByThesisTable_col_row_col_left = element_resultsByThesisTable_col_row.appendChild(div_element)
+			element_resultsByThesisTable_col_row_col_left.className = "col"
+			element_resultsByThesisTable_col_row_col_left.innerHTML = buttonContent_Minus
 
-		// 2b COL right
-		var div_element = document.createElement('div');
-		element_resultsByThesisTable_col_row_col_right = element_resultsByThesisTable_col_row.appendChild(div_element)
-		element_resultsByThesisTable_col_row_col_right.className = "col text-center"				
-		element_resultsByThesisTable_col_row_col_right.innerHTML = buttonContent_Plus
-
+			// 2b COL right
+			var div_element = document.createElement('div');
+			element_resultsByThesisTable_col_row_col_right = element_resultsByThesisTable_col_row.appendChild(div_element)
+			element_resultsByThesisTable_col_row_col_right.className = "col text-center"				
+			element_resultsByThesisTable_col_row_col_right.innerHTML = buttonContent_Plus
+		}
+		
 		// C. rechte Tabelle / right list - resultsByParty
 		// 1. ROW
 		var element_resultsByPartyTable_col = document.getElementById("resultsByPartyTable").getElementsByClassName("col")[0]

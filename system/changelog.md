@@ -36,6 +36,13 @@
 
 ### 0.6.0.2021xxxx
 
+#### 0.6.0.stable.20210811 (BMBF-PTF)
+
+- Next **Update** for "Show only X parties in the list of results right away. The rest is visible on click."
+  - https://github.com/msteudtn/Mat-O-Wahl/issues/21 - Nur die ersten 20 (?) Parteien in Tabellen anzeigen und darunter ein Button "Weitere anzeigen"
+  - `EXTRAS/ADDON_LIMIT_RESULTS.JS`
+  - new / changed: Buttons in the (left) table `#resultsByThesisTable` are no longer under the whole table but under each question. So, under each `#resultsByThesisAnswersToQuestionX`.
+
 #### 0.6.0.stable.20210727 (BMBF-PTF)
 
 - **Update** for "Show only X parties in the list of results right away. The rest is visible on click."
