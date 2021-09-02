@@ -363,7 +363,7 @@
 
 ### 0.2.4.20150222
 
-Riesigen Dank an Ben Kobrinski (mail@benkob.de) für:
+Riesigen Dank an Ben Kobrinski (mail (a) benkob . de) für:
 - Sortierung der Ergebnistabelle nach Übereinstimmung 
 - Wichtung ausgewählter Thesen (z.B. "Dieses Thema ist mir besonders wichtig" -> doppelte Punktzahl)
 - Live-Auswertung und Aenderung in der Ergebnistabelle (z.B. "Habe mich bei Frage 3 spontan umentschieden." -> Was kommt jetzt raus?)
