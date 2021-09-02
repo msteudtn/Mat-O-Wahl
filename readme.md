@@ -2,11 +2,6 @@ ENGLISH DESCRIPTION at the end of the German text ->  :gb: :us:
 
 # Mat-O-Wahl - Ein einfach zu bedienender, freier Wahl-O-Mat Klon fuer jedermann
 
-## AKTUELLES
-
-Von März - August 2021 werden **neue Funktionen** in den Mat-o-Wahl programmiert.
-Sie können die **neueste (getestete) Version** hier herunterladen: https://github.com/msteudtn/Mat-O-Wahl/tree/stable-v0.6-BMBF-PTF
-
 ## LIVE-DEMO
 
 https://www.mat-o-wahl.de/ -> Ausprobieren (DE) :de:
@@ -45,11 +40,11 @@ GPL 3 (siehe Verzeichnis /SYSTEM oder http://choosealicense.com/licenses/gpl-v3/
 - Änderungen, Weitergabe, sowie kommerzielle und private Nutzung erlaubt.
 - Keine Garantie für Softwareschäden. 
 
-## HILFE / KONTAKT
+## HILFE / KONTAKT / ÄNDERUNGEN
 
-- Weitere Informationen online unter https://www.mat-o-wahl.de
-- oder in der Hilfedatei im Verzeichnis `/SYSTEM`
+- Weitere Informationen und Dokumentation online unter https://www.mat-o-wahl.de
 - oder per E-Mail (siehe unten).
+- Änderungen zu den Vorgängerversionen finden sich im Changelog https://github.com/msteudtn/Mat-O-Wahl/blob/master/system/changelog.md
 
 Wenn Sie den Mat-O-Wahl einsetzen, wuerde ich mich ueber eine **kurze Mitteilung von Ihnen** freuen.
 
@@ -97,11 +92,11 @@ GPL 3 (see folder /SYSTEM or http://choosealicense.com/licenses/gpl-v3/)
 - Permitted: Commercial Use, Distribution, Modification, Patent Use, Private Use 
 - Forbidden: Hold Liable
 
-## HELP / CONTACT
+## HELP / CONTACT / CHANGELOG
 
-- You can find further information on-line at https://www.mat-o-wahl.de
-- or in the help-file under `/SYSTEM`
+- You can find further information and documentation on-line at https://www.mat-o-wahl.de
 - or via email (see below)
+- Changes to earlier versions in the changelog https://github.com/msteudtn/Mat-O-Wahl/blob/master/system/changelog.md
 
 If you should find Mat-O-Wahl useful, I would be happy about a **short notice from you** by email.
 
