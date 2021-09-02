@@ -1,32 +1,22 @@
 # CHANGELOG
 
-## To Do (einfach)
+## To Do 
 
-- Ueberlegung zum Aendern der Lizenz von GPL zu AGPL - https://de.wikipedia.org/wiki/GNU_Affero_General_Public_License
-- Pruefen: Unterschiede beim Einlesen von CSV-Dateien zwischen Windows, Mac und Unix?
-
-
-## To Do (etwas komplizierter)
-
-- Technik: Quellcode aufraeumen, optimieren und besser dokumentieren.
-- Technik: Wechsel von Arrays (wo die Daten gespeichert sind) hin zu HTML5-Datenbanktechniken (z.B. IndexedDB, evtl. WebStorage)
-- Technik: remove all jquery, use JavaScript-Framework like VUE.JS, ANGULAR or REACT
-- Creator / Configurator: Survey-Tool with basic questions and automatic creation of Mat-o-Wahl ZIP-file.
-
-
-## To Do (Features)
-
-- Technik: More than two answers (yes/no) like in https://github.com/JohnboyJovi/Mat-O-Wahl-multiAnswer -> "agree a lot, agree, -, disagree, disagree a lot"
-- Technik: Update jquery-csv to a new version (https://github.com/typeiii/jquery-csv) or "CSV-ES"-project (https://github.com/vanillaes/csv)
-- Technik: Update Bootstrap to latest version
-- Design: jumpToQuestion-Tabelle unter den Fragen: Alternative Ansicht: Keine Nummerierung (Mat-o-Wahl), sondern Punkte und Sterne (Wahl-o-Mat)
-- Technik: Include videos in questions or party-answers
-- Technik: Add Instagram Button (and maybe some more Social Media) ... or outsource via https://github.com/heiseonline/shariff
-
-
-## To Do (Bugfixes)
-
-- Technik: if you skip questions, you can't change it later in the "resultsLongTable". GENERAL.JS -> fnToggleSelfPosition()
+- Features / Design
+   - More than two answers (yes/no) like in https://github.com/JohnboyJovi/Mat-O-Wahl-multiAnswer -> "agree a lot, agree, -, disagree, disagree a lot"
+  - jumpToQuestion-Tabelle unter den Fragen: Alternative Ansicht: Keine Nummerierung (Mat-o-Wahl), sondern Punkte und Sterne (Wahl-o-Mat)
+  - Include videos in questions or party-answers
+  - Add more Social Media-Buttons (Instagram, ...) or outsource via https://github.com/heiseonline/shariff
+- Technik / unter der Haube:
+  - Quellcode aufraeumen, optimieren und besser dokumentieren.
+  - Pruefen: Unterschiede beim Einlesen von CSV-Dateien zwischen Windows, Mac und Unix?
+  - Wechsel von Arrays (wo die Daten gespeichert sind) hin zu HTML5-Datenbanktechniken (z.B. IndexedDB, evtl. WebStorage) oder anderes
+  - remove all jquery, use JavaScript-Framework like VUE.JS, ANGULAR, REACT or VANILLA-JS
+  - Creator / Configurator: Survey-Tool with basic questions and automatic creation of Mat-o-Wahl ZIP-file.
+  - Update jquery-csv to a new version (https://github.com/typeiii/jquery-csv) or "CSV-ES"-project (https://github.com/vanillaes/csv)
+  - Technik: Update Bootstrap to latest version
+  - Bugfix: if you skip questions, you can't change it later in the "resultsLongTable". GENERAL.JS -> fnToggleSelfPosition()
+  - and much more
 
 
 ## Versions:
