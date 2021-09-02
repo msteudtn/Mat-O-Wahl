@@ -1,10 +1,10 @@
-ENGLISH DESCRIPTION at the end of the German text ->  :gb: :us:
+ENGLISH DESCRIPTION at the end of the German text ->  :hamburger:
 
-# Mat-O-Wahl - Ein einfach zu bedienender, freier Wahl-O-Mat Klon fuer jedermann
+# Mat-O-Wahl - Ein einfach zu bedienender, freier Wahl-O-Mat Klon für jedermann
 
 ## LIVE-DEMO
 
-https://www.mat-o-wahl.de/ -> Ausprobieren (DE) :de:
+https://www.mat-o-wahl.de/ -> Ausprobieren (DE) :beer:
 
 ## BEDIENUNG / INSTALLATION
 
@@ -46,17 +46,17 @@ GPL 3 (siehe Verzeichnis /SYSTEM oder http://choosealicense.com/licenses/gpl-v3/
 - oder per E-Mail (siehe unten).
 - Änderungen zu den Vorgängerversionen finden sich im Changelog https://github.com/msteudtn/Mat-O-Wahl/blob/master/system/changelog.md
 
-Wenn Sie den Mat-O-Wahl einsetzen, wuerde ich mich ueber eine **kurze Mitteilung von Ihnen** freuen.
+Wenn Sie den Mat-O-Wahl einsetzen, würde ich mich über eine **kurze Mitteilung von Ihnen** freuen.
 
 mathias . steudtner (a) gmx . net
 
 ---
 
-# Mat-O-Wahl (*) - A simple to handle, free "Voting Advice Application" / "Electoral Compass" clone for everybody 
+# Mat-O-Wahl (*) - A simple to handle, free "Voting Advice Application" / "Electoral Compass" for everybody 
 
 ## LIVE-DEMO
 
-https://www.mat-o-wahl.de/ -> Try It (EN) :gb: :us:
+https://www.mat-o-wahl.de/ -> Try It (EN) :hamburger:
 
 ## USE / INSTALLATION
 
