@@ -3,13 +3,9 @@
 // COMMIT: Marius Nisslmueller, Bad Honnef, Juni 2020
 // Anpassungen: Mathias Steudtner, Mai 2021
 
-// Database Settings (Default for XAMPP :) )
-// $dbname has to be created once in your MySQL or MariaDB 
-// (and can be something else than "matowahl") 
-	$servername = "localhost";
-	$username = "root";
-	$password = "";
-	$dbname = "matowahl";
+// Include Database Settings
+	include "db_settings.php";
+
 
 // Establish Connection
 	$conn = new mysqli($servername, $username, $password, $dbname);
@@ -29,23 +25,34 @@
 	$ip = explode (',', $ip);
 	$ip = $ip[0];
 	
-// Human readable Timestamp: e.g. "2021-12-31 23:59:59" 
-	$timestamp = date("Y-m-d H:i:s");
+// DE: Wenn keine IP gespeichert werden soll, einfach die folgende Zeile auskommentieren.
+// Hierbei wird das soeben erhaltene Ergebnis von "$ip" mit einem "Null-Wert" überschrieben 
+// aber das Format für die simple Auswertung (results.html) bleibt erhalten.
+// -> EMPFOHLENE EINSTELLUNG (gemäß DSGVO), da politische Meinungen abgefragt werden.
+//
+// EN: If you do not wish to save any IP addresses (privacy) please uncomment the following line.
+// It replaces the result of "$ip" with zeros but keeps the right format.
+// -> SUGGESTED SETTING (according to EDPR) because you're asking for political views 
+	$ip="0.0.0.0";	
+	
 
+// $timestamp = time(); // Unix-Zeitstempel 
+// $timestamp = date("Y-m-d H:i:s"); ausführliches Datumsformat -> nicht empfohlen, da rückverfolgbar über ACCESS.LOG 
+	$timestamp = date("Y-m-d");
 
 // Sanitize User Input
 	$mowPersonalValues = mysqli_real_escape_string($conn, $_GET["mowpersonal"]);
 	$mowPartiesValues = mysqli_real_escape_string($conn, $_GET["mowparties"]);
 
-// Prepare and execute SQL Statement to prevent SQL Injection
-	$sql = "INSERT INTO Results (ip, timestamp, personal, parties) VALUES ('$ip', '$timestamp', '$mowPersonalValues', '$mowPartiesValues')";
+// Prepare and execute SQL Statement 
+	$sql = "INSERT INTO `$tablename` (ip, timestamp, personal, parties) VALUES ('$ip', '$timestamp', '$mowPersonalValues', '$mowPartiesValues')";
 
 
 // Send data
 	if ($conn->query($sql) === TRUE) {
-	  echo "Mat-o-Wahl: New record created successfully";
+	  echo "Mat-o-Wahl: New record created successfully into table ".$tablename;
 	} else {
-	  echo "Mat-o-Wahl: Error: " . $sql . "<br>" . $conn->error;
+	  echo "Mat-o-Wahl: Error: <strong>" . $sql . " </strong> <br /> Error-Code:" . $conn->error;
 	}
 
 // Close connection

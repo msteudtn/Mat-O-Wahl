@@ -61,7 +61,7 @@ function fnTestAlertVariable(string)
 }
 
 
-// Ausgabe
+// Ausgabe - Output
 function fnTestShowAll()
 {
 	
@@ -82,9 +82,10 @@ function fnTestShowAll()
 		"intParties",
 		"intPartyLogosImgWidth", 
 		"intPartyLogosImgHeight", 
-		"heading1",
-		"heading2",
-		"explainingText",
+		"descriptionShowOnStart",
+		"descriptionHeading1",
+		"descriptionHeading2",
+		"descriptionExplanation",
 		"imprintLink",
 		"imprintGeneral",
 		"imprintContact",
@@ -129,15 +130,18 @@ function fnTestShowAll()
 		}
 	}
 
-	// BESCHREIBUNG
-	$("#testExplanation").append("<b>1. Überschrift / Heading:</b> "+heading1)
+
+	// BESCHREIBUNG (allgemein) - DESCRIPTION (generally)
+
+	$("#testExplanation").append("<b>1. Überschrift / Heading:</b> "+descriptionHeading1)
 		.append("<br />")
-		.append("<br /> <b>2. Überschrift / Heading:</b> "+heading2)
+		.append("<br /> <b>2. Überschrift / Heading:</b> "+descriptionHeading2)
 		.append("<br />")
-		.append("<br /> <b> Beschreibender Text / Description:</b> "+explainingText);
+		.append("<br /> <b> Beschreibender Text / Description:</b> "+descriptionExplanation);
 
 
-	// FRAGEN	
+	// FRAGEN an die PARTEIEN - QUESTIONS to the parties
+
 	$("#testQuestions").append("Name der <b>Datei</b> mit den Fragen / Name of <b>file</b> with questions: ")
 		.append("<a class='btn btn-outline-dark btn-block btn-sm' role='button' href='data/"+fileQuestions+"' target='_blank'>"+fileQuestions+"</a>")
 		// .append("<a href='data/"+fileQuestions+"' target='_blank'>"+fileQuestions+"</a>")
@@ -151,9 +155,8 @@ function fnTestShowAll()
 		var numberOfQuestions = i;
 	}
 
-	
 
-	// ANTWORTEN
+	// ANTWORTEN der PARTEIEN - ANSWERS to the parties
 
 	$("#testAnswers").append("Name der <b>Datei</b> mit den Antworten und Partei-Informationen / Name of <b>file</b> with questions and party-information: ")
 		.append("<a class='btn btn-outline-dark btn-block btn-sm' role='button' href='data/"+fileAnswers+"' target='_blank'>"+fileAnswers+"</a>")
@@ -204,7 +207,8 @@ function fnTestShowAll()
 	}
 	
 	
-	// KONTAKT/IMPRESSUM
+	// KONTAKT/IMPRESSUM (allgemein) - CONTACT / Imprint (general)
+
 	$("#testImprint").append("<b> Allgemeine Angaben gemäß § 5 TMG / General information</b> "+imprintGeneral+ "")
 		.append("<br />")
 		.append("<br /> <b>Kontaktdaten / Contact details:</b> "+imprintContact+ "")
@@ -303,7 +307,7 @@ function fnTestShowAll()
 
 */
 	
-	// Werte fuer "Wahlprognose" pruefen
+	// Werte fuer "Wahlprognose" pruefen - Check statistics
 	if (statsRecord == 1)
 	{
 		if (imprintPrivacyUrl.length <= 0)
@@ -379,7 +383,7 @@ function fnTestShowAll()
 
 */
 
-	// Abschlussevaluation	
+	// Abschlussevaluation - Last check
 	if (counterError > 0)
 	{
 		$("#testOtherDe").append("<br /> Bitte &uuml;berpr&uuml;fen Sie Ihre <a href='data/definition.js' target='_blank'>Einstellungen</a>.")

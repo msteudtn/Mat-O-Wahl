@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
   <title>Mat-O-Wahl - Impressum / Legal Notice</title>
   <meta charset="utf-8">
@@ -40,7 +40,9 @@
 
 	<!-- Mat-o-Wahl JAVASCRIPT und CSS - dynamisch eingebunden auf Basis DEFINITION.JS -->
 	<script type="text/javascript">
-	document.writeln("<link rel='stylesheet' type='text/css' href='../styles/"+design+".css' />");
+	for (i = 0; i<= design.length-1; i++) {
+		document.writeln("<link rel='stylesheet' type='text/css' href='../styles/"+design[i]+"' />");	
+	}	
 	</script>
 
 	<!-- Mat-o-Wahl JAVASCRIPT - immer / always -->

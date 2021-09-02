@@ -1,6 +1,6 @@
-ENGLISH DESCRIPTION at the end of the German text ->  :gb: :us:
+ENGLISH DESCRIPTION at the end of the German text ->  :hamburger:
 
-# Mat-O-Wahl - Ein einfach zu bedienender, freier Wahl-O-Mat Klon fuer jedermann
+# Mat-O-Wahl - Ein einfach zu bedienender, freier Wahl-O-Mat Klon für jedermann
 
 ## AKTUELLES
 
@@ -9,7 +9,7 @@ Sie können die **neueste (getestete) Version** hier herunterladen: https://gith
 
 ## LIVE-DEMO
 
-https://www.mat-o-wahl.de/ -> Ausprobieren (DE) :de:
+https://www.mat-o-wahl.de/ -> Ausprobieren (DE) :beer:
 
 ## BEDIENUNG / INSTALLATION
 
@@ -23,9 +23,7 @@ https://www.mat-o-wahl.de/ -> Ausprobieren (DE) :de:
 4. **Testen mit `INDEX.HTML`** oder `QUICKTEST.HTML` 
    (am besten auf http://localhost/ oder im privaten Webspace) 
 
-**Optional:** Im Verzeichnis `/EXTRAS` befinden sich weitere Beispiele.
-Die Inhalte muessen lediglich in das `/DATA`-Verzeichnis entpackt werden.
-Alle alten Inhalte muessen davor natuerlich aus dem `/DATA`-Verzeichnis geloescht werden.
+**Optional:** Im Ordner `/EXTRAS` gibt es **Erweiterungen** um bei Bedarf zusätzliche Funktionen zu aktivieren. (z.B. Filtern von Ergebnissen, Vorabfrage, Einbinden per iframe)
 
 ## VORAUSSETZUNG
 
@@ -36,8 +34,8 @@ Alle alten Inhalte muessen davor natuerlich aus dem `/DATA`-Verzeichnis geloesch
 
 ## Mat-o-Wahl und DSGVO
 
-- Alle Verarbeitungen passieren innerhalb des Browsers des Nutzers
-- keine Datenerhebung auf dem Server (nur optional für eine Statistik - Ausnahme: Standardmäßige Erfassung der Zugriffe durch den Webhosting-Anbieter, z.B. IP-Adresse und Uhrzeit)
+- Alle **Verarbeitungen** passieren **innerhalb des Browsers** des Nutzers
+- **keine Datenerhebung auf dem Server** (nur optional für eine Statistik - Ausnahme: Standardmäßige Erfassung der Zugriffe durch den Webhosting-Anbieter, z.B. IP-Adresse und Uhrzeit)
 - kein Aufruf von externen Dateien (z.B. Content Delivery Network / CDN, Bootstrap, jQuery, kein Social Media-Plugin) - alles inklusive 
 
 ## LIZENZ
@@ -47,23 +45,23 @@ GPL 3 (siehe Verzeichnis /SYSTEM oder http://choosealicense.com/licenses/gpl-v3/
 - Änderungen, Weitergabe, sowie kommerzielle und private Nutzung erlaubt.
 - Keine Garantie für Softwareschäden. 
 
-## HILFE / KONTAKT
+## HILFE / KONTAKT / ÄNDERUNGEN
 
-- Weitere Informationen online unter https://www.mat-o-wahl.de
-- oder in der Hilfedatei im Verzeichnis `/SYSTEM`
+- Weitere Informationen und Dokumentation online unter https://www.mat-o-wahl.de
 - oder per E-Mail (siehe unten).
+- Änderungen zu den Vorgängerversionen finden sich im Changelog https://github.com/msteudtn/Mat-O-Wahl/blob/master/system/changelog.md
 
-Wenn Sie den Mat-O-Wahl einsetzen, wuerde ich mich ueber eine kurze Mitteilung von Ihnen freuen.
+Wenn Sie den Mat-O-Wahl einsetzen, würde ich mich über eine **kurze Mitteilung von Ihnen** freuen.
 
 mathias . steudtner (a) gmx . net
 
 ---
 
-# Mat-O-Wahl (*) - A simple to handle, free "Voting Advice Application" / "Electoral Compass" clone for everybody 
+# Mat-O-Wahl (*) - A simple to handle, free "Voting Advice Application" / "Electoral Compass" for everybody 
 
 ## LIVE-DEMO
 
-https://www.mat-o-wahl.de/ -> Try It (EN) :gb: :us:
+https://www.mat-o-wahl.de/ -> Try It (EN) :hamburger:
 
 ## USE / INSTALLATION
 
@@ -77,9 +75,7 @@ https://www.mat-o-wahl.de/ -> Try It (EN) :gb: :us:
 4. **Test settings** using `INDEX.HTML` or `QUICKTEST.HTML`
    (works best on http://localhost/ or your private webspace)
 
-**Optional:** You can find further examples in the folder `/EXTRAS`.
-Simply unpack its contents to the `/DATA` folder
-(and delete the other content from the `/DATA` folder before, of course).
+**Optional:** You can find some **extensions** in the folder `/EXTRAS`. It adds some more functionality to the program, if needed. (e.g. filter of results, pre-question, include the program within an iframe)
 
 ## PREREQUISITES
 
@@ -90,8 +86,8 @@ Simply unpack its contents to the `/DATA` folder
 
 ## Mat-o-Wahl and GDPR
 
-- All calculations happen inside the user's browsers 
-- No data is collected on a server (optional for statistics - Exception: default access-logging by your webhosting-provider, i.e. IP-address and time)
+- All **evaluations** happen **inside the user's browsers**
+- **No data** is collected **on a server** (optional for statistics - Exception: default access-logging by your webhosting-provider, i.e. IP-address and time)
 - No external files (e.g. Content Delivery Network / CDN, Bootstrap, jQuery, no Social Media-plugin) - all included 
 
 ## LICENSE
@@ -101,13 +97,13 @@ GPL 3 (see folder /SYSTEM or http://choosealicense.com/licenses/gpl-v3/)
 - Permitted: Commercial Use, Distribution, Modification, Patent Use, Private Use 
 - Forbidden: Hold Liable
 
-## HELP / CONTACT
+## HELP / CONTACT / CHANGELOG
 
-- You can find further information on-line at https://www.mat-o-wahl.de
-- or in the help-file under `/SYSTEM`
+- You can find further information and documentation on-line at https://www.mat-o-wahl.de
 - or via email (see below)
+- Changes to earlier versions in the changelog https://github.com/msteudtn/Mat-O-Wahl/blob/master/system/changelog.md
 
-If you should find Mat-O-Wahl useful, I would be happy about a short notice from you by email.
+If you should find Mat-O-Wahl useful, I would be happy about a **short notice from you** by email.
 
 mathias . steudtner (a) gmx . net
 

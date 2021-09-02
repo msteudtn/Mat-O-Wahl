@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
   <title>Mat-O-Wahl</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <meta name="keywords" content="Mat-O-Wahl, MatOWahl, Demokratie, Wahlen, elections, vote, Wahlbeteiligung, Fragebogen, Antworten, Positionen, These, Entscheidung, Hilfe, Politik, B&uuml;rgermeister, Stadtrat, Kommunalwahl, Fachschaftsrat, Studentenrat, StuRa, Studentenparlament, Studierendenparlament, StuPa, AStA, Kreisrat, Landrat, Volksabstimmung, Plebiszit, Klon, clone, Alternative, GPL, Open Source, JavaScript, Freeware, kostenlos, Election Compass, Voting Advice Application, VAA"/>
+  <meta name="keywords" content="Mat-O-Wahl, MatOWahl, Demokratie, Wahlen, elections, vote, Wahlbeteiligung, Fragebogen, Antworten, Positionen, Entscheidung, Hilfe, Politik, Vereine, e.V., Mitwirkung, B&uuml;rgermeister, Stadtrat, Kommunalwahl, Fachschaftsrat, Studentenrat, StuRa, Studentenparlament, Studierendenparlament, StuPa, AStA, Kreisrat, Landrat, Volksabstimmung, Plebiszit, Klon, clone, Alternative, GPL, Open Source, JavaScript, Freeware, kostenlos"/>
   <meta name="robots" content="index, follow" />
   <meta name="language" content="de" />
   <meta name="Content-Language" content="de" />
 
-  <meta name="author" content="Mathias Steudtner"/>
+  <meta name="author" content="Mathias Steudtner" />
   <meta name="description" content="Mat-O-Wahl" />
   
 	<!-- BOOTSTRAP + JQUERY --- START -->
@@ -36,143 +36,171 @@
 	<!-- BOOTSTRAP + JQUERY --- END -->
 
 
-	<!-- Mat-o-Wahl EINSTELLUNGEN / PREFERENCES (Javascript) -->
+	<!-- Mat-o-Wahl EINSTELLUNGEN / SETTINGS (Javascript) -->
 	<script type="text/javascript" src="data/definition.js"></script>
-	
-	<!-- Mat-o-Wahl JAVASCRIPT und CSS - dynamisch eingebunden auf Basis DEFINITION.JS -->
-	<script type="text/javascript">
-	document.writeln("<link rel='stylesheet' type='text/css' href='styles/"+design+".css' />");
 
-	document.writeln("<script type='text/javascript' src='i18n/i18n_"+language+".js'><"+String.fromCharCode(47)+"script>");
-	// $.getScript( "i18n/i18n_"+language+".js", function( data, textStatus, jqxhr ){ }) 
-	// -> wäre eleganter aber lädt zu langsam / unzuverlässig
-	
-	</script>
-
-	<!-- Mat-o-Wahl CSS -->
-	<link rel="stylesheet" type="text/css" href="styles/speechbubble.css">
-	
 	<!-- Mat-o-Wahl JAVASCRIPT - immer / always -->
 	<script type="text/javascript" src="system/jquery.csv-0.8.9.min.js"></script>
 	<script type="text/javascript" src="system/general.js"></script>
 	<script type="text/javascript" src="system/output.js"></script>
 
-	<!-- Mat-o-Wahl JAVASCRIPT - Addon (optional) -->
 
-	<!--
-	<script type="text/javascript" src="extras/addon_results_textfilter_by_button.js"></script>
-	-->
+	<!-- Erweiterte Einstellungen auf Basis DEFINITION.JS - dynamisch eingebunden 
+		  Advanced Settings based on DEFINITION.JS - dynamically included -->	
+	<script>
+	// Mat-o-Wahl CSS Styles 
+	for (i = 0; i<= design.length-1; i++) {
+		document.writeln("<link rel='stylesheet' type='text/css' href='styles/"+design[i]+"' />");	
+	}	
+
+	// Mat-o-Wahl Extras / Add-ons 
+	for (i = 0; i<= addons.length-1; i++) {
+		document.writeln(' <script type="text/javascript" src="'+addons[i]+'"><\/script> ');	
+	}	
+
+	// Mat-o-Wahl Sprache / Language / i18n
+	document.writeln("<script type='text/javascript' src='i18n/i18n_"+language+".js'><\/script>");
+	// $.getScript( "i18n/i18n_"+language+".js", function( data, textStatus, jqxhr ){ }) 
+	// -> wäre eleganter aber lädt zu langsam / unzuverlässig
+	</script>
+	
 </head>
 <body>
 
 
 <div class="container container-fluid theme-showcase">
 
-	<!-- 1. BESCHREIBUNG / DESCRIPTION -->
+	<!-- 1.  BESCHREIBUNG / DESCRIPTION -->
 
-		<div class="row">
+	<main>
+
+		<section id="sectionDescription">
+			
+			<!--
+			<div class="row border border-dark rounded" style="height: 60vh; text-overflow: clip; overflow: auto; margin-top: 1.0em;">
+			-->
+			<div class="row border border-dark rounded">
+				<div class="col align-self-center">
+
+					<div id="descriptionAddonTop">
+						<!-- Platzhalter / Placeholder -->
+					</div>
+
+					<div id="descriptionHeading1">
+						<h1>&Uuml;berschrift zur Wahl/Thema der Wahl <br /> Main Headline </h1>
+					</div>
+
+					<div id="descriptionHeading2">
+						<h2>Unter&uuml;berschrift <br /> Second headline</h2> 
+					</div>
+					
+					<div id="descriptionExplanation" class="lead">
+						<p style="color: red; font-size: 150%;">
+							DE: Wenn Sie das hier lesen können, dann haben Sie in der Schule aufgepasst und dann ist hier irgendetwas schief gelaufen. 
+							<br/> Bitte laden Sie die Seite noch einmal neu. 
+							<br /> Wenn die Meldung immer noch erscheint, muss wohl der Techniker informiert werden.
+							<br /> 
+							<br /> EN: If you can read this, you didn't sleep during school and something went wrong.
+							<br /> Please reload the page and try again.
+							<br /> If the message still appears, we have to call the technician. 
+						</p>						
+						<p>
+							Kurze Beschreibung der Wahl, wer wird gew&auml;hlt, wann, warum, f&uuml;r wie lange, usw. <br /> Short (explaining) text on what's the election about
+						</p>						
+					</div>
+
+					<div id="descriptionAddonBottom">
+						<!-- Platzhalter / Placeholder -->
+					</div>
+
+				</div>
+			</div>
+			
+			<div class="row">							
+				<div class="col">				
+				<button type="button" class="btn btn-primary btn-lg float-right" onclick="fnHideWelcomeMessage()" id="descriptionButtonStart">Start-Button</button>
+				</div>
+			</div>
+
+		</section>
+
+	<!-- 2. FRAGEN / QUESTIONS -->
+
+		<section id="sectionShowQuestions">
+
+			<div class="row" tabindex="0" style="margin-top: 1.0em;">
+				<div class="col">
+					
+					
+						<div class="card border-dark mb-3 bg-transparent">
+						  <div class="card-header" id="showQuestionsHeader">Header</div>
+						  <div class="card-body">
+						    <p class="card-text lead" id="showQuestionsQuestion">Frage(n) zu den verschiedenen Positionen an die Parteien bzw. Kandidaten.
+								<br /> Question(s) on the different party/candidate positions.</p>
+						  </div>
+						</div>					
+					
+						<p>
+						
+						</p>
+
+				</div>
+			</div>
+
+		</section>
+				
+		
+	<!-- 3. VOTING BUTTONS -->
+
+		<section id="sectionVotingButtons">
+		
+			<div class="row">
+				<div class="col">
+					<button type="button" id="votingDouble" onclick="fnChangeVotingDouble()" class="btn btn-outline-dark btn-lg btn-block">[x2] Important</button>
+				</div>
+
+				<div class="col">
+					<button type="button" id="votingPro" class="btn btn-success btn-lg btn-block">[&#x2714;] Pro</button>
+				</div>
+
+				<div class="col">
+					<button type="button" id="votingNeutral" class="btn btn-warning btn-lg btn-block">[&#x25EF;] Neutral</button>
+				</div>
+
+				<div class="col">
+					<button type="button" id="votingContra" class="btn btn-danger btn-lg btn-block">[&#x2716;] Contra</button>
+				</div>
+
+				<!-- Force next columns to break to new line (Bootstrap 4.4+) -->
+				<div class="w-100"></div>
+
+				<div class="col">
+					<button type="button" id="votingSkip" class="btn btn-secondary btn float-right">[&#x21B7;] Skip</button>
+				</div>
+				
+			</div> 
+
+		</section>
+	</main>
+
+	<!-- 4. FORTSCHRITTSZÄHLER + NAVIGATION / PROGRESS BAR + NAVIGATION -->
+
+	<nav id="sectionNavigation">	
+
+		<div class="row fixed-top" style="width: inherit; top: 0%; left: 50%; transform: translateX(-50%); visibility: hidden; display: none;"> 
 			<div class="col">
 
-				<div id="descriptionAddonTop">
-					<!-- Platzhalter / Placeholder -->
+				<div class="progress" style="height: 2px;">
+					<div class="progress-bar" id="progress-bar" style="width:10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
 				</div>
 
-				<div id="heading1">
-					<h1>&Uuml;berschrift zur Wahl/Thema der Wahl <br /> Main Headline </h1>
-				</div>
-
-				<div id="heading2">
-					<h2>Unter&uuml;berschrift <br /> Second headline</h2> 
-				</div>
-				
-				<div id="explanation">
-					<p>Kurze Beschreibung der Wahl, wer wird gew&auml;hlt, wann, warum, f&uuml;r wie lange, usw. <br /> Short (explaining) text on what's the election about</p>
-				</div>
-				
-				<div id="content" class="bubble">
-					<p>
-					Frage(n) zu den verschiedenen Positionen an die Parteien bzw. Kandidaten.
-					<br /> Question(s) on the different party/candidate positions
-					</p>
-				</div>
-
-				<div id="descriptionAddonBottom">
-					<!-- Platzhalter / Placeholder -->
-				</div>
-
-			
 			</div>
 		</div>
 
-		
-	<!-- 2. ERGEBNISSE / RESULTS -->
-
-		<div class="row">
-			<div class="col">
-	
-				<div id="resultsAddonTop">
-					<!-- Platzhalter / Placeholder -->
-				</div>
-
-				<div id="resultsHeading">
-					&Uuml;berschrift f&uuml;r die Ergebnisse/Resultate (ungenutzt) <br /> Headline for the results (unused) 
-				</div>
-				
-				<div id="resultsShort">
-					Ergebnisse / Resultate der Parteien in tabellarischer Form <br /> Table with results (short) - DOM / id = "resultsShortTable"
-				</div>
-
-				<div id="resultsLong">
-					Detaillierte Ergebnisse / Resultate mit eigener Meinung in tabellarischer Form <br /> Table with results (long / detailed)
-				</div>
-
-				<div id="resultsAddonBottom">
-					<!-- Platzhalter / Placeholder -->
-				</div>
-
-
-			</div>
-		</div>
-
-		
-	<!-- 3. BUTTONS -->
-		
-		<div class="row" id="voting">
-			<div class="col">
-				<button type="button" id="votingPro" class="btn btn-success btn-lg btn-block">[&#x2714;] Pro</button>
-			</div>
-
-			<div class="col">
-				<button type="button" id="votingNeutral" class="btn btn-warning btn-lg btn-block">[&#x25EF;] Neutral</button>
-			</div>
-
-			<div class="col">
-				<button type="button" id="votingContra" class="btn btn-danger btn-lg btn-block">[&#x2716;] Contra</button>
-			</div>
-
-			<!-- Force next columns to break to new line (Bootstrap 4.4+) -->
-			<div class="w-100"></div>
-
-			<div class="col">
-				<button type="button" id="votingSkip" class="btn btn-secondary btn-lg btn-block">[&#x21B7;] Skip</button>
-			</div>
-			
-			<div class="col">
-				<button type="button" id="votingDouble" onclick="fnChangeVotingDouble()" class="btn btn-outline-dark btn-lg btn-block">[x2] Important</button>
-			</div>
-		</div> 
-
-	<!-- 4. FORTSCHRITTSZÄHLER / PROGRESS COUNTER -->
-
-		<div class="progress" id="progress">
-			<div class="progress-bar" id="progress-bar" style="width:10%"></div>
-		</div>
-
-	
 		<div class="row">
 			<div class="col">
 			
-				<div id="jumpToQuestion" style="display:none; width:100%">
+				<div id="navigationJumpToQuestion" style="display:none; width:100%">
 					Gehe direkt zu Frage Nummer XY.
 					Jump to Question XY directly
 				</div>
@@ -180,9 +208,11 @@
 			</div>
 		</div>
 
+	</nav>
 		
-	<!-- 5. CHECKBOX: STATISTIK j/n / STATISTICS y/n -->		
+	<!-- CHECKBOX: STATISTIK j/n / STATISTICS y/n -->		
 
+	<!--
 		<div class="row" id="keepStats">
 			<div class="col">
 			
@@ -195,9 +225,96 @@
 				
 			</div>
 		</div>
+	-->
+
+		<!-- Bootstrap-Modal STATISTIK j/n / STATISTICS y/n -->
+		
+		<div class="modal fade" id="statisticsModal" tabindex="-1" role="dialog" aria-labelledby="statisticsModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+				
+					<div class="modal-header">
+						<h5 class="modal-title" id="statisticsModalLabel"> Modal TITLE </h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					
+					<div class="modal-body" id="statisticsModalBody">
+					  Modal BODY
+					</div>
+					
+					<div class="modal-footer">
+						<button type="button" id="statisticsModalButtonNo" class="btn btn-outline-dark" data-dismiss="modal">Close</button>
+						<button type="button" id="statisticsModalButtonYes" class="btn btn-primary">Save changes</button>
+					</div>
+				</div>
+			</div>
+		</div>	
+		
+
+	<!-- 2. ERGEBNISSE / RESULTS -->
+
+		<section id="sectionResults">
+
+			<div class="row" id="results">
+				<div class="col">
+		
+					<div id="resultsAddonTop">
+						<!-- Platzhalter / Placeholder -->
+					</div>
+
+					<div id="resultsHeading">
+						&Uuml;berschrift f&uuml;r die Ergebnisse/Resultate (ungenutzt) <br /> Headline for the results (unused) 
+					</div>
+					
+					<div id="resultsShort">
+						Ergebnisse / Resultate der Parteien in tabellarischer Form <br /> Table with results (short) - DOM / id = "resultsShortTable"
+					</div>
+
+				</div>
+			</div>
+
+			<!-- 
+				Auswahlknoepfe für die detaillierten Ergebnisse. Text in i18n.
+				Buttons for detailled resuts. Labels in i18n.
+			-->
+			
+			<div class="row" id="resultsButtons">
+
+				<div class="col">
+					<button type="button" id="resultsButtonTheses" class="btn btn-secondary btn-block" onclick="$('#resultsByThesis').toggle(500); $('#resultsByParty').fadeOut(500); $('#resultsButtonTheses').addClass('btn-primary').removeClass('btn-secondary'); $('#resultsButtonParties').addClass('btn-secondary').removeClass('btn-primary');">[?] Show questions</button>
+				</div>
+
+				<div class="col">
+					<button type="button" id="resultsButtonParties" class="btn btn-secondary btn-block" onclick="$('#resultsByParty').toggle(500); $('#resultsByThesis').fadeOut(500); $('#resultsButtonTheses').addClass('btn-secondary').removeClass('btn-primary'); $('#resultsButtonParties').addClass('btn-primary').removeClass('btn-secondary');">[#] Show parties</button>
+				</div>
+
+			</div>
+
+			<div class="row">
+				<div class="col">
+
+					<div id="resultsByThesis">
+						Detaillierte Ergebnisse / Resultate mit eigener Meinung in tabellarischer Form <br /> Table with results (long / detailed)
+					</div>
+
+					<div id="resultsByParty">
+						Detaillierte Ergebnisse / Resultate mit eigener Meinung in tabellarischer Form <br /> Table with results (long / detailed)
+					</div>
+
+					<div id="resultsAddonBottom">
+						<!-- Platzhalter / Placeholder -->
+					</div>
+
+				</div>
+			</div>
+
+		</section>	
 	
-	
-	<!-- 6. FUSSZEILE: IMPRESSUM, NEUSTART, SOCIAL MEDIA / FOOTER: IMPRINT, RESTART, SOCIAL MEDIA -->
+	<!-- FUSSZEILE: IMPRESSUM, NEUSTART, SOCIAL MEDIA / FOOTER: IMPRINT, RESTART, SOCIAL MEDIA -->
+
+	<footer id="sectionFooter">
 
 		<div class="row">	
 			<div class="col">
@@ -209,7 +326,7 @@
 			</div>			
 			
 			<div class="col">
-				<a class="btn btn-block btn-sm social-facebook" role='button' onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(location.href) + '&title='+encodeURIComponent(document.title), '_blank', 'location=yes,height=480,width=640,scrollbars=yes,status=yes'); return false;" title="Share on Facebook">
+				<a class="btn btn-block btn-sm social-facebook" role='button' style='color:#fff' onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(location.href) + '&title='+encodeURIComponent(document.title), '_blank', 'location=yes,height=480,width=640,scrollbars=yes,status=yes'); return false;" title="Share on Facebook">
 				facebook</a>
 			</div>
 
@@ -218,6 +335,8 @@
 				Twitter</a>
 			</div>
 		</div>
+
+	</footer>
 	
 </div>
 

@@ -69,7 +69,7 @@ var fileQuestions = "Obsthausen_Fragen.csv";
 
 //	1.2 ANZAHL der FRAGEN / 1.2 NUMBER of QUESTIONS
 
-var intQuestions = 6
+var intQuestions = 6;
 
 
 // 	--------------------------------------------------------------------
@@ -133,19 +133,26 @@ var intPartyLogosImgHeight = "10%";
 
 // 	1.6. UeBERSCHRIFTEN UND TEXTE / 1.6. HEADLINES AND TEXTS:
 
-// 	1.6.1. Hauptueberschrift / 1.6.1. Main headline
+// 	1.6.1 Soll am Anfang eine kurze Beschreibung angezeigt (1) werden oder sollen gleich die Fragen (0) starten?
+//		Wenn die Fragen sofort starten, gibt es einen kurzen "Loading"-Hinweis. :(
+// 	Show a short description in the beginning (1) or start with the questions right (0) away?
+//		If you choose for the questions right away, a short "loading" message will appear. :(
 
-var heading1 = "Fruchtkorbwahlen";
+var descriptionShowOnStart = 1;
+
+// 	1.6.2. Hauptueberschrift / 1.6.1. Main headline
+
+var descriptionHeading1 = "Fruchtkorbwahlen";
 
 
-// 	1.6.2. Zweite Ueberschrift / 1.6.2. Second Headline
+// 	1.6.3. Zweite Ueberschrift / 1.6.2. Second Headline
 
-var heading2 = "Die Wahl zur neuen Regierung in Obsthausen.";
+var descriptionHeading2 = "Die Wahl zur neuen Regierung in Obsthausen";
 
 
-// 	1.6.3. Kurzer Text um was es bei der Wahl geht / 1.6.3. Short (descriptive) text on what's the election about
+// 	1.6.4. Kurzer Text um was es bei der Wahl geht / 1.6.3. Short (descriptive) text on what's the election about
 
-var explainingText = "Am 30. Februar finden in Obsthausen Wahlen statt. Sie k&ouml;nnen sich hier alle Parteipositionen anschauen und miteinander vergleichen. Dies ist keine Wahlempfehlung, sondern ein Informationsangebot zu Wahlen!"; 
+var descriptionExplanation = "Am 30. Februar finden in Obsthausen Wahlen statt. Sie k&ouml;nnen sich hier alle Parteipositionen anschauen und miteinander vergleichen. Dies ist <strong>keine Wahlempfehlung</strong>, sondern ein Informationsangebot zu Wahlen! <br /> Zur Auswahl stehen vier Parteien mit unterschiedlichen Meinungen zu kontroversen Themen der Obst- und Frucht-Landschaft."; 
 
 
 // 	--------------------------------------------------------------------
@@ -247,7 +254,10 @@ var imprintProgramming = `<p>Max Mustermann, Hans Wurst</p>
 //	(optional) Sources of pictures
 
 var imprintPictures = `<p> Bilder mit freundlicher Genehmigung von / Pictures with permission from: 
-			<br /> Wikipedia, Max Mustermann, Foto Franz Frankfurt, Neutrale Partei`;
+			<br /> Max Mustermann, Foto Franz Frankfurt, Neutrale Partei
+			<br /> Äpfel: Von Glysiak - Eigenes Werk, CC BY-SA 4.0, https://commons.wikimedia.org/w/index.php?curid=8146365
+			<br /> Bananen: Von Steve Hopson, www.stevehopson.com, CC BY-SA 2.5, https://commons.wikimedia.org/w/index.php?curid=1541726
+			<br /> Zitronen: Von André Karwath aka Aka - Eigenes Werk, CC BY-SA 2.5, https://commons.wikimedia.org/w/index.php?curid=59992 `;
 
 
 //	1.7.B.8
@@ -270,13 +280,64 @@ var imprintPrivacyUrl = "https://www.hans-wurst-webdesign-obsthausen.com/datensc
 var separator = ";";
 
 
-//	2.2. Designvorlage (CSS) im Ordner /styles
-//	2.2. Design (CSS) in folder /styles  
+/*	
+	2.2. CSS-Designvorlage(n)  
 
-var design = "default";
+	Der Mat-o-Wahl nutzt das "Bootstrap"-Framework für mobile Ansichten.
+	Alle Standard-Bootstrap-Einstellungen können aber überschrieben werden. 	
+	Die Dateien finden sich im Ordner /STYLES.
+	Beispiele für das DESIGN-Aray:
+
+	********************************************************************
+
+	var design = ["default.css","buttons-colors-on.css", "progressbar.css"];
+	var design = ["default.css","buttons-colors-off.css", "progressbar.css"];
+	var design = ["default.css","buttons-colors-on.css"];
+	var design = ["my-personal-styles.css"];
+
+	********************************************************************
+
+	2.2. CSS-Design(s) 
+
+	Mat-o-Wahl uses the "bootstrap" framework for responsive design.
+	All default settings can be overwritten.
+	You can find the files in the /STYLES folder.
+	Please find some examples above.  
+*/  
+
+var design = ["default.css","buttons-colors-on.css", "progressbar.css"];
 
 
-//	Sprache / Language
+/*
+	2.3. Add-ons / Plug-Ins / Extras  
+
+	Man kann eigene und fremde Addons einbinden. 
+	Einige Beispiele liegen im Ordner /EXTRAS.
+	Die Einstellungen finden sich üblicherweise innerhalb den dortigen Dateien.
+	Beispiele für das ADDONS-Aray:
+
+	********************************************************************
+
+	var addons = ["extras/addon_results_textfilter_by_button.js"]
+	var addons = ["extras/addon_results_textfilter_by_button.js", "extras/addon_check_iframe_resize_client.js", "extras/addon_limit_results.js", "extras/addon_favorite_party.js"]
+	var addons = []
+	var addons = ["my_folder/my_file.js"]	
+
+	********************************************************************
+
+	2.3. Add-ons / Plug-Ins / Extras
+
+	You can include your own and external add-ons.
+	Some examples are in the folder /EXTRAS.
+	The settings are usually inside the corresponding files.
+	Please find some examples above.  
+
+*/
+
+var addons = []
+
+
+//	2.4 Sprache / Language
 //	see files in folder /i18n/
 
 var language = "de";
@@ -307,7 +368,7 @@ var language = "de";
 	The script and Mat-O-Wahl must be on the same domain and network-protocoll. (no "cross origin" / CORS)
 */
 
-var statsRecord = 1;
+var statsRecord = 0;
 var statsServer = "http://localhost/extras/statistics/vote_txt.php";
 
 

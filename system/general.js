@@ -3,7 +3,7 @@
 // License: GPL 3
 // Mathias Steudtner http://www.medienvilla.com
 
-var version = "0.5.1.20201230"
+var version = "0.6.0.20210902"
 
 // Globale Variablen
 var arQuestionsShort = new Array();	// Kurzform der Fragen: Atomkraft, Flughafenausbau, ...
@@ -36,7 +36,13 @@ function fnReadCsv(csvFile,fnCallback)
 	dataType: "text", 
 	contentType: "application/x-www-form-urlencoded",
 	error: function(objXML, textStatus, errorThrown) {
-		alert("Mat-O-Wahl ERROR - Reading CSV-file \n\nCode - objXML-Status: "+objXML.status+" \n\nCode - textStatus: "+textStatus+" \n\nCode - errorThrown: "+errorThrown+" \n\nName and folder of CSV-file should be: "+csvFile+" \n\nPossible solutions: Check for capital letters. Extension of file? File in the wrong folder? Are you working on a local machine or a server? e.g. XHR-access for Google Chrome via --allow-file-access-from-files (Issue 40787)?"); }
+		console.log("Mat-O-Wahl ERROR - Reading CSV-file \n Code - objXML-Status: "+objXML.status+" \n Code - textStatus: "+textStatus+" \n Code - errorThrown: "+errorThrown+" \n Name and folder of CSV-file should be: "+csvFile+" \n\nPossible solutions: Check for capital letters? OR check the extension of the file (csv / xls / xlsx)? OR is the file in the wrong folder? OR are you working on a local machine :( instead of a server? See documentation on www.mat-o-wahl.de"); 
+		// document.getElementById("descriptionAddonTop").innerHTML("nanu. Da ist etwas schief gegangen.")
+			$("#descriptionExplanation").css("color","red").css("font-size", "150%")
+			text = "<p>Nanu? Da ist etwas schief gegangen. Einige Dateien konnten nicht geladen werden. <br /> Sind Sie ein Besucher der Seite? Dann geben Sie bitte dem Administrator der Webseite Bescheid. <br /> Sind Sie der Administrator? Dann schauen Sie bitte in die Browser-Konsole.</p>"
+			text += "<p>Oh? Something went wrong. Some files couldn't be loaded. <br /> Are you a visitor of this site? Please inform the admin of the site. <br /> Are you the admin? Please check the browser-console.</p>"
+			$("#descriptionExplanation").html(text)
+		}
 		})
 	.done(function(data) {
 		// console.log('success', data) 
@@ -59,7 +65,9 @@ function fnShowQuestions(csvData)
 	// ... und Anzeigen
 	var questionNumber = -1;
 	
-	fnShowQuestionNumber(questionNumber);
+	// v.0.6 - deaktiviert, da nun am Anfang ein Willkommensbildschirm erscheint.
+	// neu: fnHideWelcomeMessage()
+	// fnShowQuestionNumber(questionNumber);
 } 
 
 
@@ -74,16 +82,17 @@ function fnReadPositions(csvData)
 
 
 // Auswertung (Berechnung)
-// Gibt ein Array "arResults" zurück für fnEvaluationShort() und fnEvaluationLong() und fnReEvaluate();
+// Gibt ein Array "arResults" zurück für fnEvaluationShort(), fnEvaluationByThesis(), fnEvaluationByParty() und fnReEvaluate();
 // Aufruf am Ende aller Fragen in fnShowQuestionNumber() und beim Prüfen auf die "doppelte Wertung" in fnReEvaluate()
 function fnEvaluation()
 {
 
 	// Abstimmungsknöpfe u.a. entfernen 
-	$("#explanation").fadeOut(500).empty();
-	$("#progress").fadeOut(500).empty();
-	$("#voting").empty();
-	$("#jumpToQuestion").empty();
+	$("#sectionDescription").empty().hide();
+	$("#sectionShowQuestions").empty().hide();
+	$("#sectionVotingButtons").empty().hide();	
+	$("#sectionNavigation").empty().hide();
+	
 	$("#keepStats").hide();
 
 	// Anzahl der Fragen bestimmen, da Positions-Array ein Vielfaches aus Fragen * Parteien enthält.
@@ -96,7 +105,8 @@ function fnEvaluation()
 	var indexPartyInArray = -1; // Berechnung der Position des Index der aktuellen Partei
 	var positionsMatch = 0;	// Zaehler fuer gemeinsame Positionen
 
-	var arResults = new Array();
+	// var arResults = new Array();
+	var arResults = []
 //	for (i = 0; i <= (arPartyFiles.length-1); i++)
 	for (i = 0; i <= (intParties-1); i++)
 	{
@@ -136,7 +146,9 @@ function fnEvaluation()
 			} // end: if arPartyPosition-i = arPersonalPosition
 		} // end: Frage nicht uebersprungen
 	} // end: for numberOfQuestions
-	
+
+
+/*	
 	// Wenn Nutzer eingewilligt hat ...
 	if ( $("#keepStatsCheckbox").prop("checked")==1)
 	{
@@ -146,8 +158,9 @@ function fnEvaluation()
 	else
 	{
 	}
+*/
 
-	$("#keepStats").hide().empty();	
+//	$("#keepStats").hide().empty();	
 
 //	console.log(arResults)
 	return arResults;
@@ -161,9 +174,10 @@ function fnSendResults(arResults, arPersonalPositions)
 {
 	// Korrektur der Parteiposition (-1,0,1) mit den Informationen aus der doppelten Wertung (-2,-1,0,1,2)
 	// Marius Nisslmueller, Bad Honnef, Juni 2020
+	// Bedingung für übersprungene Frage hinzugefügt
 	arPersonalPositionsForStats = arPersonalPositions.slice(); // Damit arPersonalPositions nicht verändert wird
 	for(let i=0; i<arPersonalPositionsForStats.length; i++){
-		if(arVotingDouble[i]){
+		if(arVotingDouble[i] && arPersonalPositionsForStats[i] < 99){
 		    arPersonalPositionsForStats[i] *= 2; 
 		}
 	}
@@ -203,7 +217,14 @@ function fnTransformCsvToArray(csvData,modus)
 	// Example "Springfield" = 5 + 15 + 1 = 21
 	var numberOfLines = 6 + intQuestions 
 
-	for(i = 0; i <= arZeilen.length-1; i++)
+	if (modus == 1) // Fragen / Questions
+	{ lastLine = intQuestions}
+	else
+	{ lastLine = (5 + intQuestions + 1) * intParties -1} // Partien und Antworten / Parties and answers
+
+
+//	for(i = 0; i <= arZeilen.length-1; i++)
+	for(i = 0; i <= lastLine-1; i++)
 	{
 		// console.log("i: "+i+" m: "+modus+" val0: "+arZeilen[i][0]+" val1: "+arZeilen[i][1] )	
 		valueOne = arZeilen[i][0];
@@ -221,6 +242,7 @@ function fnTransformCsvToArray(csvData,modus)
 			// v.0.5 NEU
 			// ALLE Partei-Informationen in einer CSV-Datei
 			modulo = i % numberOfLines;
+
 			if ( (modulo == 0) && (valueTwo != "undefined") )
 			{ 
 				// Parteinamen - kurz
@@ -247,7 +269,7 @@ function fnTransformCsvToArray(csvData,modus)
 				// Logo der Partei
 				arPartyLogosImg.push(valueTwo)
 			}
-			else if (valueTwo)
+			else if ( (modulo > 4) && (modulo <= (intQuestions+4) ) )
 			{
 				// Positionen und Erklärungen
 				arPartyPositions.push(valueOne); // -1,0,1
@@ -259,7 +281,8 @@ function fnTransformCsvToArray(csvData,modus)
 			}
 		}  // end: if-else modus == 1	
 	}  // end: for
-}
+
+} // end: function
 
 // v.0.3 NEU
 // ersetzt die Position (-1, 0, 1) mit dem passenden Button
@@ -365,10 +388,10 @@ function fnToggleSelfPosition(i)
 	var positionText  = fnTransformPositionToText(arPersonalPositions[i]);
 	
 	// $("#selfPosition"+i).attr("src", "img/"+positionImage);
-	$("#selfPosition"+i).removeClass("btn-danger btn-warning btn-success btn-default").addClass(positionButton);
-	$("#selfPosition"+i).html(positionIcon);
-	$("#selfPosition"+i).attr("alt", positionText);
-	$("#selfPosition"+i).attr("title", positionText);
+	$(".selfPosition"+i).removeClass("btn-danger btn-warning btn-success btn-default").addClass(positionButton);
+	$(".selfPosition"+i).html(positionIcon);
+	$(".selfPosition"+i).attr("alt", positionText);
+	$(".selfPosition"+i).attr("title", positionText);
 	// $(".positionRow"+i).css("border","1px solid "+positionColor);
 
 //	console.log("toggle funktion i: "+i)
@@ -384,13 +407,52 @@ function fnToggleDouble(i)
 	{
 		// $("#doubleIcon"+i).attr("src","img/double-yes_icon.png");
 		$("#doubleIcon"+i).removeClass("btn-outline-dark").addClass("btn-dark");
-		$("#doubleIcon"+i).attr("title","'Frage wird doppelt gewertet");
+		$("#doubleIcon"+i).attr("title",TEXT_ANSWER_DOUBLE);
 	}
 	else
 	{
 		// $("#doubleIcon"+i).attr("src","img/double-no_icon.png");
 		$("#doubleIcon"+i).removeClass("btn-dark").addClass("btn-outline-dark");
-		$("#doubleIcon"+i).attr("title","'Frage wird einfach gewertet");
+		$("#doubleIcon"+i).attr("title",TEXT_ANSWER_NORMAL);
 	}
 	fnReEvaluate();
+}
+
+
+
+// vanilla JavaScript FadeIn / FadeOut
+// Modus = display: "none / block" ändern (0 = nein, 1 = ja)
+function fnFadeIn(el, time, modus) {
+
+	// Default FadeIn / FadeOut-Time
+	if (!time) {time = 500;}
+
+	// Loading CSS 
+	el.style.animation = "myFadeIn "+time+"ms 1"
+	el.style.opacity = 1;
+
+	if (modus == 1) {
+		el.style.display = ""	
+		el.style.visibility = ""
+	}
+}
+
+// vanilla JavaScript FadeIn / FadeOut
+// Modus = visibility show / hidden ändern (0 = nein, 1 = ja)
+function fnFadeOut(el, time, modus) {
+
+	// Default FadeIn / FadeOut-Time
+	if (!time) {time = 500;}
+
+	// Loading CSS 
+	el.style.animation = "myFadeOut "+time+"ms 1"
+	el.style.opacity = 0;
+
+	// hide element from DOM AFTER opacity is set to 0 (setTimeout)
+	if (modus == 1) {
+		window.setTimeout(function() {
+			el.style.display = "none"	
+			el.style.visibility = "hidden"			
+		}, (time-50));		
+	}
 }

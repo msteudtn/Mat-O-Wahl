@@ -3,15 +3,16 @@
 // License: GPL 3
 // Mathias Steudtner http://www.medienvilla.com
 
-// Datei mit den ERGEBNISSEN. Im Beispiel der VOTE.PHP heißt sie TEST.TXT
-var fileResults = "extras/statistics/test.txt";
+// Datei mit den ERGEBNISSEN. Im Beispiel der VOTE_TXT.PHP heißt sie RESULTS.TXT
+var fileResults = "extras/statistics/results.txt";
 
 // GLOBALE VARIABLEN
 var arQuestionsShort = new Array();		// Kurzform der Fragen: Atomkraft, Flughafenausbau, ...
 
 var arMowpersonal = new Array(); 		// Persoenliche Abstimmung (dafür/dagegen/...)
 var arMowparties = new Array(); 		// Uebereinstimmungen mit den Parteien
-var arMowtimestamp = new Array(); 		// Zeitstempel
+// var arMowtimestamp = new Array(); 		// Zeitstempel
+var arDatum = []
 
 var arMowpersonalSum = new Array();		// Summe der persoenlichen Abstimmungen
 var arMowpersonalSumContra = new Array();		// 
@@ -31,8 +32,8 @@ function fnResultsStart()
 
 	$("#resultsInformation").empty();
 	$("#resultsInformation").append("Benutzte Datei zur Auswertung: ")
-	$("#resultsInformation").append("<strong><a href="+fileResults+">"+fileResults+"</a></strong>")
-	$("#resultsInformation").append("<br /> Datei-Einstellung kann geändert werden in: system/results.js (Variable: fileResults)")
+	$("#resultsInformation").append("<strong><code><a href="+fileResults+">"+fileResults+"</a></code></strong>")
+	$("#resultsInformation").append("<br /> Datei-Einstellung kann geändert werden in: <code>system/results.js</code> (Variable: <code>fileResults</code>)")
 	$("#resultsInformation").append("<p> Umfangreichere Auswertungen sind mit ihrer Lieblings-Tabellenkalkulation möglich. (Excel, Open-/LibreOffice Calc, ...) Siehe auch die Beispieldatei im Ordner. </p>");
 
 	// Datei mit den ERGEBNISSEN in Array einlesen
@@ -64,7 +65,9 @@ function fnResultsResultsfileToArray(csvData)
 	for (i = 0; i <= arResultfile.length-1; i++)
 	{
 		temp = $.csv.toArray(arResultfile[i][1], {separator: ","});
-		arMowtimestamp.push(temp)
+		// arMowtimestamp.push(temp)
+		temp = temp.toString().substr(0,10) // Datum abschneiden für alte DB-Abfragen: 2020-31-12-23-59 -> 2020-31-12 
+		arDatum.push(temp)
 	}
 
 
@@ -96,6 +99,7 @@ function fnResultsMowparties()
 {
 
 	var arResultsMowpartiesSum = new Array(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
+	// var arResultsMowpartiesSum = []
 
 	$("#resultsParties").empty();
 
@@ -117,7 +121,7 @@ function fnResultsMowparties()
 	$("#resultsParties").append("<p>"+arMowparties.length+" Abstimmungen x "+intQuestions+" Fragen = maximal "+maxPointsPerParty+" Punkte pro Partei.</p>")
 
 	content = "";
-	content += "<table>";
+	content += "<table class='table table-striped'>";
 //	for (i = 0; i <= arPartyNamesShort.length-1; i++)
 	for (i = 0; i <= intParties-1; i++)	
 	{
@@ -151,7 +155,7 @@ function fnResultsMowparties()
 	$("#resultsParties").append("<p>"+maxPointsPerParty+" Punkte/Partei x "+intParties+" Parteien = maximal "+maxPointsTotal+" Punkte insgesamt.</p>")
 
 	content = "";
-	content += "<table>";
+	content += "<table class='table table-striped'>";
 //	for (i = 0; i <= arPartyNamesShort.length-1; i++)
 	for (i = 0; i <= intParties-1; i++)	
 	{
@@ -229,7 +233,7 @@ function fnResultsMowpersonal()
 	$("#resultsQuestions").empty();
 
 	content = "";
-	content += "<table>";
+	content += "<table class='table table-striped'>";
 //	for (i = 0; i <= arQuestionsShort.length-1; i++)
 	for (i = 0; i <= intQuestions-1; i++)
 	{
@@ -314,45 +318,48 @@ function fnResultsTimes()
 {
 	$("#resultsTimes").empty();
 
-	arDatum = [];
+/*
 	for (i = 0; i <= arMowtimestamp.length-1; i++)
 	{
 
+
+		// v.0.6 - nicht mehr nötig, da das Datum nun direkt im ISO-Format abgespeichert wird.
 		var objDate = new Date(arMowtimestamp[i]*1000);
-//		var year = objDate.getFullYear();
-//		var month = objDate.getMonth()+1;
-//		var date = objDate.getDate();
-
-		// 2009-09-30T14:54:33.654Z -> substr(0, 10) -> 2009-09-30
-		// Auftrennen nach Stunden -> substr(0, 13) -> 2009-09-30T14
-		// nur Stunden pruefen -> substr(11, 2) -> 14
 		var strDate = objDate.toISOString().substr(0, 10); 
-
-//		arDatum.push(year+"-"+month+"-"+date);
 		arDatum.push(strDate);
 
-	}
+		arDatum.push(arMowtimestamp[i]);
 
-    var arDatumSortiert = new Array();
-	var arCounter = new Array();
+	}
+*/
+   var arDatumSortiert = []
+	var arCounter = []
 	var counter = 1;
 
 	// Arrays sortieren und pruefen    
     arDatum.sort();
+
     for ( i = 0; i <= arDatum.length-1; i++ ) 
-	{
-		// String stimmt mit nächstem Eintrag überein
-        if ( arDatum[i] == arDatum[(i+1)])
-		{
+	 {
+		// Datum stimmt mit nächstem Eintrag überein
+		if ( arDatum[i].toString() == arDatum[(i+1)].toString() ) {
 			counter++;
-        } 
-		// Datum stimmt nicht überein -> Daten speichern
-		else 
-		{
+		} 
+		// Datum stimmt nicht überein -> Daten speichern / zurücksetzen
+		else {
 			arDatumSortiert.push(arDatum[i]);
 			arCounter.push(counter);
 			counter = 1;
-        }
+		}
+		  
+		// Abbruch-Kriterium
+		if (i >= arDatum.length-2) {		
+			arDatumSortiert.push(arDatum[i]);
+			arCounter.push(counter);
+			counter = 1;
+			
+			i = arDatum.length;			        		 
+		}
 
     }
 
@@ -360,7 +367,7 @@ function fnResultsTimes()
 
 	maxAnswers = arMowparties.length
 	var content = ""
-	content += "<table>";
+	content += "<table class='table table-striped'>";
     for ( i = 0; i <= arCounter.length-1; i++ ) 
 	{
 		var percent = fnPercentage(arCounter[i],maxAnswers);
@@ -392,7 +399,3 @@ function fnResultsTimes()
 
 
 }
-
-
-
-

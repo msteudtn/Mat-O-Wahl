@@ -3,80 +3,23 @@
 /* BODY: background color, font, size and color */
 body {
 	font-family:Verdana, Arial, Helvetica, sans-serif; 
-	font-size:10pt; 
+/*	font-size:10pt; */
 	color:#000000; 
 
-	background-color: #FFE08F;
-	background-image: linear-gradient(#EFC04F, #FFE08F); 
-    background-attachment: fixed;
+	background-color: #EFC04F;
+	/* background-image: linear-gradient(#EFC04F, #FFE08F); */ 
+	/* background-attachment: fixed; */
 	}
-
-/* UeBERSCHRIFTEN */
-/* HEADLINES */
-h1 { font-size:150%;}
-h2 { font-size:120%; text-decoration: underline dotted; margin-top: 0.5em; margin-bottom: 0.5em;}
-h3 { font-size:110%;}
 
 /* LINK-Farbe */
 /* LINK-color */
+
 a { color:#000000; text-decoration:underline;}
 a:link { color:#000000; } 
 a:visited { color:#808080; }
 a:active { color:#FF0000; }
 a:hover { color:#FF0000; text-decoration:none; }
 
-/* TABELLEN */
-/* TABLES */
-table { }
-
-td { 
-	border: 1px solid #C0C0C0; 
-	padding: 5px;	
-	border-radius: 3px;
-	font-size:110%;
- 	}
-
-/* gerade Spalten auf Ergebnisseite in anderer Farbe */
-/* even rows on result-page in different color */
-tr:nth-child(even) {
-	background: #FFE08F;
-	}
-
-	
-/* Ueberschrift zur Wahl/Thema der Wahl - Formate schon durch <h1> und <h2> geregelt */
-/* Headline for the election/topic - formats already defined by <h1> and <h2> */
-#heading {} 
-
-
-/* Kurze Beschreibung der Wahl */
-/* Short explanation of election */
-#explanation { color: #404040; }
-
-/* Anzeige der aktuellen Frage */
-/* Current question */
-#content { 
-	font-size: 150%; 
-	}
-
-/* Farben für Sprechblase.- Form und andere Einstellungen in Datei speechbubble.css */
-/* Colors of the speech bubble.- Form and further settings in file speechbubble.css */
-
-.bubble { background: #FFE08F; 	border: #000000 solid 1px; }
-.bubble:after { border-color: #FFE08F transparent; }
-.bubble:before { border-color: #000000 transparent; }
-
-
-/* VOTING-Tabelle mit den Knoepfen Ja / Nein / Egal / Ueberspringen / Doppelt */
-/* VOTING-Table with buttons Yes / No / No Opinion / Skip / Twice */
-#voting { margin-top:10px; }
-
-#votingPro, #votingNeutral, #votingContra, #votingSkip, #votingDouble { 
-	/* cursor:pointer; */
-	}
-
-#votingSkip, #votingDouble { 
-	/* font-size:110%; */
-	}
 
 /* Statistik */
 /* Statistics */
@@ -85,17 +28,25 @@ tr:nth-child(even) {
 	font-size:90%; 
 	}
 
-	
+/* Willkommensnachricht (erster DIV)
+   Welcome Message (first DIV) */
+#sectionDescription > div:first-of-type {
+    padding: 5% 2%;
+    text-overflow: clip;
+    overflow: auto;
+    margin-top: 1.0em;
+    max-height: 60vh;
+}
+
 /* BOOTSTRAP */
-.progress {
-	margin: 8px;
-}
-.btn {
-	margin: 0.5em;
-}
 .row {
-	margin-top: 1.2em;
-	margin-bottom: 1.2em;
+	padding: 0.2em; 
+}
+
+/* Gestreifte Spalten in den Ergebnis-Listen
+	Striped rows in results */
+.mow-row-striped:nth-child(odd) {
+	background-color: rgba(0, 0, 0, 0.05);
 }
 
 
@@ -107,11 +58,24 @@ tr:nth-child(even) {
 }
 
 .social-twitter {
-    background: #68ace3;
+   background: #68ace3;
 	color: #fff;
 }
 
 .social-mail {
-    background: #c6c6c6;
+	background: #c6c6c6;
 	color: #fff;
+}
+
+
+/*	FadeIn + FadeOut */
+
+@keyframes myFadeIn {
+	from { opacity: 0; }
+	to { opacity: 1; }
+}
+
+@keyframes myFadeOut {
+	from { opacity: 1; }
+	to { opacity: 0; }
 }
