@@ -19,7 +19,6 @@
 - Technik: More than two answers (yes/no) like in https://github.com/JohnboyJovi/Mat-O-Wahl-multiAnswer -> "agree a lot, agree, -, disagree, disagree a lot"
 - Technik: Update jquery-csv to a new version (https://github.com/typeiii/jquery-csv) or "CSV-ES"-project (https://github.com/vanillaes/csv)
 - Technik: Update Bootstrap to latest version
-- Design: jumpToQuestion-Tabelle unter den Fragen: per Bootstrap-Gridsystem automatisch skalieren
 - Design: jumpToQuestion-Tabelle unter den Fragen: Alternative Ansicht: Keine Nummerierung (Mat-o-Wahl), sondern Punkte und Sterne (Wahl-o-Mat)
 - Technik: Include videos in questions or party-answers
 - Technik: Add Instagram Button (and maybe some more Social Media) ... or outsource via https://github.com/heiseonline/shariff
@@ -34,7 +33,28 @@
 
 ........20210926 Bundestagswahl in Deutschland 
 
-### 0.6.0.2021xxxx
+### 0.6.0.20210902 (BMBF-PTF)
+
+- End of funding project https://prototypefund.de/ "Runde 9" (Richtlinie "Software-Sprint") by *Bundesministerium für Bildung und Forschung* https://www.bmbf.de/ with support of *Open Knowledge Foundation Deutschland e.V.* https://okfn.de/ and *DLR Projektträger* https://www.dlr.de/pt/
+- **Summary of changes**
+  - New list of results: all parties and their answers (0.6.0.stable.20210313 BMBF-PTF-AP1)
+  - Added a **one-time welcome-message** instead of showing the election-description every time. (Improvement for mobile devices)
+  - New addon: Show only a **limited number of results** at the end https://github.com/msteudtn/Mat-O-Wahl/issues/21 
+  - New addon: **Ask for the favorite party** at the beginning (0.6.0.stable.20210709 BMBF-PTF-AP3)
+  - New addon: Include Mat-o-Wahl via an `iframe` on external sites https://github.com/msteudtn/Mat-O-Wahl/issues/25 
+  - Improved addon: **textfilter for multiple elections** with one "CSV-database" (e.g. Noth, East, South, West) (0.6.0.stable.20210405 BMBF-PTF-AP2) 
+  - Improved **settings for statistics** https://github.com/msteudtn/Mat-O-Wahl/issues/43 
+  - Slightly improved analysis of statistics from database instead of text-file https://github.com/msteudtn/Mat-O-Wahl/issues/18
+  - Changed the request for **permission for data-analytics**. It is now a pop-up (modal) after the last question instead of a toggle-button under the questions https://github.com/msteudtn/Mat-O-Wahl/issues/35
+  - Started to remove jQuery-library
+  - **UX changes**: removed some icons, re-arranged the order of the buttons, removed the progress-bar
+  - Major **changes to version 0.5.1**: 
+    - Renamed some variables in `DEFINITION.JS`
+    - New: array `var addons = []` in `DEFINITION.JS`
+    - Changed Type: `var design` is now an `ARRAY` and not a `STRING` in `DEFINITION.JS`
+    - Changed and updated CSS-Stylesheets in `/STYLES` and `INDEX.HTML`
+    - New variables in `/extras/i18n/`
+
 
 #### 0.6.0.stable.20210811 (BMBF-PTF)
 
@@ -43,12 +63,13 @@
   - `EXTRAS/ADDON_LIMIT_RESULTS.JS`
   - new / changed: Buttons in the (left) table `#resultsByThesisTable` are no longer under the whole table but under each question. So, under each `#resultsByThesisAnswersToQuestionX`.
 
+
 #### 0.6.0.stable.20210727 (BMBF-PTF)
 
 - **Update** for "Show only X parties in the list of results right away. The rest is visible on click."
   - https://github.com/msteudtn/Mat-O-Wahl/issues/21 - Nur die ersten 20 (?) Parteien in Tabellen anzeigen und darunter ein Button "Weitere anzeigen"
   - `EXTRAS/ADDON_LIMIT_RESULTS.JS`
-  - new: Option to show less results
+  - new: added an option to the addon to show less results 
   - new / changed: Buttons are shown directly under the (three) result-lists (tables). Before it was just one button at the end. 
   
 - Slowly starting to **remove jQuery**
