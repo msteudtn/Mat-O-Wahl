@@ -12,7 +12,7 @@ var TEXT_VOTING_DOUBLE = "Very important to me"
 var TEXT_ALLOW_STATISTIC = "Allow anonymous analytics (prognosis)? See <a href='"+imprintPrivacyUrl+"' target='_blank'>privacy statement</a>." // to be deleted
 
 var TEXT_ALLOW_STATISTIC_TITLE = "Before we'll show your results ..."
-var TEXT_ALLOW_STATISTIC_TEXT = "Will you allow to use <strong>anonymous</strong> data for statistics according to our <a href='"+imprintPrivacyUrl+"' target='_blank'>privacy statement</a>? This helps to improve this application."
+var TEXT_ALLOW_STATISTIC_TEXT = "Will you allow to use <strong>anonymous</strong> data for statistics according to our <a href='"+imprintPrivacyUrl+"' target='_blank'>privacy statement</a>? This helps us (the owner(s) of this site) to improve this application."
 var TEXT_ALLOW_STATISTIC_YES = "Yes, sure"
 var TEXT_ALLOW_STATISTIC_NO = "No, thanks."
 
@@ -21,7 +21,7 @@ var TEXT_IMPRINT = "[§] Legal Notice"
 var TEXT_RESTART = "[&#x21BB;] Restart questionnaire"
 
 // Results
-var TEXT_RESULTS_HEADING = "Your match with the different positions"
+var TEXT_RESULTS_HEADING = "Your matches with the different positions"
 
 var TEXT_RESULTS_INFO_THESES = "You can adjust your own opinion in the second row and reevaluate the result. <br /> Answers to the questions are shown on click on the corresponding question."
 var TEXT_RESULTS_INFO_PARTIES = "Analysis"
