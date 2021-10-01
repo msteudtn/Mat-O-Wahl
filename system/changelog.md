@@ -21,6 +21,11 @@
 
 ## Versions:
 
+### 0.6.0.1.2021xxxx
+
+- Security fix for database. Input is now checked more thoroughly.
+- Update in the privacy statement. The user didn't really know, who he/she was helping to improve the application? Me or the people running the current Mat-o-Wahl?
+
 ........20210926 Bundestagswahl in Deutschland 
 
 ### 0.6.0.20210902 (BMBF-PTF)
