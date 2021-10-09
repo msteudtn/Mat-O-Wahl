@@ -3,7 +3,7 @@
 ## To Do 
 
 - Features / Design
-   - More than two answers (yes/no) like in https://github.com/JohnboyJovi/Mat-O-Wahl-multiAnswer -> "agree a lot, agree, -, disagree, disagree a lot"
+  - More than two answers (yes/no) like in https://github.com/JohnboyJovi/Mat-O-Wahl-multiAnswer -> "agree a lot, agree, -, disagree, disagree a lot"
   - jumpToQuestion-Tabelle unter den Fragen: Alternative Ansicht: Keine Nummerierung (Mat-o-Wahl), sondern Punkte und Sterne (Wahl-o-Mat)
   - Include videos in questions or party-answers
   - Add more Social Media-Buttons (Instagram, ...) or outsource via https://github.com/heiseonline/shariff
@@ -20,6 +20,10 @@
 
 
 ## Versions:
+
+### 0.6.0.1.20211009
+
+- Update (Clarification) in the privacy statement. The user didn't really know, who he/she was helping to improve the application. Me or the people running the current Mat-o-Wahl?
 
 ........20210926 Bundestagswahl in Deutschland 
 
