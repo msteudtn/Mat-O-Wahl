@@ -21,6 +21,10 @@
 
 ## Versions:
 
+### 0.6.0.2.20211031
+
+- Updated error message(s) in `QUICKTEST.HTML`. Some users started Mat-o-Wahl locally but it didn't point out, that the **browsers block reading local files**. Also, added a link to the online-help. 
+
 ### 0.6.0.1.20211009
 
 - Update (Clarification) in the privacy statement. The user didn't really know, who he/she was helping to improve the application. Me or the people running the current Mat-o-Wahl?
