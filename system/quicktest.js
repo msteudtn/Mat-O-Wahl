@@ -383,6 +383,21 @@ function fnTestShowAll()
 
 */
 
+
+	// Protokoll prüfen - file:// oder http(s)://
+	var currentProtocol = window.location.protocol;
+	currentProtocol = currentProtocol.substr(0,4)
+	if (currentProtocol != "http") {
+		counterError++
+			$("#testOtherDe").append("<b>("+counterError+").</b>")
+				.append(" Der Browser verhindert, dass Dateien von der lokalen Festplatte gelesen werden. Lösungsvorschläge finden Sie in der Online-Dokumentation unter <a href='https://www.mat-o-wahl.de/dokumentation.html#technikHttp' target='_blank'>Testen der Einstellungen</a>. ")
+				.append("<br />");
+			$("#testOtherEn").append("<b>("+counterError+").</b>")
+				.append(" The browser blocks loading local files. You can find possible solutions in the online-help at <a href='https://www.mat-o-wahl.de/dokumentation.html#technikHttp' target='_blank'>Testen der Einstellungen</a> (German). ")
+				.append("<br />");		
+		}
+
+
 	// Abschlussevaluation - Last check
 	if (counterError > 0)
 	{
