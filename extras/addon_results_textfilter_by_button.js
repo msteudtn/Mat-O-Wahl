@@ -28,11 +28,12 @@ var TEXTFILTER_BUTTONTEXTS = ["Alle anzeigen", "Bürgermeisterkandidaten &#x1F46
 
 // 3.) Filter-Sonderzeichen in PARTEIEN-ANTWORTEN.CSV einfügen. Beispiel:
 // Put the filter character(s) in PARTY-ANSWERS.CSV. Example:
-// Partei_kurz:;"&#x1F464; APPD &#8203; &#8206;"
-// Partei_kurz:;"Bananen &#8203; &#8205;"
+// Partei_Beschreibung:;"Die Apfelpartei steht seit vielen Jahren für alle Angelegenheiten des Apfels. &#x1F464; &#8203; &#8206;"
+// Partei_Beschreibung:;"Warum ist die Banane krumm? [...] alle Belange der Bananen.  &#8203; &#8205;"
 
 // 4.) In der DEFINITION.JS in den Erweiterten Einstellungen das Add-On eintragen.
 // Add the add-on to the advanced settings in DEFINITION.JS
+// var addons = ["extras/addon_results_textfilter_by_button.js"]
 
 // 5.) Fertig. 
 // That's it.
