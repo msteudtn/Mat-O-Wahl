@@ -21,6 +21,14 @@
 
 ## Versions:
 
+### 0.6.0.3.20220227
+
+- Fix for https://github.com/msteudtn/Mat-O-Wahl/issues/58 
+  - updated `EXTRAS/addon_results_textfilter_by_button.js` 
+  - Major **change** in the addon! Keywords for the search have to be placed in the party-description and no longer in the party-name.
+  - before: `ABC-Party #keyword &#x1F464; &#8203; &#8206;`
+  - after: `The ABC-Party fights for your right to literacy. #keyword &#x1F464; &#8203; &#8206;`
+
 ### 0.6.0.2.20211031
 
 - Updated error message(s) in `QUICKTEST.HTML`. Some users started Mat-o-Wahl locally but it didn't point out, that the **browsers block reading local files**. Also, added a link to the online-help. 
