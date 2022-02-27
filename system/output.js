@@ -614,6 +614,7 @@ function fnEvaluationByThesis(arResults)
 							// Inhalt der Zelle
 							tableContent += " <div class='row mow-row-striped' role='row'> ";
 //								tableContent += " <div class='col-1'> </div> ";
+								// 1./2 Zellen in der Zeile: Icon [+] [0] [-]
 								tableContent += " <div class='col col-2' role='cell'> ";
 								//tableContent += "<p>"
 									tableContent += "<button type='button' class='btn "+positionButton+" btn-sm' disabled "+
@@ -621,8 +622,13 @@ function fnEvaluationByThesis(arResults)
 											" "+positionIcon+"</button>";
 								tableContent += "</div>";							
 								
+								// 2./2 Zellen = letzte Zelle in der Zeile: Name der Partei + Begründung
 								tableContent += " <div class='col col-10' role='cell'> ";
 									tableContent += "<strong>" + arPartyNamesShort[partyNum] + "</strong>: " + ( arPartyOpinions[partyPositionsRow] === "" ? "" : "" + arPartyOpinions[partyPositionsRow] ) + " ";
+									
+									// die Beschreibung der Partei in einem VERSTECKTEN DIV -> ein Workaround für das Addon "Textfilter" (siehe /EXTRAS) :(
+									tableContent += "<span style='visibility:hidden; display:none;' aria-hidden='true'>"+arPartyDescription[partyNum]+"</span>"
+																		
 								//tableContent += "</p>";
 								tableContent += "</div>";
 							tableContent += "</div>"; // row 
@@ -815,7 +821,7 @@ function fnEvaluationByParty(arResults)
 		for (j = jStart; j <= jEnd; j++)
 		{
 
-			// Zelle - Frage
+			// 1./4 Zellen - Frage
 			modulo = j % intQuestions // z.B. arPartyPositions[11] % 5 Fragen = 1 -> arQuestionsShort[1] = 2. Frage		
 			// tableContent += " <tr>"
 			// tableContent += "  <td class='align-text-top'>"
@@ -826,7 +832,7 @@ function fnEvaluationByParty(arResults)
 				tableContent += "  </div>" // end col-5 Frage
 
 
-			// Zelle - Icon für eigene eigene Meinung
+			// 2./4 Zellen - Icon für eigene Meinung [+] [0] [-]
 			var positionButton = fnTransformPositionToButton(arPersonalPositions[modulo]);
 			var positionIcon = fnTransformPositionToIcon(arPersonalPositions[modulo]);
 			var positionText  = fnTransformPositionToText(arPersonalPositions[modulo]);
@@ -845,7 +851,7 @@ function fnEvaluationByParty(arResults)
 			tableContent += " </div> ";
 
 
-			// Zelle - Icons für Postion der Parteien
+			// 3./4 Zellen - Icons für Postion der Parteien [+] [0] [-]
 			var positionIcon = fnTransformPositionToIcon(arPartyPositions[j]);
 			var positionButton = fnTransformPositionToButton(arPartyPositions[j]);
 			var positionText  = fnTransformPositionToText(arPartyPositions[j]);
@@ -854,15 +860,19 @@ function fnEvaluationByParty(arResults)
 			tableContent += " <div class='col col-2 order-3 col-md-1 order-md-3' role='cell'> ";
 				tableContent += "<button type='button' class='btn "+positionButton+" btn-sm' disabled "+
 												" alt='"+TEXT_ANSWER_PARTY+" : "+positionText+"' title='"+TEXT_ANSWER_PARTY+" : "+positionText+"'>"+
-												" "+positionIcon+"</button>";
-			tableContent += "<span style='display:none;'>"+arPartyNamesShort[partyNum]+"</span>"	// Einfügen (Verstecken) des Parteinamens für Textfilter-Addon (siehe /EXTRAS)
+												" "+positionIcon+"</button>"; 
 			// tableContent += "  </td>"
 			tableContent += " </div> ";
 			
-			// Zelle - Antwort der Partei
+			
+			// 4./4 Zellen - Antwort der Partei
 			tableContent += " <div class='col col-10 order-4 col-md-5 order-md-4' role='cell' headers='resultsByPartyHeading"+i+"' tabindex='0'> ";
 			// tableContent += "  <td class='align-text-top' headers='resultsByPartyHeading"+i+"' tabindex='0'>"
 			tableContent += " "+arPartyOpinions[j]
+			
+			// die Beschreibung der Partei in einem VERSTECKTEN DIV -> ein Workaround für das Addon "Textfilter" (siehe /EXTRAS) :(
+			tableContent += "<span style='visibility:hidden; display:none;' aria-hidden='true'>"+arPartyDescription[partyNum]+"</span>"
+			
 			// tableContent += "  </td>"
 			tableContent += " </div> ";
 
