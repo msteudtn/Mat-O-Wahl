@@ -21,13 +21,16 @@
 
 ## Versions:
 
-### 0.6.0.3.20220227
+### 0.6.0.3.202200303
 
 - Fix for https://github.com/msteudtn/Mat-O-Wahl/issues/58 
   - updated `OUTPUT.JS`, `GENERAL.JS` and CSV-file of parties for `EXTRAS/addon_results_textfilter_by_button.js`
   - Major **change** in the addon! Keywords for the search have to be placed in the party-description and no longer in the party-name.
   - before: `ABC-Party #keyword &#x1F464; &#8203; &#8206;`
   - after: `The ABC-Party fights for your right to literacy. #keyword &#x1F464; &#8203; &#8206;`
+  - Filter-buttons are now shown twice: on top and at the bottom
+  - Filter-buttons at the top moved under the headline (before: over the headline)
+  - First button is now active by default.
 
 ### 0.6.0.2.20211031
 
