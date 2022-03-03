@@ -95,13 +95,23 @@ function mow_addon_textfilter_create_buttons() {
 		// gehe durch Array und schreibe Inhalt
 		for (i = 0; i < TEXTFILTER_BUTTONTEXTS.length; i++) {
 			divContent += ' <div class="col">'
-			divContent += '  <button id="mow_addon_textfilter_button'+i+'" type="button" class="btn btn-secondary btn-block" onclick="mow_addon_textfilter_filter_tables(\''+TEXTFILTER_KEYWORDS[i]+'\','+i+');">'+TEXTFILTER_BUTTONTEXTS[i]+'</button>'
+			divContent += '  <button type="button" class="btn btn-secondary btn-block mow_addon_textfilter_button'+i+'" onclick="mow_addon_textfilter_filter_tables(\''+TEXTFILTER_KEYWORDS[i]+'\','+i+');">'+TEXTFILTER_BUTTONTEXTS[i]+'</button>'
 			divContent += ' </div>'
 		} // end: for TEXTFILTER_BUTTONTEXTS.length
 
 		divContent += '</div>'
 
-		$("#resultsAddonTop").append(divContent).fadeIn(750); 
+		// bis Version 0.6.0.2 - alleinige Anzeige der Buttons über der Überschrift :(
+		// $("#resultsAddonTop").append(divContent).fadeIn(750);
+		 
+		// Buttons OBEN anzeigen - UNTER der Überschrift und ÜBER der ersten Tabelle  
+		$( divContent ).insertBefore( $("#resultsShort") ).fadeIn(750);
+		
+		// Buttons UNTEN anzeigen - UNTER den ausführlichen Auswertungen und über der Fußzeile
+		$( divContent ).insertBefore( $("#sectionFooter") ).fadeIn(750); 
+
+		// ersten Button mit ID 0 aktivieren, so dass er gleich eingefärbt ist.
+		mow_addon_textfilter_color_buttons(0)
 
 	} // end: else
 
@@ -182,11 +192,11 @@ function mow_addon_textfilter_color_buttons(idNumber) {
 
 		if (i == idNumber)
 		{
-			$("#mow_addon_textfilter_button"+i).addClass('btn-primary').removeClass('btn-secondary');
+			$(".mow_addon_textfilter_button"+i).addClass('btn-primary').removeClass('btn-secondary');
 		}
 		else
 		{
-			$("#mow_addon_textfilter_button"+i).addClass('btn-secondary').removeClass('btn-primary');
+			$(".mow_addon_textfilter_button"+i).addClass('btn-secondary').removeClass('btn-primary');
 		}
 
 	} // end: for
