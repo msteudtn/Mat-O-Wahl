@@ -21,7 +21,7 @@
 
 ## Versions:
 
-### 0.6.0.3.202200303
+### 0.6.0.3.20220303
 
 - Fix for https://github.com/msteudtn/Mat-O-Wahl/issues/58 
   - updated `OUTPUT.JS`, `GENERAL.JS` and CSV-file of parties for `EXTRAS/addon_results_textfilter_by_button.js`
