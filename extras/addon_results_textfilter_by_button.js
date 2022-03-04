@@ -28,11 +28,12 @@ var TEXTFILTER_BUTTONTEXTS = ["Alle anzeigen", "Bürgermeisterkandidaten &#x1F46
 
 // 3.) Filter-Sonderzeichen in PARTEIEN-ANTWORTEN.CSV einfügen. Beispiel:
 // Put the filter character(s) in PARTY-ANSWERS.CSV. Example:
-// Partei_kurz:;"&#x1F464; APPD &#8203; &#8206;"
-// Partei_kurz:;"Bananen &#8203; &#8205;"
+// Partei_Beschreibung:;"Die Apfelpartei steht seit vielen Jahren für alle Angelegenheiten des Apfels. &#x1F464; &#8203; &#8206;"
+// Partei_Beschreibung:;"Warum ist die Banane krumm? [...] alle Belange der Bananen.  &#8203; &#8205;"
 
 // 4.) In der DEFINITION.JS in den Erweiterten Einstellungen das Add-On eintragen.
 // Add the add-on to the advanced settings in DEFINITION.JS
+// var addons = ["extras/addon_results_textfilter_by_button.js"]
 
 // 5.) Fertig. 
 // That's it.
@@ -94,13 +95,23 @@ function mow_addon_textfilter_create_buttons() {
 		// gehe durch Array und schreibe Inhalt
 		for (i = 0; i < TEXTFILTER_BUTTONTEXTS.length; i++) {
 			divContent += ' <div class="col">'
-			divContent += '  <button id="mow_addon_textfilter_button'+i+'" type="button" class="btn btn-secondary btn-block" onclick="mow_addon_textfilter_filter_tables(\''+TEXTFILTER_KEYWORDS[i]+'\','+i+');">'+TEXTFILTER_BUTTONTEXTS[i]+'</button>'
+			divContent += '  <button type="button" class="btn btn-secondary btn-block mow_addon_textfilter_button'+i+'" onclick="mow_addon_textfilter_filter_tables(\''+TEXTFILTER_KEYWORDS[i]+'\','+i+');">'+TEXTFILTER_BUTTONTEXTS[i]+'</button>'
 			divContent += ' </div>'
 		} // end: for TEXTFILTER_BUTTONTEXTS.length
 
 		divContent += '</div>'
 
-		$("#resultsAddonTop").append(divContent).fadeIn(750); 
+		// bis Version 0.6.0.2 - alleinige Anzeige der Buttons über der Überschrift :(
+		// $("#resultsAddonTop").append(divContent).fadeIn(750);
+		 
+		// Buttons OBEN anzeigen - UNTER der Überschrift und ÜBER der ersten Tabelle  
+		$( divContent ).insertBefore( $("#resultsShort") ).fadeIn(750);
+		
+		// Buttons UNTEN anzeigen - UNTER den ausführlichen Auswertungen und über der Fußzeile
+		$( divContent ).insertBefore( $("#sectionFooter") ).fadeIn(750); 
+
+		// ersten Button mit ID 0 aktivieren, so dass er gleich eingefärbt ist.
+		mow_addon_textfilter_color_buttons(0)
 
 	} // end: else
 
@@ -181,11 +192,11 @@ function mow_addon_textfilter_color_buttons(idNumber) {
 
 		if (i == idNumber)
 		{
-			$("#mow_addon_textfilter_button"+i).addClass('btn-primary').removeClass('btn-secondary');
+			$(".mow_addon_textfilter_button"+i).addClass('btn-primary').removeClass('btn-secondary');
 		}
 		else
 		{
-			$("#mow_addon_textfilter_button"+i).addClass('btn-secondary').removeClass('btn-primary');
+			$(".mow_addon_textfilter_button"+i).addClass('btn-secondary').removeClass('btn-primary');
 		}
 
 	} // end: for
