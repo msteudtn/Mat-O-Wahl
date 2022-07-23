@@ -9,11 +9,21 @@
 
 // 1.) Allgemeine Angaben
 // General Settings
-var CONTACT_TEXT_EMAIL = "E-Mail"
-var CONTACT_TEXT_TEL = "Telefon"
+var CONTACT_ACTIVE_EMAIL = 1
+var CONTACT_ACTIVE_TEL = 0
 
-var CONTACT_DATA_EMAIL = "info@meine-freiwilligenagentur.de"
-var CONTACT_DATA_TEL = "+49123456789"
+var CONTACT_BUTTON_EMAIL = "E-Mail"
+var CONTACT_BUTTON_TEL = "Telefon"
+
+var CONTACT_ADDRESS_EMAIL = "info@meine-freiwilligenagentur.de"
+var CONTACT_ADDRESS_TEL = "+49123456789"
+
+var CONTACT_SUBJECT_EMAIL = "Mitwirk-o-Mat - Anfrage zu Vereinen für Kennenlerngespräch"
+
+var CONTACT_TEXT_EMAIL = "Hallo, \n\n\nich habe gerade den Mitwirk-o-Mat ausgeführt und interessiere mich für einen bestimmten Verein. \n\nBitte ruft mich doch mal an oder schreibt mir, so dass ich den Verein besser kennen lernen kann."
+var CONTACT_TEXT_TEL = ""
+
+
 
 
 // 2.) In der DEFINITION.JS in den Erweiterten Einstellungen das Add-On eintragen.
@@ -74,37 +84,69 @@ function mow_addon_contacts_create_content() {
 	else {
 		
 		
-		// divContent = '<div class="row">'
+
 
 		// gehe durch Array und schreibe Inhalt
 		for (i = 0; i <= (intParties-1); i++)
 		{
 			var partyNum=arSortParties[i];	// aus "output.js" kopiert. :)
 		
-			divContent = "";	
-			divContent += ' <div class="col">'
-			divContent += '  <a href="mailto:'+CONTACT_DATA_EMAIL+'" role="button" class="btn btn-sm btn-success" aria-pressed="true">'+CONTACT_TEXT_EMAIL+' - '+partyNum+'</a>'
-			divContent += ' </div>'
+			divContent = "";
+	
+			// neue Bootstrap-ROW-Zeile		
+			divContent = '<div class="row" id="resultsShortPartyAddonContactsInResults'+partyNum+'">'
 
-			divContent += ' <div class="col">'
-			divContent += '  <a href="tel:'+CONTACT_DATA_TEL+'" role="button" class="btn btn-sm btn-success" aria-pressed="true">'+CONTACT_TEXT_TEL+'</a>'
-			divContent += ' </div>'
+			// wenn die Variable auf 1 / aktiv gesetzt ist, schreibe Button
+			if (CONTACT_ACTIVE_EMAIL > 0 ) {			
+				divContent += ' <div class="col">'
+				divContent += '  <a href="mailto:'+CONTACT_ADDRESS_EMAIL+'?subject='+encodeURI(CONTACT_SUBJECT_EMAIL)+'&body='+encodeURI(CONTACT_TEXT_EMAIL)+'" role="button" class="btn btn-sm btn-success">'+CONTACT_BUTTON_EMAIL+'-'+partyNum+'</a>'
+				divContent += ' </div>'
+			}
 
-		// neues <div class="row"> erstellen und "divContent" hineinschreiben 
-		var element_resultsShortParty_description = document.getElementById("resultsShortParty"+partyNum).getElementsByTagName("p")[0]
-		var new_div_element = document.createElement('div');
-		element_resultsShortParty_description_div = element_resultsShortParty_description.appendChild(new_div_element)
-		element_resultsShortParty_description_div.className = "row"
-		element_resultsShortParty_description_div.innerHTML = divContent		
+			// wenn die Variable auf 1 / aktiv gesetzt ist, schreibe Button
+			if (CONTACT_ACTIVE_TEL > 0 ) {
+				divContent += ' <div class="col">'
+				divContent += '  <a href="tel:'+CONTACT_ADDRESS_TEL+'" role="button" class="btn btn-sm btn-success" aria-pressed="true">'+CONTACT_BUTTON_TEL+'</a>'
+				divContent += ' </div>'
+			}
 
+			divContent += '</div>'
+
+			// richtige Nummer der Partei finden und die neue ROW-Zeile dahinter einfügen    	
+			var element_resultsShortParty = document.getElementById("resultsShortParty"+partyNum)		
+			element_resultsShortParty.insertAdjacentHTML('afterend', divContent)
 			
 		} // end: for intParties.length
 
-		// divContent += '</div>'		
+		// Klick-Funktion auf die gesamte Ergebnis-Zeile legen und am Anfang ausblenden
+		mow_addon_contacts_add_click_on_row()
+		
 
 	} // end: else
 
 }
+
+
+// Klick-Funktion auf die gesamte Ergebnis-Zeile legen und am Anfang ausblenden
+function mow_addon_contacts_add_click_on_row() {
+	// Click-Funktion auf PARTEINAME-Zeile legen zum Anzeigen der BUTTONS 
+	// kopiert / angepasst aus "output.js" - ca. Zeile 450
+	
+	for (let i = 0; i <= (intParties-1); i++)
+	{
+		// Klickfunktion - bei Überschrift
+		$("#resultsShortParty"+i).click(function () { 
+				$("#resultsShortPartyAddonContactsInResults"+i).toggle(500);
+			});	
+
+		// am Anfang ausblenden
+		$("#resultsShortPartyAddonContactsInResults"+i).fadeOut(500);
+	}
+	
+}
+
+
+
 
 
 // Start
