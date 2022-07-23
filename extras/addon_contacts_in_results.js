@@ -16,7 +16,6 @@ var CONTACT_DATA_EMAIL = "info@meine-freiwilligenagentur.de"
 var CONTACT_DATA_TEL = "+49123456789"
 
 
-
 // 2.) In der DEFINITION.JS in den Erweiterten Einstellungen das Add-On eintragen.
 // Add the add-on to the advanced settings in DEFINITION.JS
 // var addons = ["extras/addon_contacts_in_results.js"]
