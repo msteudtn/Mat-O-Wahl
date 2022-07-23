@@ -10,10 +10,10 @@
 // 1.) Allgemeine Angaben
 // General Settings
 var CONTACT_ACTIVE_EMAIL = 1
-var CONTACT_ACTIVE_TEL = 0
+var CONTACT_ACTIVE_TEL = 1
 
-var CONTACT_BUTTON_EMAIL = "E-Mail"
-var CONTACT_BUTTON_TEL = "Telefon"
+var CONTACT_BUTTON_EMAIL = "Kontakt per E-Mail"
+var CONTACT_BUTTON_TEL = "Kontakt per Telefon"
 
 var CONTACT_ADDRESS_EMAIL = "info@meine-freiwilligenagentur.de"
 var CONTACT_ADDRESS_TEL = "+49123456789"
@@ -82,24 +82,22 @@ function mow_addon_contacts_create_content() {
 	}
 	// schreibe Kontakt-Buttons
 	else {
-		
-		
-
 
 		// gehe durch Array und schreibe Inhalt
-		for (i = 0; i <= (intParties-1); i++)
+		for (j = 0; j <= (intParties-1); j++)
 		{
-			var partyNum=arSortParties[i];	// aus "output.js" kopiert. :)
-		
-			divContent = "";
+			var partyNum=arSortParties[j];	// aus "output.js" kopiert. :)
+			
+			var divContent = "";
 	
 			// neue Bootstrap-ROW-Zeile		
-			divContent = '<div class="row" id="resultsShortPartyAddonContactsInResults'+partyNum+'">'
+			divContent += '<div class="row border rounded mow-row-striped " id="resultsShortPartyAddonContactsInResults'+partyNum+'">'
 
 			// wenn die Variable auf 1 / aktiv gesetzt ist, schreibe Button
-			if (CONTACT_ACTIVE_EMAIL > 0 ) {			
+			if (CONTACT_ACTIVE_EMAIL > 0 ) {	
+				
 				divContent += ' <div class="col">'
-				divContent += '  <a href="mailto:'+CONTACT_ADDRESS_EMAIL+'?subject='+encodeURI(CONTACT_SUBJECT_EMAIL)+'&body='+encodeURI(CONTACT_TEXT_EMAIL)+'" role="button" class="btn btn-sm btn-success">'+CONTACT_BUTTON_EMAIL+'-'+partyNum+'</a>'
+				divContent += '  <a href="mailto:'+CONTACT_ADDRESS_EMAIL+'?subject='+encodeURI(CONTACT_SUBJECT_EMAIL)+'&body='+encodeURI(CONTACT_TEXT_EMAIL)+'_'+mow_addon_contacts_add_results_to_text()+'" role="button" class="btn btn-sm btn-success">'+CONTACT_BUTTON_EMAIL+'</a>'
 				divContent += ' </div>'
 			}
 
@@ -115,8 +113,8 @@ function mow_addon_contacts_create_content() {
 			// richtige Nummer der Partei finden und die neue ROW-Zeile dahinter einfügen    	
 			var element_resultsShortParty = document.getElementById("resultsShortParty"+partyNum)		
 			element_resultsShortParty.insertAdjacentHTML('afterend', divContent)
-			
-		} // end: for intParties.length
+						
+		} // end: for intParties
 
 		// Klick-Funktion auf die gesamte Ergebnis-Zeile legen und am Anfang ausblenden
 		mow_addon_contacts_add_click_on_row()
@@ -145,6 +143,24 @@ function mow_addon_contacts_add_click_on_row() {
 	
 }
 
+function mow_addon_contacts_add_results_to_text() {
+
+		var statistics_text = "\n\n Meine Ergebnisse lauteten wie folgt: \n\n"
+
+		for (i = 0; i <= (intParties-1); i++)
+		{
+			var partyNum=arSortParties[i];	// aus "output.js" kopiert. :)
+
+			var partyNameLong = arPartyNamesLong[partyNum];
+			var partyPoints = arResults[partyNum];
+			
+			statistics_text += "\n"+partyNameLong+": "+partyPoints+" Punkte";
+			
+		}
+		statistics_text = encodeURI(statistics_text);
+		return statistics_text;
+
+}
 
 
 
