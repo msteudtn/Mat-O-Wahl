@@ -269,8 +269,8 @@ function fnShowOnlyIntPartiesAtEnd(rowStart, rowEnd) {
 		var element_resultsShortTable_col = document.getElementById("resultsShortTable").getElementsByClassName("col")[0]
 		var element_resultsByThesisTable_col = document.getElementById("resultsByThesisTable").getElementsByClassName("col")[0]
 		
-		// obere (erste) Tabelle + Tabelle sortiert nach Parteien (rechts)
-		// upper (first) list + list sorted by parties (right)
+		// obere (erste) Tabelle #resultsShort + Tabelle sortiert nach Parteien (rechts) #resultsByParty
+		// upper (first) list #resultsShort + list sorted by parties (right) #resultsByParty
 		for (i = 0; i <= intParties-1; i++) {
 						
 			if ( (i >= rowStart) &&  (i < rowEnd) ) {
@@ -279,7 +279,7 @@ function fnShowOnlyIntPartiesAtEnd(rowStart, rowEnd) {
 								
 				// Tabelle sortiert nach Parteien (rechts)
 				fnFadeIn(document.getElementById("resultsByPartyHeading"+i).getElementsByClassName("row")[0], 500, 1)
-				// fnFadeIn(document.getElementById("resultsByPartyAnswersToQuestion"+i), 500, 1)
+				fnFadeIn(document.getElementById("resultsByPartyAnswersToQuestion"+i).getElementsByClassName("row")[0], 500, 1)
 			}
 			else {
 				// erste Tabelle: resultsShortTable (oben)
@@ -287,13 +287,13 @@ function fnShowOnlyIntPartiesAtEnd(rowStart, rowEnd) {
 				
 				// Tabelle sortiert nach Parteien (rechts)
 				fnFadeOut(document.getElementById("resultsByPartyHeading"+i).getElementsByClassName("row")[0], 500, 1)
-				// fnFadeOut(document.getElementById("resultsByPartyAnswersToQuestion"+i).getElementsByClassName("row")[0], 500, 0)
+				fnFadeOut(document.getElementById("resultsByPartyAnswersToQuestion"+i).getElementsByClassName("row")[0], 500, 1)
 			}
 			 
 		} // end: for-intParties
 
 
-		// Tabelle sortiert nach Fragen (links) / list sorted by questions (left)
+		// Tabelle sortiert nach Fragen (links) / list sorted by questions (left) #resultsByThesis
 		for (i = 0; i <= intQuestions-1; i++) {
 
 
