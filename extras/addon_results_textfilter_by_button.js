@@ -159,24 +159,32 @@ function mow_addon_textfilter_filter_tables(search_keyword, idNumber) {
 function mow_addon_textfilter_hide_show_row(search_keyword, tableID) {
 	
    table = document.getElementById(tableID);
-	// zeile = table.getElementsByTagName("tr")
+
+
 	zeile = table.getElementsByClassName("row")
-//	console.log("Anzahl:" +zeile.length+" ID: "+tableID)
+
+
 
 	// Durch alle Zeilen gehen und diejenigen verstecken, ohne Suchbegriff.
 	for (i = 0; i < zeile.length; i++) {
-		{
+		{	
+
 			// console.log(i+" "+zeile[i].textContent)
 			txtValue = zeile[i].textContent || zeile[i].innerText;
-//			console.log(i+" "+txtValue)
 
-			// wenn Suchbegriff nicht gefunden, dann CSS-display-Eigenschaft zurücksetzen.
-			if (txtValue.toUpperCase().indexOf(search_keyword) > -1) {
-				zeile[i].style.display = "" 
+	
+			// Wenn Suchbegriff gefunden, dann CSS-display-Eigenschaft zurücksetzen. = anzeigen
+			// ... oder wenn CSS-(Pseudo)-Klasse "showAlwaysIsTrue" vorhanden ist = anzeigen (Buttons von addon_limit_results.js)
+			if ( (txtValue.toUpperCase().indexOf(search_keyword) > -1) || ( zeile[i].className.indexOf("showAlwaysIsTrue") > -1 ) ) {
+				zeile[i].style.display = ""
+				zeile[i].style.visibility = ""
+				// console.log(i+" "+txtValue) 
 			} 
 			// wenn Suchbegriff gefunden, dann CSS-display-Eigenschaft auf "none".
+			// aber CSS:visibility belassen für "addon_limit_results.js" usw.
 			else {
-				zeile[i].style.display = "none" 
+				zeile[i].style.display = "none"
+				zeile[i].style.visibility = "" 
 			} 
 		}
 	}
