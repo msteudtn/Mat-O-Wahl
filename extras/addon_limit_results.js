@@ -115,7 +115,7 @@ function mow_addon_limit_results_create_buttons() {
 		var element_resultsShortTable_col = document.getElementById("resultsShortTable").getElementsByClassName("col")[0]
 		var div_element = document.createElement('div');
 		resultsShortTable_col_row = element_resultsShortTable_col.appendChild(div_element)
-		resultsShortTable_col_row.className = "row"
+		resultsShortTable_col_row.className = "row showAlwaysIsTrue" // "showAlwaysIsTrue" ist eine Pseudo-CSS-Klasse. -> nur für andere Addons als Warnung, z.B. "addon_results_textfilter_by_button.js"
 		
 		// 2a COL left
 		var div_element = document.createElement('div');
@@ -140,7 +140,7 @@ function mow_addon_limit_results_create_buttons() {
 			var element_resultsByThesisTable_col = document.getElementById("resultsByThesisAnswersToQuestion"+i).getElementsByClassName("col")[0]
 			var div_element = document.createElement('div');
 			element_resultsByThesisTable_col_row = element_resultsByThesisTable_col.appendChild(div_element)
-			element_resultsByThesisTable_col_row.className = "row"
+			element_resultsByThesisTable_col_row.className = "row showAlwaysIsTrue" // "showAlwaysIsTrue" ist eine Pseudo-CSS-Klasse. -> nur für andere Addons als Warnung, z.B. "addon_results_textfilter_by_button.js"
 
 			// 2a COL left		
 			var div_element = document.createElement('div');
@@ -160,7 +160,7 @@ function mow_addon_limit_results_create_buttons() {
 		var element_resultsByPartyTable_col = document.getElementById("resultsByPartyTable").getElementsByClassName("col")[0]
 		var div_element = document.createElement('div');
 		element_resultsByPartyTable_col_row = element_resultsByPartyTable_col.appendChild(div_element)
-		element_resultsByPartyTable_col_row.className = "row"
+		element_resultsByPartyTable_col_row.className = "row showAlwaysIsTrue" // "showAlwaysIsTrue" ist eine Pseudo-CSS-Klasse. -> nur für andere Addons als Warnung, z.B. "addon_results_textfilter_by_button.js"
 
 		// 2a COL left
 		var div_element = document.createElement('div');
@@ -266,44 +266,104 @@ function fnCalculate_Buttons(rowStart, rowEnd) {
 // Show / hide lines 
 function fnShowOnlyIntPartiesAtEnd(rowStart, rowEnd) {		
 		
+		// Anzahl der Zeilen (mit Bootstrap-Klasse "row") finden für FOR-Schleife  später
+		// Nur relevant in der #resultsShortTable (oben) falls es noch extra Zeilen aus anderen Addons gibt.
+		var resultsShortTable_rows = document.getElementById("resultsShortTable").getElementsByClassName("row")
+		var resultsShortTable_rows_length = resultsShortTable_rows.length - 1;
+		var multiplikator = resultsShortTable_rows_length / intParties // z.B. 8 Zeilen / 4 Parteien = 2
+				
 		var element_resultsShortTable_col = document.getElementById("resultsShortTable").getElementsByClassName("col")[0]
 		var element_resultsByThesisTable_col = document.getElementById("resultsByThesisTable").getElementsByClassName("col")[0]
 		
-		// obere (erste) Tabelle + Tabelle sortiert nach Parteien (rechts)
-		// upper (first) list + list sorted by parties (right)
+		// 1. obere (erste) Tabelle #resultsShort + 2. Tabelle sortiert nach Parteien (rechts) #resultsByParty
+		// 1. upper (first) list #resultsShort + 2. list sorted by parties (right) #resultsByParty
 		for (i = 0; i <= intParties-1; i++) {
 						
 			if ( (i >= rowStart) &&  (i < rowEnd) ) {
+				
 				// erste Tabelle: resultsShortTable (oben)
-				fnFadeIn(element_resultsShortTable_col.getElementsByClassName("row")[i], 500, 1)
-								
+				// Es kann sein, dass andere Addons zusätzliche Zeilen (rows) eingefügt haben. (z.B. addon_contacts_in_results.js) 
+				// Nun wird geprüft, ob es eine normale Zeile ist oder eine eingefügte Zeile.
+				
+				// Bsp.: 5 Parteien x (1 Standardzeile + 2 extra Zeilen) = Multiplikator von 3 
+				for (j = (i*multiplikator); j <= ( (i+1) * multiplikator-1); j++) {
+					// i: 0 - - 1 - - 2 - -
+					// j: 0 - - 3 - - 6 - - 
+					if (j == (i*multiplikator)) {
+						// Standardzeile (Parteiname, Bild, Prozent, Beschreibung) -> anzeigen
+						// fnFadeIn(element_resultsShortTable_col.getElementsByClassName("row")[j], 500, 1)
+						element_resultsShortTable_col.getElementsByClassName("row")[j].style.display = ""
+						element_resultsShortTable_col.getElementsByClassName("row")[j].style.visibility = ""
+						// console.log("IF-IN  i: "+i+" j: "+j+" multiplikator: "+multiplikator)	
+					}
+					// i: - 0 0 - 1 1 - 2 2 
+					// j: - 1 2 - 4 5 - 7 8 
+					else {
+						// nix - Zeile sollte durch das Addon bereits ausgeblendet sein
+						// console.log("IF-out i: "+i+" j: "+j+" multiplikator: "+multiplikator)
+					}
+					
+				}
+
+
 				// Tabelle sortiert nach Parteien (rechts)
-				fnFadeIn(document.getElementById("resultsByPartyHeading"+i).getElementsByClassName("row")[0], 500, 1)
-				// fnFadeIn(document.getElementById("resultsByPartyAnswersToQuestion"+i), 500, 1)
+				// fnFadeIn(document.getElementById("resultsByPartyHeading"+i).getElementsByClassName("row")[0], 500, 1)
+				// fnFadeIn(document.getElementById("resultsByPartyAnswersToQuestion"+i).getElementsByClassName("row")[0], 500, 1)
+				
+				document.getElementById("resultsByPartyHeading"+i).getElementsByClassName("row")[0].style.display = ""
+				document.getElementById("resultsByPartyAnswersToQuestion"+i).getElementsByClassName("row")[0].style.display = ""
 			}
+			
+			// Alle Zeilen, die außerhalb des Limits liegen -> ausblenden!
 			else {
+				
 				// erste Tabelle: resultsShortTable (oben)
-				fnFadeOut(element_resultsShortTable_col.getElementsByClassName("row")[i], 500, 1)
+				// i: 3 - - -4 - - -5 - - 
+				// j: 9 - - 12 - - 15 - - 
+				for (j = (i*multiplikator); j <= ( (i+1) * multiplikator-1); j++) {
+					if (j == (i*multiplikator)) {
+						// Standardzeile (Parteiname, Bild, Prozent, Beschreibung) -> ausblenden
+						// fnFadeOut(element_resultsShortTable_col.getElementsByClassName("row")[j], 500, 1)
+						element_resultsShortTable_col.getElementsByClassName("row")[j].style.display = "none"
+						// element_resultsShortTable_col.getElementsByClassName("row")[j].style.visibility = "hidden"
+						// console.log("ELSE-if  i: "+i+" j: "+j+" multiplikator: "+multiplikator)	
+					}
+					// i: -- -3 -3 -- -4 -4 -- -5 -5 
+					// j: -- 10 11 -- 13 14 -- 16 17 
+					else {
+						// Standardzeile (Parteiname, Bild, Prozent, Beschreibung) -> verstecken 
+						// fnFadeOut() nutzt CSS:visibility und CSS:display -> Anzeigeprobleme! :(
+						element_resultsShortTable_col.getElementsByClassName("row")[j].style.display = "none"
+						// console.log("ELSE-else i: "+i+" j: "+j+" multiplikator: "+multiplikator)
+						}
+
+				}			
 				
 				// Tabelle sortiert nach Parteien (rechts)
-				fnFadeOut(document.getElementById("resultsByPartyHeading"+i).getElementsByClassName("row")[0], 500, 1)
-				// fnFadeOut(document.getElementById("resultsByPartyAnswersToQuestion"+i).getElementsByClassName("row")[0], 500, 0)
+				// fnFadeOut(document.getElementById("resultsByPartyHeading"+i).getElementsByClassName("row")[0], 500, 1)
+				// fnFadeOut(document.getElementById("resultsByPartyAnswersToQuestion"+i).getElementsByClassName("row")[0], 500, 1)
+				
+				document.getElementById("resultsByPartyHeading"+i).getElementsByClassName("row")[0].style.display = "none"
+				document.getElementById("resultsByPartyAnswersToQuestion"+i).getElementsByClassName("row")[0].style.display = "none"
+				
 			}
 			 
 		} // end: for-intParties
 
 
-		// Tabelle sortiert nach Fragen (links) / list sorted by questions (left)
+		// 3. Tabelle sortiert nach Fragen (links) / 3. list sorted by questions (left) #resultsByThesis
 		for (i = 0; i <= intQuestions-1; i++) {
 
 
 			for (j = 0; j <= intParties-1; j++) {
 
 				if ( (j >= rowStart) &&  (j < rowEnd) ) {
-					fnFadeIn(document.getElementById("resultsByThesisAnswersToQuestion"+i).getElementsByClassName("col")[0].getElementsByClassName("row")[j], 500, 1)
+					// fnFadeIn(document.getElementById("resultsByThesisAnswersToQuestion"+i).getElementsByClassName("col")[0].getElementsByClassName("row")[j], 500, 1)
+					document.getElementById("resultsByThesisAnswersToQuestion"+i).getElementsByClassName("col")[0].getElementsByClassName("row")[j].style.display = ""
 				}
 				else {
-					fnFadeOut(document.getElementById("resultsByThesisAnswersToQuestion"+i).getElementsByClassName("col")[0].getElementsByClassName("row")[j], 500, 1)
+					// fnFadeOut(document.getElementById("resultsByThesisAnswersToQuestion"+i).getElementsByClassName("col")[0].getElementsByClassName("row")[j], 500, 1)
+					document.getElementById("resultsByThesisAnswersToQuestion"+i).getElementsByClassName("col")[0].getElementsByClassName("row")[j].style.display = "none"
 				}
 						
 				} // // end: for-intParties
