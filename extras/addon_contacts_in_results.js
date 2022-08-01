@@ -18,7 +18,7 @@ var CONTACT_BUTTON_TEL = "Kontakt per Telefon"
 var CONTACT_ADDRESS_EMAIL = "info@meine-freiwilligenagentur.de"
 var CONTACT_ADDRESS_TEL = "+49123456789"
 
-var CONTACT_SUBJECT_EMAIL = "Mitwirk-o-Mat - Anfrage zu Vereinen für Kennenlerngespräch"
+var CONTACT_SUBJECT_EMAIL = "Mitwirk-o-Mat - Ich habe Interesse an folgendem Verein: "
 
 var CONTACT_TEXT_EMAIL = "Hallo, \n\n\nich habe gerade den Mitwirk-o-Mat ausgeführt und interessiere mich für einen bestimmten Verein. \n\nBitte ruft mich doch mal an oder schreibt mir, so dass ich den Verein besser kennen lernen kann."
 var CONTACT_TEXT_TEL = ""
@@ -97,7 +97,7 @@ function mow_addon_contacts_create_content() {
 			if (CONTACT_ACTIVE_EMAIL > 0 ) {	
 				
 				divContent += ' <div class="col">'
-				divContent += '  <a href="mailto:'+CONTACT_ADDRESS_EMAIL+'?subject='+encodeURI(CONTACT_SUBJECT_EMAIL)+'&body='+encodeURI(CONTACT_TEXT_EMAIL)+'_'+mow_addon_contacts_add_results_to_text()+'" role="button" class="btn btn-sm btn-success">'+CONTACT_BUTTON_EMAIL+'</a>'
+				divContent += '  <a href="mailto:'+CONTACT_ADDRESS_EMAIL+'?subject='+encodeURI(CONTACT_SUBJECT_EMAIL)+''+arPartyNamesLong[partyNum]+'&body='+encodeURI(CONTACT_TEXT_EMAIL)+'_'+mow_addon_contacts_add_results_to_text()+'" role="button" class="btn btn-sm btn-success">'+CONTACT_BUTTON_EMAIL+'</a>'
 				divContent += ' </div>'
 			}
 
@@ -108,6 +108,11 @@ function mow_addon_contacts_create_content() {
 				divContent += ' </div>'
 			}
 
+			divContent += '</div>'
+			
+			// TEST TEST TEST
+			divContent += '<div class="row border rounded mow-row-striped" id="nixTest'+partyNum+'">'
+				divContent += ' <div class="col"> Testzeile ohne Funktion j: '+j+' </div>'
 			divContent += '</div>'
 
 			// richtige Nummer der Partei finden und die neue ROW-Zeile dahinter einfügen    	
@@ -135,10 +140,14 @@ function mow_addon_contacts_add_click_on_row() {
 		// Klickfunktion - bei Überschrift
 		$("#resultsShortParty"+i).click(function () { 
 				$("#resultsShortPartyAddonContactsInResults"+i).toggle(500);
+
+				$("#nixTest"+i).toggle(500);				
 			});	
 
 		// am Anfang ausblenden
-		$("#resultsShortPartyAddonContactsInResults"+i).fadeOut(500);
+		$("#resultsShortPartyAddonContactsInResults"+i).hide(500);
+		
+		$("#nixTest"+i).hide(500);
 	}
 	
 }
