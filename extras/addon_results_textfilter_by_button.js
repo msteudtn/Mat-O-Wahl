@@ -159,35 +159,63 @@ function mow_addon_textfilter_filter_tables(search_keyword, idNumber) {
 function mow_addon_textfilter_hide_show_row(search_keyword, tableID) {
 	
    table = document.getElementById(tableID);
-
-
 	zeile = table.getElementsByClassName("row")
 
+	if (tableID == "resultsShortTable") {
+		// Anzahl der Zeilen (mit Bootstrap-Klasse "row") finden für FOR-Schleife  später
+		// Nur relevant in der #resultsShortTable (oben) falls es noch extra Zeilen aus anderen Addons gibt.
+		var resultsShortTable_rows = zeile
+		var resultsShortTable_rows_length = resultsShortTable_rows.length - 1; // "-1" weil unten noch die Buttons "mehr" und "weniger" angefügt werden.
+		var multiplikator = resultsShortTable_rows_length / intParties // z.B. 8 Zeilen / 4 Parteien = 2
+
+		// Workaround: Bei "addon_limit_results" gibt es eine extra Zeile mit Buttons "Mehr / Weniger Ergebnisse anzeigen"
+		// z.B. 36 Zeilen hier gefunden -> minus 1 = 35 Zeilen / 12 Parteien = 2,9 -> aufrunden = 3 		
+		multiplikator = Math.ceil(multiplikator)	 
+	}
 
 
 	// Durch alle Zeilen gehen und diejenigen verstecken, ohne Suchbegriff.
 	for (i = 0; i < zeile.length; i++) {
-		{	
 
-			// console.log(i+" "+zeile[i].textContent)
-			txtValue = zeile[i].textContent || zeile[i].innerText;
+		// console.log(i+" "+zeile[i].textContent)
+		txtValue = zeile[i].textContent || zeile[i].innerText;
 
-	
-			// Wenn Suchbegriff gefunden, dann CSS-display-Eigenschaft zurücksetzen. = anzeigen
-			// ... oder wenn CSS-(Pseudo)-Klasse "showAlwaysIsTrue" vorhanden ist = anzeigen (Buttons von addon_limit_results.js)
-			if ( (txtValue.toUpperCase().indexOf(search_keyword) > -1) || ( zeile[i].className.indexOf("showAlwaysIsTrue") > -1 ) ) {
+		// Wenn Suchbegriff gefunden, dann CSS-display-Eigenschaft zurücksetzen. = anzeigen
+		// ... oder wenn CSS-(Pseudo)-Klasse "showAlwaysIsTrue" vorhanden ist = anzeigen (Buttons von addon_limit_results.js)
+		if ( (txtValue.toUpperCase().indexOf(search_keyword) > -1) || ( zeile[i].className.indexOf("showAlwaysIsTrue") > -1 ) ) {
+
 				zeile[i].style.display = ""
-				zeile[i].style.visibility = ""
-				// console.log(i+" "+txtValue) 
+				zeile[i].style.visibility = ""				
+
+			// Ausnahme: #resultsShortTable -> Klammerzeile #resultsShortPartyClampX ohne Klasse ".row" abfangen
+			if (tableID == "resultsShortTable") {
+				// Workaround für "addon_limit_results" mit der zusätzlichen Zeile
+				// z.B. Anzahl Parteien x Multiplikator = Zähler = 12 x 3 = 36 = letzte Zeile mit Buttons "mehr / weniger anzeigen"
+				// Hier NICHT das Elternelement verändern. 
+				if (i == (intParties * multiplikator) ) {}
+				else {
+					zeile[i].parentElement.style.display = ""
+				}
+
+				// alle nachfolgenden, dazugehörigen "row" überspringen (und somit nicht ausblenden)  
+				i = i + 	multiplikator -1;
 			} 
-			// wenn Suchbegriff gefunden, dann CSS-display-Eigenschaft auf "none".
-			// aber CSS:visibility belassen für "addon_limit_results.js" usw.
-			else {
-				zeile[i].style.display = "none"
-				zeile[i].style.visibility = "" 
-			} 
-		}
-	}
+			
+		} 
+		// wenn Suchbegriff nicht gefunden, dann CSS-display-Eigenschaft auf "none".
+		// aber CSS:visibility belassen für "addon_limit_results.js" usw.
+		else {
+
+			zeile[i].style.display = "none"
+			zeile[i].style.visibility = "" 
+
+			// Ausnahme: #resultsShortTable -> Klammerzeile #resultsShortPartyClampX ohne Klasse ".row" abfangen
+			if (tableID == "resultsShortTable") { 
+				zeile[i].parentElement.style.display = "none"
+			}
+
+		} // end: if-else (Suchbegriff || showAlwaysIsTrue) 
+	} // end: for zeile.length
 	
 }
 
