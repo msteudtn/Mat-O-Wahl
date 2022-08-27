@@ -275,7 +275,7 @@ function fnShowOnlyIntPartiesAtEnd(rowStart, rowEnd) {
 		// Anzahl der Zeilen (mit Bootstrap-Klasse "row") finden für FOR-Schleife  später
 		// Nur relevant in der #resultsShortTable (oben) falls es noch extra Zeilen aus anderen Addons gibt.
 		var resultsShortTable_rows = document.getElementById("resultsShortTable").getElementsByClassName("row")
-		var resultsShortTable_rows_length = resultsShortTable_rows.length - 1;
+		var resultsShortTable_rows_length = resultsShortTable_rows.length - 1; // "-1" weil unten noch die Buttons "mehr" und "weniger" angefügt werden.
 		var multiplikator = resultsShortTable_rows_length / intParties // z.B. 8 Zeilen / 4 Parteien = 2
 				
 		var element_resultsShortTable_col = document.getElementById("resultsShortTable").getElementsByClassName("col")[0]
