@@ -91,7 +91,6 @@ function mow_addon_contacts_create_content() {
 			var divContent = "";
 	
 			// neue Bootstrap-ROW-Zeile		
-
 			divContent += '<div class="row" id="resultsShortPartyAddonContactsInResults'+partyNum+'">'
 
 			// wenn die Variable auf 1 / aktiv gesetzt ist, schreibe Button
@@ -112,10 +111,11 @@ function mow_addon_contacts_create_content() {
 			divContent += '</div>'
 			
 			// TEST TEST TEST
+			/*
 			divContent += '<div class="row" id="nixTest'+partyNum+'">'
-
 				divContent += ' <div class="col"> Testzeile ohne Funktion j: '+j+' </div>'
 			divContent += '</div>'
+			*/
 
 			// richtige Nummer der Partei finden und die neue ROW-Zeile dahinter einfügen    	
 			var element_resultsShortParty = document.getElementById("resultsShortParty"+partyNum)		
@@ -143,7 +143,8 @@ function mow_addon_contacts_add_click_on_row() {
 		$("#resultsShortParty"+i).click(function () { 
 				$("#resultsShortPartyAddonContactsInResults"+i).toggle(500);
 
-				$("#nixTest"+i).toggle(500);				
+				// TEST TEST TEST
+				// $("#nixTest"+i).toggle(500);				
 			});	
 
 		// am Anfang ausblenden
