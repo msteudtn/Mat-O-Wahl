@@ -11,14 +11,13 @@ body {
 	/* background-attachment: fixed; */
 	}
 
-/* LINK-Farbe */
-/* LINK-color */
-
-a { color:#000000; text-decoration:underline;}
-a:link { color:#000000; } 
-a:visited { color:#808080; }
-a:active { color:#FF0000; }
-a:hover { color:#FF0000; text-decoration:none; }
+/* LINK-Farbe - AUSSER bei der Bootstrap-Klasse "btn" für Buttons. Dort wird der Bootstrap-Standard benutzt. */
+/* LINK-color - EXCEPT for Bootstrap button-class "btn". Use defaults there. */
+a:not(.btn) { color:#000000; text-decoration:underline;}
+a:not(.btn):link { color:#000000; } 
+a:not(.btn):visited { color:#808080; }
+a:not(.btn):active { color:#FF0000; }
+a:not(.btn):hover { color:#FF0000; text-decoration:none; }
 
 
 /* Statistik */

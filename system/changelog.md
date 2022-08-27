@@ -21,6 +21,12 @@
 
 ## Versions:
 
+### 0.6.0.4.20220727
+
+- minimal change to use the right CSS for links 
+  - for buttons: CSS from Bootstrap 
+  - for normal links: own definitions from `styles/default.css`
+
 ### 0.6.0.3.20220303
 
 - Fix for https://github.com/msteudtn/Mat-O-Wahl/issues/58 

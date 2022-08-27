@@ -19,11 +19,11 @@
 // U+200D    Zero Width Joiner      &#8205;
 // U+200E    Left-To-Right Mark     &#8206;
 // U+200F    Right-To-Left Mark     &#8207;
-var TEXTFILTER_KEYWORDS = ["&#8203;", "&#x1F464;", "&#8205;", "&#8206;"]
+var TEXTFILTER_KEYWORDS = ["&#8203;", "&#x1F464;", "&#8205;", "&#8206;", "#12345"]
 
 // 2.) Text für Buttons
 // Text on buttons
-var TEXTFILTER_BUTTONTEXTS = ["Alle anzeigen", "Bürgermeisterkandidaten &#x1F464; anzeigen", "Südfrüchte anzeigen", "Runde Früchte anzeigen"]
+var TEXTFILTER_BUTTONTEXTS = ["Alle anzeigen", "Bürgermeisterkandidaten &#x1F464; anzeigen", "Südfrüchte anzeigen", "Runde Früchte anzeigen", "12345"]
 
 
 // 3.) Filter-Sonderzeichen in PARTEIEN-ANTWORTEN.CSV einfügen. Beispiel:
@@ -156,13 +156,17 @@ function mow_addon_textfilter_filter_tables(search_keyword, idNumber) {
 
 // die eigentliche Filter-Funktion
 // https://www.w3schools.com/howto/howto_js_filter_table.asp
+
+var stringRowNumbersTextfilter = ""
+var arrayRowNumbersTextfilter = []
+
 function mow_addon_textfilter_hide_show_row(search_keyword, tableID) {
+
+	// var stringRowNumbersTextfilter = ""
 	
    table = document.getElementById(tableID);
-
-
 	zeile = table.getElementsByClassName("row")
-
+	
 
 
 	// Durch alle Zeilen gehen und diejenigen verstecken, ohne Suchbegriff.
@@ -176,18 +180,53 @@ function mow_addon_textfilter_hide_show_row(search_keyword, tableID) {
 			// Wenn Suchbegriff gefunden, dann CSS-display-Eigenschaft zurücksetzen. = anzeigen
 			// ... oder wenn CSS-(Pseudo)-Klasse "showAlwaysIsTrue" vorhanden ist = anzeigen (Buttons von addon_limit_results.js)
 			if ( (txtValue.toUpperCase().indexOf(search_keyword) > -1) || ( zeile[i].className.indexOf("showAlwaysIsTrue") > -1 ) ) {
-				zeile[i].style.display = ""
-				zeile[i].style.visibility = ""
-				// console.log(i+" "+txtValue) 
+
+				// Ausnahme: #resultsShortTable -> Klammerzeile #resultsShortPartyClampX ohne Klasse ".row" abfangen
+				if (tableID == "resultsShortTable") {
+					zeile[i].parentElement.style.display = ""
+					zeile[i].parentElement.style.visibility = ""
+					console.log("* AN: "+i)	
+				} 
+				else {
+					zeile[i].style.display = ""
+					zeile[i].style.visibility = ""				
+				}
+				
+			
+				if (tableID.indexOf("resultsByThesisAnswersToQuestion0") > -1 ) {
+					// console.log(i+" "+txtValue) 
+					// console.log("Textfilter auf Tabelle "+tableID+" " +i)
+					stringRowNumbersTextfilter += i+","
+					arrayRowNumbersTextfilter.push(i)
+					fnTestVonTextfilter() // Aufruf einer Funktion aus dem anderen Addon
+
+				}
+				
+				
 			} 
-			// wenn Suchbegriff gefunden, dann CSS-display-Eigenschaft auf "none".
+			// wenn Suchbegriff nicht gefunden, dann CSS-display-Eigenschaft auf "none".
 			// aber CSS:visibility belassen für "addon_limit_results.js" usw.
 			else {
-				zeile[i].style.display = "none"
-				zeile[i].style.visibility = "" 
+
+
+				// Ausnahme: #resultsShortTable -> Klammerzeile #resultsShortPartyClampX ohne Klasse ".row" abfangen
+				if (tableID == "resultsShortTable") { 
+					zeile[i].parentElement.style.display = "none"
+					zeile[i].parentElement.style.visibility = ""
+					// console.log("blende aus: "+zeile[i].textContent)
+					console.log("aus: "+i)	
+				}
+				else {
+					zeile[i].style.display = "none"
+					zeile[i].style.visibility = "" 
+				}
+
+
 			} 
 		}
 	}
+
+	// console.log("stringRowNumbersTextfilter: (Filter) "+stringRowNumbersTextfilter)
 	
 }
 

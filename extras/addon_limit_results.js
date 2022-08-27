@@ -23,7 +23,7 @@
 	
 */
 
-var intPartiesShowAtEnd = 3;
+var intPartiesShowAtEnd = 4;
 
 
 // 2.) Text für Buttons
@@ -76,8 +76,8 @@ function mow_addon_limit_results__MutationObserver() {
 
 
 
-// Buttons in INDEX.HTML schreiben
-// Write buttons into INDEX.HTML
+// Buttons in INDEX.HTML schreiben (nur 1x am Anfang)
+// Write buttons into INDEX.HTML (only once in the beginning)
 function mow_addon_limit_results_create_buttons() {
 
 	/* id "#resultsHeading" wird in fnStart() am Anfang geleert (empty()).
@@ -115,7 +115,7 @@ function mow_addon_limit_results_create_buttons() {
 		var element_resultsShortTable_col = document.getElementById("resultsShortTable").getElementsByClassName("col")[0]
 		var div_element = document.createElement('div');
 		resultsShortTable_col_row = element_resultsShortTable_col.appendChild(div_element)
-		resultsShortTable_col_row.className = "row"
+		resultsShortTable_col_row.className = "row showAlwaysIsTrue" // "showAlwaysIsTrue" ist eine Pseudo-CSS-Klasse. -> nur für andere Addons als Warnung, z.B. "addon_results_textfilter_by_button.js"
 		
 		// 2a COL left
 		var div_element = document.createElement('div');
@@ -140,7 +140,7 @@ function mow_addon_limit_results_create_buttons() {
 			var element_resultsByThesisTable_col = document.getElementById("resultsByThesisAnswersToQuestion"+i).getElementsByClassName("col")[0]
 			var div_element = document.createElement('div');
 			element_resultsByThesisTable_col_row = element_resultsByThesisTable_col.appendChild(div_element)
-			element_resultsByThesisTable_col_row.className = "row"
+			element_resultsByThesisTable_col_row.className = "row showAlwaysIsTrue" // "showAlwaysIsTrue" ist eine Pseudo-CSS-Klasse. -> nur für andere Addons als Warnung, z.B. "addon_results_textfilter_by_button.js"
 
 			// 2a COL left		
 			var div_element = document.createElement('div');
@@ -160,7 +160,7 @@ function mow_addon_limit_results_create_buttons() {
 		var element_resultsByPartyTable_col = document.getElementById("resultsByPartyTable").getElementsByClassName("col")[0]
 		var div_element = document.createElement('div');
 		element_resultsByPartyTable_col_row = element_resultsByPartyTable_col.appendChild(div_element)
-		element_resultsByPartyTable_col_row.className = "row"
+		element_resultsByPartyTable_col_row.className = "row showAlwaysIsTrue" // "showAlwaysIsTrue" ist eine Pseudo-CSS-Klasse. -> nur für andere Addons als Warnung, z.B. "addon_results_textfilter_by_button.js"
 
 		// 2a COL left
 		var div_element = document.createElement('div');
@@ -180,6 +180,7 @@ function mow_addon_limit_results_create_buttons() {
 
 		// Zeige / verstecke die Zeilen
 		// Show / hide lines 
+		
 		fnShowOnlyIntPartiesAtEnd(0, intPartiesShowAtEnd)
 
 	} // end: else
@@ -197,7 +198,6 @@ function mow_addon_limit_results_create_buttons() {
 	01 (min.) + 5 = 6 + 5 = 11 + 5 = 12 (max.) 
 */
 function fnCalculate_Buttons(rowStart, rowEnd) {
-
 		
 //		rowStartMinus = 0
 //		rowStartPlus  = 0
@@ -209,6 +209,10 @@ function fnCalculate_Buttons(rowStart, rowEnd) {
 		if (rowEndMinus <= 0)
 		{ rowEndMinus = 1 }
 		
+		// Normalerweise würde man einfach nur Anfang und Ende an die Funktion "fnCalculate_Buttons(start,end)" übergeben. 
+		// Aber das Addon "addon_results_textfilter_by_button.js" setzt alle Filter zurück. 
+		// Deshalb übergebe ich stattdessen ein Array der zu filternden Zeilen. fnCalculate_Buttons("[0,1,2,3,4,5,6]")
+		
 		// finde alle (Pseudo)-Klassen für die Buttons um die Buttons später zu verändern
 		// find all (pseudo)-classes for the buttons to change the buttons later
 		var buttons_minus = document.getElementsByClassName("Buttons_showPartiesAtEnd_minus")
@@ -218,9 +222,11 @@ function fnCalculate_Buttons(rowStart, rowEnd) {
 		// change click-event with new values 
 		for (var i = 0; i < buttons_plus.length; i++) {
 		    buttons_plus[i].setAttribute("onclick","fnCalculate_Buttons("+rowStart+","+rowEndPlus+")")
+		    // console.log("BTN+ "+i+" Start: "+rowStart+" Ende: "+rowEndPlus)
 		}
 		for (var i = 0; i < buttons_minus.length; i++) {
 			buttons_minus[i].setAttribute("onclick","fnCalculate_Buttons("+rowStart+","+rowEndMinus+")")
+			// console.log("BTN- "+i+" Start: "+rowStart+" Ende: "+rowEndMinus)
 		}
 		
 
@@ -265,45 +271,109 @@ function fnCalculate_Buttons(rowStart, rowEnd) {
 // Zeige / verstecke die Zeilen
 // Show / hide lines 
 function fnShowOnlyIntPartiesAtEnd(rowStart, rowEnd) {		
-		
+				
+		// Anzahl der Zeilen (mit Bootstrap-Klasse "row") finden für FOR-Schleife  später
+		// Nur relevant in der #resultsShortTable (oben) falls es noch extra Zeilen aus anderen Addons gibt.
+		var resultsShortTable_rows = document.getElementById("resultsShortTable").getElementsByClassName("row")
+		var resultsShortTable_rows_length = resultsShortTable_rows.length - 1;
+		var multiplikator = resultsShortTable_rows_length / intParties // z.B. 8 Zeilen / 4 Parteien = 2
+				
 		var element_resultsShortTable_col = document.getElementById("resultsShortTable").getElementsByClassName("col")[0]
 		var element_resultsByThesisTable_col = document.getElementById("resultsByThesisTable").getElementsByClassName("col")[0]
 		
-		// obere (erste) Tabelle + Tabelle sortiert nach Parteien (rechts)
-		// upper (first) list + list sorted by parties (right)
+		// 1. obere (erste) Tabelle #resultsShort + 2. Tabelle sortiert nach Parteien (rechts) #resultsByParty
+		// 1. upper (first) list #resultsShort + 2. list sorted by parties (right) #resultsByParty
 		for (i = 0; i <= intParties-1; i++) {
-						
+
 			if ( (i >= rowStart) &&  (i < rowEnd) ) {
+				
 				// erste Tabelle: resultsShortTable (oben)
-				fnFadeIn(element_resultsShortTable_col.getElementsByClassName("row")[i], 500, 1)
-								
+				// Es kann sein, dass andere Addons zusätzliche Zeilen (rows) eingefügt haben. (z.B. addon_contacts_in_results.js) 
+				// Nun wird geprüft, ob es eine normale Zeile ist oder eine eingefügte Zeile.
+				
+				// Bsp.: 5 Parteien x (1 Standardzeile + 2 extra Zeilen) = Multiplikator von 3 
+				for (j = (i*multiplikator); j <= ( (i+1) * multiplikator-1); j++) {
+					// i: 0 - - 1 - - 2 - -
+					// j: 0 - - 3 - - 6 - - 
+					if (j == (i*multiplikator)) {
+						// Standardzeile (Parteiname, Bild, Prozent, Beschreibung) -> anzeigen
+						// fnFadeIn(element_resultsShortTable_col.getElementsByClassName("row")[j], 500, 1)
+						element_resultsShortTable_col.getElementsByClassName("row")[j].style.display = ""
+						element_resultsShortTable_col.getElementsByClassName("row")[j].parentElement.style.display = ""  // #resultsShortPartyClampX - wird mehrfach ausgeführt :(
+						element_resultsShortTable_col.getElementsByClassName("row")[j].style.visibility = ""
+						element_resultsShortTable_col.getElementsByClassName("row")[j].parentElement.style.visibility = ""  // #resultsShortPartyClampX - wird mehrfach ausgeführt :(
+						// console.log("IF-IN  i: "+i+" j: "+j+" multiplikator: "+multiplikator)	
+					}
+					// i: - 0 0 - 1 1 - 2 2 
+					// j: - 1 2 - 4 5 - 7 8 
+					else {
+						// nix - Zeile sollte durch das Addon bereits ausgeblendet sein
+						// console.log("IF-out i: "+i+" j: "+j+" multiplikator: "+multiplikator)
+					}
+					
+				}
+
+
 				// Tabelle sortiert nach Parteien (rechts)
-				fnFadeIn(document.getElementById("resultsByPartyHeading"+i).getElementsByClassName("row")[0], 500, 1)
-				// fnFadeIn(document.getElementById("resultsByPartyAnswersToQuestion"+i), 500, 1)
+				// fnFadeIn(document.getElementById("resultsByPartyHeading"+i).getElementsByClassName("row")[0], 500, 1)
+				// fnFadeIn(document.getElementById("resultsByPartyAnswersToQuestion"+i).getElementsByClassName("row")[0], 500, 1)
+				
+				document.getElementById("resultsByPartyHeading"+i).getElementsByClassName("row")[0].style.display = ""
+				document.getElementById("resultsByPartyAnswersToQuestion"+i).getElementsByClassName("row")[0].style.display = ""  // #resultsShortPartyClampX - wird mehrfach ausgeführt :(
 			}
+			
+			// Alle Zeilen, die außerhalb des Limits liegen -> ausblenden!
 			else {
+				
 				// erste Tabelle: resultsShortTable (oben)
-				fnFadeOut(element_resultsShortTable_col.getElementsByClassName("row")[i], 500, 1)
+				// i: 3 - - -4 - - -5 - - 
+				// j: 9 - - 12 - - 15 - - 
+				for (j = (i*multiplikator); j <= ( (i+1) * multiplikator-1); j++) {
+					if (j == (i*multiplikator)) {
+						// Standardzeile (Parteiname, Bild, Prozent, Beschreibung) -> ausblenden
+						// fnFadeOut(element_resultsShortTable_col.getElementsByClassName("row")[j], 500, 1)
+						element_resultsShortTable_col.getElementsByClassName("row")[j].style.display = "none"
+						element_resultsShortTable_col.getElementsByClassName("row")[j].parentElement.style.display = "none" // #resultsShortPartyClampX - wird mehrfach ausgeführt :(
+						// element_resultsShortTable_col.getElementsByClassName("row")[j].style.visibility = "hidden"
+						// console.log("ELSE-if  i: "+i+" j: "+j+" multiplikator: "+multiplikator)	
+					}
+					// i: -- -3 -3 -- -4 -4 -- -5 -5 
+					// j: -- 10 11 -- 13 14 -- 16 17 
+					else {
+						// Standardzeile (Parteiname, Bild, Prozent, Beschreibung) -> verstecken 
+						// fnFadeOut() nutzt CSS:visibility und CSS:display -> Anzeigeprobleme! :(
+						element_resultsShortTable_col.getElementsByClassName("row")[j].style.display = "none"
+						element_resultsShortTable_col.getElementsByClassName("row")[j].parentElement.style.display = "none"  // #resultsShortPartyClampX - wird mehrfach ausgeführt :(
+						// console.log("ELSE-else i: "+i+" j: "+j+" multiplikator: "+multiplikator)
+						}
+
+				}			
 				
 				// Tabelle sortiert nach Parteien (rechts)
-				fnFadeOut(document.getElementById("resultsByPartyHeading"+i).getElementsByClassName("row")[0], 500, 1)
-				// fnFadeOut(document.getElementById("resultsByPartyAnswersToQuestion"+i).getElementsByClassName("row")[0], 500, 0)
+				// fnFadeOut(document.getElementById("resultsByPartyHeading"+i).getElementsByClassName("row")[0], 500, 1)
+				// fnFadeOut(document.getElementById("resultsByPartyAnswersToQuestion"+i).getElementsByClassName("row")[0], 500, 1)
+				
+				document.getElementById("resultsByPartyHeading"+i).getElementsByClassName("row")[0].style.display = "none"
+				document.getElementById("resultsByPartyAnswersToQuestion"+i).getElementsByClassName("row")[0].style.display = "none"
+				
 			}
 			 
 		} // end: for-intParties
 
 
-		// Tabelle sortiert nach Fragen (links) / list sorted by questions (left)
+		// 3. Tabelle sortiert nach Fragen (links) / 3. list sorted by questions (left) #resultsByThesis
 		for (i = 0; i <= intQuestions-1; i++) {
 
 
 			for (j = 0; j <= intParties-1; j++) {
 
 				if ( (j >= rowStart) &&  (j < rowEnd) ) {
-					fnFadeIn(document.getElementById("resultsByThesisAnswersToQuestion"+i).getElementsByClassName("col")[0].getElementsByClassName("row")[j], 500, 1)
+					// fnFadeIn(document.getElementById("resultsByThesisAnswersToQuestion"+i).getElementsByClassName("col")[0].getElementsByClassName("row")[j], 500, 1)
+					document.getElementById("resultsByThesisAnswersToQuestion"+i).getElementsByClassName("col")[0].getElementsByClassName("row")[j].style.display = ""
 				}
 				else {
-					fnFadeOut(document.getElementById("resultsByThesisAnswersToQuestion"+i).getElementsByClassName("col")[0].getElementsByClassName("row")[j], 500, 1)
+					// fnFadeOut(document.getElementById("resultsByThesisAnswersToQuestion"+i).getElementsByClassName("col")[0].getElementsByClassName("row")[j], 500, 1)
+					document.getElementById("resultsByThesisAnswersToQuestion"+i).getElementsByClassName("col")[0].getElementsByClassName("row")[j].style.display = "none"
 				}
 						
 				} // // end: for-intParties
@@ -313,6 +383,12 @@ function fnShowOnlyIntPartiesAtEnd(rowStart, rowEnd) {
 	
 }
 
+
+function fnTestVonTextfilter() {
+	
+	// console.log("Aufruf in Limit-Results aus Textfilter - "+arrayRowNumbersTextfilter)
+	stringRowNumbersTextfilter = "";
+	}
 
 // Start
 window.addEventListener("load", mow_addon_limit_results__MutationObserver)

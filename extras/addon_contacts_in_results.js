@@ -91,7 +91,8 @@ function mow_addon_contacts_create_content() {
 			var divContent = "";
 	
 			// neue Bootstrap-ROW-Zeile		
-			divContent += '<div class="row border rounded mow-row-striped " id="resultsShortPartyAddonContactsInResults'+partyNum+'">'
+
+			divContent += '<div class="row" id="resultsShortPartyAddonContactsInResults'+partyNum+'">'
 
 			// wenn die Variable auf 1 / aktiv gesetzt ist, schreibe Button
 			if (CONTACT_ACTIVE_EMAIL > 0 ) {	
@@ -111,7 +112,8 @@ function mow_addon_contacts_create_content() {
 			divContent += '</div>'
 			
 			// TEST TEST TEST
-			divContent += '<div class="row border rounded mow-row-striped" id="nixTest'+partyNum+'">'
+			divContent += '<div class="row" id="nixTest'+partyNum+'">'
+
 				divContent += ' <div class="col"> Testzeile ohne Funktion j: '+j+' </div>'
 			divContent += '</div>'
 
