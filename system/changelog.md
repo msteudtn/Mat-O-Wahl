@@ -21,6 +21,14 @@
 
 ## Versions:
 
+### 0.6.0.5.2022xxxx
+
+- Small fixes
+  - Party-answers are shown in `#resultsByPartyTable` even if they should be hidden by the addon "limit_results" https://github.com/msteudtn/Mat-O-Wahl/issues/68
+  - Textfilter-addon sometimes didn't show answers in the two bottom tables https://github.com/msteudtn/Mat-O-Wahl/issues/70
+  - Added a contact-option (mailto) to the results via a new addon https://github.com/msteudtn/Mat-O-Wahl/issues/65
+  - Added a new DIV ("clamp") around the row with the result-summary (top table `#resultsShortParty`). Now, the CSS zebra-stripes (via `.mow-row-striped`) work better if an addon adds another row under it.
+
 ### 0.6.0.4.20220727
 
 - minimal change to use the right CSS for links 
