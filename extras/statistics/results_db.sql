@@ -18,7 +18,7 @@ CREATE TABLE `Results` (
   `ip` varchar(255) NOT NULL,
   `timestamp` varchar(255) NOT NULL,
   `personal` varchar(255) NOT NULL,
-  `parties` varchar(255) NOT NULL
+  `parties` varchar(1023) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
