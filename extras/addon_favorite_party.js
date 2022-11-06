@@ -124,8 +124,8 @@ function mow_addon_favorite_parties_highlight_party() {
 	// Hintergrund einfärben
 	try {
 		// die Partei 0 ist in der Zeile "resultsShortParty0" usw. 
-		document.getElementById("resultsShortParty"+favorite_party).style.background = STYLE_ADDON_FAVORITE_PARTY_COLOR;
-		document.getElementById("resultsShortParty"+favorite_party).style.opacity = STYLE_ADDON_FAVORITE_PARTY_OPACITY;		
+		document.getElementById("resultsShortPartyClamp"+favorite_party).style.background = STYLE_ADDON_FAVORITE_PARTY_COLOR;
+		document.getElementById("resultsShortPartyClamp"+favorite_party).style.opacity = STYLE_ADDON_FAVORITE_PARTY_OPACITY;		
 	} 
 	catch (e) {
 		// Ergebnisse noch nicht aufgebaut.

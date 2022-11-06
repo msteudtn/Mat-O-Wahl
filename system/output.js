@@ -375,58 +375,65 @@ function fnEvaluationShort(arResults)
 			var partyNum=arSortParties[i];
 			var percent = fnPercentage(arResults[partyNum],maxPoints)
 
-			tableContent += "<div class='row border rounded mow-row-striped' id='resultsShortParty"+partyNum+"' role='row'>"
-			// tableContent += "<tr id='resultsShortParty"+partyNum+"'>"
+			// "Klammer" um den Inhalt. 
+			// Wenn ein Addon (z.B. addon_contacts_in_results.js) eine neue Zeile unter die Zeile #resultsShortParty einfügt,
+			// bleiben die Zebrastreifen aus der Klasse ".mow-row-striped" in der richtigen Reihenfolge.
+			tableContent += "<div class='border rounded mow-row-striped' id='resultsShortPartyClamp"+partyNum+"' role='row'>"	
 
-				// Parteinamen: lang, kurz, Webseite, Beschreibung
-				tableContent += "<div class='col col-10 col-md-7' role='cell'>"
-				// tableContent += "<td style='width:60%;'>"
-
-//					tableContent += "<img src='"+arPartyLogosImg[partyNum]+"' class='rounded img-fluid float-right' alt='Logo "+arPartyNamesLong[partyNum]+"' style='margin-left: 10px; width:"+intPartyLogosImgWidth+"; height:"+intPartyLogosImgHeight+";' />"
-
-					tableContent += "<strong>"
-					tableContent += arPartyNamesLong[partyNum];
-					tableContent += "</strong>" 
-
-					tableContent += " (&#8663; <a href='"+arPartyInternet[partyNum]+"' target='_blank' alt='Link: "+arPartyNamesLong[partyNum]+"' title='Link: "+arPartyNamesLong[partyNum]+"'>";		
-					tableContent += arPartyNamesShort[partyNum];
-					tableContent += "</a>)";
-
-					// Beschreibung der Partei - falls in der CSV vorhanden.
-					// Nur die ersten 32 Zeichen anzeigen. 
-					// Danach abschneiden und automatisch ein/ausblenden (Funktionsaufbau weiter unten)
-					// Wenn keine Beschreibung gewünscht, dann "0" eintragen.
-					intPartyDescriptionPreview = 32
-					if ( (arPartyDescription[partyNum]) && (intPartyDescriptionPreview > 0) )
-					{
-						tableContent += "<p style='cursor: pointer;'> &bull; "
-						tableContent += arPartyDescription[partyNum].substr(0,intPartyDescriptionPreview)
-						tableContent += "<span id='resultsShortPartyDescriptionDots"+partyNum+"'>...</span>"
-						tableContent += "<span id='resultsShortPartyDescription"+partyNum+"'>"
-						tableContent += arPartyDescription[partyNum].substr(intPartyDescriptionPreview,1024)
-						tableContent += "</span> </p>"
-					}
-
-				tableContent += "</div>"
-				// tableContent += "</td>"
-
-				// Partei-Logo (automatisch angepasst)
-				tableContent += "<div class='col col-2 col-md-1' role='cell'>"
-				// tableContent += "<td>"
-					tableContent += "<img src='"+arPartyLogosImg[partyNum]+"' class='rounded img-fluid' alt='Logo "+arPartyNamesLong[partyNum]+"' />"
-				// tableContent += "</td>"
-				tableContent += "</div>"				
-
-				// Prozentwertung
-				tableContent += "<div class='col col-12 col-md-4' role='cell'>"
-				// tableContent += "<td style='width:40%;'>"
-					tableContent += "<div class='progress'>"
-					tableContent += "	<div class='progress-bar' role='progressbar' id='partyBar"+partyNum+"' style='width:"+percent+"%;' aria-valuenow='"+percent+"' aria-valuemin='0' aria-valuemax='100'>JUST_A_PLACEHOLDER_TEXT - SEE FUNCTION fnReEvaluate()</div> "
+				tableContent += "<div class='row' id='resultsShortParty"+partyNum+"' role='row'>"
+				// tableContent += "<tr id='resultsShortParty"+partyNum+"'>"
+	
+					// Parteinamen: lang, kurz, Webseite, Beschreibung
+					tableContent += "<div class='col col-10 col-md-7' role='cell'>"
+					// tableContent += "<td style='width:60%;'>"
+	
+	//					tableContent += "<img src='"+arPartyLogosImg[partyNum]+"' class='rounded img-fluid float-right' alt='Logo "+arPartyNamesLong[partyNum]+"' style='margin-left: 10px; width:"+intPartyLogosImgWidth+"; height:"+intPartyLogosImgHeight+";' />"
+	
+						tableContent += "<strong>"
+						tableContent += arPartyNamesLong[partyNum];
+						tableContent += "</strong>" 
+	
+						tableContent += " (&#8663; <a href='"+arPartyInternet[partyNum]+"' target='_blank' alt='Link: "+arPartyNamesLong[partyNum]+"' title='Link: "+arPartyNamesLong[partyNum]+"'>";		
+						tableContent += arPartyNamesShort[partyNum];
+						tableContent += "</a>)";
+	
+						// Beschreibung der Partei - falls in der CSV vorhanden.
+						// Nur die ersten 32 Zeichen anzeigen. 
+						// Danach abschneiden und automatisch ein/ausblenden (Funktionsaufbau weiter unten)
+						// Wenn keine Beschreibung gewünscht, dann "0" eintragen.
+						intPartyDescriptionPreview = 32
+						if ( (arPartyDescription[partyNum]) && (intPartyDescriptionPreview > 0) )
+						{
+							tableContent += "<p style='cursor: pointer;'> &bull; "
+							tableContent += arPartyDescription[partyNum].substr(0,intPartyDescriptionPreview)
+							tableContent += "<span id='resultsShortPartyDescriptionDots"+partyNum+"'>...</span>"
+							tableContent += "<span id='resultsShortPartyDescription"+partyNum+"'>"
+							tableContent += arPartyDescription[partyNum].substr(intPartyDescriptionPreview,1024)
+							tableContent += "</span> </p>"
+						}
+	
 					tableContent += "</div>"
-				tableContent += "</div>"
-				// tableContent += "</td>"
-
-			tableContent += "</div>" // end: row (for-i)
+					// tableContent += "</td>"
+	
+					// Partei-Logo (automatisch angepasst)
+					tableContent += "<div class='col col-2 col-md-1' role='cell'>"
+					// tableContent += "<td>"
+						tableContent += "<img src='"+arPartyLogosImg[partyNum]+"' class='rounded img-fluid' alt='Logo "+arPartyNamesLong[partyNum]+"' />"
+					// tableContent += "</td>"
+					tableContent += "</div>"				
+	
+					// Prozentwertung
+					tableContent += "<div class='col col-12 col-md-4' role='cell'>"
+					// tableContent += "<td style='width:40%;'>"
+						tableContent += "<div class='progress'>"
+						tableContent += "	<div class='progress-bar' role='progressbar' id='partyBar"+partyNum+"' style='width:"+percent+"%;' aria-valuenow='"+percent+"' aria-valuemin='0' aria-valuemax='100'>JUST_A_PLACEHOLDER_TEXT - SEE FUNCTION fnReEvaluate()</div> "
+						tableContent += "</div>"
+					tableContent += "</div>"
+					// tableContent += "</td>"
+	
+				tableContent += "</div>" // end: row #resultsShortPartyX
+			
+			tableContent += "</div>" // end: row .mow-row-striped + #resultsShortPartyClampX
 			// tableContent += "</tr>" 
 		
 		} // end for
