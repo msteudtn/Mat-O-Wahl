@@ -28,6 +28,7 @@
   - Textfilter-addon sometimes didn't show answers in the two bottom tables https://github.com/msteudtn/Mat-O-Wahl/issues/70
   - Added a contact-option (mailto) to the results via a new addon https://github.com/msteudtn/Mat-O-Wahl/issues/65
   - Added a new DIV ("clamp") around the row with the result-summary (top table `#resultsShortParty`). Now, the CSS zebra-stripes (via `.mow-row-striped`) work better if an addon adds another row under it.
+  - Updated the "favorite party" addon / question at the beginning due to the new "clamp"-DIV
   - Declared variables in `data/definition.js` with CONST instead of VAR according to standard ES2015 (ES6)
 
 ### 0.6.0.4.20220727
