@@ -47,7 +47,7 @@ var CONTACT_TEXT_TEL = ""
 // MutationObserver starten - prüft Änderungen im DOM
 // https://medium.com/better-programming/js-mutationobserver-1d7aed479da2
 // https://developer.mozilla.org/de/docs/Web/API/MutationObserver
-function mow_addon_textfilter_MutationObserver() {
+function mow_addon_contact_in_results_MutationObserver() {
 
 	// zu überwachende Zielnode (target) auswählen
 	var target = document.querySelector('#resultsHeading');
@@ -178,7 +178,7 @@ function mow_addon_contacts_add_results_to_text() {
 
 
 // Start
-window.addEventListener("load", mow_addon_textfilter_MutationObserver)
+window.addEventListener("load", mow_addon_contact_in_results_MutationObserver)
 
 /*
 window.onload = function () {
