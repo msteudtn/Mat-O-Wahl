@@ -21,6 +21,11 @@
 
 ## Versions:
 
+### 0.6.0.6.20221212
+
+- Minor fix
+  - Special characters in `extras/addon_contacts_in_results.js` were encoded with `encodeURI()` instead of `encodeURIComponent()`. Texts with ampersand (&) broke the email. https://github.com/msteudtn/Mat-O-Wahl/issues/75
+
 ### 0.6.0.5.20221106
 
 - Small fixes

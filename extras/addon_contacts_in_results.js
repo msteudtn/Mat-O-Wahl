@@ -97,7 +97,7 @@ function mow_addon_contacts_create_content() {
 			if (CONTACT_ACTIVE_EMAIL > 0 ) {	
 				
 				divContent += ' <div class="col">'
-				divContent += '  <a href="mailto:'+CONTACT_ADDRESS_EMAIL+'?subject='+encodeURI(CONTACT_SUBJECT_EMAIL)+''+arPartyNamesLong[partyNum]+'&body='+encodeURI(CONTACT_TEXT_EMAIL)+'_'+mow_addon_contacts_add_results_to_text()+'" role="button" class="btn btn-sm btn-success">'+CONTACT_BUTTON_EMAIL+'</a>'
+				divContent += '  <a href="mailto:'+CONTACT_ADDRESS_EMAIL+'?subject='+encodeURIComponent(CONTACT_SUBJECT_EMAIL)+''+encodeURIComponent(arPartyNamesLong[partyNum])+'&body='+encodeURIComponent(CONTACT_TEXT_EMAIL)+'_'+mow_addon_contacts_add_results_to_text()+'" role="button" class="btn btn-sm btn-success">'+CONTACT_BUTTON_EMAIL+'</a>'
 				divContent += ' </div>'
 			}
 
@@ -169,7 +169,7 @@ function mow_addon_contacts_add_results_to_text() {
 			statistics_text += "\n"+partyNameLong+": "+partyPoints+" Punkte";
 			
 		}
-		statistics_text = encodeURI(statistics_text);
+		statistics_text = encodeURIComponent(statistics_text);
 		return statistics_text;
 
 }
