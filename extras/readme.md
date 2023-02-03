@@ -28,6 +28,12 @@ A **detailled manual** (in German) can be found online.
 
 :hamburger:  An add-on to load the Mat-o-Wahl in an iframe for your CMS or web-site.
 
+## addon_contacts_in_results.js
+
+:beer: Erstellt Buttons für die **Kontaktaufnahme** per E-Mail oder Telefon.
+
+:hamburger: Creates **buttons for contact** via mail or telephone.
+
 ## addon_favorite_party.js
 
 :beer: Fragt am Anfang, welche Partei man normalerweise wählen würde. Das Ergebnis wird am Ende farblich hervorgehoben.
@@ -45,6 +51,12 @@ A **detailled manual** (in German) can be found online.
 :beer: Eine Erweiterung um die **Ergebnisse zu filtern**. So kann man z.B. die gleichen Fragen für den Stadtrat und Bürgermeister nutzen oder man bietet einen regionalen Filter an, z.B. "Alle Kandidaten aus Nord / Ost / Süd / West" 
 
  :hamburger: An add-on to filter the results, e.g. "Show only candidates for mayor or city council" or "Show only candidates from North / East / South / West"
+
+## addon_show_first_results.js
+
+:beer: Klappt 1-n Ergebnisse am Ende bereits aus. 
+
+:hamburger: Unfolds 1-n results at the end.
 
 # data_fruitville.zip, data_obsthausen.zip, data_springfield.zip
 
