@@ -130,7 +130,6 @@ function mow_addon_contacts_add_click_on_row() {
 		// am Anfang ausblenden
 		$("#resultsShortPartyAddonContactsInResults"+i).hide(500);
 		
-		$("#nixTest"+i).hide(500);
 	}
 	
 }
