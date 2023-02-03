@@ -24,6 +24,7 @@
 ### 0.6.0.7.20230203
 
 - Addon `extras/addon_contacts_in_results.js` can now read email addresses from data-tags in `parties.csv` 
+- new addon `extras/addon_show_first_results.js` to show the first result(s) already unfolded with all information
 
 ### 0.6.0.6.20221212
 
