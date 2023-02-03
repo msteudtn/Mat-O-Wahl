@@ -83,6 +83,11 @@ function fnStart()
 	$("#restart").attr("href","index.html?"+sekunden);
 	$("#restart").html(TEXT_RESTART);
 	
+	// Fokus nach jedem Klick entfernen
+	document.addEventListener("click", () => {
+          document.activeElement.blur()
+        }) 
+	
 	//////////////////////////////////////////////////////////////////
 	// FRAGEN UND ANTWORTEN in Arrays einlesen und Folgefunktionen aufrufen
 	// (a) Fragen 
