@@ -23,7 +23,7 @@
 	
 */
 
-var intPartiesShowAtEnd = 4;
+var intPartiesShowAtEnd = 3;
 
 
 // 2.) Text für Buttons
