@@ -21,6 +21,10 @@
 
 ## Versions:
 
+### 0.6.0.7.20230203
+
+- Addon `extras/addon_contacts_in_results.js` can now read email addresses from data-tags in `parties.csv` 
+
 ### 0.6.0.6.20221212
 
 - Minor fix
