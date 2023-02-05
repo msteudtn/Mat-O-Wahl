@@ -3,6 +3,7 @@
 -- https://www.phpmyadmin.net/
 
 -- COMMIT: Marius Nisslmueller, Bad Honnef, Juni 2020
+-- Anpassungen: Mathias Steudtner, Februar 2023
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -18,7 +19,8 @@ CREATE TABLE `Results` (
   `ip` varchar(255) NOT NULL,
   `timestamp` varchar(255) NOT NULL,
   `personal` varchar(255) NOT NULL,
-  `parties` varchar(1023) NOT NULL
+  `parties` varchar(1023) NOT NULL,
+  `partynames` varchar(1023) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --

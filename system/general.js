@@ -3,7 +3,7 @@
 // License: GPL 3
 // Mathias Steudtner http://www.medienvilla.com
 
-var version = "0.6.0.7.20230203"
+var version = "0.6.0.8.20230205"
 
 // Globale Variablen
 var arQuestionsShort = new Array();	// Kurzform der Fragen: Atomkraft, Flughafenausbau, ...
@@ -182,14 +182,21 @@ function fnSendResults(arResults, arPersonalPositions)
 		}
 	}
 
-
-	var strResults = arResults.join(",");
-	// var strPersonalPositions = arPersonalPositions.join(",");
-	var strPersonalPositions = arPersonalPositionsForStats.join(",");
+	// Ergebnisse für Statistik vorbereiten
+	const strResults = arResults.join(",");
+	const strPersonalPositions = arPersonalPositionsForStats.join(",");
 	
-	$.get(statsServer, { mowpersonal: strPersonalPositions, mowparties: strResults } );
+	let strPartynames = "";
+	for (let i=0; i<=intParties-1; i++) {
+		let partyNum=arSortParties[i];
+		let strPartyname = arPartyNamesShort[partyNum]
+		strPartynames += strPartyname+","
+	}
+	strPartynames = strPartynames.slice(0, -1) // letztes Komma wieder entfernen. ;-)
+	
+	$.get(statsServer, { mowpersonal: strPersonalPositions, mowparties: strResults, mowpartynames: strPartynames } );
 
-	console.log("Mat-O-Wahl. Daten gesendet an Server: "+statsServer+" - mowpersonal: "+strPersonalPositions+" - mowparties: "+strResults+"")
+	console.log("Mat-O-Wahl. Statistik an Server gesendet: "+statsServer+" ? mowpersonal= "+strPersonalPositions+" & mowparties= "+strResults+" & mowpartynames= "+strPartynames)
 }
 
 

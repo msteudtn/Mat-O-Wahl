@@ -21,6 +21,10 @@
 
 ## Versions:
 
+### 0.6.0.8.20230205
+
+- Added a new column `partynames` to the SQL-queries and data-base. So, it's easier to see results.
+
 ### 0.6.0.7.20230203
 
 - Addon `extras/addon_contacts_in_results.js` can now read email addresses from data-tags in `parties.csv` 
