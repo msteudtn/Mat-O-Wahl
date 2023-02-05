@@ -1,7 +1,7 @@
 <?php
 
 // COMMIT: Marius Nisslmueller, Bad Honnef, Juni 2020
-// Anpassungen: Mathias Steudtner, Mai 2021
+// Anpassungen: Mathias Steudtner, 05/2021, 02/2023
 
 // Include Database Settings
 	include "db_settings.php";
@@ -25,16 +25,16 @@
 	$ip = explode (',', $ip);
 	$ip = $ip[0];
 	
-// DE: Wenn keine IP gespeichert werden soll, einfach die folgende Zeile auskommentieren.
+// DE: Wenn keine IP gespeichert werden soll, einfach die folgende Zeile "$ip" aktivieren.
 // Hierbei wird das soeben erhaltene Ergebnis von "$ip" mit einem "Null-Wert" überschrieben 
 // aber das Format für die simple Auswertung (results.html) bleibt erhalten.
 // -> EMPFOHLENE EINSTELLUNG (gemäß DSGVO), da politische Meinungen abgefragt werden.
 //
-// EN: If you do not wish to save any IP addresses (privacy) please uncomment the following line.
+// EN: If you do not wish to save any IP addresses (privacy) please activate the following "$ip" line.
 // It replaces the result of "$ip" with zeros but keeps the right format.
-// -> SUGGESTED SETTING (according to EDPR) because you're asking for political views 
+// -> SUGGESTED SETTING (according to EDPR) because we're asking for political views 
 	$ip="0.0.0.0";	
-	
+
 
 // $timestamp = time(); // Unix-Zeitstempel 
 // $timestamp = date("Y-m-d H:i:s"); ausführliches Datumsformat -> nicht empfohlen, da rückverfolgbar über ACCESS.LOG 
@@ -43,9 +43,11 @@
 // Sanitize User Input
 	$mowPersonalValues = mysqli_real_escape_string($conn, $_GET["mowpersonal"]);
 	$mowPartiesValues = mysqli_real_escape_string($conn, $_GET["mowparties"]);
+	$mowPartynamesValue = mysqli_real_escape_string($conn, $_GET["mowpartynames"]);
+	
 
 // Prepare and execute SQL Statement 
-	$sql = "INSERT INTO `$tablename` (ip, timestamp, personal, parties) VALUES ('$ip', '$timestamp', '$mowPersonalValues', '$mowPartiesValues')";
+	$sql = "INSERT INTO `$tablename` (ip, timestamp, personal, parties, partynames) VALUES ('$ip', '$timestamp', '$mowPersonalValues', '$mowPartiesValues', '$mowPartynamesValue')";
 
 
 // Send data
