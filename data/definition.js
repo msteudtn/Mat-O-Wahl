@@ -368,7 +368,7 @@ const language = "de";
 */
 
 const statsRecord = 0;
-const statsServer = "http://localhost/extras/statistics/vote_txt.php";
+const statsServer = "http://localhost/extras/statistics/vote_db.php";
 
 
 /*
