@@ -97,7 +97,7 @@ $filename = 'results.txt';
 // $timestamp = date("Y-m-d H:i:s"); ausführliches Datumsformat -> nicht empfohlen, da rückverfolgbar über ACCESS.LOG 
 $timestamp = date("Y-m-d");
 
-$somecontent = "\n".$ip." ".$timestamp." ".$_GET["mowpersonal"]." ".$_GET["mowparties"];
+$somecontent = "\n".$ip." ".$timestamp." ".$_GET["mowpersonal"]." ".$_GET["mowparties"]." ".$_GET["mowpartynames"];
 
 // DE: Sichergehen, dass die Datei existiert und beschreibbar ist
 // EN: Let's make sure the file exists and is writable first.
