@@ -79,6 +79,11 @@ window.addEventListener("load", () => {
             document.querySelector("#votingDouble").classList.remove("noHoverEffect")
         }, 500)
     })
+    
+    // Bubbling beim ganzen Tooltip verhindern
+    document.querySelector(".votingDoubleTooltip").addEventListener("click", (e) => {
+      e.stopPropagation();
+    })
 
     // Stylesheet erzeugen
     const styles = `
