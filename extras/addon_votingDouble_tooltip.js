@@ -59,7 +59,8 @@ window.addEventListener("load", () => {
     closeTooltip.textContent = "×" // &times;
 
     // Füge alles ineinander ein
-    votingDoubleTooltip.append(votingDoubleTooltipText, closeTooltip)
+    votingDoubleTooltip.appendChild(votingDoubleTooltipText);
+    votingDoubleTooltip.appendChild(closeTooltip);
 
     // Füge das Ganze ins DOM ein
     document.querySelector("#votingDouble").appendChild(votingDoubleTooltip)
