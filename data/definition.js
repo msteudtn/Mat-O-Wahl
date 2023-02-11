@@ -96,11 +96,6 @@ const intQuestions = 6;
 
 const fileAnswers = "Obsthausen_Parteien.csv";
 
-
-// 	1.4 ANZAHL der PARTEIEN / 1.6 NUMBER of PARTIES
-
-const intParties = 4;
-
 /*
  	1.5. BILDGROESSE des PARTEILOGOS (am Ende)
 	DE: Die Breite und Höhe kann in Pixel und Prozent angegeben werden. 
