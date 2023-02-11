@@ -26,6 +26,28 @@ var arSortParties=new Array();		// Nummern der Listen, nach Punkten sortiert
 var activeQuestion=0; //aktuell angezeigte Frage (output.js)
 
 
+ // Zahl der Parteien dynamisch berechnen, anstatt sie in der definition.js anzugeben
+const intParties = () => {
+	$.ajax({ 
+	type: "GET", 
+	url: "data/"+fileAnswers,
+	dataType: "text", 
+	contentType: "application/x-www-form-urlencoded",
+		})
+	.done(data => {
+		let arIntParties = data.split("\n");
+		// Falls die fileAnswers (und damit der Array) mit leeren Zeilen endet, diese entfernen
+		while (true) {
+			if (arIntParties[arIntParties.length - 1] === "" || arIntParties[arIntParties.length - 1] === "\r") {
+				arIntParties.pop();
+			}
+			else break;
+		}
+		// Ergebnis runden, um Fehlertoleranz zu erhöhen
+		return Math.round(arIntParties.length / (intQuestions + 6));
+	})
+}
+
 // Einlesen der CSV-Datei und Weitergabe an Rückgabefunktion "fnCallback"
 function fnReadCsv(csvFile,fnCallback)
 {
