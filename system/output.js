@@ -84,6 +84,10 @@ function fnStart()
 	$("#restart").html(TEXT_RESTART);
 	
 	//////////////////////////////////////////////////////////////////
+	// Anzahl der Parteien berechnen
+	fnReadCsv("data/"+fileAnswers, fnSetIntParties)
+	const intParties = window.intParties
+	
 	// FRAGEN UND ANTWORTEN in Arrays einlesen und Folgefunktionen aufrufen
 	// (a) Fragen 
 	fnReadCsv("data/"+fileQuestions,fnShowQuestions)
