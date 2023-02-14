@@ -77,6 +77,9 @@ window.addEventListener("load", () => {
   }
 
   [class^="closeTooltip"] {
+      background-color: transparent;
+      border: none;
+      padding: 0;
       cursor: pointer;
       position: absolute;
       font-size: 1.5rem;
@@ -88,29 +91,30 @@ window.addEventListener("load", () => {
 
 // Tooltip für Button "Doppelt gewichten" erzeugen
 if (TOOLTIP_VOTING_DOUBLE) {
-  document
-    .querySelector("#descriptionButtonStart")
-    .addEventListener("click", () => {
-      // Erzeuge den Tooltip und seine Inhalte
-      const tooltipVotingDouble = document.createElement("div");
-      tooltipVotingDouble.classList.add("tooltipVotingDouble");
-      tooltipVotingDouble.innerHTML = `
+  window.addEventListener("load", () => {
+    document
+      .querySelector("#descriptionButtonStart")
+      .addEventListener("click", () => {
+        // Erzeuge den Tooltip und seine Inhalte
+        const tooltipVotingDouble = document.createElement("div");
+        tooltipVotingDouble.classList.add("tooltipVotingDouble");
+        tooltipVotingDouble.innerHTML = `
         <span>${TOOLTIP_VOTING_DOUBLE}</span>
-        <span class="closeTooltipVotingDouble">&times;</span>`;
-      document
-        .querySelector("#votingDouble")
-        .parentNode.appendChild(tooltipVotingDouble);
+        <button class="closeTooltipVotingDouble">&times;</button>`;
+        document
+          .querySelector("#votingDouble")
+          .parentNode.appendChild(tooltipVotingDouble);
 
-      // Füge einen Event-Listener zum X-Button hinzu
-      document
-        .querySelector(".closeTooltipVotingDouble")
-        .addEventListener("click", () => {
-          // Verstecke den Tooltip
-          tooltipVotingDouble.classList.add("d-none");
-        });
+        // Füge einen Event-Listener zum X-Button hinzu
+        document
+          .querySelector(".closeTooltipVotingDouble")
+          .addEventListener("click", () => {
+            // Verstecke den Tooltip
+            tooltipVotingDouble.classList.add("d-none");
+          });
 
-      // Für diesen Tooltip spezifische CSS-Regeln hinzufügen
-      document.querySelector("#tooltipCSS").textContent += `
+        // Für diesen Tooltip spezifische CSS-Regeln hinzufügen
+        document.querySelector("#tooltipCSS").textContent += `
       .tooltipVotingDouble {
           transform: translateX(-30px);
           width: min(400px, 93vw);
@@ -130,7 +134,8 @@ if (TOOLTIP_VOTING_DOUBLE) {
           border-bottom-color: ${TOOLTIP_BORDER_COLOR};
         }
       `;
-    });
+      });
+  });
 }
 
 if (TOOLTIP_RESULTS_SHORT || TOOLTIP_RESULTS_BY_THESIS) {
@@ -154,7 +159,7 @@ if (TOOLTIP_RESULTS_SHORT || TOOLTIP_RESULTS_BY_THESIS) {
               const tooltipResultsShort = document.createElement("div");
               tooltipResultsShort.classList.add("tooltipResultsShort");
               tooltipResultsShort.innerHTML = `<span>${TOOLTIP_RESULTS_SHORT}</span>
-                                  <span class="closeTooltipResultsShort">&times;</span>`;
+                                  <button class="closeTooltipResultsShort">&times;</button>`;
               document
                 .querySelector(
                   `#resultsByPartyAnswersToQuestion${partyNumForTooltip}`
@@ -217,7 +222,7 @@ if (TOOLTIP_RESULTS_SHORT || TOOLTIP_RESULTS_BY_THESIS) {
       tooltipResultsByThesis.classList.add("tooltipResultsByThesis");
       tooltipResultsByThesis.innerHTML = `
       <span>${TOOLTIP_RESULTS_BY_THESIS}</span>
-      <span class="closeTooltipResultsByThesis">&times;</span>
+      <button class="closeTooltipResultsByThesis">&times;</button>
       `;
       document
         .querySelector("#resultsByThesisQuestion2")
