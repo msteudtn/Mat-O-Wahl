@@ -24,7 +24,7 @@ var arPartyLogosImg = new Array();		// Logos der Parteien
 var arSortParties=new Array();		// Nummern der Listen, nach Punkten sortiert
 
 var activeQuestion=0; //aktuell angezeigte Frage (output.js)
-
+let intParties = 0;
 
 // Einlesen der CSV-Datei und Weitergabe an Rückgabefunktion "fnCallback"
 function fnReadCsv(csvFile,fnCallback)
@@ -54,6 +54,20 @@ function fnReadCsv(csvFile,fnCallback)
 		});	
 }
 
+ // Zahl der Parteien dynamisch berechnen, anstatt sie in der definition.js anzugeben
+ function fnSetIntParties(data) {
+	let arIntParties = data.split("\n");
+	// Falls die fileAnswers (und damit der Array) mit leeren Zeilen endet, diese entfernen
+	while (true) {
+		if (arIntParties[arIntParties.length - 1] === "" || arIntParties[arIntParties.length - 1] === "\r") {
+			arIntParties.pop();
+		}
+		else break;
+	}
+	// Globale Variable erstellen, um Problem mit return values in async ajax calls zu umgehen
+	// Ergebnis runden, um Fehlertoleranz zu erhöhen
+	return Math.round(arIntParties.length / (intQuestions + 6));
+}
 
 // Anzeige der Fragen (aus fnStart())
 function fnShowQuestions(csvData)
@@ -77,6 +91,7 @@ function fnReadPositions(csvData)
 {
 	// Einlesen der Parteipositionen und Vergleichen
 	// fnSplitLines(csvData,0);
+	intParties = fnSetIntParties(csvData)
 	fnTransformCsvToArray(csvData,0)
 }
 
