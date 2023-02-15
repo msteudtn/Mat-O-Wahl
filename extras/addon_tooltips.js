@@ -8,15 +8,19 @@
 // Beim Button "Doppelt gewichten"
 const TOOLTIP_VOTING_DOUBLE =
   "Ist dir eine Frage besonders wichtig? Dann klicke auf &quot;Doppelt gewichten&quot;, <strong>bevor</strong> du deine Antwort auswählst.";
+  
 // Bei den Buttons, mit denen man seine eigene Position nachträglich ändern (und ggf. doppelt gewichten) kann
 const TOOLTIP_RESULTS_SHORT =
   "Klicke auf das Icon, um deine Antwort zu ändern.";
+  
 const TOOLTIP_RESULTS_BY_THESIS =
   "Klicke auf die Buttons, um deine Antwort zu ändern bzw. doppelt zu gewichten.";
+// Bei der wie vielten Frage soll der Tooltip angezeigt werden
+const TOOLTIP_RESULTS_BY_THESIS_QUESTION_NUMBER = 1;
 
 // Style aller aktivierten Tooltips
 // Hintergrundfarbe
-const TOOLTIP_BACKGROUND_COLOR = "var(--secondary-color)";
+const TOOLTIP_BACKGROUND_COLOR = "var(--info)";
 
 // Schriftgröße
 const TOOLTIP_FONT_SIZE = ".9rem";
@@ -217,7 +221,7 @@ if (TOOLTIP_RESULTS_SHORT || TOOLTIP_RESULTS_BY_THESIS) {
          }
        }`;
     }
-    if (TOOLTIP_RESULTS_SHORT || TOOLTIP_RESULTS_BY_THESIS) {
+    if (TOOLTIP_RESULTS_BY_THESIS) {
       const tooltipResultsByThesis = document.createElement("div");
       tooltipResultsByThesis.classList.add("tooltipResultsByThesis");
       tooltipResultsByThesis.innerHTML = `
@@ -225,7 +229,7 @@ if (TOOLTIP_RESULTS_SHORT || TOOLTIP_RESULTS_BY_THESIS) {
       <button class="closeTooltipResultsByThesis">&times;</button>
       `;
       document
-        .querySelector("#resultsByThesisQuestion2")
+        .querySelector(`#resultsByThesisQuestion${TOOLTIP_RESULTS_BY_THESIS_QUESTION_NUMBER - 1}`)
         .previousSibling.appendChild(tooltipResultsByThesis);
       document
         .querySelector(".closeTooltipResultsByThesis")
