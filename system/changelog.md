@@ -21,6 +21,11 @@
 
 ## Versions:
 
+
+### 0.6.0.8.20230215
+
+- intParties is not set in the definition.js, but is computed in real time (new function fnSetIntParties within fnReadPositions)
+
 ### 0.6.0.7.20230203
 
 - Addon `extras/addon_contacts_in_results.js` can now read email addresses from data-tags in `parties.csv` 
