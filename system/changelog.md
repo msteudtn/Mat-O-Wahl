@@ -24,7 +24,8 @@
 
 ### 0.6.0.8.20230215
 
-- intParties is not set in the definition.js, but is computed in real time (new function fnSetIntParties within fnReadPositions)
+- `intParties` is not set in the `definition.js`, but is computed in real time (new function `fnSetIntParties()` within `fnReadPositions()`) https://github.com/msteudtn/Mat-O-Wahl/pull/83 (Thanks to FEnglisch)
+- Bugfix: Buttons don't keep their focus after clicking on them https://github.com/msteudtn/Mat-O-Wahl/pull/79 (Thanks to FEnglisch)
 
 ### 0.6.0.7.20230203
 
