@@ -99,11 +99,7 @@ function fnStart()
 
 	// (b) Antworten der Parteien und Partei-Informationen
 	fnReadCsv("data/"+fileAnswers,fnReadPositions)
-
-	// arVotingDouble initialisieren
-	for (i=0;i<arQuestionsShort.length;i++)
-		{arVotingDouble[i]=false;
-		arPersonalPositions[i]=99;}
+	
 	$("#votingDouble").attr('checked', false);
 	
 	// Wenn "descriptionShowOnStart = 0" in DEFINITION.JS, dann gleich die Fragen anzeigen
