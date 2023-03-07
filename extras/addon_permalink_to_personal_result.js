@@ -26,42 +26,16 @@ const PERMALINK_DESCRIPTION_DURATION = 8;
 
 /// ////////////////////////////////////////////////////////////////////
 
-function fnProcessPermalink(personalPositionsFromUrl, votingDoubleFromUrl) {
-    arPersonalPositions = personalPositionsFromUrl.split(",")
-    arVotingDouble = votingDoubleFromUrl.split(",")
-
-    // Entferne das Statistik-Modal - an anderer Stelle eine Fehlermeldung in Kauf nehmend
-    // const statsRecord lässt sich nicht zu "false" reassignen, daher das Modal einfach ganz entfernen
-    let statisticsModal = document.querySelector("#statisticsModal")
-    if (statisticsModal) statisticsModal.parentNode.removeChild(statisticsModal)
-
-    // Entferne den Startbildschirm, falls vorhanden. Ansonsten würde er nicht verschwinden
-    const sectionDescription = document.querySelector("#sectionDescription")
-    if(sectionDescription) sectionDescription.parentNode.removeChild(sectionDescription)
-
-    // Ohne Timeout würde es beim Reload z. T. zu Fehlern kommen
-   setTimeout(() => {
-        fnShowQuestionNumber(intQuestions)
-    }, 500)
-}
-
-
-
 window.addEventListener("load", () => {
     // Suche in der URL nach Parameter und führe ggf. Funktion aus
-    const urlParams = new URLSearchParams(window.location.search)
-    const personalPositionsFromUrl = urlParams.get('personalpositions')
-    if (personalPositionsFromUrl) {
-        const votingDoubleFromUrl = urlParams.get('votingdouble')   
-        fnProcessPermalink(personalPositionsFromUrl, votingDoubleFromUrl)
-    }
+    fnProcessPermalink()
 
     const observerResults = new MutationObserver(fnGeneratePermalink);
     observerResults.observe(document.querySelector("#resultsHeading"), {childList: true,});
 
     // Ist eine inner function, damit sie Zugriff auf die Variable observerResults hat (zum Disconnecten)
     function fnGeneratePermalink() {
-        // Ohne .disconnect() wird die Mutation doppelt getriggert -> 2 Buttons
+        // Ohne .disconnect() wird die Mutation aus irgendeinem Grund doppelt getriggert -> 2 Buttons
         observerResults.disconnect()
 
         const permalinkContainer = document.createElement("div");
@@ -73,7 +47,11 @@ window.addEventListener("load", () => {
         ${PERMALINK_DESCRIPTION_TEXT}</p>`
         const permalinkDescription = permalinkContainer.querySelector("#permalink-description")
         permalinkContainer.querySelector("#permalink-button").addEventListener("click", () => {
-            const permalinkUrl = window.location.origin + window.location.pathname + "?personalpositions=" + arPersonalPositions.join(",")  + "&votingdouble=" + arVotingDouble.join(",")
+            let permalinkUrl = window.location.origin + window.location.pathname
+            // Add parameter with personal positions
+            permalinkUrl += "?personalpositions=" + arPersonalPositions.join(",")
+            // Add parameter with voting double values, encode to numbers to avoid confusing strings like "false,false,false..." in the URL
+            permalinkUrl += "&votingdouble=" + arVotingDouble.map(element => +element).join(",")
             navigator.clipboard.writeText(permalinkUrl)
             permalinkDescription.classList.remove("d-none")
             setTimeout(() => {
@@ -83,3 +61,28 @@ window.addEventListener("load", () => {
         document.querySelector("#resultsShort").insertBefore(permalinkContainer, document.querySelector("#resultsShortTable"))
     }
 })
+
+function fnProcessPermalink() {
+    const urlParams = new URLSearchParams(window.location.search)
+    const personalPositionsFromUrl = urlParams.get('personalpositions');
+    const votingDoubleFromUrl = urlParams.get('votingdouble');
+    if (personalPositionsFromUrl) { 
+        arPersonalPositions = personalPositionsFromUrl.split(",")
+        // Decode numbers to boolean values
+        arVotingDouble = votingDoubleFromUrl.split(",").map(element => !!+element)
+
+        // Entferne das Statistik-Modal - an anderer Stelle eine Fehlermeldung in Kauf nehmend
+        // const statsRecord lässt sich nicht zu "false" reassignen, daher das Modal einfach ganz entfernen
+        let statisticsModal = document.querySelector("#statisticsModal")
+        if (statisticsModal) statisticsModal.parentNode.removeChild(statisticsModal)
+
+        // Entferne den Startbildschirm, falls vorhanden. Ansonsten würde er nicht verschwinden
+        const sectionDescription = document.querySelector("#sectionDescription")
+        if(sectionDescription) sectionDescription.parentNode.removeChild(sectionDescription)
+
+        // Direkt zur Auswertung springen. Ohne Timeout würde es beim Reload z. T. zu Fehlern kommen
+        setTimeout(() => {
+            fnShowQuestionNumber(intQuestions)
+        }, 500)
+    }
+}
