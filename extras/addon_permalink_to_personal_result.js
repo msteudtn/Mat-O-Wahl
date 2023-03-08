@@ -6,8 +6,16 @@
 // Text im Button
 const PERMALINK_BUTTON_TEXT = "Ergebnis speichern"
 
+const PERMALINK_BUTTON_BACKGROUND_COLOR = "var(--secondary-color)"
+
+const PERMALINK_BUTTON_TEXT_COLOR = "var(--secondary-text-color, #ffffff)"
+
 // Erklärtext, der für ein paar Sekunden angezeigt wird, wenn man auf den Button klickt
 const PERMALINK_DESCRIPTION_TEXT ="Es wurde ein Permalink generiert und in deine Zwischenablage kopiert. Speichere diesen Link und rufe ihn später auf, um wieder zu dieser persönlichen Ergebnisseite zu gelangen."
+
+const PERMALINK_DESCRIPTION_BORDER_COLOR = "var(--success)"
+
+const PERMALINK_DESCRIPTION_BORDER_RADIUS = "var(--border-radius)"
 
 // Wie viele Sekunden soll der Erklärtext angezeigt werden, bevor er wieder verschwindet?
 const PERMALINK_DESCRIPTION_DURATION = 8;
@@ -40,10 +48,9 @@ window.addEventListener("load", () => {
 
         const permalinkContainer = document.createElement("div");
         permalinkContainer.setAttribute("id","permalink-container");
-        permalinkContainer.style.textAlign = "right"
         permalinkContainer.innerHTML = `<button class="btn btn-secondary" id="permalink-button">${PERMALINK_BUTTON_TEXT}</button>
-        <p id="permalink-description" class="d-none"\
-        style="text-align: left; border: 2px solid var(--success, green);padding: 5px 15px;margin: 10px;border-radius: var(--border-radius, 0);">\
+        <p id="permalink-description"\
+        style="max-height: 0; border-color: transparent">\
         ${PERMALINK_DESCRIPTION_TEXT}</p>`
         const permalinkDescription = permalinkContainer.querySelector("#permalink-description")
         permalinkContainer.querySelector("#permalink-button").addEventListener("click", () => {
@@ -53,13 +60,17 @@ window.addEventListener("load", () => {
             // Add parameter with voting double values, encode to numbers to avoid confusing strings like "false,false,false..." in the URL
             permalinkUrl += "&votingdouble=" + arVotingDouble.map(element => +element).join(",")
             navigator.clipboard.writeText(permalinkUrl)
-            permalinkDescription.classList.remove("d-none")
+            permalinkDescription.style.maxHeight = permalinkDescription.scrollHeight + 20 + "px";
+            permalinkDescription.classList.add("permalink-description-visible")
             setTimeout(() => {
-                permalinkDescription.classList.add("d-none")
+                permalinkDescription.style.maxHeight = 0;
+                permalinkDescription.classList.remove("permalink-description-visible")
             }, PERMALINK_DESCRIPTION_DURATION * 1000)
         }) 
         document.querySelector("#resultsShort").insertBefore(permalinkContainer, document.querySelector("#resultsShortTable"))
     }
+
+    addCssForPermalinkElements()
 })
 
 function fnProcessPermalink() {
@@ -85,4 +96,33 @@ function fnProcessPermalink() {
             fnShowQuestionNumber(intQuestions)
         }, 500)
     }
+}
+
+function addCssForPermalinkElements() {
+    const stylesheet = document.createElement("style");
+    stylesheet.setAttribute("id", "permalinkCSS");
+    stylesheet.textContent += `
+    #permalink-container {
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+      } 
+    
+    #permalink-button {
+        background-color: ${PERMALINK_BUTTON_BACKGROUND_COLOR};
+      }
+      #permalink-description {
+        transition: max-height .3s, border-color .3s;
+        border: 2px solid;
+        margin: 10px;
+        width: max(60%, 300px);
+        border-radius: ${PERMALINK_DESCRIPTION_BORDER_RADIUS};
+        overflow: hidden;
+      }
+
+      .permalink-description-visible {
+        padding: 10px 15px;
+        border-color: ${PERMALINK_DESCRIPTION_BORDER_COLOR} !important;
+      }`;
+    document.head.appendChild(stylesheet);
 }
