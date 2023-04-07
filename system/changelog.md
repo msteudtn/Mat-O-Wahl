@@ -21,6 +21,9 @@
 
 ## Versions:
 
+### 0.6.0.9.20230407
+
+- new addon `extras/addon_permalink_to_personal_result.js` to save a link of your result to the clipboard and come back to it later https://github.com/msteudtn/Mat-O-Wahl/pull/87 (Thanks to FEnglisch)
 
 ### 0.6.0.8.20230215
 
