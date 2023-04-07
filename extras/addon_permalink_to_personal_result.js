@@ -24,7 +24,7 @@ const LOADING_MODAL_TEXT = "Deine Ergebnisseite lädt...";
 
 // 2.) In der DEFINITION.JS in den Erweiterten Einstellungen das Add-On eintragen.
 // Add the add-on to the advanced settings in DEFINITION.JS
-// var addons = ["extras/addon_contacts_in_results.js"]
+// var addons = ["extras/addon_permalink_to_personal_results.js"]
 
 // 3.) Fertig.
 // That's it.
