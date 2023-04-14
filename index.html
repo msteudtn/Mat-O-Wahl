@@ -157,7 +157,16 @@
 		<section id="sectionVotingButtons">
 		
 			<div class="grid-container row">
-				<div class="double">
+
+				<div class="weniger">
+					<button type="button" id="votingDouble" onclick="fnChangeVotingDouble()" class="btn btn-outline-dark btn-lg btn-block">[x0] Important</button>
+				</div>
+
+				<div class="normal">
+					<button type="button" id="votingDouble" onclick="fnChangeVotingDouble()" class="btn btn-outline-dark btn-lg btn-block">[x1] Important</button>
+				</div>
+
+				<div class="mehr">
 					<button type="button" id="votingDouble" onclick="fnChangeVotingDouble()" class="btn btn-outline-dark btn-lg btn-block">[x2] Important</button>
 				</div>
 
@@ -165,9 +174,9 @@
 					<button type="button" id="votingPro" class="btn btn-success btn-lg btn-block">[&#x2714;] Pro</button>
 				</div>
 
-				<div class="dontCare">
+				<!-- <div class="dontCare">
 					<button type="button" id="votingNeutral" class="btn btn-warning btn-lg btn-block">[&#x25EF;] Neutral</button>
-				</div>
+				</div> -->
 
 				<div class="no">
 					<button type="button" id="votingContra" class="btn btn-danger btn-lg btn-block">[&#x2716;] Contra</button>
