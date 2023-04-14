@@ -62,14 +62,14 @@
 	e.g. "Airport","The airport shall be expanded."
 */
 
-const fileQuestions = "Obsthausen_Fragen.csv";
+const fileQuestions = "vorsitzwahl_fragen.csv";
 
 
 // 	--------------------------------------------------------------------
 
 //	1.2 ANZAHL der FRAGEN / 1.2 NUMBER of QUESTIONS
 
-const intQuestions = 6;
+const intQuestions = 5;
 
 
 // 	--------------------------------------------------------------------
@@ -94,7 +94,7 @@ const intQuestions = 6;
  	1.3. PARTIES, PARTY-INFORMATION and ANSWERS
 */
 
-const fileAnswers = "Obsthausen_Parteien.csv";
+const fileAnswers = "vorsitzwahl_kandidaten.csv";
 
 /*
  	1.5. BILDGROESSE des PARTEILOGOS (am Ende)
@@ -136,17 +136,17 @@ const descriptionShowOnStart = 1;
 
 // 	1.6.2. Hauptueberschrift / 1.6.1. Main headline
 
-const descriptionHeading1 = "Fruchtkorbwahlen";
+const descriptionHeading1 = "Vorsitzwahl | Mitgliederbefragung";
 
 
 // 	1.6.3. Zweite Ueberschrift / 1.6.2. Second Headline
 
-const descriptionHeading2 = "Die Wahl zur neuen Regierung in Obsthausen";
+const descriptionHeading2 = "Du wirst gefragt, wer den Parteivorsitz der SPÖ übernehmen und als Kanzlerkandidat ins Rennen geschickt wird.";
 
 
 // 	1.6.4. Kurzer Text um was es bei der Wahl geht / 1.6.3. Short (descriptive) text on what's the election about
 
-const descriptionExplanation = "Am 30. Februar finden in Obsthausen Wahlen statt. Sie k&ouml;nnen sich hier alle Parteipositionen anschauen und miteinander vergleichen. Dies ist <strong>keine Wahlempfehlung</strong>, sondern ein Informationsangebot zu Wahlen! <br /> Zur Auswahl stehen vier Parteien mit unterschiedlichen Meinungen zu kontroversen Themen der Obst- und Frucht-Landschaft."; 
+const descriptionExplanation = "Die Befragung wird zwischen 24. April und 10. Mai stattfinden. Teilnahmeberechtigt sind rund 148.000 SPÖ-Mitglieder. Das Ergebnis liegt frühestens am 22. Mai vor."; 
 
 
 // 	--------------------------------------------------------------------
