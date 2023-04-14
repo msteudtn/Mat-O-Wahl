@@ -362,8 +362,8 @@ const language = "de";
 	The script and Mat-O-Wahl must be on the same domain and network-protocoll. (no "cross origin" / CORS)
 */
 
-const statsRecord = 0;
-const statsServer = "http://localhost/extras/statistics/vote_txt.php";
+const statsRecord = 1;
+const statsServer = "http://132.226.199.141/extras/statistics/vote_txt.php";
 
 
 /*

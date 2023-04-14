@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <title>Mat-O-Wahl</title>
+  <title>Vorsitzwahl</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -156,28 +156,28 @@
 
 		<section id="sectionVotingButtons">
 		
-			<div class="row">
-				<div class="col">
+			<div class="grid-container row">
+				<div class="double">
 					<button type="button" id="votingDouble" onclick="fnChangeVotingDouble()" class="btn btn-outline-dark btn-lg btn-block">[x2] Important</button>
 				</div>
 
-				<div class="col">
+				<div class="yes">
 					<button type="button" id="votingPro" class="btn btn-success btn-lg btn-block">[&#x2714;] Pro</button>
 				</div>
 
-				<div class="col">
+				<div class="dontCare">
 					<button type="button" id="votingNeutral" class="btn btn-warning btn-lg btn-block">[&#x25EF;] Neutral</button>
 				</div>
 
-				<div class="col">
+				<div class="no">
 					<button type="button" id="votingContra" class="btn btn-danger btn-lg btn-block">[&#x2716;] Contra</button>
 				</div>
 
 				<!-- Force next columns to break to new line (Bootstrap 4.4+) -->
-				<div class="w-100"></div>
+				<!-- <div class="w-100"></div> -->
 
-				<div class="col">
-					<button type="button" id="votingSkip" class="btn btn-secondary btn float-right">[&#x21B7;] Skip</button>
+				<div class="skip">
+					<button type="button" id="votingSkip" class="btn btn-secondary btn-lg btn-block">[&#x21B7;] Skip</button>
 				</div>
 				
 			</div> 

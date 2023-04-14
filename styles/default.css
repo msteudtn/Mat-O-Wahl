@@ -4,9 +4,8 @@
 body {
 	font-family:Verdana, Arial, Helvetica, sans-serif; 
 /*	font-size:10pt; */
-	color:#000000; 
-
-	background-color: #FFFFFF;
+	color:#F6EAEC; 
+    font-family: "Raleway", sans-serif;
 	/* background-image: linear-gradient(#EFC04F, #FFE08F); */ 
 	/* background-attachment: fixed; */
 	}
@@ -19,6 +18,65 @@ a:not(.btn):visited { color:#808080; }
 a:not(.btn):active { color:#FF0000; }
 a:not(.btn):hover { color:#FF0000; text-decoration:none; }
 
+
+.question-card {
+	background-color: #CC6361;
+}
+
+.card-header {
+	background-color: #CC6361;
+}
+
+.card-text {
+	color: #000000
+}
+
+
+
+.grid-container {
+	display: grid;
+	/* grid-template-columns: 1fr 3fr; */	
+	/* grid-template-rows: auto 1fr auto; */
+	grid-template-areas: "a double b"
+	  "yes dontCare no"
+	  "c skip d";
+  }
+  
+  .double {
+	grid-area: double;
+  }
+  
+  .yes {
+	grid-area: yes;
+  }
+
+  .dontCare {
+	grid-area: dontCare;
+  }
+
+  .no {
+	grid-area: no;
+  }
+  
+  .skip {
+	grid-area: skip;
+  }
+  
+
+
+
+#sectionVotingButtons .row {
+	display: grid;
+	grid-auto-columns: 1fr;
+	grid-auto-rows: 1fr;
+	grid-gap: 1rem;
+	/* grid-template-columns: 1fr 1fr 1fr 1fr 1fr; */
+}
+#sectionVotingButtons .row  .btn {
+	height: 100%;
+	margin: 0;
+	padding: 1rem;
+}
 
 /* Statistik */
 /* Statistics */

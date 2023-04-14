@@ -55,21 +55,21 @@ function fnStart()
 	//////////////////////////////////////////////////////////////////
 	// FOOTER
 
-/*
+
 
 	// Wenn Datenschutzerklärung vorhanden UND Auswertung gewünscht ...
 	$("#keepStats").hide()
 	$("#keepStatsQuestion").append(TEXT_ALLOW_STATISTIC);	// WACG: <label> sollte immer befüllt sein 	
 	if ((imprintPrivacyUrl.length > 0) && (statsRecord) )
 	{		
-//		$("#keepStatsCheckbox").attr("checked",true); // Zeile auskommentieren/aktivieren und OptIn erzwingen - bitte mit Bedacht benutzen.
+		$("#keepStatsCheckbox").attr("checked",true); // Zeile auskommentieren/aktivieren und OptIn erzwingen - bitte mit Bedacht benutzen.
 		$("#keepStats").fadeIn(1000);
 	}
 	else
 	{
 		$("#keepStatsCheckbox").attr("checked",false);	// Falls jmd. bauernschlau in der INDEX.HTML checked="checked" eingetragen hat -> OptOut
 	}
-*/
+
 
 	// Impressum auf Startseite ersetzen
 	// Text aus i18n einfügen
