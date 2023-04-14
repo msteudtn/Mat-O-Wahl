@@ -7,6 +7,9 @@ var TEXT_VOTING_NEUTRAL = "No opinion"
 var TEXT_VOTING_CONTRA = "Disagree"
 var TEXT_VOTING_SKIP = "Skip (don't count)"
 var TEXT_VOTING_DOUBLE = "Very important to me"
+var TEXT_VOTING_IMPORTANT_1 = "not important"
+var TEXT_VOTING_IMPORTANT_2 = "important"
+var TEXT_VOTING_IMPORTANT_3 = "very important"
 
 // Statistic
 var TEXT_ALLOW_STATISTIC = "Allow anonymous analytics (prognosis)? See <a href='"+imprintPrivacyUrl+"' target='_blank'>privacy statement</a>." // to be deleted

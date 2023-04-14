@@ -12,7 +12,8 @@ var arQuestionsLong = new Array();		// Langform der Frage: Soll der Flughafen au
 var arPartyPositions = new Array();	// Position der Partei als Zahl aus den CSV-Dateien (1/0/-1)
 var arPartyOpinions = new Array();		// Begründung der Parteien aus den CSV-Dateien
 var arPersonalPositions = new Array();	// eigene Position als Zahl (1/0/-1)
-var arVotingDouble = new Array();	// eigene Position als Zahl (2/1/0/-1/-2)
+var arVotingDouble = new Array();	// eigene Position als Zahl (2/1/0/-1/-2) // können wir das ausbauen zu 3/2/1 0 skip -1/-2/-3
+// var arVotingDouble = new {};	// eigene Position als Zahl (2/1/0/-1/-2)
 
 // var arPartyFiles = new Array();		// Liste mit den Dateinamen der Parteipositionen
 var arPartyNamesShort = new Array();	// Namen der Parteien - kurz
@@ -99,6 +100,9 @@ function fnReadPositions(csvData)
 // Auswertung (Berechnung)
 // Gibt ein Array "arResults" zurück für fnEvaluationShort(), fnEvaluationByThesis(), fnEvaluationByParty() und fnReEvaluate();
 // Aufruf am Ende aller Fragen in fnShowQuestionNumber() und beim Prüfen auf die "doppelte Wertung" in fnReEvaluate()
+
+
+// TODO discuss the valuation 
 function fnEvaluation()
 {
 

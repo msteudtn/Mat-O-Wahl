@@ -27,7 +27,9 @@ function fnStart()
 	$("#votingNeutral").html(TEXT_VOTING_NEUTRAL)
 	$("#votingContra").html(TEXT_VOTING_CONTRA)
 	$("#votingSkip").html(TEXT_VOTING_SKIP)
-	$("#votingDouble").html(TEXT_VOTING_DOUBLE)
+	$("#votingDouble0").html(TEXT_VOTING_IMPORTANT_1)
+	$("#votingDouble1").html(TEXT_VOTING_IMPORTANT_2)
+	$("#votingDouble2").html(TEXT_VOTING_IMPORTANT_3)
 	
 	// 4. Navigation
 	$("#sectionNavigation").hide();
@@ -252,25 +254,17 @@ function fnShowQuestionNumber(questionNumber)
 }
 
 // 02/2015 BenKob
-function fnChangeVotingDouble()
+function fnChangeVotingDouble(weight)
 {
+	console.log("gewicht " + weight)
 
-	arVotingDouble[activeQuestion]=!(arVotingDouble[activeQuestion]);
-	strBtnSrc = $("#votingDouble").hasClass("btn-outline-dark");
-	
-	if (strBtnSrc)
-	// wenn vorher unwichtig -> jetzt doppelt werten
-	{
-		$("#votingDouble").removeClass( "btn-outline-dark" ).addClass( "btn-dark" );
-		$("#jumpToQuestionNr"+(activeQuestion+1)+"").css("font-weight","bold");
-	}
-	// wenn vorher wichtig -> jetzt wieder auf normal setzen
-	else
-	{
-		$("#votingDouble").removeClass( "btn-dark" ).addClass( "btn-outline-dark" );
-		$("#jumpToQuestionNr"+(activeQuestion+1)+"").css("font-weight","normal");
-	}
 
+	arVotingDouble[activeQuestion]=weight
+
+	$("#votingImportant1").removeClass( "btn-dark" ).addClass( "btn-outline-dark");
+	$("#votingImportant2").removeClass( "btn-dark" ).addClass( "btn-outline-dark");
+	$("#votingImportant3").removeClass( "btn-dark" ).addClass( "btn-outline-dark");
+	$("#votingImportant"+weight).removeClass( "btn-outline-dark" ).addClass( "btn-dark" );
 }
 
 // Springe zu Frage Nummer XY (wird in fnShowQuestionNumber() aufgerufen)

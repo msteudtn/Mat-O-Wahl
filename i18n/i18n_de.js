@@ -7,6 +7,9 @@ var TEXT_VOTING_NEUTRAL = "Egal/Weiß nicht"
 var TEXT_VOTING_CONTRA = "Stimme nicht zu"
 var TEXT_VOTING_SKIP = "Überspringen"
 var TEXT_VOTING_DOUBLE = "Doppelt gewichten"
+var TEXT_VOTING_IMPORTANT_1 = "weniger wichtig"
+var TEXT_VOTING_IMPORTANT_2 = "wichtig"
+var TEXT_VOTING_IMPORTANT_3 = "sehr wichtig"
 
 // Statistic
 var TEXT_ALLOW_STATISTIC = "Anonyme Auswertung (Wahlprognose) erlauben. Siehe <a href='"+imprintPrivacyUrl+"' target='_blank'>Datenschutzerklärung</a>." // Variable loeschen!
