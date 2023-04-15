@@ -69,7 +69,7 @@ const fileQuestions = "vorsitzwahl_fragen.csv";
 
 //	1.2 ANZAHL der FRAGEN / 1.2 NUMBER of QUESTIONS
 
-const intQuestions = 5;
+const intQuestions = 5; // TODO should be number of lines in the fileQueststion
 
 
 // 	--------------------------------------------------------------------
