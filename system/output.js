@@ -27,9 +27,9 @@ function fnStart()
 	$("#votingNeutral").html(TEXT_VOTING_NEUTRAL)
 	$("#votingContra").html(TEXT_VOTING_CONTRA)
 	$("#votingSkip").html(TEXT_VOTING_SKIP)
-	$("#votingDouble0").html(TEXT_VOTING_IMPORTANT_1)
-	$("#votingDouble1").html(TEXT_VOTING_IMPORTANT_2)
-	$("#votingDouble2").html(TEXT_VOTING_IMPORTANT_3)
+	$("#votingImportant1").html(TEXT_VOTING_IMPORTANT_1)
+	$("#votingImportant2").html(TEXT_VOTING_IMPORTANT_2)
+	$("#votingImportant3").html(TEXT_VOTING_IMPORTANT_3)
 	
 	// 4. Navigation
 	$("#sectionNavigation").hide();
@@ -180,17 +180,19 @@ function fnShowQuestionNumber(questionNumber)
 		
 			// Klick-Funktion auf Bilder/Buttons legen.
 		   $("#votingPro").click(function () {
-			arPersonalPositions[questionNumber] = 1;
+			weight = 1
+			arPersonalPositions[questionNumber] = 1 * weight;
 		   	fnShowQuestionNumber(questionNumber);
 		   });
 	
-		   $("#votingNeutral").click(function () { 
-		   	arPersonalPositions[questionNumber] = 0;
-		   	fnShowQuestionNumber(questionNumber);
-		   });
+		//    $("#votingNeutral").click(function () { 
+		//    	arPersonalPositions[questionNumber] = 0;
+		//    	fnShowQuestionNumber(questionNumber);
+		//    });
 	
 		   $("#votingContra").click(function () { 
-		   	arPersonalPositions[questionNumber] = -1;
+			weight = 1
+		   	arPersonalPositions[questionNumber] = -1 * weight;
 		   	fnShowQuestionNumber(questionNumber);
 		   });
 	

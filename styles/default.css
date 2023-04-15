@@ -4,7 +4,7 @@
 body {
 	font-family:Verdana, Arial, Helvetica, sans-serif; 
 /*	font-size:10pt; */
-	color:#F6EAEC; 
+
     font-family: "Raleway", sans-serif;
 	/* background-image: linear-gradient(#EFC04F, #FFE08F); */ 
 	/* background-attachment: fixed; */
@@ -21,10 +21,12 @@ a:not(.btn):hover { color:#FF0000; text-decoration:none; }
 
 .question-card {
 	background-color: #CC6361;
+	color:#F6EAEC; 
 }
 
 .card-header {
 	background-color: #CC6361;
+	color:#F6EAEC; 
 }
 
 .card-text {
