@@ -848,12 +848,12 @@ function fnEvaluationByParty(arResults)
 			// tableContent += "<td style='text-align:center; width:10%;'>";
 			tableContent += " <div class='col col-2 order-1 col-md-1 order-md-2' role='cell'> ";
 			
-				// tableContent += "<button type='button' "+
-				tableContent += "<button type='button' id='' "+
-											" class='btn "+positionButton+" btn-sm selfPosition"+modulo+" '  "+ 
-											" onclick='fnToggleSelfPosition("+modulo+")' "+ 
-											" alt='"+TEXT_ANSWER_USER+" : "+positionText+"' title='"+TEXT_ANSWER_USER+" : "+positionText+"'>"+
-											" "+positionIcon+"</button>";
+			// tableContent += "<button type='button' "+
+			tableContent += "<button type='button' id='' "+
+										" class='btn "+positionButton+" btn-sm selfPosition"+modulo+" '  "+ 
+										" onclick='fnToggleSelfPosition("+modulo+")' "+ 
+										" alt='"+TEXT_ANSWER_USER+" : "+positionText+"' title='"+TEXT_ANSWER_USER+" : "+positionText+"'>"+
+										" "+positionIcon+"</button>";
 						
 			// tableContent += "</td>";
 			tableContent += " </div> ";

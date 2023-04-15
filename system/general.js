@@ -11,7 +11,7 @@ var arQuestionsLong = new Array();		// Langform der Frage: Soll der Flughafen au
 
 var arPartyPositions = new Array();	// Position der Partei als Zahl aus den CSV-Dateien (1/0/-1)
 var arPartyOpinions = new Array();		// Begründung der Parteien aus den CSV-Dateien
-var arPersonalPositions = new Array();	// eigene Position als Zahl (1/0/-1)
+var arPersonalPositions = new Array();	// eigene Position als Zahl (1/0/-1) // TODO why not have the weight also already store in this? 
 var arVotingDouble = new Array();	// eigene Position als Zahl (2/1/0/-1/-2) // können wir das ausbauen zu 3/2/1 0 skip -1/-2/-3
 // var arVotingDouble = new {};	// eigene Position als Zahl (2/1/0/-1/-2)
 
@@ -118,7 +118,7 @@ function fnEvaluation()
 //	var numberOfQuestions = arQuestionsLong.length;		// 3 Fragen
 //	var numberOfPositions = arPartyPositions.length; // 12 = 3 Fragen * 4 Parteien
 
-	var numberOfQuestions = intQuestions;		// 3 Fragen
+	var numberOfQuestions = intQuestions;		
 	var numberOfPositions = intQuestions * intParties; // 12 = 3 Fragen * 4 Parteien
 
 	var indexPartyInArray = -1; // Berechnung der Position des Index der aktuellen Partei
@@ -166,22 +166,6 @@ function fnEvaluation()
 		} // end: Frage nicht uebersprungen
 	} // end: for numberOfQuestions
 
-
-/*	
-	// Wenn Nutzer eingewilligt hat ...
-	if ( $("#keepStatsCheckbox").prop("checked")==1)
-	{
-		// Sende Auswertung an Server
-		fnSendResults(arResults, arPersonalPositions);
-	}
-	else
-	{
-	}
-*/
-
-//	$("#keepStats").hide().empty();	
-
-//	console.log(arResults)
 	return arResults;
 
 }
@@ -191,24 +175,9 @@ function fnEvaluation()
 // Aufruf aus fnEvaluation()
 function fnSendResults(arResults, arPersonalPositions)
 {
-	// Korrektur der Parteiposition (-1,0,1) mit den Informationen aus der doppelten Wertung (-2,-1,0,1,2)
-	// Marius Nisslmueller, Bad Honnef, Juni 2020
-	// Bedingung für übersprungene Frage hinzugefügt
-	arPersonalPositionsForStats = arPersonalPositions.slice(); // Damit arPersonalPositions nicht verändert wird
-	for(let i=0; i<arPersonalPositionsForStats.length; i++){
-		if(arVotingDouble[i] && arPersonalPositionsForStats[i] < 99){
-		    arPersonalPositionsForStats[i] *= 2; 
-		}
-	}
-
-
-	var strResults = arResults.join(",");
-	// var strPersonalPositions = arPersonalPositions.join(",");
-	var strPersonalPositions = arPersonalPositionsForStats.join(",");
-	
-	$.get(statsServer, { mowpersonal: strPersonalPositions, mowparties: strResults } );
-
-	console.log("Mat-O-Wahl. Daten gesendet an Server: "+statsServer+" - mowpersonal: "+strPersonalPositions+" - mowparties: "+strResults+"")
+	// $.get(statsServer, { mowpersonal: strPersonalPositions, mowparties: strResults } );
+	console.info("direkt schicken", statsServer, arPersonalPositions )
+	return;
 }
 
 
@@ -307,40 +276,26 @@ function fnTransformCsvToArray(csvData,modus)
 // ersetzt die Position (-1, 0, 1) mit dem passenden Button
 function fnTransformPositionToButton(position)
 {
-	var arButtons = new Array("btn-danger","btn-warning","btn-success")
-	var positionButton = "btn-default";
-	for (z = -1; z <= 1; z++)
-	{
-	 	if (z == position)
-		{
-			positionButton = arButtons[(z+1)];
-		}
-	}
-	return positionButton;
+	var tempShiftedPosition = position + 1; 
+	return ["btn-danger","btn-default","btn-success"][tempShiftedPosition];
 }
 
 // v.0.3 NEU
 // ersetzt die Position (-1, 0, 1) mit dem passenden Icon
 function fnTransformPositionToIcon(position)
 {
-	var arIcons = new Array("&#x2716;","&#x25EF;","&#x2714;")
-	var positionIcon = "&#x21B7;";
-	for (z = -1; z <= 1; z++)
-	{
-	 	if (z == position)
-		{
-			positionIcon = arIcons[(z+1)];
-		}
-	}
-	return positionIcon;
+	var tempShiftedPosition = position + 1; 
+	return ["&#x2716;","&#x21B7;","&#x2714;"][tempShiftedPosition];
 }
 
 // ersetzt die Partei-Position (-1, 0, 1) mit der passenden Farbe
 function fnTransformPositionToColor(position)
 {
+	var tempShiftedPosition = position + 1; 
+	return ["#d9534f","#c0c0c0","#5cb85c"][tempShiftedPosition];
 	// red, yellow, green - "#ff0000","#ffff00","#00ff00"
 	// Bootstrap-colors: https://github.com/twbs/bootstrap/blob/master/dist/css/bootstrap.css
-	var arColors = new Array("#d9534f","#f0ad4e","#5cb85c")
+	var arColors = new Array("#d9534f","#c0c0c0","#5cb85c")
 	var positionColor = "#c0c0c0";
 	for (z = -1; z <= 1; z++)
 	{
@@ -357,7 +312,10 @@ function fnTransformPositionToColor(position)
 // ersetzt die Partei-Position (-1, 0, 1) mit dem passenden Text
 function fnTransformPositionToText(position)
 {
-	var arText = new Array("[-]","[o]","[+]")
+	var tempShiftedPosition = position + 1; 
+	return ["[-]","[/]","[+]"][tempShiftedPosition];
+
+	var arText = new Array("[-]","[/]","[+]")
 	var positionText = "[/]";
 	for (z = -1; z <= 1; z++)
 	{
@@ -393,27 +351,37 @@ function fnBarImage(percent)
 
 
 // 02/2015 BenKob (doppelte Wertung)
-function fnToggleSelfPosition(i)
+function fnToggleSelfPosition(questionNumber)
 {
-	arPersonalPositions[i]--;
-	if (arPersonalPositions[i]==-2) 
+	console.error("fnToggleSelfPosition ist noch nicht angepasst")
+	// alert("fnToggleSelfPosition ist noch nicht angepasst")
+	// arPersonalPosition uses -1, 0, +1
+
+
+	var temporaryShift = 1;
+	var numberOfStatesForPersonalPosition = 3;
+	var toggleStepSize = 1;
+	tempShiftedPosition = arPersonalPositions[questionNumber] + temporaryShift;
+	rotatedShiftedPosition = (tempShiftedPosition + toggleStepSize) % numberOfStatesForPersonalPosition;	
+	console.log("old", arPersonalPositions[questionNumber])
+	arPersonalPositions[questionNumber] = rotatedShiftedPosition -temporaryShift; 
+	//arPersonalPositions[i]--; // was soll das sein?
+	/*if (arPersonalPositions[i]==-2) 
 		{arPersonalPositions[i]=99}
 	if (arPersonalPositions[i]==98) 
 		{arPersonalPositions[i]=1}
+		*/
 //	var positionImage = fnTransformPositionToImage(arPersonalPositions[i]);
-	var positionButton = fnTransformPositionToButton(arPersonalPositions[i]);
-	var positionIcon = fnTransformPositionToIcon(arPersonalPositions[i]);
+	var positionButton = fnTransformPositionToButton(arPersonalPositions[questionNumber]);
+	var positionIcon = fnTransformPositionToIcon(arPersonalPositions[questionNumber]);
 	// var positionColor = fnTransformPositionToColor(arPersonalPositions[i]);
-	var positionText  = fnTransformPositionToText(arPersonalPositions[i]);
+	var positionText  = fnTransformPositionToText(arPersonalPositions[questionNumber]);
 	
 	// $("#selfPosition"+i).attr("src", "img/"+positionImage);
-	$(".selfPosition"+i).removeClass("btn-danger btn-warning btn-success btn-default").addClass(positionButton);
-	$(".selfPosition"+i).html(positionIcon);
-	$(".selfPosition"+i).attr("alt", positionText);
-	$(".selfPosition"+i).attr("title", positionText);
-	// $(".positionRow"+i).css("border","1px solid "+positionColor);
-
-//	console.log("toggle funktion i: "+i)
+	$(".selfPosition"+questionNumber).removeClass("btn-danger btn-warning btn-success btn-default").addClass(positionButton);
+	$(".selfPosition"+questionNumber).html(positionIcon);
+	$(".selfPosition"+questionNumber).attr("alt", positionText);
+	$(".selfPosition"+questionNumber).attr("title", positionText);
 
 	fnReEvaluate();
 }
