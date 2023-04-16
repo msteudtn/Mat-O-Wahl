@@ -2,10 +2,10 @@
 
 // Buttons
 var TEXT_START = "Los geht's!"
-var TEXT_VOTING_PRO = "Stimme zu"
-var TEXT_VOTING_NEUTRAL = "Egal/Weiß nicht"
-var TEXT_VOTING_CONTRA = "Stimme nicht zu"
-var TEXT_VOTING_SKIP = "Überspringen"
+var TEXT_VOTING_PRO = "Ja"
+var TEXT_VOTING_NEUTRAL = "Neutral"
+var TEXT_VOTING_CONTRA = "Nein"
+var TEXT_VOTING_SKIP = "Keine Angabe"
 var TEXT_VOTING_DOUBLE = "Doppelt gewichten"
 var TEXT_VOTING_IMPORTANT_1 = "weniger wichtig"
 var TEXT_VOTING_IMPORTANT_2 = "wichtig"

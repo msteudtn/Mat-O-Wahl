@@ -11,9 +11,9 @@ var arQuestionsLong = new Array();		// Langform der Frage: Soll der Flughafen au
 
 var arPartyPositions = new Array();	// Position der Partei als Zahl aus den CSV-Dateien (1/0/-1)
 var arPartyOpinions = new Array();		// Begründung der Parteien aus den CSV-Dateien
-var arPersonalPositions = new Array();	// eigene Position als Zahl (1/0/-1) // TODO why not have the weight also already store in this? 
+var arPersonalPositions = new Array();	// eigene Position als Zahl (1/0/-1) // why not have the weight also already store in this? -> becuase we can modify it in the output serperately 
 var arVotingDouble = new Array();	// eigene Position als Zahl (2/1/0/-1/-2) // können wir das ausbauen zu 3/2/1 0 skip -1/-2/-3
-// var arVotingDouble = new {};	// eigene Position als Zahl (2/1/0/-1/-2)
+var questionWeight = new Array();	// weight from 1 - 9 per questions // TODO initialize with question size
 
 // var arPartyFiles = new Array();		// Liste mit den Dateinamen der Parteipositionen
 var arPartyNamesShort = new Array();	// Namen der Parteien - kurz
@@ -390,6 +390,10 @@ function fnToggleSelfPosition(questionNumber)
 function fnToggleDouble(i)
 {
 	arVotingDouble[i]=!arVotingDouble[i];
+
+
+	questionWeight 
+
 	if(arVotingDouble[i])
 	{
 		// $("#doubleIcon"+i).attr("src","img/double-yes_icon.png");

@@ -180,7 +180,10 @@ function fnShowQuestionNumber(questionNumber)
 		
 			// Klick-Funktion auf Bilder/Buttons legen.
 		   $("#votingPro").click(function () {
-			weight = 1
+			// weight = 1
+			if (weight == null)  {
+				alert("we need a weight")
+			}
 			arPersonalPositions[questionNumber] = 1 * weight;
 		   	fnShowQuestionNumber(questionNumber);
 		   });
@@ -191,13 +194,17 @@ function fnShowQuestionNumber(questionNumber)
 		//    });
 	
 		   $("#votingContra").click(function () { 
+			
+			if (weight == null)  {
+				alert("we need a weight")
+			}
 			weight = 1
 		   	arPersonalPositions[questionNumber] = -1 * weight;
 		   	fnShowQuestionNumber(questionNumber);
 		   });
 	
 		   $("#votingSkip").click(function () { 
-		   	arPersonalPositions[questionNumber] = 99;
+			arPersonalPositions[questionNumber] = 0;
 		   	fnShowQuestionNumber(questionNumber);
 		   });
 
@@ -260,12 +267,11 @@ function fnChangeVotingDouble(weight)
 {
 	console.log("gewicht " + weight)
 
-
-	arVotingDouble[activeQuestion]=weight
-
-	$("#votingImportant1").removeClass( "btn-dark" ).addClass( "btn-outline-dark");
-	$("#votingImportant2").removeClass( "btn-dark" ).addClass( "btn-outline-dark");
-	$("#votingImportant3").removeClass( "btn-dark" ).addClass( "btn-outline-dark");
+	questionWeight[activeQuestion] = weight
+	//arVotingDouble[activeQuestion]=weight
+	for (i = 1; i <= 9; i++) {
+		$("#votingImportant"+i).removeClass( "btn-dark" ).addClass( "btn-outline-dark");
+	}
 	$("#votingImportant"+weight).removeClass( "btn-outline-dark" ).addClass( "btn-dark" );
 }
 
