@@ -67,8 +67,9 @@ window.addEventListener("load", () => {
         permalinkUrl += "?personalpositions=" + arPersonalPositions.join(",");
         // Add parameter with voting double values, encode to numbers to avoid confusing strings like "false,false,false..." in the URL
         permalinkUrl +=
-          "&votingdouble=" +
-          arVotingDouble.map((element) => +element).join(",");
+          "&questionWeight=" +
+          questionWeight.map((element) => +element).join(",");
+          
         navigator.clipboard.writeText(permalinkUrl);
         permalinkDescription.style.maxHeight =
           permalinkDescription.scrollHeight + 20 + "px";

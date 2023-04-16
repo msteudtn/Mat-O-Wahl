@@ -3,6 +3,8 @@
 // License: GPL 3
 // Mathias Steudtner http://www.medienvilla.com
 
+import {fnShowQuestions, fnTransformCsvToArray} from './system/fnShowQuestions.js'
+
 function fnTestStart()
 {
 	// FRAGEN in Arrays einlesen
