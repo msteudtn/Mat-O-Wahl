@@ -1,3 +1,5 @@
+import {fnShowQuestionNumber} from '/system/output.js'
+
 // FUNKTION
 // Erzeuge über der Ergebnistabelle einen Button, der einen Permalink kopiert, mit man zurück zu der persönlichen Ergebnisseite gelangt
 

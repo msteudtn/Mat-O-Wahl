@@ -162,7 +162,7 @@ export function fnHideWelcomeMessage() {
 // (a) Anzeige von Frage Nummer XY
 // (b) Weiterleitung zur Auswertung 
 // Aufruf aus fnStart() -> fnShowQuestions(csvData)
-function fnShowQuestionNumber(questionNumber) {
+export function fnShowQuestionNumber(questionNumber) {
 	// Nummer der Frage im Array um eins erhöhen
 	questionNumber++;
 
@@ -320,12 +320,23 @@ function fnJumpToQuestionNumber(questionNumber) {
 		// neue Zeile
 		if (modulo == 1) { tableContent += "<tr>"; }
 		tableContent += "<td align='center' id='jumpToQuestionNr" + i + "' title='" + arQuestionsShort[(i - 1)] + " - " + arQuestionsLong[(i - 1)] + "'>";
-		tableContent += "<a href='javascript:fnShowQuestionNumber(" + (i - 2) + ")' style='display:block;'>" + i + " </a>";
+		// tableContent += "<a id=question" +i+ " href='javascript:fnShowQuestionNumber(" + (i - 2) + ")' style='display:block;'>" + i + " </a>";
+		tableContent += "<a id=question" +i+ " style='display:block;'>" + i + " </a>";
 		tableContent += "</td>";
 		if (modulo == 0) { tableContent += "</tr>"; }
 	}
 	tableContent += "</table>";
 	$("#navigationJumpToQuestion").append(tableContent).fadeIn(500);
+	setTimeout(() => {
+		console.log(tableContent);
+		for (let i = 1; i <= arQuestionsLong.length; i++) {
+			document.getElementById('question'+i).addEventListener('click', (event) => {
+				event.preventDefault();
+				fnShowQuestionNumber(i-2)
+			});
+		}
+		
+	}, 600);
 
 	// alte Meinungen farblich hervorheben und aktuelle Frage markieren
 	for (var i = 1; i <= arQuestionsLong.length; i++) {

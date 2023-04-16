@@ -1,7 +1,6 @@
 
 // import { arQuestionsShort } from './globals.js'
 import {fnTransformCsvToArray} from './fnTransformCsvToArray.js'
-import { arQuestionsShort, arQuestionsLong } from './globals.js';
 
 // Anzeige der Fragen (aus fnStart())
 export function fnShowQuestions(csvData) {
@@ -11,10 +10,4 @@ export function fnShowQuestions(csvData) {
 
     // ... und Anzeigen
     let questionNumber = -1;
-
-    // v.0.6 - deaktiviert, da nun am Anfang ein Willkommensbildschirm erscheint.
-    // neu: fnHideWelcomeMessage()
-    // fnShowQuestionNumber(questionNumber);
 }
-
-
