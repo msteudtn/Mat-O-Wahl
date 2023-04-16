@@ -39,9 +39,9 @@ a:not(.btn):hover { color:#FF0000; text-decoration:none; }
 	display: grid;
 	/* grid-template-columns: 1fr 3fr; */	
 	/* grid-template-rows: auto 1fr auto; */
-	grid-template-areas: "weniger weniger normal normal mehr mehr"
-	  "yes yes yes no no no"
-	  "c skip skip skip skip d";
+	grid-template-areas: 
+	  "yes yes yes no no no skip skip skip"
+	  "w1 w2 w3 w4 w5 w6 w7 w8 w9";
   }
   
   .weniger {
@@ -70,6 +70,35 @@ a:not(.btn):hover { color:#FF0000; text-decoration:none; }
   
   .skip {
 	grid-area: skip;
+  }
+
+  .w9 {
+	grid-area: w9;
+  }
+  
+  .w8 {
+	grid-area: w8;
+  }
+  .w7 {
+	grid-area: w7;
+  }
+  .w6 {
+	grid-area: w6;
+  }
+  .w5 {
+	grid-area: w5;
+  }
+  .w4 {
+	grid-area: w4;
+  }
+  .w3 {
+	grid-area: w3;
+  }
+  .w2 {
+	grid-area: w2;
+  }
+  .w1 {
+	grid-area: w1;
   }
   
 

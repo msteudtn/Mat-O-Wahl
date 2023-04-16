@@ -126,6 +126,35 @@
 
 		</section>
 
+	<!-- 4. FORTSCHRITTSZÄHLER + NAVIGATION / PROGRESS BAR + NAVIGATION -->
+
+	<nav id="sectionNavigation">	
+
+		<div class="row fixed-top" style="width: inherit; top: 0%; left: 50%; transform: translateX(-50%); visibility: hidden; display: none;"> 
+			<div class="col">
+
+				<div class="progress" style="height: 2px;">
+					<div class="progress-bar" id="progress-bar" style="width:10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col">
+			
+				<div id="navigationJumpToQuestion" style="display:none; width:100%">
+					Gehe direkt zu Frage Nummer XY.
+					Jump to Question XY directly
+				</div>
+				
+			</div>
+		</div>
+
+	</nav>
+		
+
+
 	<!-- 2. FRAGEN / QUESTIONS -->
 
 		<section id="sectionShowQuestions">
@@ -158,16 +187,35 @@
 		
 			<div class="grid-container row">
 
-				<div class="weniger">
-					<button type="button" id="votingImportant1" onclick="fnChangeVotingDouble(1)" class="btn btn-outline-dark btn-lg btn-block">[x1] Important</button>
+				<div class="w1">
+					<button type="button" id="votingImportant1" onclick="fnChangeVotingDouble(1)" class="btn btn-outline-dark btn-lg btn-block">1</button>
 				</div>
 
-				<div class="normal">
-					<button type="button" id="votingImportant2" onclick="fnChangeVotingDouble(2)" class="btn btn-outline-dark btn-lg btn-block">[x2] Important</button>
+				<div class="w2">
+					<button type="button" id="votingImportant2" onclick="fnChangeVotingDouble(2)" class="btn btn-outline-dark btn-lg btn-block">2</button>
 				</div>
 
-				<div class="mehr">
-					<button type="button" id="votingImportant3" onclick="fnChangeVotingDouble(3)" class="btn btn-outline-dark btn-lg btn-block">[x3] Important</button>
+				<div class="w3">
+					<button type="button" id="votingImportant3" onclick="fnChangeVotingDouble(3)" class="btn btn-outline-dark btn-lg btn-block">3</button>
+				</div>
+
+				<div class="w4">
+					<button type="button" id="votingImportant3" onclick="fnChangeVotingDouble(4)" class="btn btn-outline-dark btn-lg btn-block">4</button>
+				</div>
+				<div class="w5">
+					<button type="button" id="votingImportant3" onclick="fnChangeVotingDouble(5)" class="btn btn-outline-dark btn-lg btn-block">5</button>
+				</div>
+				<div class="w6">
+					<button type="button" id="votingImportant3" onclick="fnChangeVotingDouble(6)" class="btn btn-outline-dark btn-lg btn-block">6</button>
+				</div>
+				<div class="w7">
+					<button type="button" id="votingImportant3" onclick="fnChangeVotingDouble(7)" class="btn btn-outline-dark btn-lg btn-block">7</button>
+				</div>
+				<div class="w8">
+					<button type="button" id="votingImportant3" onclick="fnChangeVotingDouble(8)" class="btn btn-outline-dark btn-lg btn-block">8</button>
+				</div>
+				<div class="w9">
+					<button type="button" id="votingImportant3" onclick="fnChangeVotingDouble(9)" class="btn btn-outline-dark btn-lg btn-block">9</button>
 				</div>
 
 				<div class="yes">
@@ -194,33 +242,7 @@
 		</section>
 	</main>
 
-	<!-- 4. FORTSCHRITTSZÄHLER + NAVIGATION / PROGRESS BAR + NAVIGATION -->
 
-	<nav id="sectionNavigation">	
-
-		<div class="row fixed-top" style="width: inherit; top: 0%; left: 50%; transform: translateX(-50%); visibility: hidden; display: none;"> 
-			<div class="col">
-
-				<div class="progress" style="height: 2px;">
-					<div class="progress-bar" id="progress-bar" style="width:10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-				</div>
-
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col">
-			
-				<div id="navigationJumpToQuestion" style="display:none; width:100%">
-					Gehe direkt zu Frage Nummer XY.
-					Jump to Question XY directly
-				</div>
-				
-			</div>
-		</div>
-
-	</nav>
-		
 	<!-- CHECKBOX: STATISTIK j/n / STATISTICS y/n -->		
 
 	<!--

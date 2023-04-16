@@ -27,9 +27,9 @@ function fnStart()
 	$("#votingNeutral").html(TEXT_VOTING_NEUTRAL)
 	$("#votingContra").html(TEXT_VOTING_CONTRA)
 	$("#votingSkip").html(TEXT_VOTING_SKIP)
-	$("#votingImportant1").html(TEXT_VOTING_IMPORTANT_1)
-	$("#votingImportant2").html(TEXT_VOTING_IMPORTANT_2)
-	$("#votingImportant3").html(TEXT_VOTING_IMPORTANT_3)
+	// $("#votingImportant1").html(TEXT_VOTING_IMPORTANT_1)
+	// $("#votingImportant2").html(TEXT_VOTING_IMPORTANT_2)
+	// $("#votingImportant3").html(TEXT_VOTING_IMPORTANT_3)
 	
 	// 4. Navigation
 	$("#sectionNavigation").hide();
