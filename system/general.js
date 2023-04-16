@@ -6,7 +6,8 @@
 // Mathias Steudtner http://www.medienvilla.com
 
 import { fnReadCsv  } from './readCsv.js';
-import { getParties } from './globals.js';
+import { arVotingDouble, getParties, questionWeight } from './globals.js';
+import {fnReEvaluate } from './output.js'
 
 var version = "0.6.0.9.20230407"
 
@@ -30,9 +31,7 @@ export function fnEvaluation()
 
 	// Anzahl der Fragen bestimmen, da Positions-Array ein Vielfaches aus Fragen * Parteien enthält.
 //	var numberOfQuestions = arQuestionsLong.length;		// 3 Fragen
-//	var numberOfPositions = arPartyPositions.length; // 12 = 3 Fragen * 4 Parteien
-
-	var numberOfQuestions = intQuestions;		
+//	var numberOfPositions = arPartyPositions.length; // 12 = 3 Fragen * 4 Parteien	
 	var numberOfPositions = intQuestions * getParties(); // 12 = 3 Fragen * 4 Parteien
 
 	var indexPartyInArray = -1; // Berechnung der Position des Index der aktuellen Partei
@@ -196,25 +195,13 @@ export function fnToggleSelfPosition(questionNumber)
 }
 
 // 02/2015 BenKob (doppelte Wertung)
-export function fnToggleDouble(i)
+export function fnToggleDouble(questionNumber)
 {
-	arVotingDouble[i]=!arVotingDouble[i];
+	// arVotingDouble[i]=!arVotingDouble[i];
+	console.info('calling fnToggleDouble');
 
-
-	questionWeight 
-
-	if(arVotingDouble[i])
-	{
-		// $("#doubleIcon"+i).attr("src","img/double-yes_icon.png");
-		$("#doubleIcon"+i).removeClass("btn-outline-dark").addClass("btn-dark");
-		$("#doubleIcon"+i).attr("title",TEXT_ANSWER_DOUBLE);
-	}
-	else
-	{
-		// $("#doubleIcon"+i).attr("src","img/double-no_icon.png");
-		$("#doubleIcon"+i).removeClass("btn-dark").addClass("btn-outline-dark");
-		$("#doubleIcon"+i).attr("title",TEXT_ANSWER_NORMAL);
-	}
+	questionWeight[questionNumber] = (questionWeight[questionNumber]+1 ) % 10
+	$('#doubleIcon'+questionNumber)[0].innerText = questionWeight[questionNumber]
 	fnReEvaluate();
 }
 

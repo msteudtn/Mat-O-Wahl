@@ -13,6 +13,7 @@ import {
 	fnTransformPositionToText,
 	fnTransformPositionToColor,
 	fnPercentage,
+	fnToggleDouble,
 } from './general.js'
 import {
 	arQuestionsLong,
@@ -277,7 +278,7 @@ function fnShowQuestionNumber(questionNumber) {
 
 // 02/2015 BenKob
 export function fnChangeVotingDouble(weight) {
-	
+
 	questionWeight[getActiveQuestion()] = weight
 	for (let i = 1; i <= 9; i++) {
 		$("#votingImportant" + i).removeClass("btn-dark").addClass("btn-outline-dark");
@@ -544,102 +545,100 @@ function fnEvaluationByThesis(arResults) {
 		// tableContent += "<th class='text-center'>";
 		tableContent += "<div class='col col-2' role='cell'>";
 
-		tableContent += "<button type='button' id='' " +
-			// tableContent += "<button type='button' "+
-			" class='btn " + positionButton + " btn-sm selfPosition" + i + " ' " +
-			" onclick='fnToggleSelfPosition(" + i + ")' " +
-			" alt='" + TEXT_ANSWER_USER + " : " + positionText + "' title='" + TEXT_ANSWER_USER + " : " + positionText + "'>" +
-			" " + positionIcon + "</button>";
+		// tableContent += "<button type='button' id='' " +
+		// 	" class='btn " + positionButton + " btn-sm selfPosition" + i + " ' " +
+		// 	" alt='" + TEXT_ANSWER_USER + " : " + positionText + "' title='" + TEXT_ANSWER_USER + " : " + positionText + "'>" +
+		// 	" " + positionIcon + "</button>";
 
 
 		if (arVotingDouble[i]) {
 			tableContent += "<button type='button' class='btn btn-dark btn-sm' " +
 				" id='doubleIcon" + i + "' " +
-				" onclick='fnToggleDouble(" + i + ")' title='" + TEXT_ANSWER_DOUBLE + "'>x2</button>";
+				" title='" + TEXT_ANSWER_DOUBLE + "'>x2</button>";
 		}
 		else {
 			tableContent += "<button type='button' class='btn btn-outline-dark btn-sm' " +
 				" id='doubleIcon" + i + "' " +
-				" onclick='fnToggleDouble(" + i + ")' title='" + TEXT_ANSWER_NORMAL + "'>x2</button>";
+				" ' title='" + TEXT_ANSWER_NORMAL + "'>x2</button>";
 
-		}
-		// tableContent += "</th>";
-		//					tableContent += "</div>";
-
-
-		// 2. Spalte: eigene Meinung
-		// tableContent += "<th scope='col' class='text-center'>";
-		//						tableContent += "<div class='col-1'>";
-		// tableContent += "</th>";
-
-		tableContent += "</div>";
+			// }
+			// tableContent += "</th>";
+			//					tableContent += "</div>";
 
 
-		// 3. Spalte: Frage (kurz und lang)
-		//					tableContent += "<th id='resultsByThesisQuestion"+i+"' style='cursor: pointer;' scope='col'>";
-		//					tableContent += "<th id='resultsByThesisQuestion"+i+"' style='' scope='col'>";
-		tableContent += "<div class='col col-10' id='resultsByThesisQuestion" + i + "' role='cell'>";
-		tableContent += "<div style='display:inline-; float:left'>"
-		tableContent += "<strong>" + arQuestionsShort[i] + "</strong>: ";
-		tableContent += arQuestionsLong[i];
-		tableContent += "</div>"
-		// Einklappen / Aufklappen ("Collapside")
+			// 2. Spalte: eigene Meinung
+			// tableContent += "<th scope='col' class='text-center'>";
+			//						tableContent += "<div class='col-1'>";
+			// tableContent += "</th>";
 
-		//						tableContent += "<div style='display:inline; float:right' id='resultsByThesisQuestion"+i+"collapse' class='resultsByThesisQuestionCollapsePlus'> </div>";
-		//						tableContent += "<button style='display:inline; float:right;' id='resultsByThesisQuestion"+i+"collapse' class='resultsByThesisQuestionCollapsePlus btn btn-sm btn-outline-secondary' type='button'>+</button>";
-		tableContent += "<button style='display:inline; float:right;' id='resultsByThesisQuestion" + i + "collapse' class='nonexpanded btn btn-sm btn-outline-secondary' type='button'>&#x2795;</button>";
-
-		// tableContent += "</th>";
-		tableContent += "</div>";
-
-		//				tableContent += "</tr>"; // (Fragen)
-		tableContent += "</div>"; // row (Fragen)
-		//				tableContent += "</tbody>";
-
-
-		// darunterliegende Zeile - Parteipositionen anzeigen		
-		// tableContent += "<tbody id='resultsByThesisAnswersToQuestion"+i+"'>";
-
-
-		tableContent += "<div class='row border rounded' id='resultsByThesisAnswersToQuestion" + i + "'> ";
-		tableContent += "<div class='col'>"
-		//					tableContent += " <div class='col-2'> </div> ";
-		//					tableContent += " <div class='col-10'>";
-
-		// darunterliegende Zeile - Parteipositionen anzeigen
-		for (let j = 0; j <= (getParties() - 1); j++) {
-			var partyNum = arSortParties[j];
-			var partyPositionsRow = partyNum * intQuestions + i;
-			var positionButton = fnTransformPositionToButton(arPartyPositions[partyPositionsRow]);
-			var positionIcon = fnTransformPositionToIcon(arPartyPositions[partyPositionsRow]);
-			var positionText = fnTransformPositionToText(arPartyPositions[partyPositionsRow]);
-
-
-			// Inhalt der Zelle
-			tableContent += " <div class='row mow-row-striped' role='row'> ";
-			//								tableContent += " <div class='col-1'> </div> ";
-			// 1./2 Zellen in der Zeile: Icon [+] [0] [-]
-			tableContent += " <div class='col col-2' role='cell'> ";
-			//tableContent += "<p>"
-			tableContent += "<button type='button' class='btn " + positionButton + " btn-sm' disabled " +
-				" alt='" + TEXT_ANSWER_PARTY + " : " + positionText + "' title='" + TEXT_ANSWER_PARTY + " : " + positionText + "'>" +
-				" " + positionIcon + "</button>";
 			tableContent += "</div>";
 
-			// 2./2 Zellen = letzte Zelle in der Zeile: Name der Partei + Begründung
-			tableContent += " <div class='col col-10' role='cell'> ";
-			tableContent += "<strong>" + arPartyNamesShort[partyNum] + "</strong>: " + (arPartyOpinions[partyPositionsRow] === "" ? "" : "" + arPartyOpinions[partyPositionsRow]) + " ";
 
-			// die Beschreibung der Partei in einem VERSTECKTEN DIV -> ein Workaround für das Addon "Textfilter" (siehe /EXTRAS) :(
-			tableContent += "<span style='visibility:hidden; display:none;' aria-hidden='true'>" + arPartyDescription[partyNum] + "</span>"
+			// 3. Spalte: Frage (kurz und lang)
+			//					tableContent += "<th id='resultsByThesisQuestion"+i+"' style='cursor: pointer;' scope='col'>";
+			//					tableContent += "<th id='resultsByThesisQuestion"+i+"' style='' scope='col'>";
+			tableContent += "<div class='col col-10' id='resultsByThesisQuestion" + i + "' role='cell'>";
+			tableContent += "<div style='display:inline-; float:left'>"
+			tableContent += "<strong>" + arQuestionsShort[i] + "</strong>: ";
+			tableContent += arQuestionsLong[i];
+			tableContent += "</div>"
+			// Einklappen / Aufklappen ("Collapside")
 
-			//tableContent += "</p>";
+			//						tableContent += "<div style='display:inline; float:right' id='resultsByThesisQuestion"+i+"collapse' class='resultsByThesisQuestionCollapsePlus'> </div>";
+			//						tableContent += "<button style='display:inline; float:right;' id='resultsByThesisQuestion"+i+"collapse' class='resultsByThesisQuestionCollapsePlus btn btn-sm btn-outline-secondary' type='button'>+</button>";
+			tableContent += "<button style='display:inline; float:right;' id='resultsByThesisQuestion" + i + "collapse' class='nonexpanded btn btn-sm btn-outline-secondary' type='button'>&#x2795;</button>";
+
+			// tableContent += "</th>";
 			tableContent += "</div>";
-			tableContent += "</div>"; // row 
-		}
-		tableContent += "</div> "; // col (Partei-Antworten)
-		tableContent += "</div> "; // row (Partei-Antworten)
 
+			//				tableContent += "</tr>"; // (Fragen)
+			tableContent += "</div>"; // row (Fragen)
+			//				tableContent += "</tbody>";
+
+
+			// darunterliegende Zeile - Parteipositionen anzeigen		
+			// tableContent += "<tbody id='resultsByThesisAnswersToQuestion"+i+"'>";
+
+
+			tableContent += "<div class='row border rounded' id='resultsByThesisAnswersToQuestion" + i + "'> ";
+			tableContent += "<div class='col'>"
+			//					tableContent += " <div class='col-2'> </div> ";
+			//					tableContent += " <div class='col-10'>";
+
+			// darunterliegende Zeile - Parteipositionen anzeigen
+			for (let j = 0; j <= (getParties() - 1); j++) {
+				var partyNum = arSortParties[j];
+				var partyPositionsRow = partyNum * intQuestions + i;
+				var positionButton = fnTransformPositionToButton(arPartyPositions[partyPositionsRow]);
+				var positionIcon = fnTransformPositionToIcon(arPartyPositions[partyPositionsRow]);
+				var positionText = fnTransformPositionToText(arPartyPositions[partyPositionsRow]);
+
+
+				// Inhalt der Zelle
+				tableContent += " <div class='row mow-row-striped' role='row'> ";
+				//								tableContent += " <div class='col-1'> </div> ";
+				// 1./2 Zellen in der Zeile: Icon [+] [0] [-]
+				tableContent += " <div class='col col-2' role='cell'> ";
+				//tableContent += "<p>"
+				tableContent += "<button type='button' class='btn " + positionButton + " btn-sm' disabled " +
+					" alt='" + TEXT_ANSWER_PARTY + " : " + positionText + "' title='" + TEXT_ANSWER_PARTY + " : " + positionText + "'>" +
+					" " + positionIcon + "</button>";
+				tableContent += "</div>";
+
+				// 2./2 Zellen = letzte Zelle in der Zeile: Name der Partei + Begründung
+				tableContent += " <div class='col col-10' role='cell'> ";
+				tableContent += "<strong>" + arPartyNamesShort[partyNum] + "</strong>: " + (arPartyOpinions[partyPositionsRow] === "" ? "" : "" + arPartyOpinions[partyPositionsRow]) + " ";
+
+				// die Beschreibung der Partei in einem VERSTECKTEN DIV -> ein Workaround für das Addon "Textfilter" (siehe /EXTRAS) :(
+				tableContent += "<span style='visibility:hidden; display:none;' aria-hidden='true'>" + arPartyDescription[partyNum] + "</span>"
+
+				//tableContent += "</p>";
+				tableContent += "</div>";
+				tableContent += "</div>"; // row 
+			}
+			tableContent += "</div> "; // col (Partei-Antworten)
+			tableContent += "</div> "; // row (Partei-Antworten)
+		}
 	} // end if
 
 	tableContent += "</div>"; // col
@@ -651,6 +650,17 @@ function fnEvaluationByThesis(arResults) {
 
 	// und am Anfang ausblenden
 	$("#resultsByThesis").hide();
+
+	for (let i = 0; i < arPersonalPositions.length; i++) {
+
+	}
+
+	// tableContent += "<button type='button' id='' " +
+	// // tableContent += "<button type='button' "+
+	// " class='btn " + positionButton + " btn-sm selfPosition" + i + " ' " +
+	// " onclick='fnToggleSelfPosition(" + i + ")' " +
+	// " alt='" + TEXT_ANSWER_USER + " : " + positionText + "' title='" + TEXT_ANSWER_USER + " : " + positionText + "'>" +
+	// " " + positionIcon + "</button>";
 
 
 	// Click-Funktion auf FRAGE-(und ANTWORT)-Zeile legen zum Anzeigen der ANTWORT-Zeile (direkt darunter)
@@ -902,6 +912,11 @@ function fnEvaluationByParty(arResults) {
 	// und am Anfang Tabelle ausblenden
 	$("#resultsByParty").hide();
 
+	for (let i = 0; i < arQuestionsShort.length; i++) {
+		console.log('clicking on ' + i)
+		$("#doubleIcon" + i).click(function () { fnToggleDouble(i) })
+	}
+
 	for (let i = 0; i <= (getParties() - 1); i++) {
 
 		$("#resultsByPartyHeading" + i + " .nonexpanded").click(function () {
@@ -932,7 +947,7 @@ function fnEvaluationByParty(arResults) {
 // Aufruf heraus in:
 // (a) fnEvaluationShort() nach dem Aufbau der oberen Tabelle 
 // (b) in den Buttons in der detaillierten Auswertung (fnToggleSelfPosition() und fnToggleDouble())
-function fnReEvaluate() {
+export function fnReEvaluate() {
 	//Ergebniss neu auswerten und Anzeige aktualisieren
 	var arResults = fnEvaluation();
 
