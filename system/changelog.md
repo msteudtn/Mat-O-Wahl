@@ -21,6 +21,10 @@
 
 ## Versions:
 
+### 0.6.0.10.20230420
+
+- Minor fix: The navigation-list (labeled "1-n") contains the short and long questions as title. If someone uses HTML-code inside the questions (see https://github.com/msteudtn/Mat-O-Wahl/issues/53) the navigation won't break now. Before, HTML-code wasn't filtered.
+
 ### 0.6.0.9.20230407
 
 - new addon `extras/addon_permalink_to_personal_result.js` to save a link of your result to the clipboard and come back to it later https://github.com/msteudtn/Mat-O-Wahl/pull/87 (Thanks to FEnglisch)
