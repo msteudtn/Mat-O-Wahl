@@ -23,7 +23,9 @@
 
 ### 0.6.0.10.20230420
 
-- Minor fix: The navigation-list (labeled "1-n") contains the short and long questions as title. If someone uses HTML-code inside the questions (see https://github.com/msteudtn/Mat-O-Wahl/issues/53) the navigation won't break now. Before, HTML-code wasn't filtered.
+- Minor fix: 
+  - The navigation-list (labeled "1-n") contains the short and long questions as title. If someone uses HTML-code inside the questions (see https://github.com/msteudtn/Mat-O-Wahl/issues/53) the navigation won't break now. Before, HTML-code wasn't filtered in `general/output.js`. Users can now **add links or text-formatting in their questions**.
+  - Visited links are now darker than before in `styles/default.css`
 
 ### 0.6.0.9.20230407
 
