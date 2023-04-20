@@ -310,7 +310,7 @@ function fnJumpToQuestionNumber(questionNumber)
 		var modulo = i % questionsPerLine;
 		// neue Zeile
 		if (modulo == 1) { tableContent += "<tr>"; }
-		tableContent += "<td align='center' id='jumpToQuestionNr"+i+"' title='"+arQuestionsShort[(i-1)]+" - "+arQuestionsLong[(i-1)]+"'>"; 
+		tableContent += "<td align='center' id='jumpToQuestionNr"+i+"' title='"+arQuestionsShort[(i-1)].replace( /(<([^>]+)>)/ig, '')+" - "+arQuestionsLong[(i-1)].replace( /(<([^>]+)>)/ig, '')+"'>"; 
 		tableContent += "<a href='javascript:fnShowQuestionNumber("+(i-2)+")' style='display:block;'>"+i+" </a>"; 
 		tableContent += "</td>";
 		if (modulo == 0) { tableContent += "</tr>"; }
