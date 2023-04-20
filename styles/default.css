@@ -15,7 +15,7 @@ body {
 /* LINK-color - EXCEPT for Bootstrap button-class "btn". Use defaults there. */
 a:not(.btn) { color:#000000; text-decoration:underline;}
 a:not(.btn):link { color:#000000; } 
-a:not(.btn):visited { color:#808080; }
+a:not(.btn):visited { color:#404040; }
 a:not(.btn):active { color:#FF0000; }
 a:not(.btn):hover { color:#FF0000; text-decoration:none; }
 

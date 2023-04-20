@@ -310,7 +310,9 @@ function fnJumpToQuestionNumber(questionNumber)
 		var modulo = i % questionsPerLine;
 		// neue Zeile
 		if (modulo == 1) { tableContent += "<tr>"; }
+		// Tabellenzelle mit kurzer und langer Frage (ohne HTML-Code = replace)
 		tableContent += "<td align='center' id='jumpToQuestionNr"+i+"' title='"+arQuestionsShort[(i-1)].replace( /(<([^>]+)>)/ig, '')+" - "+arQuestionsLong[(i-1)].replace( /(<([^>]+)>)/ig, '')+"'>"; 
+		// Nummer der Frage
 		tableContent += "<a href='javascript:fnShowQuestionNumber("+(i-2)+")' style='display:block;'>"+i+" </a>"; 
 		tableContent += "</td>";
 		if (modulo == 0) { tableContent += "</tr>"; }
