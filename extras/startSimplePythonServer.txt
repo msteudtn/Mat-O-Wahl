@@ -21,8 +21,8 @@ cd ~/Downloads/Mat-o-Wahl && python3 -m http.server 8082
 cd ~/Downloads/Mat-o-Wahl && python -m SimpleHTTPServer 8082 
 
 
-4.) http://localhost aufrufen
-    Das Verzeichnis "/home/Linux_Nutzername/Downloads/Mat-o-Wahl" ist nun unter localhost erreichbar.
+4.) http://localhost:8082 aufrufen
+    Das Verzeichnis "/home/Linux_Nutzername/Downloads/Mat-o-Wahl" ist nun unter localhost auf Port 8082 erreichbar.
 
 
 Quellen: 
