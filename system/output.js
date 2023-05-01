@@ -354,28 +354,37 @@ function fnEvaluationShort(arResults) {
 				// Parteinamen: lang, kurz, Webseite, Beschreibung (Bootstrap-Column-Groesse: 7/12 bei Medium)
 				tableContentResultsShort += `
 				<div class='col col-10 col-md-7' role='cell'>
-					 <strong>${arPartyNamesLong[partyNum]}</strong>
-					(&#8663; (<a href='${arPartyInternet[partyNum]}' target='_blank' alt='Link: ${arPartyNamesLong[partyNum]}'
-			                title='Link: ${arPartyNamesLong[partyNum]}'>
-			                ${arPartyNamesShort[partyNum]}</a>)`
+					 <strong>${arPartyNamesShort[partyNum]}</strong> - ${arPartyNamesLong[partyNum]}`
 	
-						// Beschreibung der Partei - falls in der CSV vorhanden.
-						// Nur die ersten 32 Zeichen anzeigen. 
-						// Danach abschneiden und automatisch ein/ausblenden (Funktionsaufbau weiter unten)
-						// Wenn keine Beschreibung gewünscht, dann "0" eintragen.
-						intPartyDescriptionPreview = 32
-						if ( (arPartyDescription[partyNum]) && (intPartyDescriptionPreview > 0) ) {
+						// Beschreibung der Partei (und Button zum Öffnen / Schliessen) - falls in der CSV vorhanden.						
+						if (arPartyDescription[partyNum]) {
 							tableContentResultsShort += `
-							<p style='cursor: pointer;'> &bull; 
-								${arPartyDescription[partyNum].substr(0, intPartyDescriptionPreview)}
-								<span id='resultsShortPartyDescriptionDots${partyNum}'>...</span>
+								<br /> 
+								<button type="button" class="btn btn-sm btn-outline-secondary" 
+									id="resultsShortPartyDescriptionButton${partyNum}">
+									&#x2795; Mehr Details anzeigen</button>
+									
 								<span id='resultsShortPartyDescription${partyNum}'>
-						                    ${arPartyDescription[partyNum].substr(intPartyDescriptionPreview,1024)}
-								</span>
-							    </p>`;
+		                    	<br / >
+		                    			${arPartyDescription[partyNum]}
+									<br /> &#8663; <a href='${arPartyInternet[partyNum]}' target='_blank' alt='Link: ${arPartyNamesLong[partyNum]}'
+			                			title='Link: ${arPartyNamesLong[partyNum]}'>
+			                			${arPartyInternet[partyNum]}</a>
+		                    	<br /> 
+								</span>`;
 	  							}
 
-				// Schließe Parteien-Beschreibung
+
+						// Button zum Öffnen / Schliessen der Partei-Antworten
+							tableContentResultsShort += `
+								
+								<button type="button" class="btn btn-sm btn-outline-secondary" 
+									id="resultsShortPartyAnswersButton${partyNum}">
+									&#x2795; Antworten anzeigen</button>
+									
+								`;						
+
+				// Schließe COL-DIV Parteien-Beschreibung
 				tableContentResultsShort += "</div>"
 	
 
@@ -410,22 +419,28 @@ function fnEvaluationShort(arResults) {
   // Click-Funktion auf PARTEINAME-Zeile legen zum Anzeigen des BESCHREIBUNG-SPAN (direkt darunter)
   // "[In a FOR-loop] you can use the let keyword, which makes the i variable local to the loop instead of global"
   // 	https://stackoverflow.com/questions/4091765/assign-click-handlers-in-for-loop
-  for (let i = 0; i <= intParties - 1; i++) {
-    // Klickfunktion - bei Überschrift
-    $(`#resultsShortParty${i}`).click(() => {
-      $(`#resultsShortPartyDescription${i}`).toggle(500);
-      $(`#resultsShortPartyDescriptionDots${i}`).toggle(500);
-    });
-    // Klickfunktion - bei Beschreibung
-    /*
-		$("#resultsShortPartyDescription"+i).click(function () { 
-				$("#resultsShortPartyDescription"+i).toggle(500);
-			});
-		*/
-    // am Anfang ausblenden
-    $(`#resultsShortPartyDescription${i}`).fadeOut(500);
-    $(`#resultsShortPartyDescriptionDots${i}`).fadeIn(500);
-  }
+
+
+	for (let i = 0; i <= (intParties-1); i++)
+	{
+
+		$(`#resultsShortPartyDescriptionButton${i}`).click(function() {
+		var $this = $(this);
+		$(`#resultsShortPartyDescription${i}`).toggle(500)
+		
+			$this.toggleClass("expanded");
+		
+			if ($this.hasClass("expanded")) {
+				$this.html("&#x2796; Weniger Details"); // MINUS
+			} else {
+				$this.html("&#x2795; Mehr Details anzeigen"); // PLUS
+			}
+		});
+	
+	// am Anfang die Antworten ausblenden 
+	$(`#resultsShortPartyDescription${i}`).fadeOut(500);
+
+	}
 
 	$("#sectionResults").fadeIn(500);
 	
