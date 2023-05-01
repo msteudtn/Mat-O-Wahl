@@ -12,9 +12,10 @@ const TOOLTIP_VOTING_DOUBLE =
 // Bei den Buttons, mit denen man seine eigene Position nachträglich ändern (und ggf. doppelt gewichten) kann
 const TOOLTIP_RESULTS_SHORT =
   "Klicke auf das Icon, um deine Antwort zu ändern.";
-  
+
 const TOOLTIP_RESULTS_BY_THESIS =
   "Klicke auf die Buttons, um deine Antwort zu ändern bzw. doppelt zu gewichten.";
+
 // Bei der wie vielten Frage soll der Tooltip angezeigt werden
 const TOOLTIP_RESULTS_BY_THESIS_QUESTION_NUMBER = 1;
 
@@ -178,9 +179,10 @@ if (TOOLTIP_RESULTS_SHORT || TOOLTIP_RESULTS_BY_THESIS) {
                     .querySelector(".tooltipResultsShort")
                     .classList.add("d-none");
                 });
-            }
-          });
-        });
+            } // Ende: isTooltipResultsShortAlreadyShowing
+          }); // Ende: (e)
+        }); // Ende: foreach button
+        
       // Für diesen Tooltip spezifische CSS-Regeln hinzufügen
       document.querySelector("#tooltipCSS").textContent += `
        .tooltipResultsShort {
@@ -219,8 +221,9 @@ if (TOOLTIP_RESULTS_SHORT || TOOLTIP_RESULTS_BY_THESIS) {
            left: 150px;
            border-color: transparent transparent #000 transparent;
          }
-       }`;
-    }
+       }`; // Ende: tooltipCSS
+    } // Ende: if TOOLTIP_RESULTS_SHORT
+    
     if (TOOLTIP_RESULTS_BY_THESIS) {
       const tooltipResultsByThesis = document.createElement("div");
       tooltipResultsByThesis.classList.add("tooltipResultsByThesis");
@@ -230,7 +233,7 @@ if (TOOLTIP_RESULTS_SHORT || TOOLTIP_RESULTS_BY_THESIS) {
       `;
       document
         .querySelector(`#resultsByThesisQuestion${TOOLTIP_RESULTS_BY_THESIS_QUESTION_NUMBER - 1}`)
-        .previousSibling.appendChild(tooltipResultsByThesis);
+        .previousElementSibling.appendChild(tooltipResultsByThesis);
       document
         .querySelector(".closeTooltipResultsByThesis")
         .addEventListener("click", () => {
