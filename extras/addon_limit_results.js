@@ -28,7 +28,7 @@ var intPartiesShowAtEnd = 3;
 
 // 2.) Text für Buttons
 // Text on buttons
-var TEXT_RESULTS_BUTTON_SHOW_MORE = "Weitere Ergebnisse zeigen (von "+intParties+")"
+var TEXT_RESULTS_BUTTON_SHOW_MORE = "Weitere Ergebnisse zeigen"
 var TEXT_RESULTS_BUTTON_SHOW_LESS = "Weniger Ergebnisse zeigen"
 
 
