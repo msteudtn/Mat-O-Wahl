@@ -3,7 +3,7 @@
 // License: GPL 3
 // Mathias Steudtner http://www.medienvilla.com
 
-var version = "0.6.0.10.20230420"
+var version = "0.6.1.0.20230501"
 
 // Globale Variablen
 var arQuestionsShort = new Array();	// Kurzform der Fragen: Atomkraft, Flughafenausbau, ...
@@ -46,11 +46,11 @@ function fnReadCsv(csvFile,fnCallback)
 		})
 	.done(function(data) {
 		// console.log('success', data) 
-		console.log("Mat-o-Wahl load: "+csvFile);
+		console.log("Mat-o-Wahl: \'"+csvFile+"\' loaded.");
 		fnCallback(data);
 		})
 	.fail(function(xhr) {
-		console.log('Mat-O-Wahl file error - ', xhr);	
+		console.log('Mat-O-Wahl file error: ', xhr);	
 		});	
 }
 
@@ -111,8 +111,6 @@ function fnEvaluation()
 	$("#keepStats").hide();
 
 	// Anzahl der Fragen bestimmen, da Positions-Array ein Vielfaches aus Fragen * Parteien enthält.
-//	var numberOfQuestions = arQuestionsLong.length;		// 3 Fragen
-//	var numberOfPositions = arPartyPositions.length; // 12 = 3 Fragen * 4 Parteien
 
 	var numberOfQuestions = intQuestions;		// 3 Fragen
 	var numberOfPositions = intQuestions * intParties; // 12 = 3 Fragen * 4 Parteien
@@ -122,7 +120,7 @@ function fnEvaluation()
 
 	// var arResults = new Array();
 	var arResults = []
-//	for (i = 0; i <= (arPartyFiles.length-1); i++)
+
 	for (i = 0; i <= (intParties-1); i++)
 	{
 		arResults.push(0);	// Array mit leeren Werten füllen		
@@ -238,7 +236,6 @@ function fnTransformCsvToArray(csvData,modus)
 	{ lastLine = (5 + intQuestions + 1) * intParties -1} // Partien und Antworten / Parties and answers
 
 
-//	for(i = 0; i <= arZeilen.length-1; i++)
 	for(i = 0; i <= lastLine-1; i++)
 	{
 		// console.log("i: "+i+" m: "+modus+" val0: "+arZeilen[i][0]+" val1: "+arZeilen[i][1] )	
@@ -336,7 +333,7 @@ function fnTransformPositionToColor(position)
 {
 	// red, yellow, green - "#ff0000","#ffff00","#00ff00"
 	// Bootstrap-colors: https://github.com/twbs/bootstrap/blob/master/dist/css/bootstrap.css
-	var arColors = new Array("#d9534f","#f0ad4e","#5cb85c")
+	var arColors = new Array("var(--danger)", "var(--warning)","var(--success)")
 	var positionColor = "#c0c0c0";
 	for (z = -1; z <= 1; z++)
 	{
@@ -389,7 +386,7 @@ function fnBarImage(percent)
 
 
 // 02/2015 BenKob (doppelte Wertung)
-function fnToggleSelfPosition(i)
+function fnTogglePartyPositionToQuestion(i)
 {
 	arPersonalPositions[i]--;
 	if (arPersonalPositions[i]==-2) 
@@ -402,14 +399,14 @@ function fnToggleSelfPosition(i)
 	// var positionColor = fnTransformPositionToColor(arPersonalPositions[i]);
 	var positionText  = fnTransformPositionToText(arPersonalPositions[i]);
 	
-	// $("#selfPosition"+i).attr("src", "img/"+positionImage);
-	$(".selfPosition"+i).removeClass("btn-danger btn-warning btn-success btn-default").addClass(positionButton);
-	$(".selfPosition"+i).html(positionIcon);
-	$(".selfPosition"+i).attr("alt", positionText);
-	$(".selfPosition"+i).attr("title", positionText);
+	// $("#partyPositionToQuestion"+i).attr("src", "img/"+positionImage);
+	$(".partyPositionToQuestion"+i).removeClass("btn-danger btn-warning btn-success btn-default").addClass(positionButton);
+	$(".partyPositionToQuestion"+i).html(positionIcon);
+	$(".partyPositionToQuestion"+i).attr("alt", positionText);
+	$(".partyPositionToQuestion"+i).attr("title", positionText);
 	// $(".positionRow"+i).css("border","1px solid "+positionColor);
 
-//	console.log("toggle funktion i: "+i)
+//	console.log("toggle funktion i: "+i+" opinion: "+arPersonalPositions[i]+" Icon: "+positionIcon)
 
 	fnReEvaluate();
 }
