@@ -8,21 +8,23 @@
 
 /*  [PRO] Knopf: dunkleres grün / [PRO] button: darker green  */   
 .btn-success {
-	background: #126412;
+	background: var(--success); 
 }
 
-/* [o] Knopf: schwarze Schrift auf gelbem Hintergrund / [o] button: black font on yellow background */
+/* [NEUTRAL] Knopf: schwarze Schrift auf gelbem Hintergrund / [NEUTRAL] button: black font on yellow background */
 .btn-warning {
+	background: var(--warning);
 	color:#000;
 }
 
 /* [CONTRA] Knopf: keine Änderung / [CONTRA] button: no change */
 .btn-danger {
+	background: var(--danger); 
 }
 
 /* diverse Knöpfe: dunkles Blau für helle Standardschrift / several buttons: dark blue for light default-fonts  */
 .btn-primary {
-	background:#0050A0;
+	background: var(--primary);
 	}
 
 /* [+] [-] Knöpfe zum Aufklappen: schwarze Schrift für hellen Hintergrund   
@@ -31,7 +33,8 @@
 	color:#000; 
 }
 
-/* Außenabstand / padding */
+/* Außenabstand / margin */
 .btn {
-	margin: 0.5em;
+	margin-bottom: 0.5em;
+	margin-right: 0.1em; 
 }
