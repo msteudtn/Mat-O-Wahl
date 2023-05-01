@@ -345,6 +345,12 @@ function fnEvaluationShort(arResults) {
 			<div class='border rounded mow-row-striped' id='resultsShortPartyClamp${partyNum}' role='row'>
 				<div class='row' id='resultsShortParty${partyNum}' role='row'>`
 	
+				// Partei-Logo (Bildgroesse wird automatisch angepasst, Bootstrap-Column-Groesse: 1/12 bei Medium)
+				tableContentResultsShort += `
+				<div class='col col-2 col-md-1' role='cell'>
+					<img src='${arPartyLogosImg[partyNum]}' class='rounded img-fluid' alt='${TEXT_IMAGE} ${arPartyNamesLong[partyNum]}' title='${TEXT_IMAGE} ${arPartyNamesLong[partyNum]}' />
+				</div>`	
+	
 				// Parteinamen: lang, kurz, Webseite, Beschreibung (Bootstrap-Column-Groesse: 7/12 bei Medium)
 				tableContentResultsShort += `
 				<div class='col col-10 col-md-7' role='cell'>
@@ -372,11 +378,7 @@ function fnEvaluationShort(arResults) {
 				// Schließe Parteien-Beschreibung
 				tableContentResultsShort += "</div>"
 	
-				// Partei-Logo (Bildgroesse wird automatisch angepasst, Bootstrap-Column-Groesse: 1/12 bei Medium)
-				tableContentResultsShort += `
-				<div class='col col-2 col-md-1' role='cell'>
-					<img src='${arPartyLogosImg[partyNum]}' class='rounded img-fluid' alt='${TEXT_IMAGE} ${arPartyNamesLong[partyNum]}' title='${TEXT_IMAGE} ${arPartyNamesLong[partyNum]}' />
-				</div>`
+
 	
 				// Prozentwertung (Bootstrap-Column-Groesse: 4/12 bei Medium)
 				tableContentResultsShort += `
