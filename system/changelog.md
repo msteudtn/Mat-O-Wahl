@@ -48,6 +48,10 @@
     - New: `'el += <p> text </p>'`; 
   - minor optimisations: replaced some `arQuestionsLong.length` with existing `intQuestions`
   - renamed variables / function / classes: `selfPosition` to `partyPositionToQuestion`
+  - Added a new button `resultsShortPartyDescriptionButtonX` to show / hide the description of the party `resultsShortPartyDescriptionX`. Before it showed the first 32 characters. 
+  - The link to the party-website moved from the first line down to the description. 
+  - Added a new button `resultsShortPartyAnswersButton` to show / hide the party-answers.
+  - updated the `click()`-functions on these buttons to `toggle()` the content.
   
 
 ### 0.6.0.10.20230420
