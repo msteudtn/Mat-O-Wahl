@@ -1,12 +1,26 @@
 
 /* BODY: Hintergrundfarbe, Schriftart, -groesse und -farbe */
 /* BODY: background color, font, size and color */
-body {
-	font-family:Verdana, Arial, Helvetica, sans-serif; 
-/*	font-size:10pt; */
-	color:#000000; 
 
-	background-color: #EFC04F;
+:root {
+  --body-font: "Verdana" ,"Arial" ,"Helvetica", sans-serif;
+  --font-color: #000000;
+  --background-color: #EFC04F;  
+  
+  /* For ranking bar and answer buttons. Ideally dark enough to read white text on it */
+  --success: #126412; 
+  --warning: #ffc107;
+  --danger: #dc3545;
+  --primary: #0050A0;
+  --info: #e0e0e0;
+}
+
+
+body {
+	font-family: var(--body-font); 
+	color:var(--font-color); 
+
+	background-color:var(--background-color);
 	/* background-image: linear-gradient(#EFC04F, #FFE08F); */ 
 	/* background-attachment: fixed; */
 	}
