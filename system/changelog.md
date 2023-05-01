@@ -6,13 +6,10 @@
   - More than two answers (yes/no) like in https://github.com/JohnboyJovi/Mat-O-Wahl-multiAnswer -> "agree a lot, agree, -, disagree, disagree a lot"
   - jumpToQuestion-Tabelle unter den Fragen: Alternative Ansicht: Keine Nummerierung (Mat-o-Wahl), sondern Punkte und Sterne (Wahl-o-Mat)
   - Include videos in questions or party-answers
-  - Add more Social Media-Buttons (Instagram, ...) or outsource via https://github.com/heiseonline/shariff
 - Technik / unter der Haube:
   - Quellcode aufraeumen, optimieren und besser dokumentieren.
-  - Pruefen: Unterschiede beim Einlesen von CSV-Dateien zwischen Windows, Mac und Unix?
   - Wechsel von Arrays (wo die Daten gespeichert sind) hin zu HTML5-Datenbanktechniken (z.B. IndexedDB, evtl. WebStorage) oder anderes
   - remove all jquery, use JavaScript-Framework like VUE.JS, ANGULAR, REACT or VANILLA-JS
-  - Creator / Configurator: Survey-Tool with basic questions and automatic creation of Mat-o-Wahl ZIP-file.
   - Update jquery-csv to a new version (https://github.com/typeiii/jquery-csv) or "CSV-ES"-project (https://github.com/vanillaes/csv)
   - Technik: Update Bootstrap to latest version
   - Bugfix: if you skip questions, you can't change it later in the "resultsLongTable". GENERAL.JS -> fnToggleSelfPosition()
@@ -20,6 +17,38 @@
 
 
 ## Versions:
+
+### 0.6.1.0.20230501
+
+- Big spring clean-up
+- `index.html`
+  - new id `descriptionContainer`
+  - cleaner code
+  - deleted statistic-checkbox. Has been already replaced by popup-modal.
+  - deleted buttons for Facebook and Twitter. Should be replaced by "Shariff" or similar. See: https://github.com/msteudtn/Mat-O-Wahl/issues/90
+  - updated (German) error messages for gender-equality https://github.com/msteudtn/Mat-O-Wahl/issues/84
+- `data/definition.js` 
+  - No more image size. This has been replaced by the Bootstrap class `img fluid` a while ago.  
+  - Corrected typos. 
+  - Updated process to activate the statistics. This has been replaced by a modal-popup and no longer by a checkbox under the questions.
+- Deleted the variable `intParties` in `extras/addon_limit_results.js` because it's not global anymore but calculated since version 0.6.0.8.20230215. Since it was only a minor information to the user, there's no real loss.       
+- `styles/default.css, progressbar.css, buttons-colors-on.css, buttons-colors-off.css`
+  - changed to CSS-root-elements
+  - changed margins of buttons
+- `system/general.js`
+  - deleted unused source-code
+  - changed to CSS-root-elements
+  - renamed variables / function / classes: `selfPosition` to `partyPositionToQuestion`
+  - updated (German) error messages for gender-equality https://github.com/msteudtn/Mat-O-Wahl/issues/84
+- `system/output.js`
+  - deleted unused source-code
+  - changed to up-to-date variable-syntax. Old: `"<p>"+value+"</p>"` New: `<p>${value}</p>`. 
+  - DOM-variables aren't built line by line anymore but defined over multiple lines. 
+    - Old: `el += "<p>"; el += "text"; el += "</p>";`
+    - New: `'el += <p> text </p>'`; 
+  - minor optimisations: replaced some `arQuestionsLong.length` with existing `intQuestions`
+  - renamed variables / function / classes: `selfPosition` to `partyPositionToQuestion`
+  
 
 ### 0.6.0.10.20230420
 
