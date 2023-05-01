@@ -5,7 +5,7 @@
 	http://www.mat-o-wahl.de
 
 	DE: Bei Problemen benutzen Sie bitte die /QUICKTEST.HTML 
-	oder lesen in der /SYSTEM/MAT-O-WAHL-HILFE.PDF nach.
+	oder werfen einen Blick in die https://mat-o-wahl.de/dokumentation.html
 	Diese Datei am besten in einem Editor mit Syntaxhervorhebung bearbeiten. z.B. Notepad++, gedit, kate, ...
 
 	********************************************************************
@@ -97,29 +97,10 @@ const intQuestions = 6;
 const fileAnswers = "Obsthausen_Parteien.csv";
 
 /*
- 	1.5. BILDGROESSE des PARTEILOGOS (am Ende)
-	DE: Die Breite und Höhe kann in Pixel und Prozent angegeben werden. 
-
+ 	1.5. BILDGROESSE des PARTEILOGOS (am Ende) -> nicht mehr in Benutzung (v.0.6.0)
 	********************************************************************
-
-	1.5. PICTURE SIZE OF PARTY-LOGO (at the end)
-	EN: Width and height can be defined in pixels or percent. 
-
-
-	Beispiele / Examples:
-	const intPartyLogosImgWidth = 50;
-	const intPartyLogosImgHeight = 25;
-
-	const intPartyLogosImgWidth = "10%";
-	const intPartyLogosImgHeight = "10%";
-
-	const intPartyLogosImgWidth = 50;
-	const intPartyLogosImgHeight = "";
-
+	1.5. PICTURE SIZE OF PARTY-LOGO (at the end) -> no longer in use (v.0.6.0) 
 */ 
-
-const intPartyLogosImgWidth = "10%";
-const intPartyLogosImgHeight = "10%";
 
 
 // 	--------------------------------------------------------------------
@@ -178,7 +159,7 @@ const descriptionExplanation = "Am 30. Februar finden in Obsthausen Wahlen statt
 
 	DE: Option B) (Standard)-Mat-o-Wahl-Impressum.
 	Wenn Sie keine (oder eigene) Angaben machen, so lassen Sie bitte die Variablen stehen.
-	Loeschen Sie stattdessen einfach den Text, z.B.
+	Sie koennen die Text dann stehen lassen oder die Inhalte loeschen, z.B.
 	const imprintVATid = ``   oder   const imprintVATid = "";
 
 	********************************************************************
@@ -269,7 +250,7 @@ const imprintPrivacyUrl = "https://www.hans-wurst-webdesign-obsthausen.com/daten
 // 2. ERWEITERTE EINSTELLUNGEN: / 2. ADVANCED SETTINGS
 
 //	2.1. Trennzeichen fuer die CSV-Dateien (Excel benutzt haeufig Semikolon, OpenOffice/LibreOffice ein Komma)
-//	2.1. Separator for CSV files (Excel uses often a semicolon, OpenOffice/LibreOffice a comma)
+//	2.1. Separator for CSV files (Excel mainly uses a semicolon, OpenOffice/LibreOffice a comma)
 
 const separator = ";";
 
@@ -277,10 +258,10 @@ const separator = ";";
 /*	
 	2.2. CSS-Designvorlage(n)  
 
-	Der Mat-o-Wahl nutzt das "Bootstrap"-Framework für mobile Ansichten.
+	DE: Der Mat-o-Wahl nutzt das "Bootstrap"-Framework für mobile Ansichten.
 	Alle Standard-Bootstrap-Einstellungen können aber überschrieben werden. 	
 	Die Dateien finden sich im Ordner /STYLES.
-	Beispiele für das DESIGN-Aray:
+	Beispiele für das DESIGN-Array:
 
 	********************************************************************
 
@@ -293,7 +274,7 @@ const separator = ";";
 
 	2.2. CSS-Design(s) 
 
-	Mat-o-Wahl uses the "bootstrap" framework for responsive design.
+	EN: Mat-o-Wahl uses the "bootstrap" framework for responsive design.
 	All default settings can be overwritten.
 	You can find the files in the /STYLES folder.
 	Please find some examples above.  
@@ -305,10 +286,10 @@ const design = ["default.css","buttons-colors-on.css", "progressbar.css"];
 /*
 	2.3. Add-ons / Plug-Ins / Extras  
 
-	Man kann eigene und fremde Addons einbinden. 
+	DE: Man kann eigene und fremde Addons einbinden. 
 	Einige Beispiele liegen im Ordner /EXTRAS.
 	Die Einstellungen finden sich üblicherweise innerhalb den dortigen Dateien.
-	Beispiele für das ADDONS-Aray:
+	Beispiele für das ADDONS-Array:
 
 	********************************************************************
 
@@ -321,7 +302,7 @@ const design = ["default.css","buttons-colors-on.css", "progressbar.css"];
 
 	2.3. Add-ons / Plug-Ins / Extras
 
-	You can include your own and external add-ons.
+	EN: You can include your own and external add-ons.
 	Some examples are in the folder /EXTRAS.
 	The settings are usually inside the corresponding files.
 	Please find some examples above.  
@@ -343,9 +324,11 @@ const language = "de";
 	3. PROFESSIONELLE EINSTELLUNGEN:
 	3. PROFESSIONAL SETTINGS
 
-	DE: STATISTIK
-	Anonyme Auswertung zulassen: true/1 oder false/0 
-	Die Einwilligung des Nutzers und eine Datenschutzerklaerung (s.o.) werden benoetigt! (*)
+	DE: STATISTIK: Anonyme Auswertung zulassen: true/1 oder false/0 
+	
+	Es wird eine Datenschutzerklaerung (s.o.) benoetigt! 
+	Falls vorhanden, erscheint am Ende ein Popup (Modal) mit der Bitte um Zustimmung (Opt-In).
+	
 	Als Ergebnis erhaelt man die Liste mit der persoenlichen Auswahl in der Variablen "mowpersonal" (-1,0,1,99) 
 	und die Liste mit der Anzahl der Uebereinstimmungen mit den Parteien als "mowparties" (5,1,0,2) zurueck.
 	Als Trennzeichen fuer die Werte dient wieder ein Komma. ;-)
@@ -353,13 +336,15 @@ const language = "de";
 
 	********************************************************************
 
-	EN: STATISTICS
-	Allow anonymous analysis: true/1 or false/0 
-	Consent of the user and a privacy policy are needed! (*)
+	EN: STATISTICS: Allow anonymous analysis: true/1 or false/0 
+	
+	A privacy policy are needed!
+	If it's set, a pop-up (modal) appears and asks the users for its consent. (opt-in)  
+	
 	As a result you'll get the list of personal choices in a variable "mowpersonal" (-1,0,1,99) 
 	and a list with the number of party-matches as "mowparties" (5,1,0,2).
-	Separator for these variables is a comma gain. ;-)
-	The script and Mat-O-Wahl must be on the same domain and network-protocoll. (no "cross origin" / CORS)
+	Separator for these variables is a comma again. ;-)
+	The script and Mat-O-Wahl must be on the same domain and network-protocol. (no "cross origin" / CORS)
 */
 
 const statsRecord = 0;
@@ -369,10 +354,4 @@ const statsServer = "http://localhost/extras/statistics/vote_txt.php";
 /*
 	-> POST-Aufruf der gesendeten Ergebnisse / POST-Call of sent results:
 	http://localhost/extras/statistics/vote_txt.php?mowpersonal=-1,0,1,99&mowparties=5,1,0,2
-
-	(*) In der OUTPUT.JS etwa auf Zeile 60 kann man die Checkbox automatisch als 
-	"checked" / angeklickt definieren. Das entspricht dem Opt-In Verfahren.
-
-	(*) In OUTPUT.JS at around line 60 you can define the checkbox as "checked".
-	This would be an opt-in method.
 */
