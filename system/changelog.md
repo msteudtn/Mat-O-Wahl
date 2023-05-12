@@ -22,7 +22,7 @@
 
 - Big spring clean-up
 - `index.html`
-  - new id `descriptionContainer`
+  - **new id** `descriptionContainer`
   - cleaner code
   - deleted statistic-checkbox. Has been already replaced by popup-modal.
   - deleted buttons for Facebook and Twitter. Should be replaced by "Shariff" or similar. See: https://github.com/msteudtn/Mat-O-Wahl/issues/90
@@ -33,12 +33,12 @@
   - Updated process to activate the statistics. This has been replaced by a modal-popup and no longer by a checkbox under the questions.
 - Deleted the variable `intParties` in `extras/addon_limit_results.js` because it's not global anymore but calculated since version 0.6.0.8.20230215. Since it was only a minor information to the user, there's no real loss.       
 - `styles/default.css, progressbar.css, buttons-colors-on.css, buttons-colors-off.css`
-  - changed to CSS-root-elements
-  - changed margins of buttons
+  - **changed** to CSS-root-elements
+  - **changed** margins of buttons
 - `system/general.js`
   - deleted unused source-code
-  - changed to CSS-root-elements
-  - renamed variables / function / classes: `selfPosition` to `partyPositionToQuestion`
+  - **changed** to CSS-root-elements
+  - **renamed variables / function / classes**: `selfPosition` to `partyPositionToQuestion`
   - updated (German) error messages for gender-equality https://github.com/msteudtn/Mat-O-Wahl/issues/84
 - `system/output.js`
   - deleted unused source-code
@@ -47,10 +47,10 @@
     - Old: `el += "<p>"; el += "text"; el += "</p>";`
     - New: `'el += <p> text </p>'`; 
   - minor optimisations: replaced some `arQuestionsLong.length` with existing `intQuestions`
-  - renamed variables / function / classes: `selfPosition` to `partyPositionToQuestion`
-  - Added a new button `resultsShortPartyDescriptionButtonX` to show / hide the description of the party `resultsShortPartyDescriptionX`. Before it showed the first 32 characters. 
-  - The link to the party-website moved from the first line down to the description. 
-  - Added a new button `resultsShortPartyAnswersButton` to show / hide the party-answers.
+  - **renamed variables / function / classes**: `selfPosition` to `partyPositionToQuestion`
+  - Added a **new button** `resultsShortPartyDescriptionButtonX` to show / hide the description of the party `resultsShortPartyDescriptionX`. Before it showed the first 32 characters. 
+  - The link to the party-website **moved** from the first line down to the description. 
+  - Added a **new button** `resultsShortPartyAnswersButton` to show / hide the party-answers.
   - updated the `click()`-functions on these buttons to `toggle()` the content.
   
 
