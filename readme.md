@@ -48,7 +48,7 @@ GPL 3 (siehe Verzeichnis /SYSTEM oder http://choosealicense.com/licenses/gpl-v3/
 
 Wenn Sie den Mat-O-Wahl einsetzen, würde ich mich über eine **kurze Mitteilung von Ihnen** freuen.
 
-mathias . steudtner (a) gmx . net
+mathias . steudtner (a) mailbox . org
 
 ---
 
@@ -100,6 +100,6 @@ GPL 3 (see folder /SYSTEM or http://choosealicense.com/licenses/gpl-v3/)
 
 If you should find Mat-O-Wahl useful, I would be happy about a **short notice from you** by email.
 
-mathias . steudtner (a) gmx . net
+mathias . steudtner (a) mailbox . org
 
 (*) derived from the German project "Wahl-O-Mat" (Wahl-Automat) / "Vote-Machine"
