@@ -1,0 +1,9 @@
+services:
+  mat-o-wahl:
+    container_name: mat-o-wahl
+    build: .
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./data:/var/www/html/data
