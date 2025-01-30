@@ -8,6 +8,7 @@ https://www.mat-o-wahl.de/ -> Ausprobieren (DE) :beer:
 
 ## BEDIENUNG / INSTALLATION
 
+### Installation ohne Docker
 1. ZIP-Archiv **herunterladen und entpacken**
    (Github -> oben rechts -> Code -> Download ZIP)
 
@@ -19,6 +20,34 @@ https://www.mat-o-wahl.de/ -> Ausprobieren (DE) :beer:
    (am besten auf http://localhost/ oder im privaten Webspace) 
 
 **Optional:** Im Ordner `/EXTRAS` gibt es **Erweiterungen** um bei Bedarf zusätzliche Funktionen zu aktivieren. (z.B. Filtern von Ergebnissen, Vorabfrage, Einbinden per iframe)
+
+### Installation mit Docker
+#### Nutzung des fertigen Images
+
+1. installiere docker und docker-compose
+
+2. lade die docker-compose.yml runter
+
+3. passe die Parameter für deine zwecke an
+   - **Image:** Wähle aus, ob du eine spezielle Version verwenden möchtest.
+   - **Port:** Ändere den Port, falls Port 80 bereits belegt ist.
+   - **Volumes:** Passe den Pfad deiner Konfigurationsdateien an (Standard: `./data`).
+
+4. starte den Service mit `docker-compose up` (du kannst den Service mit `docker-compose down` stoppen)
+
+#### Baue das image selber
+
+1. installiere docker und docker-compose
+
+2. ZIP-Archiv **herunterladen und entpacken**
+   (Github -> oben rechts -> Code -> Download ZIP)
+
+3. passe die Parameter für deine zwecke in der `docker-compose-dev.yml` an
+   - **Image:** Wähle aus, ob du eine spezielle Version verwenden möchtest.
+   - **Port:** Ändere den Port, falls Port 80 bereits belegt ist.
+   - **Volumes:** Passe den Pfad deiner Konfigurationsdateien an (Standard: `./data`).
+
+4. starte den Service mit `docker-compose -f docker-compose-dev.yml up` (du kannst den Service mit `docker-compose down` stoppen)
 
 ## VORAUSSETZUNG
 

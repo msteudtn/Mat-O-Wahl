@@ -1,9 +1,10 @@
 services:
   mat-o-wahl:
     container_name: mat-o-wahl
-    build: .
+    image: ghcr.io/msteudtn/mat-o-wahl:latest # you can also use the dockerhub image  msteudtn/mat-o-wahl:latest
     restart: always
     ports:
       - "80:80"
     volumes:
       - ./data:/var/www/html/data
+      - ./extras:var/www/html/extras
