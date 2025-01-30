@@ -24,7 +24,7 @@ https://www.mat-o-wahl.de/ -> Ausprobieren (DE) :beer:
 ### Installation mit Docker
 #### Nutzung des fertigen Images
 
-1. installiere docker und docker-compose
+1. installiere [docker](https://docs.docker.com/engine/install/ubuntu/) und docker-compose 
 
 2. lade die docker-compose.yml runter
 
@@ -37,7 +37,7 @@ https://www.mat-o-wahl.de/ -> Ausprobieren (DE) :beer:
 
 #### Baue das image selber
 
-1. installiere docker und docker-compose
+1. installiere [docker](https://docs.docker.com/engine/install/ubuntu/) und docker-compose
 
 2. ZIP-Archiv **herunterladen und entpacken**
    (Github -> oben rechts -> Code -> Download ZIP)
