@@ -24,7 +24,7 @@ https://www.mat-o-wahl.de/ -> Ausprobieren (DE) :beer:
 ### Installation mit Docker
 #### Nutzung des fertigen Images
 
-1. installiere [docker](https://docs.docker.com/engine/install/ubuntu/) und docker-compose 
+1. installiere [docker](https://docs.docker.com/engine/install/) und docker-compose 
 
 2. lade die docker-compose.yml runter
 
@@ -37,7 +37,7 @@ https://www.mat-o-wahl.de/ -> Ausprobieren (DE) :beer:
 
 #### Baue das image selber
 
-1. installiere [docker](https://docs.docker.com/engine/install/ubuntu/) und docker-compose
+1. installiere [docker](https://docs.docker.com/engine/install/) und docker-compose
 
 2. ZIP-Archiv **herunterladen und entpacken**
    (Github -> oben rechts -> Code -> Download ZIP)
@@ -89,6 +89,7 @@ https://www.mat-o-wahl.de/ -> Try It (EN) :hamburger:
 
 ## USE / INSTALLATION
 
+### Installation without Docker
 1. **Download and unpack** ZIP archive
     (Github -> top right -> Code -> Download ZIP)
 
@@ -100,6 +101,35 @@ https://www.mat-o-wahl.de/ -> Try It (EN) :hamburger:
    (works best on http://localhost/ or your private webspace)
 
 **Optional:** You can find some **extensions** in the folder `/EXTRAS`. It adds some more functionality to the program, if needed. (e.g. filter of results, pre-question, include the program within an iframe)
+
+### Installation with Docker
+
+#### Using the Prebuilt Image
+
+1. Install [Docker](https://docs.docker.com/engine/install/) and Docker Compose.  
+
+2. Download the `docker-compose.yml` file.  
+
+3. Adjust the parameters to suit your needs:  
+   - **Image:** Choose whether you want to use a specific version.  
+   - **Port:** Change the port if port 80 is already in use.  
+   - **Volumes:** Adjust the path of your configuration files (default: `./data`).  
+
+4. Start the service with `docker-compose up` (you can stop the service with `docker-compose down`).  
+
+#### Build the Image Yourself  
+
+1. Install [Docker](https://docs.docker.com/engine/install/) and Docker Compose.  
+
+2. **Download and extract the ZIP archive**  
+   (GitHub -> Top right -> Code -> Download ZIP).  
+
+3. Adjust the parameters in `docker-compose-dev.yml` to suit your needs:  
+   - **Image:** Choose whether you want to use a specific version.  
+   - **Port:** Change the port if port 80 is already in use.  
+   - **Volumes:** Adjust the path of your configuration files (default: `./data`).  
+
+4. Start the service with:  `docker-compose -f docker-compose-dev.yml up` (You can stop the service with `docker-compose down`).
 
 ## PREREQUISITES
 

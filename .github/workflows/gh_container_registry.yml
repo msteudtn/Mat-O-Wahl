@@ -14,8 +14,8 @@ jobs:
           id: get_latest_release
           uses: pozetroninc/github-action-get-latest-release@master
           with:
-            owner: PixelWelt
-            repo: ThalamOS
+            owner: msteudtn
+            repo: mat-o-wahl
           
         - name: 'Checkout GitHub Action'
           uses: actions/checkout@v2
