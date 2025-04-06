@@ -21,6 +21,12 @@
 
 ## Versions:
 
+### 0.6.0.11.20250406
+
+- Added Docker support
+  - https://github.com/msteudtn/Mat-O-Wahl/pull/92
+  - Thanks to https://github.com/PixelWelt
+
 ### 0.6.0.10.20230420
 
 - Minor fix: 
