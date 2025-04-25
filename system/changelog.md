@@ -21,6 +21,11 @@
 
 ## Versions:
 
+### 0.6.0.12.20250425
+
+- Minor fix:
+  - `quicktest.html` had some outdated calculations 
+  
 ### 0.6.0.11.20250406
 
 - Added Docker support
