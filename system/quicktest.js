@@ -9,7 +9,7 @@ function fnTestStart()
 	fnReadCsv("data/"+fileQuestions+"",fnTestReadQuestions)
 
 	// PARTEIEN und ANTWORTEN in Arrays einlesen
-	fnReadCsv("data/"+fileAnswers+"",fnTestReadPositions)
+	fnReadCsv("data/"+fileAnswers+"",fnReadPositions)
 
 /*
 	// bis v 0.5 - mehrere Partei-CSV-Dateien
@@ -76,39 +76,38 @@ function fnTestShowAll()
 	$("#testOtherEn").empty();
 
 	// EXISTENZ DER VARIABLEN
-	arVariablen = new Array("fileQuestions", 
-		"intQuestions",
-		"fileAnswers",
-		"intParties",
-		"intPartyLogosImgWidth", 
-		"intPartyLogosImgHeight", 
-		"descriptionShowOnStart",
-		"descriptionHeading1",
-		"descriptionHeading2",
-		"descriptionExplanation",
-		"imprintLink",
-		"imprintGeneral",
-		"imprintContact",
-		"imprintVATid",
-		"imprintDisputeResultion",
-		"imprintEditors",
-		"imprintProgramming",
-		"imprintPictures",
-		"imprintPrivacyUrl",
-		"separator",
-		"design",
-		"language",
-		"statsRecord",
-		"statsServer")
+	arVariablen = new Array(fileQuestions, 
+		intQuestions,
+		fileAnswers,
+		intPartyLogosImgWidth, 
+		intPartyLogosImgHeight, 
+		descriptionShowOnStart,
+		descriptionHeading1,
+		descriptionHeading2,
+		descriptionExplanation,
+		imprintLink,
+		imprintGeneral,
+		imprintContact,
+		imprintVATid,
+		imprintDisputeResultion,
+		imprintEditors,
+		imprintProgramming,
+		imprintPictures,
+		imprintPrivacyUrl,
+		separator,
+		design,
+		language,
+		statsRecord,
+		statsServer)
 
 	for (i = 0; i <= arVariablen.length-1; i++)
 	{
-		// Pruefe ob Variable einen definierten Typ hat. Ja=nichts, Nein=Alarm
-		if(typeof(window[arVariablen[i]]) != 'undefined')
+		// console.log(" prüfe ... " +(arVariablen[i])+" ... "+window.arVariablen[i]+" = "+typeof(arVariablen[i]))
+		try 
 		{
-//			$("#debug").append("<br /> prüfe .." +window[arVariablen[i]]+ " "+typeof(arVariablen[i]))
-		}
-		else
+		  (window.arVariablen[i])
+		} 
+		catch (error) 
 		{
 
 			counterError++;
