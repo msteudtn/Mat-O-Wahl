@@ -27,7 +27,7 @@ jobs:
 
     - name: Get latest release tag
       id: get_latest_release
-      uses: msteudtn/github-action-get-latest-release@master
+      uses: pozetroninc/github-action-get-latest-release@master
       with:
         owner: msteudtn
         repo: mat-o-wahl
