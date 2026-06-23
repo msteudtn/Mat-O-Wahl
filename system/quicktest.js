@@ -8,8 +8,15 @@ function fnTestStart()
 	// FRAGEN in Arrays einlesen
 	fnReadCsv("data/"+fileQuestions+"",fnTestReadQuestions)
 
-	// PARTEIEN und ANTWORTEN in Arrays einlesen
-	fnReadCsv("data/"+fileAnswers+"",fnReadPositions)
+	if (fnIsTextGeneratorMode())
+	{
+		fnReadCsv("data/"+fileTextBlocks, fnReadTextBlocks)
+	}
+	else
+	{
+		// PARTEIEN und ANTWORTEN in Arrays einlesen
+		fnReadCsv("data/"+fileAnswers+"",fnReadPositions)
+	}
 
 /*
 	// bis v 0.5 - mehrere Partei-CSV-Dateien
@@ -97,6 +104,11 @@ function fnTestShowAll()
 		separator,
 		design,
 		language,
+		sliderSalary,
+		sliderBuckets,
+		appMode,
+		fileTextBlocks,
+		textGeneratorHeading,
 		statsRecord,
 		statsServer)
 
@@ -150,10 +162,92 @@ function fnTestShowAll()
 
 	for (i = 0; i <= (arQuestionsShort.length-1); i++)
 	{
-		$("#testQuestions").append(" "+(i+1)+". <b>"+arQuestionsShort[i]+"</b> - "+arQuestionsLong[i]+ "<br />")		
+		var questionTypeInfo = "";
+		if (arQuestionTypes[i] === "slider")
+		{
+			questionTypeInfo = " <em>(Slider)</em>";
+		}
+		$("#testQuestions").append(" "+(i+1)+". <b>"+arQuestionsShort[i]+"</b> - "+arQuestionsLong[i]+ questionTypeInfo + "<br />")		
 		var numberOfQuestions = i;
 	}
 
+	if (typeof sliderSalary !== "undefined")
+	{
+		if (sliderSalary.min >= sliderSalary.max)
+		{
+			counterError++;
+			$("#testOtherDe").append("<b>("+counterError+").</b> Slider: sliderSalary.min muss kleiner als sliderSalary.max sein.<br />");
+			$("#testOtherEn").append("<b>("+counterError+").</b> Slider: sliderSalary.min must be less than sliderSalary.max.<br />");
+		}
+		if (sliderSalary.step <= 0)
+		{
+			counterError++;
+			$("#testOtherDe").append("<b>("+counterError+").</b> Slider: sliderSalary.step muss größer als 0 sein.<br />");
+			$("#testOtherEn").append("<b>("+counterError+").</b> Slider: sliderSalary.step must be greater than 0.<br />");
+		}
+	}
+
+	if (typeof sliderBuckets !== "undefined" && typeof sliderSalary !== "undefined")
+	{
+		var lastBucketMax = sliderSalary.min - 1;
+		for (var b = 0; b < sliderBuckets.length; b++)
+		{
+			if (sliderBuckets[b].max <= lastBucketMax)
+			{
+				counterError++;
+				$("#testOtherDe").append("<b>("+counterError+").</b> Slider: sliderBuckets müssen aufsteigende max-Werte haben.<br />");
+				$("#testOtherEn").append("<b>("+counterError+").</b> Slider: sliderBuckets must have ascending max values.<br />");
+				break;
+			}
+			lastBucketMax = sliderBuckets[b].max;
+		}
+		if (lastBucketMax < sliderSalary.max && sliderBuckets[sliderBuckets.length - 1].max !== Infinity)
+		{
+			counterError++;
+			$("#testOtherDe").append("<b>("+counterError+").</b> Slider: Der letzte Bucket muss sliderSalary.max abdecken (max: Infinity oder &ge; max).<br />");
+			$("#testOtherEn").append("<b>("+counterError+").</b> Slider: The last bucket must cover sliderSalary.max (max: Infinity or &ge; max).<br />");
+		}
+	}
+
+
+	if (fnIsTextGeneratorMode())
+	{
+		$("#testAnswers").append("<p><strong>Modus: Textgenerator</strong> (keine Partei-CSV erforderlich)</p>")
+			.append("Name der <b>Datei</b> mit Textbausteinen / Name of <b>file</b> with text blocks: ")
+			.append("<a class='btn btn-outline-dark btn-block btn-sm' role='button' href='data/"+fileTextBlocks+"' target='_blank'>"+fileTextBlocks+"</a>")
+			.append("<p>Pro Frage sollten Textbausteine f&uuml;r Antworten <strong>-1</strong>, <strong>0</strong> und <strong>1</strong> vorhanden sein.</p>");
+
+		var arAnswersToCheck = [-1, 0, 1];
+		for (i = 0; i <= (arQuestionsShort.length - 1); i++)
+		{
+			for (var a = 0; a < arAnswersToCheck.length; a++)
+			{
+				var answerVal = arAnswersToCheck[a];
+				var block = fnLookupTextBlock(i, answerVal);
+				if (!block || block.length === 0)
+				{
+					$("#testAnswers").append("<br /><em>Warnung:</em> Frage "+(i+1)+" ("+arQuestionsShort[i]+"), Antwort "+answerVal+": kein Textbaustein.<br />");
+				}
+			}
+		}
+
+		for (i = 0; i <= (arQuestionsShort.length - 1); i++)
+		{
+			if (!arTextBlocks[i])
+			{
+				continue;
+			}
+			for (var key in arTextBlocks[i])
+			{
+				if (arTextBlocks[i].hasOwnProperty(key))
+				{
+					$("#testAnswers").append("<br /><b>Frage "+(i+1)+", Antwort "+key+":</b> "+arTextBlocks[i][key]);
+				}
+			}
+		}
+	}
+	else
+	{
 
 	// ANTWORTEN der PARTEIEN - ANSWERS to the parties
 
@@ -204,8 +298,10 @@ function fnTestShowAll()
 		
 		$("#testAnswers").append("<br />");
 	}
-	
-	
+
+	} // end: wahlomat party answers
+
+
 	// KONTAKT/IMPRESSUM (allgemein) - CONTACT / Imprint (general)
 
 	$("#testImprint").append("<b> Allgemeine Angaben gemäß § 5 TMG / General information</b> "+imprintGeneral+ "")

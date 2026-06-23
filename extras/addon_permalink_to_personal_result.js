@@ -65,6 +65,14 @@ window.addEventListener("load", () => {
         let permalinkUrl = window.location.origin + window.location.pathname;
         // Add parameter with personal positions
         permalinkUrl += "?personalpositions=" + arPersonalPositions.join(",");
+        // Add parameter with numeric slider values
+        permalinkUrl +=
+          "&personalnumeric=" +
+          arPersonalNumeric
+            .map((element, index) =>
+              fnIsSliderQuestion(index) && !isNaN(element) ? element : ""
+            )
+            .join(",");
         // Add parameter with voting double values, encode to numbers to avoid confusing strings like "false,false,false..." in the URL
         permalinkUrl +=
           "&votingdouble=" +
@@ -94,6 +102,7 @@ window.addEventListener("load", () => {
 function fnProcessPermalink() {
   const urlParams = new URLSearchParams(window.location.search);
   const personalPositionsFromUrl = urlParams.get("personalpositions");
+  const personalNumericFromUrl = urlParams.get("personalnumeric");
   const votingDoubleFromUrl = urlParams.get("votingdouble");
   if (personalPositionsFromUrl) {
     // Ladebildschirm anzeigen
@@ -110,6 +119,14 @@ function fnProcessPermalink() {
     document.body.appendChild(loadingModalContainer);
 
     arPersonalPositions = personalPositionsFromUrl.split(",");
+    if (personalNumericFromUrl) {
+      const numericValues = personalNumericFromUrl.split(",");
+      for (let i = 0; i < numericValues.length; i++) {
+        if (numericValues[i] !== "") {
+          arPersonalNumeric[i] = parseInt(numericValues[i], 10);
+        }
+      }
+    }
     // Decode numbers to boolean values
     arVotingDouble = votingDoubleFromUrl
       .split(",")

@@ -154,7 +154,7 @@
 
 		<section id="sectionVotingButtons">
 		
-			<div class="row">
+			<div id="sectionVotingTernary" class="row">
 				<div class="col">
 					<button type="button" id="votingDouble" onclick="fnChangeVotingDouble()" class="btn btn-outline-dark btn-lg btn-block">[x2] Important</button>
 				</div>
@@ -178,7 +178,20 @@
 					<button type="button" id="votingSkip" class="btn btn-secondary btn float-right">[&#x21B7;] Skip</button>
 				</div>
 				
-			</div> 
+			</div>
+
+			<div id="sectionVotingSlider" style="display:none">
+				<div class="row mb-3">
+					<div class="col">
+						<button type="button" id="votingDoubleSlider" onclick="fnChangeVotingDouble()" class="btn btn-outline-dark btn-lg btn-block">[x2] Important</button>
+					</div>
+				</div>
+				<p class="text-center mb-2" id="sliderValueLabel"></p>
+				<p class="text-center h3 mb-3" id="sliderValueDisplay" aria-live="polite"></p>
+				<input type="range" class="custom-range mb-3" id="votingSlider" />
+				<button type="button" id="votingSliderNext" class="btn btn-primary btn-lg btn-block mb-3">Weiter</button>
+				<button type="button" id="votingSliderSkip" class="btn btn-secondary btn float-right">[&#x21B7;] Skip</button>
+			</div>
 
 		</section>
 	</main>

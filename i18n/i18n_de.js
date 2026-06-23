@@ -7,6 +7,8 @@ var TEXT_VOTING_NEUTRAL = "Egal/Weiß nicht"
 var TEXT_VOTING_CONTRA = "Stimme nicht zu"
 var TEXT_VOTING_SKIP = "Überspringen"
 var TEXT_VOTING_DOUBLE = "Doppelt gewichten"
+var TEXT_SLIDER_NEXT = "Weiter"
+var TEXT_SLIDER_YEARLY = "Bruttojahreseinkommen"
 
 // Statistic
 var TEXT_ALLOW_STATISTIC = "Anonyme Auswertung (Wahlprognose) erlauben. Siehe <a href='"+imprintPrivacyUrl+"' target='_blank'>Datenschutzerklärung</a>." // Variable loeschen!
@@ -38,3 +40,4 @@ var TEXT_IMAGE = "Logo oder Bild"
 var TEXT_PARTY = "Partei"
 var TEXT_ANSWER_NORMAL = "Frage einfach gewertet"
 var TEXT_ANSWER_DOUBLE = "Frage doppelt gewertet" 
+var TEXT_GENERATOR_EMPTY = "Es konnten keine Textbausteine zu Ihren Antworten gefunden werden. Bitte pr&uuml;fen Sie die Konfiguration der Text-CSV."

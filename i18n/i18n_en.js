@@ -7,6 +7,8 @@ var TEXT_VOTING_NEUTRAL = "No opinion"
 var TEXT_VOTING_CONTRA = "Disagree"
 var TEXT_VOTING_SKIP = "Skip (don't count)"
 var TEXT_VOTING_DOUBLE = "Very important to me"
+var TEXT_SLIDER_NEXT = "Continue"
+var TEXT_SLIDER_YEARLY = "Gross annual income"
 
 // Statistic
 var TEXT_ALLOW_STATISTIC = "Allow anonymous analytics (prognosis)? See <a href='"+imprintPrivacyUrl+"' target='_blank'>privacy statement</a>." // to be deleted
@@ -38,3 +40,4 @@ var TEXT_IMAGE = "picture or logo"
 var TEXT_PARTY = "Party"
 var TEXT_ANSWER_NORMAL = "Question in single rating"
 var TEXT_ANSWER_DOUBLE = "Question in double rating" 
+var TEXT_GENERATOR_EMPTY = "No text blocks could be found for your answers. Please check the text CSV configuration."

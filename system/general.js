@@ -8,10 +8,12 @@ var version = "0.6.0.12.20250425"
 // Globale Variablen
 var arQuestionsShort = new Array();	// Kurzform der Fragen: Atomkraft, Flughafenausbau, ...
 var arQuestionsLong = new Array();		// Langform der Frage: Soll der Flughafen ausgebaut werden?
+var arQuestionTypes = new Array();		// Fragetyp: ternary (Standard) oder slider
 
 var arPartyPositions = new Array();	// Position der Partei als Zahl aus den CSV-Dateien (1/0/-1)
 var arPartyOpinions = new Array();		// Begründung der Parteien aus den CSV-Dateien
 var arPersonalPositions = new Array();	// eigene Position als Zahl (1/0/-1)
+var arPersonalNumeric = new Array();	// numerischer Slider-Wert (z. B. Gehalt)
 var arVotingDouble = new Array();	// eigene Position als Zahl (2/1/0/-1/-2)
 
 // var arPartyFiles = new Array();		// Liste mit den Dateinamen der Parteipositionen
@@ -22,6 +24,7 @@ var arPartyInternet = new Array();		// Internetseiten der Parteien
 var arPartyLogosImg = new Array();		// Logos der Parteien
 
 var arSortParties=new Array();		// Nummern der Listen, nach Punkten sortiert
+var arTextBlocks = {};			// Textbausteine: arTextBlocks[frageIndex][antwort] = text
 
 var activeQuestion=0; //aktuell angezeigte Frage (output.js)
 let intParties = 0;
@@ -93,6 +96,80 @@ function fnReadPositions(csvData)
 	// fnSplitLines(csvData,0);
 	intParties = fnSetIntParties(csvData)
 	fnTransformCsvToArray(csvData,0)
+}
+
+
+function fnIsTextGeneratorMode()
+{
+	return (typeof appMode !== "undefined") && appMode === "textgenerator";
+}
+
+
+// Textbausteine aus CSV einlesen (aus fnStart() im Textgenerator-Modus)
+function fnReadTextBlocks(csvData)
+{
+	arZeilen = $.csv.toArrays(csvData, {separator: ""+separator+""});
+
+	for (i = 0; i <= arZeilen.length - 1; i++)
+	{
+		var questionNum = parseInt(arZeilen[i][0], 10);
+		var answerNum = parseInt(arZeilen[i][1], 10);
+		var blockText = arZeilen[i][2];
+
+		if (isNaN(questionNum) || isNaN(answerNum) || blockText === undefined)
+		{
+			continue;
+		}
+
+		var questionIndex = questionNum - 1;
+		if (!arTextBlocks[questionIndex])
+		{
+			arTextBlocks[questionIndex] = {};
+		}
+		arTextBlocks[questionIndex][answerNum] = blockText;
+	}
+}
+
+
+function fnLookupTextBlock(questionIndex, answer)
+{
+	if (arTextBlocks[questionIndex] && arTextBlocks[questionIndex][answer] !== undefined)
+	{
+		return arTextBlocks[questionIndex][answer];
+	}
+	console.log("Mat-O-Wahl: Kein Textbaustein f&uuml;r Frage "+(questionIndex + 1)+", Antwort "+answer);
+	return "";
+}
+
+
+function fnGenerateResultText()
+{
+	var result = "";
+	var blockSeparator = (typeof textGeneratorBlockSeparator !== "undefined") ? textGeneratorBlockSeparator : "";
+	var blockCount = 0;
+
+	for (i = 0; i < arQuestionsLong.length; i++)
+	{
+		if (arPersonalPositions[i] >= 99 || isNaN(arPersonalPositions[i]))
+		{
+			continue;
+		}
+
+		var answer = parseInt(arPersonalPositions[i], 10);
+		var block = fnLookupTextBlock(i, answer);
+
+		if (block && block.length > 0)
+		{
+			if (blockCount > 0 && blockSeparator.length > 0)
+			{
+				result += blockSeparator;
+			}
+			result += block;
+			blockCount++;
+		}
+	}
+
+	return result;
 }
 
 
@@ -250,6 +327,13 @@ function fnTransformCsvToArray(csvData,modus)
 		{
 			arQuestionsShort.push(valueOne);
 			arQuestionsLong.push(valueTwo);
+			valueThree = arZeilen[i][2];
+			var questionType = "ternary";
+			if (valueThree && valueThree != "undefined" && (""+valueThree).trim() !== "")
+			{
+				questionType = (""+valueThree).trim().toLowerCase();
+			}
+			arQuestionTypes.push(questionType);
 		}
 		// ANTWORTEN und Meinungen in globales Array schreiben (z.B. aus PARTEIEN.CSV)
 		else
@@ -298,6 +382,47 @@ function fnTransformCsvToArray(csvData,modus)
 	}  // end: for
 
 } // end: function
+
+function fnIsSliderQuestion(questionIndex)
+{
+	return arQuestionTypes[questionIndex] === "slider";
+}
+
+function fnMapSliderToPosition(value)
+{
+	var numericValue = parseInt(value, 10);
+	for (var b = 0; b < sliderBuckets.length; b++)
+	{
+		if (numericValue <= sliderBuckets[b].max)
+		{
+			return sliderBuckets[b].position;
+		}
+	}
+	return sliderBuckets[sliderBuckets.length - 1].position;
+}
+
+function fnFormatSliderValue(value)
+{
+	if (value === undefined || value === null || value === "" || isNaN(value))
+	{
+		return "[/]";
+	}
+	var formatted = parseInt(value, 10).toLocaleString("de-DE");
+	return formatted + " " + sliderSalary.unit;
+}
+
+function fnGetPersonalAnswerText(questionIndex)
+{
+	if (arPersonalPositions[questionIndex] >= 99)
+	{
+		return fnTransformPositionToText(arPersonalPositions[questionIndex]);
+	}
+	if (fnIsSliderQuestion(questionIndex) && !isNaN(arPersonalNumeric[questionIndex]))
+	{
+		return fnFormatSliderValue(arPersonalNumeric[questionIndex]);
+	}
+	return fnTransformPositionToText(arPersonalPositions[questionIndex]);
+}
 
 // v.0.3 NEU
 // ersetzt die Position (-1, 0, 1) mit dem passenden Button
@@ -391,6 +516,10 @@ function fnBarImage(percent)
 // 02/2015 BenKob (doppelte Wertung)
 function fnToggleSelfPosition(i)
 {
+	if (fnIsSliderQuestion(i))
+	{
+		return;
+	}
 	arPersonalPositions[i]--;
 	if (arPersonalPositions[i]==-2) 
 		{arPersonalPositions[i]=99}
@@ -400,7 +529,7 @@ function fnToggleSelfPosition(i)
 	var positionButton = fnTransformPositionToButton(arPersonalPositions[i]);
 	var positionIcon = fnTransformPositionToIcon(arPersonalPositions[i]);
 	// var positionColor = fnTransformPositionToColor(arPersonalPositions[i]);
-	var positionText  = fnTransformPositionToText(arPersonalPositions[i]);
+	var positionText  = fnGetPersonalAnswerText(i);
 	
 	// $("#selfPosition"+i).attr("src", "img/"+positionImage);
 	$(".selfPosition"+i).removeClass("btn-danger btn-warning btn-success btn-default").addClass(positionButton);

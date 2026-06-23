@@ -69,7 +69,7 @@ const fileQuestions = "Obsthausen_Fragen.csv";
 
 //	1.2 ANZAHL der FRAGEN / 1.2 NUMBER of QUESTIONS
 
-const intQuestions = 6;
+const intQuestions = 7;
 
 
 // 	--------------------------------------------------------------------
@@ -335,6 +335,34 @@ const addons = []
 //	see files in folder /i18n/
 
 const language = "de";
+
+
+//	2.5 Slider-Fragen (z. B. Gehaltsangabe)
+//	2.5 Slider questions (e.g. salary input)
+
+const sliderSalary = {
+	min: 20000,
+	max: 120000,
+	step: 1000,
+	default: 45000,
+	unit: "€"
+};
+
+const sliderBuckets = [
+	{ max: 35000, position: -1, label: "bis 35.000 €" },
+	{ max: 65000, position: 0, label: "35.000–65.000 €" },
+	{ max: Infinity, position: 1, label: "über 65.000 €" }
+];
+
+
+//	2.6 Betriebsmodus / Application mode
+//	"wahlomat" = Parteiübereinstimmung (Standard)
+//	"textgenerator" = Textbausteine aus Antworten zusammensetzen
+
+const appMode = "textgenerator";
+const fileTextBlocks = "Obsthausen_Texte.csv";
+const textGeneratorHeading = "Ihr pers&ouml;nlicher Orientierungstext";
+const textGeneratorBlockSeparator = "";
 
 
 ///////////////////////////////////////////////////////////////////////

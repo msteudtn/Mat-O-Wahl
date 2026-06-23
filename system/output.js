@@ -28,6 +28,10 @@ function fnStart()
 	$("#votingContra").html(TEXT_VOTING_CONTRA)
 	$("#votingSkip").html(TEXT_VOTING_SKIP)
 	$("#votingDouble").html(TEXT_VOTING_DOUBLE)
+	$("#votingDoubleSlider").html(TEXT_VOTING_DOUBLE)
+	$("#votingSliderNext").html(TEXT_SLIDER_NEXT)
+	$("#votingSliderSkip").html(TEXT_VOTING_SKIP)
+	$("#sliderValueLabel").html(TEXT_SLIDER_YEARLY)
 	
 	// 4. Navigation
 	$("#sectionNavigation").hide();
@@ -97,8 +101,17 @@ function fnStart()
 	// (a) Fragen 
 	fnReadCsv("data/"+fileQuestions,fnShowQuestions)
 
-	// (b) Antworten der Parteien und Partei-Informationen
-	fnReadCsv("data/"+fileAnswers,fnReadPositions)
+	if (fnIsTextGeneratorMode())
+	{
+		$("#votingDouble").closest(".col").hide();
+		$("#votingDoubleSlider").closest(".row").hide();
+		fnReadCsv("data/"+fileTextBlocks, fnReadTextBlocks)
+	}
+	else
+	{
+		// (b) Antworten der Parteien und Partei-Informationen
+		fnReadCsv("data/"+fileAnswers,fnReadPositions)
+	}
 
 	$("#votingDouble").attr('checked', false);
 	
@@ -146,6 +159,9 @@ function fnShowQuestionNumber(questionNumber)
 	$("#votingNeutral").unbind("click");
 	$("#votingContra").unbind("click");
 	$("#votingSkip").unbind("click");
+	$("#votingSlider").unbind("input");
+	$("#votingSliderNext").unbind("click");
+	$("#votingSliderSkip").unbind("click");
 
 	// solange Fragen gestellt werden -> Anzeigen (sonst Auswertung)
 	if (questionNumber < arQuestionsLong.length) 
@@ -155,9 +171,6 @@ function fnShowQuestionNumber(questionNumber)
 		// Aufbau der Liste zum Vor/Zurückgehen bei den Fragen
 		fnJumpToQuestionNumber(questionNumber);
 	
-		// bodyTextSize = $("#headingContent").css("font-size");
-		// bodyTextSize = parseInt(bodyTextSize)
-
 		// Fragen ausblenden und neue Frage einblenden - nur zur besseren Visualisierung
 		$("#sectionShowQuestions").fadeOut(300).hide();		
 			$("#showQuestionsHeader").empty().append("<h2>"+arQuestionsShort[questionNumber]+"</h2>");
@@ -175,6 +188,77 @@ function fnShowQuestionNumber(questionNumber)
 			var percent = fnPercentage((questionNumber+1),arQuestionsLong.length);
 			$("#progress-bar").width(percent+"%")
 			$("#progress-bar").attr("aria-valuenow",percent)
+
+		if (fnIsSliderQuestion(questionNumber))
+		{
+			$("#sectionVotingTernary").hide();
+			$("#sectionVotingSlider").show();
+
+			if (fnIsTextGeneratorMode())
+			{
+				$("#votingDoubleSlider").closest(".row").hide();
+			}
+			else
+			{
+				$("#votingDoubleSlider").closest(".row").show();
+			}
+
+			var sliderValue = sliderSalary.default;
+			if (!isNaN(arPersonalNumeric[questionNumber]))
+			{
+				sliderValue = parseInt(arPersonalNumeric[questionNumber], 10);
+			}
+
+			$("#votingSlider")
+				.attr("min", sliderSalary.min)
+				.attr("max", sliderSalary.max)
+				.attr("step", sliderSalary.step)
+				.val(sliderValue);
+			fnUpdateSliderDisplay(sliderValue);
+
+			$("#votingSlider").on("input", function () {
+				fnUpdateSliderDisplay(this.value);
+			});
+
+			$("#votingSliderNext").click(function () {
+				var value = parseInt($("#votingSlider").val(), 10);
+				arPersonalNumeric[questionNumber] = value;
+				arPersonalPositions[questionNumber] = fnMapSliderToPosition(value);
+				fnShowQuestionNumber(questionNumber);
+			});
+
+			$("#votingSliderSkip").click(function () {
+				arPersonalNumeric[questionNumber] = NaN;
+				arPersonalPositions[questionNumber] = 99;
+				fnShowQuestionNumber(questionNumber);
+			});
+
+			if (!fnIsTextGeneratorMode())
+			{
+				$("#votingDoubleSlider").attr('checked', arVotingDouble[questionNumber]);
+				if (arVotingDouble[questionNumber])
+				{
+					$("#votingDoubleSlider").removeClass("btn-outline-dark").addClass("btn-dark");
+				}
+				else
+				{
+					$("#votingDoubleSlider").removeClass("btn-dark").addClass("btn-outline-dark");
+				}
+			}
+		}
+		else
+		{
+			$("#sectionVotingSlider").hide();
+			$("#sectionVotingTernary").show();
+
+			if (fnIsTextGeneratorMode())
+			{
+				$("#votingDouble").closest(".col").hide();
+			}
+			else
+			{
+				$("#votingDouble").closest(".col").show();
+			}
 		
 			// Klick-Funktion auf Bilder/Buttons legen.
 		   $("#votingPro").click(function () {
@@ -197,10 +281,14 @@ function fnShowQuestionNumber(questionNumber)
 		   	fnShowQuestionNumber(questionNumber);
 		   });
 
-			// Checkbox für doppelte Bewertung 
-		  	$("#votingDouble").attr('checked', arVotingDouble[questionNumber]);
-			// und Bild/Button zuruecksetzen
-			$("#votingDouble").removeClass( "btn-dark" ).addClass( "btn-outline-dark" );
+			if (!fnIsTextGeneratorMode())
+			{
+				// Checkbox für doppelte Bewertung 
+				$("#votingDouble").attr('checked', arVotingDouble[questionNumber]);
+				// und Bild/Button zuruecksetzen
+				$("#votingDouble").removeClass( "btn-dark" ).addClass( "btn-outline-dark" );
+			}
+		}
 
 		$("#sectionNavigation").fadeIn(300);
 
@@ -210,6 +298,12 @@ function fnShowQuestionNumber(questionNumber)
 	// Alle Fragen durchgelaufen -> Auswertung
 	else
 	{
+		if (fnIsTextGeneratorMode())
+		{
+			fnShowGeneratedText();
+		}
+		else
+		{
 		arResults=fnEvaluation();
 		
 		//Parteien sortieren
@@ -245,32 +339,74 @@ function fnShowQuestionNumber(questionNumber)
 			
 
 		}
+		}
 			
 		
 	} 
 	
 }
 
+
+function fnShowGeneratedText()
+{
+	$("#sectionDescription").empty().hide();
+	$("#sectionShowQuestions").empty().hide();
+	$("#sectionVotingButtons").hide();
+	$("#sectionNavigation").empty().hide();
+	$("#keepStats").hide();
+
+	$("#resultsHeading").append("<h1>"+textGeneratorHeading+"</h1>").fadeIn(500);
+
+	var generatedText = fnGenerateResultText();
+	var tableContent = "";
+	tableContent += "<div class='row' id='resultsShortTable' role='article'>";
+	tableContent += "<div class='col'>";
+
+	if (generatedText.length > 0)
+	{
+		tableContent += "<div class='generated-text border rounded p-3'>"+generatedText+"</div>";
+	}
+	else
+	{
+		tableContent += "<p>"+TEXT_GENERATOR_EMPTY+"</p>";
+	}
+
+	tableContent += "</div>";
+	tableContent += "</div>";
+	$("#resultsShort").append(tableContent);
+	$("#sectionResults").fadeIn(500);
+}
+
 // 02/2015 BenKob
 function fnChangeVotingDouble()
 {
+	if (fnIsTextGeneratorMode())
+	{
+		return;
+	}
 
 	arVotingDouble[activeQuestion]=!(arVotingDouble[activeQuestion]);
-	strBtnSrc = $("#votingDouble").hasClass("btn-outline-dark");
+	var doubleButton = fnIsSliderQuestion(activeQuestion) ? $("#votingDoubleSlider") : $("#votingDouble");
+	strBtnSrc = doubleButton.hasClass("btn-outline-dark");
 	
 	if (strBtnSrc)
 	// wenn vorher unwichtig -> jetzt doppelt werten
 	{
-		$("#votingDouble").removeClass( "btn-outline-dark" ).addClass( "btn-dark" );
+		doubleButton.removeClass( "btn-outline-dark" ).addClass( "btn-dark" );
 		$("#jumpToQuestionNr"+(activeQuestion+1)+"").css("font-weight","bold");
 	}
 	// wenn vorher wichtig -> jetzt wieder auf normal setzen
 	else
 	{
-		$("#votingDouble").removeClass( "btn-dark" ).addClass( "btn-outline-dark" );
+		doubleButton.removeClass( "btn-dark" ).addClass( "btn-outline-dark" );
 		$("#jumpToQuestionNr"+(activeQuestion+1)+"").css("font-weight","normal");
 	}
 
+}
+
+function fnUpdateSliderDisplay(value)
+{
+	$("#sliderValueDisplay").text(fnFormatSliderValue(value));
 }
 
 // Springe zu Frage Nummer XY (wird in fnShowQuestionNumber() aufgerufen)
@@ -541,7 +677,7 @@ function fnEvaluationByThesis(arResults)
 			{
 				var positionButton = fnTransformPositionToButton(arPersonalPositions[i]);
 				var positionIcon = fnTransformPositionToIcon(arPersonalPositions[i]);
-				var positionText  = fnTransformPositionToText(arPersonalPositions[i]);
+				var positionText  = fnGetPersonalAnswerText(i);
 				
 				// tableContent += "<tbody>";
 				// tableContent += "<tr>";
@@ -849,7 +985,7 @@ function fnEvaluationByParty(arResults)
 			// 2./4 Zellen - Icon für eigene Meinung [+] [0] [-]
 			var positionButton = fnTransformPositionToButton(arPersonalPositions[modulo]);
 			var positionIcon = fnTransformPositionToIcon(arPersonalPositions[modulo]);
-			var positionText  = fnTransformPositionToText(arPersonalPositions[modulo]);
+			var positionText  = fnGetPersonalAnswerText(modulo);
 
 			// tableContent += "<td style='text-align:center; width:10%;'>";
 			tableContent += " <div class='col col-2 order-1 col-md-1 order-md-2' role='cell'> ";
