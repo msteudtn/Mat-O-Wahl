@@ -5,24 +5,37 @@
    Adjustment: WACG colors (accessibility)
    https://webaim.org/resources/contrastchecker/ */
 
+:root {
+	--aria-button-red: #dc3545;
+	--aria-button-green: #126412;
+	--aria-button-blue: #0050A0;
+	--aria-button-yellow: #ffc107;
+}
+
 
 /*  [PRO] Knopf: dunkleres grün / [PRO] button: darker green  */   
 .btn-success {
-	background: #126412;
+	background: var(--aria-button-green);
+	color: contrast-color(var(--aria-button-green))
 }
 
 /* [o] Knopf: schwarze Schrift auf gelbem Hintergrund / [o] button: black font on yellow background */
 .btn-warning {
-	color:#000;
+	background: var(--aria-button-yellow);
+	color: contrast-color(var(--aria-button-yellow))
 }
 
 /* [CONTRA] Knopf: keine Änderung / [CONTRA] button: no change */
 .btn-danger {
+	background: var(--aria-button-red);
+/*	color: contrast-color(var(--aria-button-red))
+*/
 }
 
 /* diverse Knöpfe: dunkles Blau für helle Standardschrift / several buttons: dark blue for light default-fonts  */
 .btn-primary {
-	background:#0050A0;
+	background: var(--aria-button-blue);
+	color: contrast-color(var(--aria-button-blue))
 	}
 
 /* [+] [-] Knöpfe zum Aufklappen: schwarze Schrift für hellen Hintergrund   
