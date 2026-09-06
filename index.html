@@ -10,43 +10,28 @@
   <meta name="language" content="de" />
   <meta name="Content-Language" content="de" />
 
-  <meta name="author" content="Mathias Steudtner" />
+  <meta name="author" content="Standard" />
   <meta name="description" content="Mat-O-Wahl" />
   
-	<!-- BOOTSTRAP + JQUERY --- START -->
+	<!-- BOOTSTRAP CSS + JS --- START -->
 
-		<!-- ONLINE (deactivated) - Compiled and minified Bootstrap CSS -->
-		<!--	
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-		-->
+		<link rel="stylesheet" href="system/bootstrap5//bootstrap.min.css">
+		<script src="system/bootstrap5/bootstrap.bundle.min.js"></script>
 
-		<!-- LOCAL COPY (alternative) - Compiled and minified Bootstrap CSS -->
-		<link rel="stylesheet" href="system/bootstrap4/css/bootstrap.min.css">
-
-		<!-- ONLINE (deactivated) - Compiled and minified Bootstrap + jQuery JavaScript -->
-		<!--
-		<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
-		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-		-->
-
-		<!-- LOCAL COPY (alternative) - Compiled and minified Bootstrap + jQuery JavaScript -->
-		<script src="system/jquery3/jquery-3.4.1.min.js"></script>
-		<script src="system/bootstrap4/js/bootstrap.min.js"></script>
-
-	<!-- BOOTSTRAP + JQUERY --- END -->
+	<!-- BOOTSTRAP CSS + JS --- END -->
 
 
-	<!-- Mat-o-Wahl EINSTELLUNGEN / SETTINGS (Javascript) -->
+	<!-- Mat-o-Wahl SETTINGS (Javascript) -->
 	<script type="text/javascript" src="data/definition.js"></script>
-
-	<!-- Mat-o-Wahl JAVASCRIPT - immer / always -->
-	<script type="text/javascript" src="system/jquery.csv-0.8.9.min.js"></script>
+	<script type="text/javascript" src="system/papaparse.min.js"></script>
 	<script type="text/javascript" src="system/general.js"></script>
+	<script type="text/javascript" src="system/globals.js"></script>
 	<script type="text/javascript" src="system/output.js"></script>
 
+	
 
-	<!-- Erweiterte Einstellungen auf Basis DEFINITION.JS - dynamisch eingebunden 
-		  Advanced Settings based on DEFINITION.JS - dynamically included -->	
+
+	<!-- Advanced Settings based on DEFINITION.JS - dynamically included -->	
 	<script>
 	// Mat-o-Wahl CSS Styles 
 	for (i = 0; i<= design.length-1; i++) {
@@ -58,10 +43,8 @@
 		document.writeln(' <script type="text/javascript" src="'+addons[i]+'"><\/script> ');	
 	}	
 
-	// Mat-o-Wahl Sprache / Language / i18n
+	// Mat-o-Wahl Language / i18n
 	document.writeln("<script type='text/javascript' src='i18n/i18n_"+language+".js'><\/script>");
-	// $.getScript( "i18n/i18n_"+language+".js", function( data, textStatus, jqxhr ){ }) 
-	// -> wäre eleganter aber lädt zu langsam / unzuverlässig
 	</script>
 	
 </head>
@@ -70,283 +53,294 @@
 
 <div class="container container-fluid theme-showcase">
 
-	<!-- 1.  BESCHREIBUNG / DESCRIPTION -->
+	<!-- 1.  DESCRIPTION / START-SCREEN -->
 
 	<main>
 
-		<section id="sectionDescription">
+		<div id="description">
 			
-			<!--
-			<div class="row border border-dark rounded" style="height: 60vh; text-overflow: clip; overflow: auto; margin-top: 1.0em;">
-			-->
 			<div class="row border border-dark rounded">
 				<div class="col align-self-center">
 
-					<div id="descriptionAddonTop">
-						<!-- Platzhalter / Placeholder -->
-					</div>
+					<h1 id="descriptionHeading1">Main headline = name of election</h1>
 
-					<div id="descriptionHeading1">
-						<h1>&Uuml;berschrift zur Wahl/Thema der Wahl <br /> Main Headline </h1>
-					</div>
-
-					<div id="descriptionHeading2">
-						<h2>Unter&uuml;berschrift <br /> Second headline</h2> 
-					</div>
+					<h2 id="descriptionHeading2">Second headline = short summary of election</h2> 
 					
-					<div id="descriptionExplanation" class="lead">
-						<p style="color: red; font-size: 150%;">
-							DE: Wenn Sie das hier lesen können, dann haben Sie in der Schule aufgepasst und dann ist hier irgendetwas schief gelaufen. 
-							<br/> Bitte laden Sie die Seite noch einmal neu. 
-							<br /> Wenn die Meldung immer noch erscheint, muss wohl der Techniker informiert werden.
-							<br /> 
-							<br /> EN: If you can read this, you didn't sleep during school and something went wrong.
-							<br /> Please reload the page and try again.
-							<br /> If the message still appears, we have to call the technician. 
-						</p>						
-						<p>
-							Kurze Beschreibung der Wahl, wer wird gew&auml;hlt, wann, warum, f&uuml;r wie lange, usw. <br /> Short (explaining) text on what's the election about
-						</p>						
-					</div>
-
-					<div id="descriptionAddonBottom">
-						<!-- Platzhalter / Placeholder -->
-					</div>
-
-				</div>
-			</div>
-			
-			<div class="row">							
-				<div class="col">				
-				<button type="button" class="btn btn-primary btn-lg float-right" onclick="fnHideWelcomeMessage()" id="descriptionButtonStart">Start-Button</button>
-				</div>
-			</div>
-
-		</section>
-
-	<!-- 2. FRAGEN / QUESTIONS -->
-
-		<section id="sectionShowQuestions">
-
-			<div class="row" tabindex="0" style="margin-top: 1.0em;">
-				<div class="col">
-					
-					
-						<div class="card border-dark mb-3 bg-transparent">
-						  <div class="card-header" id="showQuestionsHeader">Header</div>
-						  <div class="card-body">
-						    <p class="card-text lead" id="showQuestionsQuestion">Frage(n) zu den verschiedenen Positionen an die Parteien bzw. Kandidaten.
-								<br /> Question(s) on the different party/candidate positions.</p>
-						  </div>
-						</div>					
-					
-						<p>
-						
+					<div id="descriptionExplanation" class="">
+						<p style="color: red; font-size: 150%;" lang="en">
+							EN: If you see this message, something went wrong. &#9785;
+							Please activate JavaScript and reload the page.
 						</p>
 
+						<p style="color: red; font-size: 150%;" lang="de">
+							DE: Wenn Sie diese Meldung sehen, dann ist irgendetwas schief gelaufen. &#9785;
+							Bitte aktivieren Sie JavaScript und laden die Seite noch einmal neu. 
+						</p>
+
+						<p>
+							Short description of the election.
+						</p>						
+					</div>
+					
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col text-end">				
+				<button type="button" class="btn btn-primary btn-lg border-dark" onclick="fnHideDescriptionOnStart()" id="descriptionButtonStart">Start-Button</button>
 				</div>
 			</div>
 
-		</section>
+		</div>
+
+	<!-- 2. QUESTIONS AND VOTING-BUTTONS (after the descripion has been cleared). -->
+	<!-- https://getbootstrap.com/docs/5.3/components/carousel/ -->
+
+		<div id="questions">
+
+			<div id="questionsCarousel" class="carousel slide">
+				<div class="carousel-indicators">
+
+					<!--
+					<button type="button" data-bs-target="#questionsCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Label for question 1"></button>
+-->
+
+				</div>
+
+					<!-- Elements from this template will later be imported above at "carousel-indicators" under the FIRST button "0" -->
+					<!-- The indicators show the current position and can be used for navigation. -->
+					<template id="questionsCarouselIndicatorButtonXYZTemplate">
+						<button type="button" data-bs-target="#questionsCarousel" id="questionsCarouselIndicator-X" data-bs-slide-to="999" aria-label="Label for question X" class=""></button>
+					</template>
+					
+			  
+			  <div class="carousel-inner">
+			  </div>
+
+				<!-- Elements from this template will later be imported above at "carousel-inner" -->
+				<template id="questionsCarouselItemsTemplate">
 				
-		
-	<!-- 3. VOTING BUTTONS -->
+					<div class="carousel-item">
+						<h1 style="font-size: 1em;" id="questionsMainHeadline-X">Main headline (again)</h1>					
+						
+						<!-- https://getbootstrap.com/docs/5.3/components/card/ -->
+						<div class="card border-dark mb-3 bg-transparent">
+							<div class="card-header">
+								<h2 id="questionsTitle-X">Short Summary of question</h2>
+							</div>
+							
+							<div class="card-body">
+								<p class="card-text" id="questionsQuestion-X">
+								Questions for parties or candidates.
+								</p>
 
-		<section id="sectionVotingButtons">
-		
-			<div class="row">
-				<div class="col">
-					<button type="button" id="votingDouble" onclick="fnChangeVotingDouble()" class="btn btn-outline-dark btn-lg btn-block">[x2] Important</button>
-				</div>
+								<div class="row">
 
-				<div class="col">
-					<button type="button" id="votingPro" class="btn btn-success btn-lg btn-block">[&#x2714;] Pro</button>
-				</div>
+									<div class="col-sm d-grid gap-2">
+										<button type="button" id="votingPro-X" aria-label="Label for pro" class="btn btn-success btn-lg border-dark" data-bs-target="#questionsCarousel" data-bs-slide="next" data-question-number="0">[&#x2714;] Pro</button>
+									</div>
 
-				<div class="col">
-					<button type="button" id="votingNeutral" class="btn btn-warning btn-lg btn-block">[&#x25EF;] Neutral</button>
-				</div>
+									<div class="col-sm d-grid gap-2">
+										<button type="button" id="votingNeutral-X" aria-label="Label for neutral" class="btn btn-warning btn-lg border-dark" data-bs-target="#questionsCarousel" data-bs-slide="next" data-question-number="0">[&#x25EF;] Neutral</button>
+									</div>
 
-				<div class="col">
-					<button type="button" id="votingContra" class="btn btn-danger btn-lg btn-block">[&#x2716;] Contra</button>
-				</div>
+									<div class="col-sm d-grid gap-2">
+										<button type="button" id="votingContra-X" aria-label="Label for contra" class="btn btn-danger btn-lg border-dark" data-bs-target="#questionsCarousel" data-bs-slide="next" data-question-number="0">[&#x2716;] Contra</button>
+									</div>
+								</div>
 
-				<!-- Force next columns to break to new line (Bootstrap 4.4+) -->
-				<div class="w-100"></div>
+								<div class="row">
+									<div class="col-sm d-grid gap-2">
+										<button type="button" id="votingDouble-X" aria-label="Label for important" class="btn btn-sm btn-outline-dark" data-question-number="0" aria-pressed="false">[x2] Important</button>
+									</div>
 
-				<div class="col">
-					<button type="button" id="votingSkip" class="btn btn-secondary btn float-right">[&#x21B7;] Skip</button>
-				</div>
+									<div class="col-sm">
+									</div>
+
+									<div class="col-sm d-grid gap-2">
+										<button type="button" id="votingSkip-X" aria-label="Label for skip" class="btn btn-sm btn-secondary border-dark" data-bs-target="#questionsCarousel" data-bs-slide="next" data-question-number="0">[&#x21B7;] Skip</button>
+									</div>
+								</div> 								
+
+							</div>
+						</div>			
+
+					</div>
+					
+				</template>
+
+
+				<!-- Template for the last Bootstrap-card with "Continue to results" in "carousel-inner" -->
+				<template id="questionsCarouselItemShowResultsTemplate">
 				
-			</div> 
+					<div class="carousel-item">
+						<h1 style="font-size: 1em;" id="questionsMainHeadline-X">Main headline (again)</h1>					
+						
+						<!-- https://getbootstrap.com/docs/5.3/components/card/ -->
+						<div class="card border-dark mb-3 bg-transparent">
+							<div class="card-header">
+								<h2 id="questionsTitle-X">Finished</h2>
+							</div>
+							
+							<div class="card-body">
+								<p class="card-text lead" id="questionsQuestion-X">
+								All done. You can now continue to the results.
+								</p>
 
-		</section>
+								<p class="text-center">
+								<button type="button" id="buttonShowResults" aria-label="Label for button to show results" class="btn btn-primary btn-lg border-dark" aria-pressed="false">Show results!</button>	
+								</p>
+
+							</div>
+						</div>			
+
+					</div>
+					
+				</template>
+
+			</div> <!-- end: carousel -->
+
+		</div> <!-- end: "questions" -->
+
 	</main>
+	
 
-	<!-- 4. FORTSCHRITTSZÄHLER + NAVIGATION / PROGRESS BAR + NAVIGATION -->
+	<!-- 3.0 RESULTS -->
 
-	<nav id="sectionNavigation">	
+	<div id="results">
 
-		<div class="row fixed-top" style="width: inherit; top: 0%; left: 50%; transform: translateX(-50%); visibility: hidden; display: none;"> 
+		<div class="row">	
+	
 			<div class="col">
+					<h1 id="resultsHeading1">Headline for the results = name of election </h1>
+			</div> <!-- end: col -->
 
-				<div class="progress" style="height: 2px;">
-					<div class="progress-bar" id="progress-bar" style="width:10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-				</div>
+		</div> <!-- end: row -->
 
-			</div>
-		</div>
 
-		<div class="row">
-			<div class="col">
-			
-				<div id="navigationJumpToQuestion" style="display:none; width:100%">
-					Gehe direkt zu Frage Nummer XY.
-					Jump to Question XY directly
-				</div>
-				
-			</div>
-		</div>
-
-	</nav>
-		
-	<!-- CHECKBOX: STATISTIK j/n / STATISTICS y/n -->		
-
-	<!--
-		<div class="row" id="keepStats">
-			<div class="col">
-			
-				<div class="custom-control custom-switch">
-					<input type="checkbox" class="custom-control-input" id="keepStatsCheckbox" />
-					<label class="custom-control-label" for="keepStatsCheckbox" id="keepStatsQuestion">
-					Statistik erlauben? <br /> Allow statistics?
-					</label>
-				</div>
-				
-			</div>
-		</div>
-	-->
-
-		<!-- Bootstrap-Modal STATISTIK j/n / STATISTICS y/n -->
-		
-		<div class="modal fade" id="statisticsModal" tabindex="-1" role="dialog" aria-labelledby="statisticsModalLabel" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered" role="document">
-				<div class="modal-content">
-				
-					<div class="modal-header">
-						<h5 class="modal-title" id="statisticsModalLabel"> Modal TITLE </h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					
-					<div class="modal-body" id="statisticsModalBody">
-					  Modal BODY
-					</div>
-					
-					<div class="modal-footer">
-						<button type="button" id="statisticsModalButtonNo" class="btn btn-outline-dark" data-dismiss="modal">Close</button>
-						<button type="button" id="statisticsModalButtonYes" class="btn btn-primary">Save changes</button>
-					</div>
-				</div>
-			</div>
-		</div>	
-		
-
-	<!-- 2. ERGEBNISSE / RESULTS -->
-
-		<section id="sectionResults">
-
-			<div class="row" id="results">
-				<div class="col">
-		
-					<div id="resultsAddonTop">
-						<!-- Platzhalter / Placeholder -->
-					</div>
-
-					<div id="resultsHeading">
-						&Uuml;berschrift f&uuml;r die Ergebnisse/Resultate (ungenutzt) <br /> Headline for the results (unused) 
-					</div>
-					
-					<div id="resultsShort">
-						Ergebnisse / Resultate der Parteien in tabellarischer Form <br /> Table with results (short) - DOM / id = "resultsShortTable"
-					</div>
-
-				</div>
-			</div>
-
-			<!-- 
-				Auswahlknoepfe für die detaillierten Ergebnisse. Text in i18n.
-				Buttons for detailled resuts. Labels in i18n.
-			-->
-			
-			<div class="row" id="resultsButtons">
-
-				<div class="col">
-					<button type="button" id="resultsButtonTheses" class="btn btn-secondary btn-block" onclick="$('#resultsByThesis').toggle(500); $('#resultsByParty').fadeOut(500); $('#resultsButtonTheses').addClass('btn-primary').removeClass('btn-secondary'); $('#resultsButtonParties').addClass('btn-secondary').removeClass('btn-primary');">[?] Show questions</button>
-				</div>
-
-				<div class="col">
-					<button type="button" id="resultsButtonParties" class="btn btn-secondary btn-block" onclick="$('#resultsByParty').toggle(500); $('#resultsByThesis').fadeOut(500); $('#resultsButtonTheses').addClass('btn-secondary').removeClass('btn-primary'); $('#resultsButtonParties').addClass('btn-primary').removeClass('btn-secondary');">[#] Show parties</button>
-				</div>
-
-			</div>
-
+		<!-- 3. RESULTS - Overview -->
+		<div id="resultsOverview">
 			<div class="row">
+		
 				<div class="col">
+						<h2 id="resultsSummaryHeading">Headline for summary of results</h2>
+				</div> <!-- end: col -->
 
-					<div id="resultsByThesis">
-						Detaillierte Ergebnisse / Resultate mit eigener Meinung in tabellarischer Form <br /> Table with results (long / detailed)
-					</div>
+			</div> <!-- end: row -->
 
-					<div id="resultsByParty">
-						Detaillierte Ergebnisse / Resultate mit eigener Meinung in tabellarischer Form <br /> Table with results (long / detailed)
-					</div>
-
-					<div id="resultsAddonBottom">
-						<!-- Platzhalter / Placeholder -->
-					</div>
-
-				</div>
+			<div id="resultsOverviewCandidates">
 			</div>
+		</div>
 
-		</section>	
+		<!-- Elements from this template will later be imported above at "resultsOverviewCandidates" -->
+		
+		<template id="resultsOverviewCandidatesTemplate">
+
+			<!-- 3. RESULTS - Overview / progress bar -->
+			<div class="row">
+		
+				<div class="col col-12 col-md-4">
+					<button class="btn btn-sm btn-outline-dark" id="buttonShowCandidateDivDescription-X" aria-label="Open / Close details for candidate" title="Open / Close details for candidate">&bigtriangledown; &bigtriangleup;</button> 
+					<span id="candidateShort-X">CANDIDATE (short)</p>
+				</div> <!-- end: col -->
+
+				<div class="col col-9 col-md-6">
+					<div class="progress">	
+						<div class="progress-bar" role="progressbar" id="candidateProgressBar-X" style="width:50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div> 
+					</div>
+
+				</div> <!-- end: col -->
+
+				<div class="col col-3 col-md-2">
+					<p id="candidatePercentage-X">100%</p>
+				</div> <!-- end: col -->
+
+			</div> <!-- end: row -->
+
+			<!-- 3. RESULTS - Overview / description of candidate -->
+			<div class="row" id="candidateDivDescription-X">
+		
+				<div class="col border border-dark rounded" style="background: rgba(255, 255, 255, 0.25)">
+
+					<div class="row">
+ 
+						<div class="col col-12 col-md-10">
+							<h3 id="candidateLong-X">Candidate's full name</h3>
+							<p id="candidateDescription-X">Candidate's detailed description</p>
+							<p>
+								<a href="" target="_blank" id="candidateUrl-X" title="">Candidate's URL</a>
+							</p>
+
+						</div> <!-- end: col -->
+
+						<div class="col col-12 col-md-2">
+							<img id="candidateImage-X" class="img-fluid rounded float-right" style="object-fit: contain;" alt="Image of the candidate" title="Image of the candidate" /> 
+						</div> <!-- end: col -->
+
+					</div> <!-- end: row -->
+
+				</div> <!-- end: col -->
+
+			</div> <!-- end: row -->
+		</template>
+
+	</div> <!-- end: results -->
+
+
 	
 	<!-- FUSSZEILE: IMPRESSUM, NEUSTART, SOCIAL MEDIA / FOOTER: IMPRINT, RESTART, SOCIAL MEDIA -->
 
 	<footer id="sectionFooter">
 
 		<div class="row">	
-			<div class="col">
-				<a class="btn btn-outline-dark btn-block btn-sm" role="button" href="system/imprint.html" target="_blank" id="imprint">Button Impressum / Legal</a>
+			<div class="col text-center">
+				<a class="btn btn-outline-dark btn-sm" role="button" href="system/imprint.html" target="_blank" id="imprint">Button: Legal Notice</a>
 			</div>
 
-			<div class="col" >
-				<a class='btn btn-outline-dark btn-block btn-sm' role='button' href='index.html' id="restart">Button Neustart / Restart</a>
+			<div class="col text-center"">
+				<a class="btn btn-outline-dark btn-sm" role='button' href='index.html' id="restart">Button: Restart</a>
 			</div>			
 			
-			<div class="col">
-				<a class="btn btn-block btn-sm social-facebook" role='button' style='color:#fff' onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(location.href) + '&title='+encodeURIComponent(document.title), '_blank', 'location=yes,height=480,width=640,scrollbars=yes,status=yes'); return false;" title="Share on Facebook">
-				facebook</a>
-			</div>
-
-			<div class="col">
-				<a class="btn btn-block btn-sm social-twitter" role='button' onclick="window.open('https://twitter.com/share?url=' + encodeURIComponent(location.href) + '&title='+encodeURIComponent(document.title), '_blank', 'location=yes,height=480,width=640,scrollbars=yes,status=yes'); return false;" title="Share on Twitter">
-				Twitter</a>
-			</div>
 		</div>
 
 	</footer>
+
 	
-</div>
 
-	<script type="text/javascript">
-		  
-		$(document).ready(function() { 
-			fnStart(); 		
-		});
+	<!-- Bootstrap-Modal "Can we use your data for statistics?" (only visible, if activated in DEFINITION.JS) -->
+	
+	<div class="modal fade" id="statisticsModal" tabindex="-1" role="dialog" aria-labelledby="statisticsModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+			
+				<div class="modal-header">
+					<h5 class="modal-title" id="statisticsModalLabel"> Modal TITLE </h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				
+				<div class="modal-body" id="statisticsModalBody">
+				  Modal BODY
+				</div>
+				
+				<div class="modal-footer">
+					<button type="button" id="statisticsModalButtonNo" class="btn btn-outline-dark" data-dismiss="modal">Close</button>
+					<button type="button" id="statisticsModalButtonYes" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>	
+	
+</div>	<!-- end: container -->
 
-	</script>	
+<script type="text/javascript">
+	  
+	window.onload = (event) => {
+		fireUpTheEngines();
+	};
+
+</script>	
 
 </body>
 </html> 
