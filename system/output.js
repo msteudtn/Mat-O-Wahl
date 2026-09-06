@@ -1,989 +1,475 @@
-// OUTPUT.JS http://www.mat-o-wahl.de
-// Output of information / Ausgabe der Informationen
-// License: GPL 3
-// Mathias Steudtner http://www.medienvilla.com
+"use strict"
 
-function fnStart()
-{
-	// alte Inhalte loeschen bzw. ausblenden
-	
-	// 1. Bereich -  Überschriften, Erklärung zur Wahl
-	// sectionDescription
-	$("#descriptionHeading1").empty().append("<h1>"+descriptionHeading1+"</h1>")
-	$("#descriptionHeading2").empty().append("<h2>"+descriptionHeading2+"</h2>");
-	$("#descriptionExplanation").empty().append(descriptionExplanation);
-	$("#descriptionButtonStart").html(TEXT_START)
-	$("#descriptionAddonTop").empty();
-	$("#descriptionAddonBottom").empty();
-	
-	// 2. Bereich - Anzeige der Fragen - am Anfang ausblenden
-	$("#sectionShowQuestions").hide()
-	$("#showQuestionsHeader").empty();
-	$("#showQuestionsQuestion").empty();
-	
-	// 3. Voting Buttons
-	$("#sectionVotingButtons").hide();
-	$("#votingPro").html(TEXT_VOTING_PRO)
-	$("#votingNeutral").html(TEXT_VOTING_NEUTRAL)
-	$("#votingContra").html(TEXT_VOTING_CONTRA)
-	$("#votingSkip").html(TEXT_VOTING_SKIP)
-	$("#votingDouble").html(TEXT_VOTING_DOUBLE)
-	
-	// 4. Navigation
-	$("#sectionNavigation").hide();
-	
-	// Bereich - Ergebnisse
-	$("#sectionResults").hide()
-	$("#resultsHeading").empty();
-	$("#resultsShort").empty();
-	$("#resultsByThesis").empty();
-	$("#resultsByParty").empty();
-	$("#resultsAddonTop").empty();
-	$("#resultsAddonBottom").empty();
-
-	$("#resultsButtons").hide()
-	$("#resultsButtonTheses").html(TEXT_RESULTS_BUTTON_THESES)
-	$("#resultsButtonParties").html(TEXT_RESULTS_BUTTON_PARTIES)
-	
-	// Bereich - Footer
-//	$("#keepStatsQuestion").empty();
-	$("#statisticsModalLabel").html(TEXT_ALLOW_STATISTIC_TITLE)
-	$("#statisticsModalBody").html(TEXT_ALLOW_STATISTIC_TEXT)
-	$("#statisticsModalButtonNo").html(TEXT_ALLOW_STATISTIC_NO)
-	$("#statisticsModalButtonYes").html(TEXT_ALLOW_STATISTIC_YES)
-
-	//////////////////////////////////////////////////////////////////
-	// FOOTER
-
-/*
-
-	// Wenn Datenschutzerklärung vorhanden UND Auswertung gewünscht ...
-	$("#keepStats").hide()
-	$("#keepStatsQuestion").append(TEXT_ALLOW_STATISTIC);	// WACG: <label> sollte immer befüllt sein 	
-	if ((imprintPrivacyUrl.length > 0) && (statsRecord) )
-	{		
-//		$("#keepStatsCheckbox").attr("checked",true); // Zeile auskommentieren/aktivieren und OptIn erzwingen - bitte mit Bedacht benutzen.
-		$("#keepStats").fadeIn(1000);
-	}
-	else
-	{
-		$("#keepStatsCheckbox").attr("checked",false);	// Falls jmd. bauernschlau in der INDEX.HTML checked="checked" eingetragen hat -> OptOut
-	}
+/* @license
+Mat-o-Wahl
+v0.7.x 
+https://github.com/msteudtn/Mat-O-Wahl
+License: GPL 3+
 */
 
-	// Impressum auf Startseite ersetzen
-	// Text aus i18n einfügen
-	$("#imprint").html(TEXT_IMPRINT);
-	// Link aus definition.js einfügen
-	$("#imprint").attr("href", imprintLink)
-	
-	// Neustart / Wiederholung
-	var jetzt = new Date();
-	var sekunden = jetzt.getTime(); 
-	$("#restart").attr("href","index.html?"+sekunden);
-	$("#restart").html(TEXT_RESTART);
-	
-	// Fokus nach jedem Klick entfernen
-	document.addEventListener("click", () => {
-          document.activeElement.blur()
-        }) 
-	
-	//////////////////////////////////////////////////////////////////
-	// Anzahl der Parteien berechnen
-//	fnReadCsv("data/"+fileAnswers, fnSetIntParties)
-//	const intParties = window.intParties
-	
-	// FRAGEN UND ANTWORTEN in Arrays einlesen und Folgefunktionen aufrufen
-	// (a) Fragen 
-	fnReadCsv("data/"+fileQuestions,fnShowQuestions)
+	 // let size = Object.keys(objQuestions).length;
+	 // console.log(size)
 
-	// (b) Antworten der Parteien und Partei-Informationen
-	fnReadCsv("data/"+fileAnswers,fnReadPositions)
 
-	$("#votingDouble").attr('checked', false);
+// Show the welcome screen 
+function fnShowDescription() {
 	
-	// Wenn "descriptionShowOnStart = 0" in DEFINITION.JS, dann gleich die Fragen anzeigen
-	if (descriptionShowOnStart) {
-		// nix
+	document.getElementById("descriptionHeading1").innerHTML = descriptionHeading1
+	document.getElementById("descriptionHeading2").innerHTML = descriptionHeading2
+	document.getElementById("descriptionExplanation").innerHTML = descriptionExplanation
+	document.getElementById("descriptionButtonStart").innerHTML = TEXT_START
+	
+	// If the variable "descriptionShowOnStart" is set to 0 in DEFINITION.JS, we skip the welcome screen by "clicking" on the start-button 
+// ### !!! ***	
+if (descriptionShowOnStart == 1) {
+//	if (descriptionShowOnStart == 1) {
+		
+		document.getElementById("descriptionButtonStart").click()
+		
 	} else {
-		// Das System ist am Anfang noch nicht fertig geladen. Deshalb müssen wir einen Moment warten. :(		
-		$("#descriptionHeading1").empty().append("<h1>Loading / Lädt</h1>")
-		$("#descriptionHeading2").empty().append("<h2>Please wait a moment / Bitte einen Moment warten</h2>");
-
-		var descriptionExplanationContent = ""
-		descriptionExplanationContent += '<div class="progress">'
-		descriptionExplanationContent += '	<div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width:50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>'
-		descriptionExplanationContent += '</div>'
-		descriptionExplanationContent += "This message disappears in less than 5 seconds. If not something went wrong. / <br /> Diese Nachricht verschwindet in weniger als 5 Sekunden. Andernfalls ist etwas schief gelaufen."
-		
-		$("#descriptionExplanation").empty().append(descriptionExplanationContent);
-				
-		window.setTimeout(fnHideWelcomeMessage, 2500);
+		// nothing to do 
 	}
-	
-	 
-}
 
-// Ausblenden der Willkommensmeldung (#sectionDescription)
-// und direkt in die Fragen gehen
-// neu ab v.0.6
-// Aufruf aus fnStart() wenn "descriptionShowOnStart = 0" ODER beim Klick auf Start-Button
-function fnHideWelcomeMessage() { 
-	$('#sectionDescription').hide().empty();
-	fnShowQuestionNumber(-1);	
-}
+} // end: fnShowDescription()
 
+/* --------------------------------------------------------------------------- */
 
-// (a) Anzeige von Frage Nummer XY
-// (b) Weiterleitung zur Auswertung 
-// Aufruf aus fnStart() -> fnShowQuestions(csvData)
-function fnShowQuestionNumber(questionNumber)
+function fnHideDescriptionOnStart()
 {
-	// Nummer der Frage im Array um eins erhöhen
-	questionNumber++;
-	
-	$("#votingPro").unbind("click");
-	$("#votingNeutral").unbind("click");
-	$("#votingContra").unbind("click");
-	$("#votingSkip").unbind("click");
-
-	// solange Fragen gestellt werden -> Anzeigen (sonst Auswertung)
-	if (questionNumber < arQuestionsLong.length) 
-	{
-		activeQuestion=questionNumber; // globale Variable
-		
-		// Aufbau der Liste zum Vor/Zurückgehen bei den Fragen
-		fnJumpToQuestionNumber(questionNumber);
-	
-		// bodyTextSize = $("#headingContent").css("font-size");
-		// bodyTextSize = parseInt(bodyTextSize)
-
-		// Fragen ausblenden und neue Frage einblenden - nur zur besseren Visualisierung
-		$("#sectionShowQuestions").fadeOut(300).hide();		
-			$("#showQuestionsHeader").empty().append("<h2>"+arQuestionsShort[questionNumber]+"</h2>");
-			$("#showQuestionsQuestion").empty().append(arQuestionsLong[questionNumber]);			
-		$("#sectionShowQuestions").fadeIn(300);
-
-		
-		// Buttons ausblenden, damit Nutzer nicht zufällig drauf klickt
-		$("#sectionVotingButtons").fadeOut(300).hide();
-		$("#sectionVotingButtons").fadeIn(300);
-
-		// Navigation (Nummer der Frage) ein-/ausblenden		
-		$("#sectionNavigation").fadeOut(300).hide();
-			// Bootstrap-Progressbar
-			var percent = fnPercentage((questionNumber+1),arQuestionsLong.length);
-			$("#progress-bar").width(percent+"%")
-			$("#progress-bar").attr("aria-valuenow",percent)
-		
-			// Klick-Funktion auf Bilder/Buttons legen.
-		   $("#votingPro").click(function () {
-			arPersonalPositions[questionNumber] = 1;
-		   	fnShowQuestionNumber(questionNumber);
-		   });
-	
-		   $("#votingNeutral").click(function () { 
-		   	arPersonalPositions[questionNumber] = 0;
-		   	fnShowQuestionNumber(questionNumber);
-		   });
-	
-		   $("#votingContra").click(function () { 
-		   	arPersonalPositions[questionNumber] = -1;
-		   	fnShowQuestionNumber(questionNumber);
-		   });
-	
-		   $("#votingSkip").click(function () { 
-		   	arPersonalPositions[questionNumber] = 99;
-		   	fnShowQuestionNumber(questionNumber);
-		   });
-
-			// Checkbox für doppelte Bewertung 
-		  	$("#votingDouble").attr('checked', arVotingDouble[questionNumber]);
-			// und Bild/Button zuruecksetzen
-			$("#votingDouble").removeClass( "btn-dark" ).addClass( "btn-outline-dark" );
-
-		$("#sectionNavigation").fadeIn(300);
-
-	
-	}
-	
-	// Alle Fragen durchgelaufen -> Auswertung
-	else
-	{
-		arResults=fnEvaluation();
-		
-		//Parteien sortieren
-		arSortParties=new Array();
-//		for (i = 0; i < arPartyFiles.length; i++)
-		for (i = 0; i < intParties; i++)
-			{
-				arSortParties[i]=i;				
-			}
-		// Sortieren der Parteien nach Uebereinstimmung
-		arSortParties.sort(function(a,b){return arResults[b]-arResults[a];});
-
-		// Übergabe an Tabellen zur Darstellung/Ausgabe
-		fnEvaluationShort(arResults);	// Kurzüberblick mit Progress-bar
-		fnEvaluationByThesis(arResults);	// Thesen + Partei-Antworten
-		fnEvaluationByParty(arResults) 	// Liste der Parteien mit ihren Antworten (ab v.0.6)
-
-
-		// Buttons einblenden für detaillierte Ergebnisse
-		$("#resultsButtons").fadeIn(500);
-		
-		
-		// Abfrage zur Statistik einblenden (v.0.6.)
-		if ((imprintPrivacyUrl.length > 0) && (statsRecord) )
-		{		
-			$('#statisticsModal').modal('show')
-			
-			// Klick-Funktion mit den Ergebnissen zum Senden auf "Ja" legen
-			document.getElementById("statisticsModalButtonYes").addEventListener("click", function() {
-				fnSendResults(arResults, arPersonalPositions)
-				$('#statisticsModal').modal('toggle') 
-  			});
-			
-
-		}
-			
-		
-	} 
-	
+	document.getElementById("description").style.display = "none";
 }
 
-// 02/2015 BenKob
-function fnChangeVotingDouble()
-{
+/* --------------------------------------------------------------------------- */
 
-	arVotingDouble[activeQuestion]=!(arVotingDouble[activeQuestion]);
-	strBtnSrc = $("#votingDouble").hasClass("btn-outline-dark");
+// Create the Bootstrap carousel with questions in <div id="questions">
+// https://getbootstrap.com/docs/5.3/components/carousel/
+// https://getbootstrap.com/docs/5.3/components/card/
+function fnCreateQuestions(objQuestions) {
+
+	// 1. CREATE THE INDICATOR-BUTTONS ("progress")
+	// Get the parent div for all buttons. 
+	const questionsCarouselIndicatorAllButtons = document.getElementsByClassName("carousel-indicators")
+
+	let indicatorLabel = ""
 	
-	if (strBtnSrc)
-	// wenn vorher unwichtig -> jetzt doppelt werten
+	// Add the template to the parent "carousel-indicators" to create new indicators.
+	// Loop over the usual length (not: "intQuestions-1") because, we're adding an extra card "Finished / Show results".
+	for (let i = 0; i <= intQuestions; i++ )
 	{
-		$("#votingDouble").removeClass( "btn-outline-dark" ).addClass( "btn-dark" );
-		$("#jumpToQuestionNr"+(activeQuestion+1)+"").css("font-weight","bold");
-	}
-	// wenn vorher wichtig -> jetzt wieder auf normal setzen
-	else
-	{
-		$("#votingDouble").removeClass( "btn-dark" ).addClass( "btn-outline-dark" );
-		$("#jumpToQuestionNr"+(activeQuestion+1)+"").css("font-weight","normal");
-	}
+		// Create a clone of the indicator-template
+		const questionsCarouselIndicatorButtonXYZTemplate = document.getElementById("questionsCarouselIndicatorButtonXYZTemplate");
+		const questionsCarouselIndicatorButtonXYZClone = document.importNode(questionsCarouselIndicatorButtonXYZTemplate.content, true);
 
-}
-
-// Springe zu Frage Nummer XY (wird in fnShowQuestionNumber() aufgerufen)
-function fnJumpToQuestionNumber(questionNumber)
-{
-	// alten Inhalt ausblenden und loeschen
-	$("#navigationJumpToQuestion").fadeOut(500).empty().hide();
-
-	// Durchlauf des Arrays bis zur ausgewählten Frage und Setzen der 99, falls NaN
-	for (i =0; i<questionNumber; i++) {
-		if (isNaN(arPersonalPositions[i])) {
-			arPersonalPositions[i] = 99;
-		}
-	}
-
-	var maxQuestionsPerLine = 12;  // z.B. 16
-
-	// Wenn mehr als XY Fragen vorhanden, dann erstelle eine zweite/dritte/... Zeile
-	if (intQuestions >= maxQuestionsPerLine)
-	{
-
-		var tableRows = arQuestionsLong.length / maxQuestionsPerLine;		/* z.B. nicht mehr als 16 Fragen pro Zeile */
-			 tableRows = Math.ceil(tableRows);				/* 17 Fragen / 16 = 1,06 ### 31 Fragen / 16 = 1,9 -> 2 Zeilen */
-		var questionsPerLine = arQuestionsLong.length / tableRows;		/* 23 Fragen / 2 Zeilen = 12 & 11 Fragen/Zeile */
-			 questionsPerLine = Math.ceil(questionsPerLine);
-
-	}
-	else
-	{
-		questionsPerLine = maxQuestionsPerLine;
-	}
-
-	// Tabelle aufbauen	
-	var tableContent = "<table width='100%' class='table table-bordered table-striped table-hover' aria-role='presentation'>";
-	for (i = 1; i <= arQuestionsLong.length; i++)
-	{
-		var modulo = i % questionsPerLine;
-		// neue Zeile
-		if (modulo == 1) { tableContent += "<tr>"; }
-		// Tabellenzelle mit kurzer und langer Frage (ohne HTML-Code = replace)
-		tableContent += "<td align='center' id='jumpToQuestionNr"+i+"' title='"+arQuestionsShort[(i-1)].replace( /(<([^>]+)>)/ig, '')+" - "+arQuestionsLong[(i-1)].replace( /(<([^>]+)>)/ig, '')+"'>"; 
-		// Nummer der Frage
-		tableContent += "<a href='javascript:fnShowQuestionNumber("+(i-2)+")' style='display:block;'>"+i+" </a>"; 
-		tableContent += "</td>";
-		if (modulo == 0) { tableContent += "</tr>"; }
-	}
-	tableContent += "</table>";
-	$("#navigationJumpToQuestion").append(tableContent).fadeIn(500);
-
-	// alte Meinungen farblich hervorheben und aktuelle Frage markieren
-	for (i = 1; i <= arQuestionsLong.length; i++)
-	{
-		// beantwortete Fragen farblich markieren
-		var positionColor = fnTransformPositionToColor(arPersonalPositions[(i-1)]);
-	   $("#jumpToQuestionNr"+i+"").css("border-color", positionColor);
-	   
-	   // aktuelle Frage markieren
-	   if ((i-1) <= questionNumber)
-	   {
-//	   	$("#jumpToQuestionNr"+i+"").css("background-color", middleColor);	// alt: graue "Mittelfarbe" als Hintergrund
-	   	$("#jumpToQuestionNr"+i+"").css("background-color", positionColor);	// neu (0.2.3.2) Farbe der Auswahl (rot/gruen/...)
-	   }
-
-		if (arVotingDouble[(i-1)])
-		{
-			$("#jumpToQuestionNr"+i+"").css("font-weight","bold");
+		// Look for all the "buttons" (indicators) in the cloned template. It's only one button, so the first one [0]. 
+ 		const questionsCarouselIndicatorButtonXYZ = questionsCarouselIndicatorButtonXYZClone.querySelectorAll("button")[0]
+		
+		// Change the Bootstrap-attribute "data-bs-slide-to" to the right number 
+		questionsCarouselIndicatorButtonXYZ.dataset.bsSlideTo = i
+		
+		// Set the Bootstrap-class "active" only to the first [0] indicator.
+		if (i == 0) {
+			questionsCarouselIndicatorButtonXYZ.classList.add('active') 
 		}
 
-	}	
-	
-}
+		// Change the attribute "aria-label" and title to the short/long question from i18n.
+		if (i == intQuestions) {
+			indicatorLabel = TEXT_VOTING_FINISHED 
+		}
+		else {
+			indicatorLabel = TEXT_QUESTION+" "+ (i+1) + ": "+objQuestions["q"+i].short+" - "+objQuestions["q"+i].long;
+		}
+		questionsCarouselIndicatorButtonXYZ.setAttribute("aria-label",  indicatorLabel )
+		questionsCarouselIndicatorButtonXYZ.title = indicatorLabel
+		questionsCarouselIndicatorButtonXYZ.id = "questionsCarouselIndicator-"+i
 
-// Anzeige der Ergebnisse - zusammengefasst (Prozentwerte) - nur Parteien
-// Array arResults kommt von fnEvaluation
-function fnEvaluationShort(arResults)
-{
+		// Append the new clone to the parent "carousel-indicators"
+		questionsCarouselIndicatorAllButtons[0].appendChild(questionsCarouselIndicatorButtonXYZClone);	
+	} // end: for
 	
-	// Alten Inhalt des DIVs loeschen
-	// $("#heading2").empty().hide();	
-	// $("#content").empty().hide();
-	$("#sectionShowQuestions").empty().hide();
-	// $("#explanation").empty().hide();	
 	
-	// Anzeige der Ergebnisse
-	$("#resultsHeading").append("<h1>"+TEXT_RESULTS_HEADING+"</h1>").fadeIn(500);
+	// 2. CREATE THE CARDS ("questions")
+	// Get the parent div for all cards.
+	const questionsCarouselInner = document.getElementsByClassName("carousel-inner")
 
-	var numberOfQuestions=arQuestionsShort.length;
-	//Anzahl der Maximalpunkte ermitteln
-		var maxPoints = 0;
-	for (i=0;i<arQuestionsShort.length;i++)
+	// Add the template to the parent "carousel-inner" to create new cards.
+	for (let i = 0; i <= intQuestions-1; i++ )
 	{
-		if (arPersonalPositions[i]<99)
-		{
-			maxPoints++;
-			if(arVotingDouble[i])
-				{maxPoints++;}
+		// Create a clone of the card-template
+		const questionsCarouselItemsTemplate = document.getElementById("questionsCarouselItemsTemplate");
+		const questionsCarouselItemsTemplateClone = document.importNode(questionsCarouselItemsTemplate.content, true);
+
+		// HEADINGS AND QUESTIONS
+		// Set the text in <h1> with the title of the election (from DEFINITION.JS)
+		questionsCarouselItemsTemplateClone.getElementById("questionsMainHeadline-X").innerHTML = descriptionHeading1
+		questionsCarouselItemsTemplateClone.getElementById("questionsMainHeadline-X").id = "questionsMainHeadline-"+i
+		
+		// Write down the short summary of the question (from objQuestions{})
+		questionsCarouselItemsTemplateClone.getElementById("questionsTitle-X").innerHTML = (i+1) + "/" + intQuestions +" " + objQuestions["q"+i].short
+		questionsCarouselItemsTemplateClone.getElementById("questionsTitle-X").id = "questionsTitle-"+i
+
+		// Write down the detailed question (from objQuestions{})
+		questionsCarouselItemsTemplateClone.getElementById("questionsQuestion-X").innerHTML = objQuestions["q"+i].long
+		questionsCarouselItemsTemplateClone.getElementById("questionsQuestion-X").id = "questionsQuestion-"+i
+
+
+		// VOTING BUTTONS 
+		// Set the attributes for the "Agree" button (green, pro, [+], ok) 
+		const buttonVotingPro = questionsCarouselItemsTemplateClone.getElementById("votingPro-X")
+		buttonVotingPro.innerHTML = TEXT_VOTING_PRO
+		buttonVotingPro.setAttribute("aria-label", TEXT_VOTING_PRO)
+		buttonVotingPro.dataset.questionNumber = i
+		buttonVotingPro.id = "votingPro-"+i
+		buttonVotingPro.onclick = function () { fnEvaluation(i, 1, 1) } 
+
+		// Set the attributes for the "Neutral" button (yellow) 
+		const buttonVotingNeutral = questionsCarouselItemsTemplateClone.getElementById("votingNeutral-X")
+		buttonVotingNeutral.innerHTML = TEXT_VOTING_NEUTRAL
+		buttonVotingNeutral.setAttribute("aria-label", TEXT_VOTING_NEUTRAL)
+		buttonVotingNeutral.dataset.questionNumber = i
+		buttonVotingNeutral.id = "votingNeutral-"+i 
+		buttonVotingNeutral.onclick = function () { fnEvaluation(i, 0, 1) } 
+
+		// Set the attributes for the "Disagree" button (red, contra, [-], no) 
+		const buttonVotingContra = questionsCarouselItemsTemplateClone.getElementById("votingContra-X")
+		buttonVotingContra.innerHTML = TEXT_VOTING_CONTRA
+		buttonVotingContra.setAttribute("aria-label", TEXT_VOTING_CONTRA)
+		buttonVotingContra.dataset.questionNumber = i
+		buttonVotingContra.id = "votingContra-"+i 
+		buttonVotingContra.onclick = function () { fnEvaluation(i, -1, 1) } 
+
+		// Set the attributes for the "Important" button (transparent, double) (from i18n)
+		const buttonVotingDouble = questionsCarouselItemsTemplateClone.getElementById("votingDouble-X")
+		buttonVotingDouble.innerHTML = TEXT_VOTING_DOUBLE
+		buttonVotingDouble.setAttribute("aria-label", TEXT_VOTING_DOUBLE)
+		buttonVotingDouble.dataset.questionNumber = i
+		buttonVotingDouble.id = "votingDouble-"+i 
+		buttonVotingDouble.onclick = function () { fnChangeButtonDouble(i, 2) } // Attention: Different function-call here. :)
+		
+		// Set the attributes for the "Skip" button (grey) 
+		const buttonVotingSkip = questionsCarouselItemsTemplateClone.getElementById("votingSkip-X")
+		buttonVotingSkip.innerHTML = TEXT_VOTING_SKIP
+		buttonVotingSkip.setAttribute("aria-label", TEXT_VOTING_SKIP)
+		buttonVotingSkip.dataset.questionNumber = i
+		buttonVotingSkip.id = "votingSkip-"+i
+		buttonVotingSkip.onclick = function () { fnEvaluation(i, -99, -1) } 
+
+		
+		// GENERAL
+		// Set the Bootstrap-class "active" only to the first card 
+		if (i == 0) {
+			questionsCarouselItemsTemplateClone.querySelectorAll("div.carousel-item")[0].classList.add('active') 
+		}
+
+		// Append new clone to the parent "carousel-inner"
+		questionsCarouselInner[0].appendChild(questionsCarouselItemsTemplateClone);			
+	}
+
+
+	// 3. ADD LAST CARD "Continue to results" 
+	// Get the parent div for all cards. -> No, it's not necessary, because it was already set above. :) 
+	// const questionsCarouselInner = document.getElementsByClassName("carousel-inner")
+
+	// Create a clone of the card-template
+	const questionsCarouselItemShowResultsTemplate = document.getElementById("questionsCarouselItemShowResultsTemplate");
+	const questionsCarouselItemShowResultsTemplateClone = document.importNode(questionsCarouselItemShowResultsTemplate.content, true);
+
+	// HEADINGS AND QUESTIONS
+	// Set the text in <h1> with the title of the election (from DEFINITION.JS)
+	questionsCarouselItemShowResultsTemplateClone.getElementById("questionsMainHeadline-X").innerHTML = descriptionHeading1
+	questionsCarouselItemShowResultsTemplateClone.getElementById("questionsMainHeadline-X").id = "questionsMainHeadline-"+i
+	
+	// Write down the short text of "questions finished" (from i18n)
+	questionsCarouselItemShowResultsTemplateClone.getElementById("questionsTitle-X").innerHTML = TEXT_RESULTS_CARD_SHORT
+	questionsCarouselItemShowResultsTemplateClone.getElementById("questionsTitle-X").id = "questionsTitle-"+i
+
+	// Write down the detailed text of "questions finished" (from i18n)
+	questionsCarouselItemShowResultsTemplateClone.getElementById("questionsQuestion-X").innerHTML = TEXT_RESULTS_CARD_LONG
+	questionsCarouselItemShowResultsTemplateClone.getElementById("questionsQuestion-X").id = "questionsQuestion-"+i
+	
+	// Set the attributes for the "Show Results" button (blue) 
+	const buttonShowResults = questionsCarouselItemShowResultsTemplateClone.getElementById("buttonShowResults")
+	buttonShowResults.innerHTML = TEXT_VOTING_FINISHED
+	buttonShowResults.setAttribute("aria-label", TEXT_VOTING_FINISHED)
+	buttonShowResults.onclick = function () { alert("Yay, results") } 
+
+	// Append new clone to the parent "carousel-inner"
+	questionsCarouselInner[0].appendChild(questionsCarouselItemShowResultsTemplateClone);			
+
+	
+} // end: fnCreateQuestions()
+
+/* --------------------------------------------------------------------------- */
+
+// Change the importance (intMultiplier) of the PRO and CONTRA buttons if DOUBLE has been clicked
+function fnChangeButtonDouble(intCurrentQuestion, intMultiplier) {
+
+	const buttonVotingPro = document.getElementById("votingPro-"+intCurrentQuestion)
+	const buttonVotingNeutral = document.getElementById("votingNeutral-"+intCurrentQuestion)
+	const buttonVotingContra = document.getElementById("votingContra-"+intCurrentQuestion)
+	const buttonVotingDouble = document.getElementById("votingDouble-"+intCurrentQuestion)
+	
+	let cssClassToAdd = ""
+	let cssClassToRemove = ""
+	let ariaPressedState = ""
+
+	// Check, if the button has been activated = CSS class "btn-dark" exists -> Activate / Reset to normal counting
+	if(buttonVotingDouble.classList.contains('btn-dark')) {
+		cssClassToAdd = "btn-outline-dark"
+		cssClassToRemove = "btn-dark"
+		ariaPressedState = "false"
+		intMultiplier = 1
+	}
+	// Button has not been clicked or was reset -> Activate double counting
+	else {
+		cssClassToAdd = "btn-dark"
+		cssClassToRemove = "btn-outline-dark"
+		ariaPressedState = "true"
+		intMultiplier = 2
+	}
+
+	// Add / remove DARK-class and OUTLINE-class on DOUBLE-button
+	buttonVotingDouble.classList.add(cssClassToAdd)
+	buttonVotingDouble.classList.remove(cssClassToRemove)
+	buttonVotingDouble.setAttribute("aria-pressed", ariaPressedState)
+	
+	// Change intMultiplier from (1 to 2) on PRO-button 
+	buttonVotingPro.removeAttribute("onclick")
+	buttonVotingPro.onclick = function () {	fnEvaluation(intCurrentQuestion, 1, intMultiplier) }
+
+	// Change intMultiplier from (1 to 2) on NEUTRAL-button 
+	buttonVotingNeutral.removeAttribute("onclick")
+	buttonVotingNeutral.onclick = function () { fnEvaluation(intCurrentQuestion, 0, intMultiplier) }
+	
+	// Change intMultiplier from (1 to 2) on CONTRA-button 
+	buttonVotingContra.removeAttribute("onclick")
+	buttonVotingContra.onclick = function () { fnEvaluation(intCurrentQuestion, -1, intMultiplier) } 
+
+} // end: fnChangeButtonDouble()
+
+
+/* --------------------------------------------------------------------------- */
+
+// Change the color of the little indicators (navigation) based on the user's answer.
+function fnChangeIndicatorColors() {
+
+	// Color-properties are defined in the BUTTONS.CSS (***###!!!)
+	let cssColor = "";
+
+	// Loop through all answers so far.
+	// Example: [1, -1,  , 0] = 3 / 6 questions answered and one skipped
+	for (let i = 0; i <= arPersonalAnswers.length-1; i++ ) {
+
+		let currentIndicator = document.getElementById("questionsCarouselIndicator-"+i)
+
+		// neutral button -> yellow
+		if (arPersonalAnswers[i] == 0) {
+			cssColor = "var(--aria-button-yellow)"  }
+		// skip button or skipped by indicators -> grey
+		else if ( (arPersonalAnswers[i] == 99) || (!arPersonalAnswers[i]) ) {
+			cssColor = "grey" }
+		// pro button -> grey
+		else if (arPersonalAnswers[i] > 0) {
+			cssColor = "var(--aria-button-green)" }
+		// contra button -> red
+		else if (arPersonalAnswers[i] < 0) {
+			cssColor = "var(--aria-button-red)" } 
+		else {
+			console.log("Strange. We're in the ELSE-part of fnChangeIndicatorColors(). This shouldn't happen.")
+		}
+
+		currentIndicator.style.backgroundColor = cssColor
+//		console.log(cssColor)
+	}
+
+} // end: fnChangeIndicatorColors()
+
+/* --------------------------------------------------------------------------- */
+
+// Change the font-weight to "bold" for the clicked pro/neutral/contra-button
+function fnChangeVotingButtonFontWeight() {
+
+	// Loop through all answers so far.
+	// Example: [1, -1,  , 0] = 3 / 6 questions answered and one skipped
+	for (let i = 0; i <= arPersonalAnswers.length-1; i++ ) {
+
+		let currentButtonPro = document.getElementById("votingPro-"+i)
+		let currentButtonNeutral = document.getElementById("votingNeutral-"+i)
+		let currentButtonContra = document.getElementById("votingContra-"+i)
+
+		// Reset the font-weight on all buttons
+		currentButtonPro.style.fontWeight = "normal"
+		currentButtonNeutral.style.fontWeight = "normal"
+		currentButtonContra.style.fontWeight = "normal"
+
+		// Change it to bold, depending on the answer
+		// Neutral
+		if (arPersonalAnswers[i] == 0) {
+			currentButtonNeutral.style.fontWeight = "bold"
+		}
+		// skip
+		else if ( (arPersonalAnswers[i] == 99) || (!arPersonalAnswers[i]) ) {
+			// nothing
+		}
+		// pro
+		else if (arPersonalAnswers[i] > 0) {
+			currentButtonPro.style.fontWeight = "bold"
+		}
+		// contra
+		else if (arPersonalAnswers[i] < 0) {
+			currentButtonContra.style.fontWeight = "bold"
+		} 
+		else {
+			console.log("Strange. We're in the ELSE-part of fnChangeVotingButtonFontWeight(). This shouldn't happen.")
 		}
 	}
-	if (maxPoints==0)
-		{maxPoints=1;}
+} // end: fnChangeVotingButtonFontWeight()
 
-	var tableContent = ""
-	tableContent += "<div class='row' id='resultsShortTable' role='table'>"
-		tableContent += "<div class='col'>"
-//		tableContent = "<table id='resultsShortTable' class='table table-bordered table-striped table-hover' aria-role='presentation'>"
+/* --------------------------------------------------------------------------- */
 
-		for (i = 0; i <= (intParties-1); i++)
-		{
-			var partyNum=arSortParties[i];
-			var percent = fnPercentage(arResults[partyNum],maxPoints)
+function fnCreateResults(arCandidatesSortedByPoints, intMaxPoints) {
 
-			// "Klammer" um den Inhalt. 
-			// Wenn ein Addon (z.B. addon_contacts_in_results.js) eine neue Zeile unter die Zeile #resultsShortParty einfügt,
-			// bleiben die Zebrastreifen aus der Klasse ".mow-row-striped" in der richtigen Reihenfolge.
-			tableContent += "<div class='border rounded mow-row-striped' id='resultsShortPartyClamp"+partyNum+"' role='row'>"	
+	console.log("building results")
 
-				tableContent += "<div class='row' id='resultsShortParty"+partyNum+"' role='row'>"
-				// tableContent += "<tr id='resultsShortParty"+partyNum+"'>"
-	
-					// Parteinamen: lang, kurz, Webseite, Beschreibung
-					tableContent += "<div class='col col-10 col-md-7' role='cell'>"
-					// tableContent += "<td style='width:60%;'>"
-	
-	//					tableContent += "<img src='"+arPartyLogosImg[partyNum]+"' class='rounded img-fluid float-right' alt='Logo "+arPartyNamesLong[partyNum]+"' style='margin-left: 10px; width:"+intPartyLogosImgWidth+"; height:"+intPartyLogosImgHeight+";' />"
-	
-						tableContent += "<strong>"
-						tableContent += arPartyNamesLong[partyNum];
-						tableContent += "</strong>" 
-	
-						tableContent += " (&#8663; <a href='"+arPartyInternet[partyNum]+"' target='_blank' alt='Link: "+arPartyNamesLong[partyNum]+"' title='Link: "+arPartyNamesLong[partyNum]+"'>";		
-						tableContent += arPartyNamesShort[partyNum];
-						tableContent += "</a>)";
-	
-						// Beschreibung der Partei - falls in der CSV vorhanden.
-						// Nur die ersten 32 Zeichen anzeigen. 
-						// Danach abschneiden und automatisch ein/ausblenden (Funktionsaufbau weiter unten)
-						// Wenn keine Beschreibung gewünscht, dann "0" eintragen.
-						intPartyDescriptionPreview = 32
-						if ( (arPartyDescription[partyNum]) && (intPartyDescriptionPreview > 0) )
-						{
-							tableContent += "<p style='cursor: pointer;'> &bull; "
-							tableContent += arPartyDescription[partyNum].substr(0,intPartyDescriptionPreview)
-							tableContent += "<span id='resultsShortPartyDescriptionDots"+partyNum+"'>...</span>"
-							tableContent += "<span id='resultsShortPartyDescription"+partyNum+"'>"
-							tableContent += arPartyDescription[partyNum].substr(intPartyDescriptionPreview,1024)
-							tableContent += "</span> </p>"
-						}
-	
-					tableContent += "</div>"
-					// tableContent += "</td>"
-	
-					// Partei-Logo (automatisch angepasst)
-					tableContent += "<div class='col col-2 col-md-1' role='cell'>"
-					// tableContent += "<td>"
-						tableContent += "<img src='"+arPartyLogosImg[partyNum]+"' class='rounded img-fluid' alt='Logo "+arPartyNamesLong[partyNum]+"' />"
-					// tableContent += "</td>"
-					tableContent += "</div>"				
-	
-					// Prozentwertung
-					tableContent += "<div class='col col-12 col-md-4' role='cell'>"
-					// tableContent += "<td style='width:40%;'>"
-						tableContent += "<div class='progress'>"
-						tableContent += "	<div class='progress-bar' role='progressbar' id='partyBar"+partyNum+"' style='width:"+percent+"%;' aria-valuenow='"+percent+"' aria-valuemin='0' aria-valuemax='100'>JUST_A_PLACEHOLDER_TEXT - SEE FUNCTION fnReEvaluate()</div> "
-						tableContent += "</div>"
-					tableContent += "</div>"
-					// tableContent += "</td>"
-	
-				tableContent += "</div>" // end: row #resultsShortPartyX
-			
-			tableContent += "</div>" // end: row .mow-row-striped + #resultsShortPartyClampX
-			// tableContent += "</tr>" 
-		
-		} // end for
+	// Set the name of the election (from DEFINITION.JS) as heading again
+	document.getElementById("resultsHeading1").innerHTML = descriptionHeading1;
 
-		// Anzeigen der detaillierten Tabelle
-		tableContent += "</div>"; // end: col (resultsShortTable)
-	tableContent += "</div>"; // end: row (resultsShortTable)
-//	tableContent += "</table>"; // end: row (resultsShortTable)
+	fnCreateResultsOverview(arCandidatesSortedByPoints, intMaxPoints)
 
-
-	// Daten in Browser schreiben
-	$("#resultsShort").append(tableContent).fadeIn(750); 
-
-	// Funktion zur Berechnung der "Doppelten Wertung" aufrufen 
-	// -> enthält Aufruf für farbliche Progressbar (muss hier ja nicht extra wiederholt werden)
-	fnReEvaluate()
-	
-
-	// Click-Funktion auf PARTEINAME-Zeile legen zum Anzeigen des BESCHREIBUNG-SPAN (direkt darunter)
-	// "[In a FOR-loop] you can use the let keyword, which makes the i variable local to the loop instead of global"
-	// 	https://stackoverflow.com/questions/4091765/assign-click-handlers-in-for-loop
-	for (let i = 0; i <= (intParties-1); i++)
-	{
-		// Klickfunktion - bei Überschrift
-		$("#resultsShortParty"+i).click(function () { 
-				$("#resultsShortPartyDescription"+i).toggle(500);
-				$("#resultsShortPartyDescriptionDots"+i).toggle(500);
-			});	
-		// Klickfunktion - bei Beschreibung
-		/*
-		$("#resultsShortPartyDescription"+i).click(function () { 
-				$("#resultsShortPartyDescription"+i).toggle(500);
-			});
-		*/
-		// am Anfang ausblenden
-		$("#resultsShortPartyDescription"+i).fadeOut(500);
-		$("#resultsShortPartyDescriptionDots"+i).fadeIn(500);
-	}
-
-	// $("#results").fadeIn(500);
-	$("#sectionResults").fadeIn(500);
-	
-}
-
-
-// Anzeige der Ergebnisse - detailliert, Fragen und Antworten der Parteien
-// Array arResults kommt von fnEvaluation
-function fnEvaluationByThesis(arResults)
-{
-	// $("#resultsByThesis").hide();
-
-	var tableContent = "";
-
-	tableContent += " <p>"+TEXT_RESULTS_INFO_THESES+"</p>";
-	/*
-	tableContent += "<table width='100%' id='resultsByThesisTable' class='table table-bordered table-striped table-hover'>";
-	tableContent += "<caption>"+TEXT_RESULTS_INFO_THESES+"</caption>";
-
-			tableContent += "<thead>";
-				tableContent += "<tr>";
-					tableContent += "<td class=''>";
-					tableContent += "</td>";
-
-					tableContent += "<th class='align-text-top'>";
-					tableContent += TEXT_ANSWER_USER+" &amp; "+TEXT_POSITION_PARTY
-					tableContent += "</th>";
-
-					tableContent += "<th class='align-text-top'>";	
-					tableContent += TEXT_QUESTION+" &amp; "+TEXT_ANSWER_PARTY
-					tableContent += "</th>";
-
-				
-				tableContent += "</tr>";			
-			tableContent += "</thead>";
-	*/
-	tableContent += "<div class='row' id='resultsByThesisTable' role='table'>"
-		tableContent += "<div class='col'>"
-
-
-			tableContent += "<div class='row border ' role='row'>"; // row header
-				tableContent += "<div class='col col-2' role='columnheader'>";
-				tableContent += "<strong>";
-				tableContent += TEXT_ANSWER_USER+" &amp; "+TEXT_POSITION_PARTY
-				tableContent += "</strong>";
-				tableContent += "</div>";
-
-				tableContent += "<div class='col col-10' role='columnheader'>";
-				tableContent += "<strong>";					
-				tableContent += TEXT_QUESTION+" &amp; "+TEXT_ANSWER_PARTY
-				tableContent += "</strong>";
-				tableContent += "</div>";				
-			tableContent += "</div>"; // row header						
-
-				
-			// Inhalt
-			// var cellId = -1;	// cellId ist für das Ausblenden der Spalten wichtig.
-			for (i = 0; i <= (intQuestions-1); i++)
-			{
-				var positionButton = fnTransformPositionToButton(arPersonalPositions[i]);
-				var positionIcon = fnTransformPositionToIcon(arPersonalPositions[i]);
-				var positionText  = fnTransformPositionToText(arPersonalPositions[i]);
-				
-				// tableContent += "<tbody>";
-				// tableContent += "<tr>";
-				tableContent += "<div class='row border' role='row'>";
-				
-					// 1. Spalte: doppelte Wertung
-					// tableContent += "<th class='text-center'>";
-					tableContent += "<div class='col col-2' role='cell'>";
-
-						tableContent += "<button type='button' id='' "+
-						// tableContent += "<button type='button' "+
-							" class='btn "+positionButton+" btn-sm selfPosition"+i+" ' "+ 
-							" onclick='fnToggleSelfPosition("+i+")' "+ 
-							" alt='"+TEXT_ANSWER_USER+" : "+positionText+"' title='"+TEXT_ANSWER_USER+" : "+positionText+"'>"+
-							" "+positionIcon+"</button>";
-
-
-						if (arVotingDouble[i])
-						{
-							tableContent += "<button type='button' class='btn btn-dark btn-sm' "+
-								" id='doubleIcon"+i+"' "+
-								" onclick='fnToggleDouble("+i+")' title='"+TEXT_ANSWER_DOUBLE+"'>x2</button>";						
-						}
-						else			
-						{
-						tableContent += "<button type='button' class='btn btn-outline-dark btn-sm' "+
-								" id='doubleIcon"+i+"' "+
-								" onclick='fnToggleDouble("+i+")' title='"+TEXT_ANSWER_NORMAL+"'>x2</button>";
-		
-						}		
-					// tableContent += "</th>";
-//					tableContent += "</div>";
-
-
-					// 2. Spalte: eigene Meinung
-						// tableContent += "<th scope='col' class='text-center'>";
-//						tableContent += "<div class='col-1'>";
-					// tableContent += "</th>";
-
-					tableContent += "</div>";
-
-	
-					// 3. Spalte: Frage (kurz und lang)
-//					tableContent += "<th id='resultsByThesisQuestion"+i+"' style='cursor: pointer;' scope='col'>";
-//					tableContent += "<th id='resultsByThesisQuestion"+i+"' style='' scope='col'>";
-					tableContent += "<div class='col col-10' id='resultsByThesisQuestion"+i+"' role='cell'>";
-						tableContent += "<div style='display:inline-; float:left'>"
-						tableContent += "<strong>"+arQuestionsShort[i]+"</strong>: ";
-						tableContent += arQuestionsLong[i];
-						tableContent += "</div>"
-						// Einklappen / Aufklappen ("Collapside")
-						
-//						tableContent += "<div style='display:inline; float:right' id='resultsByThesisQuestion"+i+"collapse' class='resultsByThesisQuestionCollapsePlus'> </div>";
-//						tableContent += "<button style='display:inline; float:right;' id='resultsByThesisQuestion"+i+"collapse' class='resultsByThesisQuestionCollapsePlus btn btn-sm btn-outline-secondary' type='button'>+</button>";
-						tableContent += "<button style='display:inline; float:right;' id='resultsByThesisQuestion"+i+"collapse' class='nonexpanded btn btn-sm btn-outline-secondary' type='button'>&#x2795;</button>";
-						
-					// tableContent += "</th>";
-					tableContent += "</div>";
-					 
-//				tableContent += "</tr>"; // (Fragen)
-				tableContent += "</div>"; // row (Fragen)
-//				tableContent += "</tbody>";
-		
-		
-				// darunterliegende Zeile - Parteipositionen anzeigen		
-				// tableContent += "<tbody id='resultsByThesisAnswersToQuestion"+i+"'>";
-
-		
-				tableContent += "<div class='row border rounded' id='resultsByThesisAnswersToQuestion"+i+"'> ";
-					tableContent += "<div class='col'>"
-//					tableContent += " <div class='col-2'> </div> ";
-//					tableContent += " <div class='col-10'>";
-							
-						// darunterliegende Zeile - Parteipositionen anzeigen
-						for (j = 0; j <= (intParties-1); j++)
-						{
-							var partyNum=arSortParties[j];
-							var partyPositionsRow = partyNum * intQuestions + i;
-							var positionButton = fnTransformPositionToButton(arPartyPositions[partyPositionsRow]);
-							var positionIcon = fnTransformPositionToIcon(arPartyPositions[partyPositionsRow]);
-			            var positionText = fnTransformPositionToText(arPartyPositions[partyPositionsRow]);
-			            
-			
-							// Inhalt der Zelle
-							tableContent += " <div class='row mow-row-striped' role='row'> ";
-//								tableContent += " <div class='col-1'> </div> ";
-								// 1./2 Zellen in der Zeile: Icon [+] [0] [-]
-								tableContent += " <div class='col col-2' role='cell'> ";
-								//tableContent += "<p>"
-									tableContent += "<button type='button' class='btn "+positionButton+" btn-sm' disabled "+
-											" alt='"+TEXT_ANSWER_PARTY+" : "+positionText+"' title='"+TEXT_ANSWER_PARTY+" : "+positionText+"'>"+
-											" "+positionIcon+"</button>";
-								tableContent += "</div>";							
-								
-								// 2./2 Zellen = letzte Zelle in der Zeile: Name der Partei + Begründung
-								tableContent += " <div class='col col-10' role='cell'> ";
-									tableContent += "<strong>" + arPartyNamesShort[partyNum] + "</strong>: " + ( arPartyOpinions[partyPositionsRow] === "" ? "" : "" + arPartyOpinions[partyPositionsRow] ) + " ";
-									
-									// die Beschreibung der Partei in einem VERSTECKTEN DIV -> ein Workaround für das Addon "Textfilter" (siehe /EXTRAS) :(
-									tableContent += "<span style='visibility:hidden; display:none;' aria-hidden='true'>"+arPartyDescription[partyNum]+"</span>"
-																		
-								//tableContent += "</p>";
-								tableContent += "</div>";
-							tableContent += "</div>"; // row 
-						}
-					tableContent += "</div> "; // col (Partei-Antworten)
-				tableContent += "</div> "; // row (Partei-Antworten)
-				
-			} // end if
-	
-		tableContent += "</div>"; // col
-	tableContent += "</div>"; // row
-	
-	// Daten in Browser schreiben
-	$("#resultsByThesis").append(tableContent);
-
-
-	// und am Anfang ausblenden
-	$("#resultsByThesis").hide();
-	
-	
-	// Click-Funktion auf FRAGE-(und ANTWORT)-Zeile legen zum Anzeigen der ANTWORT-Zeile (direkt darunter)
-	// "[In a FOR-loop] you can use the let keyword, which makes the i variable local to the loop instead of global"
-	// 	https://stackoverflow.com/questions/4091765/assign-click-handlers-in-for-loop
-	for (let i = 0; i <= (intQuestions-1); i++)
-	{
-		/*		
-		// Klickfunktion - bei Überschriftenzeile
-		$("#resultsByThesisQuestion"+i).click(function () {
-				$("#resultsByThesisAnswersToQuestion"+i+"").toggle(500);
-
-				// Wechsel des PLUS und MINUS-Symbols beim Klick (siehe auch DEFAULT.CSS)
-				// *** ToDo: Button mit Inhalt füllen für ARIA, kein CSS ***
-				// $("#resultsByThesisQuestion"+i+" .resultsByThesisQuestionCollapsePlus").toggleClass("resultsByThesisQuestionCollapseMinus")				
-				
-			});
-		*/
-		
-		$("#resultsByThesisQuestion"+i+" .nonexpanded").click(function() {
-		var $this = $(this);
-		$("#resultsByThesisAnswersToQuestion"+i+"").toggle(500)
-		
-			$this.toggleClass("expanded");
-		
-			if ($this.hasClass("expanded")) {
-				$this.html("&#x2796;"); // MINUS
-			} else {
-				$this.html("&#x2795;"); // PLUS
-			}
-		});
-
-		// am Anfang die Antworten ausblenden
-//		$("#resultsByThesisAnswersToQuestion"+i).fadeOut(500);	// irgendwie verrutschen die Zeilen bei fadeOut() -> deshalb die css()-Lösung 
-		$("#resultsByThesisAnswersToQuestion"+i+"").css("display","none")
-	}
-
-} // end function
-
-
-
-// Anzeige der Ergebnisse - detailliert, Sortiert nach Parteien inkl. deren Antworten
-// Array arResults kommt von fnEvaluation
-function fnEvaluationByParty(arResults)
-{
-	
-	var tableContent = "";
-
-	tableContent += " <p>"+TEXT_RESULTS_INFO_PARTIES+"</p>";
-	
-	/*
-	tableContent += "<table width='100%' id='resultsByPartyTable' class='table table-bordered table-striped table-hover'>";
-	tableContent += "<caption>"+TEXT_RESULTS_BUTTON_PARTIES+"</caption>";
-
-			tableContent += "<thead>";
-				tableContent += "<tr>";
-					tableContent += "<th class='align-text-top'>";
-					tableContent += TEXT_QUESTION;
-					tableContent += "</th>";
-
-					tableContent += "<th class='align-text-top'>";
-					tableContent += TEXT_ANSWER_USER;
-					tableContent += "</th>";
-
-					tableContent += "<th class='align-text-top'>";
-					tableContent += TEXT_POSITION_PARTY;
-					tableContent += "</th>";
-
-
-					tableContent += "<th class='align-text-top'>";	
-					tableContent += TEXT_ANSWER_PARTY;
-					tableContent += "</th>";
-
-				
-				tableContent += "</tr>";			
-			tableContent += "</thead>"; 
-		*/
-
-	tableContent += "<div class='row' id='resultsByPartyTable' role='table'>"
-		tableContent += "<div class='col'>"
-
-
-			tableContent += "<div class='row border ' role='row'>"; // row header
-				tableContent += "<div class='col col-10 order-2 col-md-5 order-md-1' role='columnheader'>";
-				tableContent += "<strong>";
-				tableContent += TEXT_QUESTION
-				tableContent += "</strong>";
-				tableContent += "</div>";
-
-				tableContent += "<div class='col col-2 order-1 col-md-1 order-md-2' role='columnheader'>";
-				tableContent += "<strong>";
-				tableContent += TEXT_ANSWER_USER
-				tableContent += "</strong>";
-				tableContent += "</div>";
-
-				tableContent += "<div class='col col-2 order-3 col-md-1 order-md-3' role='columnheader'>";
-				tableContent += "<strong>";
-				tableContent += TEXT_POSITION_PARTY
-				tableContent += "</strong>";
-				tableContent += "</div>";
-
-
-				tableContent += "<div class='col col-10 order-4 col-md-5 order-md-4' role='columnheader'>";
-				tableContent += "<strong>";					
-				tableContent += TEXT_ANSWER_PARTY
-				tableContent += "</strong>";
-				tableContent += "</div>";				
-			tableContent += "</div>"; // row header	
-
-	for (i = 0; i <= (intParties-1); i++)
-	{
-
-		var partyNum=arSortParties[i];	// partyNum = sortierte Position im Endergebnis, z.B. "Neutrale Partei = 4. Partei in CSV" aber erste im Ergebnis = Nullter Wert im Array[0] = 4
-		/*
-		tableContent += " <tbody class='' id='resultsByPartyHeading"+i+"'>"
-		tableContent += " <tr>"
-		tableContent += "  <td colspan='2'>"
-		tableContent += "  &nbsp; </td>"
-		tableContent += "  <th colspan='2' scope='col' >"
-		*/
-		
-//		tableContent += "<div class='row' id='resultsByPartyRow"+i+"' role='row'>";	// Hilfszeile für Textfilter
-//			tableContent += "<div class='col'>";
-		
-		tableContent += "<span id='resultsByPartyHeading"+i+"' >";	// Hilfs-SPAN für Textfilter
-		tableContent += "<div class='row border'  role='row'>";
-				tableContent += "<div class='col col-2' role='cell'>";
-
-				tableContent += "<img src='"+arPartyLogosImg[partyNum]+"' class='img-fluid rounded float-left' alt='Logo "+arPartyNamesLong[partyNum]+"' style='margin: 10px;' />"			
-	
-	//			tableContent += "<img src='"+arPartyLogosImg[partyNum]+"' width='"+intPartyLogosImgWidth+"' height='"+intPartyLogosImgHeight+"' class='rounded float-right' alt='"+arPartyNamesLong[partyNum]+"' style='margin-left: 10px;' />"
-	//			tableContent += "<img src='"+arPartyLogosImg[partyNum]+"' class='rounded float-right' alt='Logo "+arPartyNamesLong[partyNum]+"' style='margin-left: 10px;' />"
-	
-				tableContent += "</div>";
-				tableContent += "<div class='col col-10' role='cell'>";					
-	//			tableContent += "<span style='font-weight: 600;'>"
-				tableContent += "<strong>" 
-				tableContent += arPartyNamesLong[partyNum];
-				tableContent += "</strong>" 
-	//			tableContent += "</span>" 
-	
-				tableContent += " (&#8663; <a href='"+arPartyInternet[partyNum]+"' target='_blank' title='"+arPartyNamesLong[partyNum]+"'>";		
-				tableContent += arPartyNamesShort[partyNum];
-				tableContent += "</a>)";
-	
-				// Beschreibung der Partei - falls in der CSV vorhanden.
-				tableContent += "<p>"+arPartyDescription[partyNum]+"</p>"
-	
-				tableContent += "<button style='display:inline; float:right;' id='resultsByPartyAnswers"+i+"collapse' class='nonexpanded btn btn-sm btn-outline-secondary' type='button'>&#x2795;</button>";
-
-		/*
-		tableContent += "  </th>"
-		tableContent += " </tr>"
-		tableContent += " </tbody>"
-		*/
-				tableContent += "</div>"; // end: col-12 - Überschrift Partei 
-			tableContent += "</div>"; // end: row - Überschrift Partei
-		tableContent += "</span>"; // end: SPAN - Überschrift Partei
-
-
-					
-		jStart = partyNum * intQuestions // z.B. Citronen Partei = 3. Partei im Array[2] = 2 * 5 Fragen = 10
-		jEnd = jStart + intQuestions -1	// 10 + 5 Fragen -1 = 14
-
-//		tableContent += "<tbody id='resultsByPartyAnswersToQuestion"+i+"'>";
-		tableContent += "<span id='resultsByPartyAnswersToQuestion"+i+"'> ";	// Hilfs-SPAN für Textfilter
-		tableContent += "<div class='row border rounded'> ";
-			tableContent += "<div class='col'>"
-					
-
-		// Anzeige der Partei-Antworten
-		for (j = jStart; j <= jEnd; j++)
-		{
-
-			// 1./4 Zellen - Frage
-			modulo = j % intQuestions // z.B. arPartyPositions[11] % 5 Fragen = 1 -> arQuestionsShort[1] = 2. Frage		
-			// tableContent += " <tr>"
-			// tableContent += "  <td class='align-text-top'>"
-			tableContent += " <div class='row mow-row-striped' role='row'> ";
-				tableContent += " <div class='col col-10 order-2 col-md-5 order-md-1' role='cell'> ";
-				tableContent += " "+(modulo+1)+". <strong>"+arQuestionsShort[modulo]+"</strong> - "+arQuestionsLong[modulo]+ " "
-			// tableContent += "  </td>"
-				tableContent += "  </div>" // end col-5 Frage
-
-
-			// 2./4 Zellen - Icon für eigene Meinung [+] [0] [-]
-			var positionButton = fnTransformPositionToButton(arPersonalPositions[modulo]);
-			var positionIcon = fnTransformPositionToIcon(arPersonalPositions[modulo]);
-			var positionText  = fnTransformPositionToText(arPersonalPositions[modulo]);
-
-			// tableContent += "<td style='text-align:center; width:10%;'>";
-			tableContent += " <div class='col col-2 order-1 col-md-1 order-md-2' role='cell'> ";
-			
-				// tableContent += "<button type='button' "+
-				tableContent += "<button type='button' id='' "+
-											" class='btn "+positionButton+" btn-sm selfPosition"+modulo+" '  "+ 
-											" onclick='fnToggleSelfPosition("+modulo+")' "+ 
-											" alt='"+TEXT_ANSWER_USER+" : "+positionText+"' title='"+TEXT_ANSWER_USER+" : "+positionText+"'>"+
-											" "+positionIcon+"</button>";
-						
-			// tableContent += "</td>";
-			tableContent += " </div> ";
-
-
-			// 3./4 Zellen - Icons für Postion der Parteien [+] [0] [-]
-			var positionIcon = fnTransformPositionToIcon(arPartyPositions[j]);
-			var positionButton = fnTransformPositionToButton(arPartyPositions[j]);
-			var positionText  = fnTransformPositionToText(arPartyPositions[j]);
-
-			// tableContent += "  <td style='text-align:center; width:10%;'>"
-			tableContent += " <div class='col col-2 order-3 col-md-1 order-md-3' role='cell'> ";
-				tableContent += "<button type='button' class='btn "+positionButton+" btn-sm' disabled "+
-												" alt='"+TEXT_ANSWER_PARTY+" : "+positionText+"' title='"+TEXT_ANSWER_PARTY+" : "+positionText+"'>"+
-												" "+positionIcon+"</button>"; 
-			// tableContent += "  </td>"
-			tableContent += " </div> ";
-			
-			
-			// 4./4 Zellen - Antwort der Partei
-			tableContent += " <div class='col col-10 order-4 col-md-5 order-md-4' role='cell' headers='resultsByPartyHeading"+i+"' tabindex='0'> ";
-			// tableContent += "  <td class='align-text-top' headers='resultsByPartyHeading"+i+"' tabindex='0'>"
-			tableContent += " "+arPartyOpinions[j]
-			
-			// die Beschreibung der Partei in einem VERSTECKTEN DIV -> ein Workaround für das Addon "Textfilter" (siehe /EXTRAS) :(
-			tableContent += "<span style='visibility:hidden; display:none;' aria-hidden='true'>"+arPartyDescription[partyNum]+"</span>"
-			
-			// tableContent += "  </td>"
-			tableContent += " </div> ";
-
-			// tableContent += " </tr>"
-			tableContent += " </div> "; // end: row Anzeige der Partei-Antworten
-
-		} // end: for-j
-		// tableContent += "</tbody>";
-		tableContent += " </div> "; // end col 
-	tableContent += " </div> "; // end row resultsByPartyAnswersToQuestion
-	tableContent += " </span> "; // end span resultsByPartyAnswersToQuestion
-
-//		tableContent += " </div> "; // end col 
-//	tableContent += " </div> "; // end row resultsByPartyRow
-
-		
-	} // end: for-i (intParties)
-	
-	// tableContent += "</table>";
-		tableContent += " </div> "; // end col 
-	tableContent += " </div> "; // end row resultsByPartyTable
-
-	
-	// Daten in Browser schreiben
-	$("#resultsByParty").append(tableContent);
-
-	// und am Anfang Tabelle ausblenden
-	$("#resultsByParty").hide();
-
-	for (let i = 0; i <= (intParties-1); i++)
-	{
-
-		$("#resultsByPartyHeading"+i+" .nonexpanded").click(function() {
-		var $this = $(this);
-		$("#resultsByPartyAnswersToQuestion"+i+"").toggle(500)
-		
-			$this.toggleClass("expanded");
-		
-			if ($this.hasClass("expanded")) {
-				$this.html("&#x2796;"); // MINUS
-			} else {
-				$this.html("&#x2795;"); // PLUS
-			}
-		});
-	
-	// am Anfang die Antworten ausblenden
-//		$("#resultsByPartyAnswersToQuestion"+i).fadeOut(500);	// irgendwie verrutschen die Zeilen bei fadeOut() -> deshalb die css()-Lösung 
-	$("#resultsByPartyAnswersToQuestion"+i+"").css("display","none")
+	for (let i = 0; i <= arCandidatesSortedByPoints.length-1; i++ ) {
 
 	}
 
-} // end function
+} // end: fnCreateResults()
+
+/* --------------------------------------------------------------------------- */
+
+function fnCreateResultsOverview(arCandidatesSortedByPoints, intMaxPoints) {
 
 
+	// Set the text in <h2> (from i18n)
+	document.getElementById("resultsSummaryHeading").innerHTML = TEXT_RESULTS_HEADING_SHORT_SUMMARY
 
-// 02/2015 BenKob
-// Aktualisierung der Ergebnisse in der oberen Ergebnistabelle (short)
-// Aufruf heraus in:
-// (a) fnEvaluationShort() nach dem Aufbau der oberen Tabelle 
-// (b) in den Buttons in der detaillierten Auswertung (fnToggleSelfPosition() und fnToggleDouble())
-function fnReEvaluate()
-{
-	//Ergebniss neu auswerten und Anzeige aktualisieren
-	arResults=fnEvaluation();
 
-	//Anzahl der Maximalpunkte ermitteln
-	var maxPoints = 0;
+	// Get the parent div for all candidates (overview)
+	const resultsOverviewCandidates = document.getElementById("resultsOverviewCandidates")
 
-//	for (i=0;i<arQuestionsShort.length;i++)
-	for (i=0; i<intQuestions; i++)
+	// Clear all existing content
+	resultsOverviewCandidates.innerHTML = ""
+	
 
-	{
-		if (arPersonalPositions[i]<99)
-		{
-			maxPoints++;
-			if(arVotingDouble[i])
-				{maxPoints++;}
+	for (let i = 0; i <= arCandidatesSortedByPoints.length-1; i++ ) {
+
+		// Get the ID of the candidate from the ordered array
+		// Example: arCandidatesSortedByPoints[0].id = "c3"
+		let idOfCandidate = arCandidatesSortedByPoints[i].id
+
+		// Create a clone of the results-overview-template
+		const resultsOverviewCandidatesTemplate = document.getElementById("resultsOverviewCandidatesTemplate");
+		const resultsOverviewCandidatesTemplateClone = document.importNode(resultsOverviewCandidatesTemplate.content, true);
+
+		// Add a click-function to the toggle-button (before changing it's ID)
+		resultsOverviewCandidatesTemplateClone.getElementById("buttonShowCandidateDivDescription-X").onclick = function () { fnToggleDiv("candidateDivDescription-"+i, "buttonShowCandidateDivDescription-"+i) } 
+
+		// Set the toggle-button for this candidate
+		const buttonShowCandidateDivDescription = resultsOverviewCandidatesTemplateClone.getElementById("buttonShowCandidateDivDescription-X")
+		buttonShowCandidateDivDescription.innerHTML = "open / close"
+		buttonShowCandidateDivDescription.id = "buttonShowCandidateDivDescription-"+i
+		buttonShowCandidateDivDescription.setAttribute("aria-label", TEXT_RESULTS_TOGGLE_BUTTON)
+		buttonShowCandidateDivDescription.title = TEXT_RESULTS_TOGGLE_BUTTON
+ 
+		// Set the short name of the candidate (from objCandidates)
+		resultsOverviewCandidatesTemplateClone.getElementById("candidateShort-X").innerHTML = objCandidates[idOfCandidate].short
+		resultsOverviewCandidatesTemplateClone.getElementById("candidateShort-X").id = "candidateShort-"+i
+
+		// Set the long name of the candidate (from objCandidates)
+		resultsOverviewCandidatesTemplateClone.getElementById("candidateLong-X").innerHTML = objCandidates[idOfCandidate].long
+		resultsOverviewCandidatesTemplateClone.getElementById("candidateLong-X").id = "candidateLong-"+i
+
+		// Set the description of the candidate (from objCandidates)
+		resultsOverviewCandidatesTemplateClone.getElementById("candidateDescription-X").innerHTML = objCandidates[idOfCandidate].desc
+		resultsOverviewCandidatesTemplateClone.getElementById("candidateDescription-X").id = "candidateDescription-"+i
+
+		// Set the URL (web, site, page) of the candidate (from objCandidates)
+		resultsOverviewCandidatesTemplateClone.getElementById("candidateUrl-X").innerHTML = objCandidates[idOfCandidate].url
+		resultsOverviewCandidatesTemplateClone.getElementById("candidateUrl-X").id = "candidateUrl-"+i
+
+		// Set the image of the candidate (from objCandidates)
+		const candidateImage = resultsOverviewCandidatesTemplateClone.getElementById("candidateImage-X")
+		candidateImage.src = objCandidates[idOfCandidate].pic
+//		candidateImage.style.width = intPartyLogosImgWidth
+//		candidateImage.style.height = intPartyLogosImgHeight
+		candidateImage.id = "candidateImage-"+i
+		candidateImage.title = TEXT_IMAGE+ " : " + objCandidates[idOfCandidate].short
+		candidateImage.setAttribute("alt", TEXT_IMAGE+ " : " + objCandidates[idOfCandidate].short)
+
+		// Set the ID of the parent description-DIV to toggle it later by button "buttonShowCandidateDivDescription-X"
+		resultsOverviewCandidatesTemplateClone.getElementById("candidateDivDescription-X").id = "candidateDivDescription-"+i
+
+		// Calculate the percentage for the progress-bar 
+		let intPercentage = Math.round ( ( objCandidates[idOfCandidate].points / intMaxPoints ) * 100 )
+
+		// Set the color for the progress-bar
+		let progressBarColor = ""
+
+		if (intPercentage <= 33) { 
+			progressBarColor = "bg-danger"; 
 		}
+		else if (intPercentage <= 66) { 
+			progressBarColor = "bg-warning"; 
+		}
+		else { 
+			progressBarColor= "bg-success"; 
+		}
+
+		/// Set the width and color of the progress-bar
+		resultsOverviewCandidatesTemplateClone.getElementById("candidateProgressBar-X").style.width = intPercentage+"%"
+		resultsOverviewCandidatesTemplateClone.getElementById("candidateProgressBar-X").classList.add(progressBarColor) 
+		resultsOverviewCandidatesTemplateClone.getElementById("candidateProgressBar-X").setAttribute("aria-valuenow", intPercentage)
+		resultsOverviewCandidatesTemplateClone.getElementById("candidateProgressBar-X").title = intPercentage+"% ("+objCandidates[idOfCandidate].points+ "/" +intMaxPoints+ ")"
+		resultsOverviewCandidatesTemplateClone.getElementById("candidateProgressBar-X").id = "candidateProgressBar-"+i
+
+		// Write down the percentage and points behind the progress bar 
+		resultsOverviewCandidatesTemplateClone.getElementById("candidatePercentage-X").innerHTML = intPercentage+"%"
+		resultsOverviewCandidatesTemplateClone.getElementById("candidatePercentage-X").id = "candidatePercentage-"+i
+
+
+		// Append the new clone to the parent "resultsOverviewCandidates"
+		resultsOverviewCandidates.appendChild(resultsOverviewCandidatesTemplateClone);
+
+
+		// SIZE
+//		let divWidth = document.getElementById("candidateDivDescription-"+i).offsetWidth 
+
+//		document.getElementById("candidateImage-"+i).style.maxWidth = ( divWidth / 2 )+"px"
+
+		// Run the TOGGLE-function to hide the description-DIV and set open/close-icon on the button
+		fnToggleDiv("candidateDivDescription-"+i, "buttonShowCandidateDivDescription-"+i)
+
 	}
-	if(maxPoints==0)
-		{maxPoints=1};
-//	for (i = 0; i <= (arPartyFiles.length-1); i++)
-	for (i = 0; i <= (intParties-1); i++)
-	{
-		var percent = fnPercentage(arResults[i],maxPoints)
-		
-		// bis v.0.3 mit PNG-Bildern, danach mit farblicher Bootstrap-Progressbar
-		var barImage = fnBarImage(percent);
-				
-		// neu ab v.0.3 - Bootstrap-Progressbar
-		$("#partyBar"+i).width(percent+"%")
-		$("#partyBar"+i).text(percent+"% (" + arResults[i]+" / "+maxPoints+ ")");
-		$("#partyBar"+i).removeClass("bg-success bg-warning bg-danger").addClass(barImage);
 
-		$("#partyPoints"+i).html(arResults[i]+"/"+maxPoints);
 
+} // end: fnCreateResultsOverview()
+
+
+/* --------------------------------------------------------------------------- */
+
+function fnToggleDiv(divNameToToggle, buttonNameToToggle) {
+
+	let divToToggle = document.getElementById(divNameToToggle)
+	let buttonToToggle = document.getElementById(buttonNameToToggle)
+
+	divToToggle.classList.toggle('displayNone');
+
+	// DIV is set to hide, so, we change the button to "open" (&bigtriangledown;)
+	if (divToToggle.classList.contains('displayNone')) {
+		buttonToToggle.innerHTML = "&bigtriangledown;"
+		buttonToToggle.setAttribute("aria-pressed", "false")
+	}
+	// DIV is set to show, so, we change the button to "open" (&bigtriangleup;)
+	else {
+		buttonToToggle.innerHTML = "&bigtriangleup;"
+		buttonToToggle.setAttribute("aria-pressed", "true")
 	}
 
-}
+} // end: fnCreateResults()
 
