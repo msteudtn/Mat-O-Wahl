@@ -21,6 +21,10 @@
 
 ## Versions:
 
+### 0.7.x
+
+- in development
+
 ### 0.6.0.12.20250425
 
 - Minor fix:
