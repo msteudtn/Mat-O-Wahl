@@ -2,8 +2,8 @@
 /* BODY: Hintergrundfarbe, Schriftart, -groesse und -farbe */
 /* BODY: background color, font, size and color */
 body {
-	font-family:Verdana, Arial, Helvetica, sans-serif; 
-/*	font-size:10pt; */
+	font-family: Liberation Sans, DejaVu Sans, Calibri, Helvetica, Verdana, Arial, sans-serif; 
+	font-size:1.4em; 
 	color:#000000; 
 
 	background-color: #EFC04F;
@@ -19,6 +19,8 @@ a:not(.btn):visited { color:#404040; }
 a:not(.btn):active { color:#FF0000; }
 a:not(.btn):hover { color:#FF0000; text-decoration:none; }
 
+.displayNone {
+	display: none;}
 
 /* Statistik */
 /* Statistics */
@@ -29,7 +31,7 @@ a:not(.btn):hover { color:#FF0000; text-decoration:none; }
 
 /* Willkommensnachricht (erster DIV)
    Welcome Message (first DIV) */
-#sectionDescription > div:first-of-type {
+#description > div:first-of-type {
     padding: 5% 2%;
     text-overflow: clip;
     overflow: auto;
@@ -64,17 +66,4 @@ a:not(.btn):hover { color:#FF0000; text-decoration:none; }
 .social-mail {
 	background: #c6c6c6;
 	color: #fff;
-}
-
-
-/*	FadeIn + FadeOut */
-
-@keyframes myFadeIn {
-	from { opacity: 0; }
-	to { opacity: 1; }
-}
-
-@keyframes myFadeOut {
-	from { opacity: 1; }
-	to { opacity: 0; }
 }
