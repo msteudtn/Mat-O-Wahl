@@ -21,6 +21,21 @@
 
 ## Versions:
 
+### 0.7.0.0.2026xxxx
+
+- Complete rewrite / breaking changes 
+  - improved accessibility (ARIA-labels, ...)
+  - removed jQuery library 
+  - updated Bootstrap to 5.3.8 
+  - renamed variables in DEFINITION.JS
+    - "fileAnswers" to "fileCandidates"
+    - "separator"  to "delimiter"
+  - questions can be swiped on smartphones, now (using Bootstrap "carousel")
+  - no change in the CSV-format, still works
+  - less and clearer source code
+  - new texts in i18n
+
+
 ### 0.6.0.12.20250425
 
 - Minor fix:
