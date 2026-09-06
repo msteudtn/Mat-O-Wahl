@@ -1,473 +1,298 @@
-// GENERAL.JS http://www.mat-o-wahl.de
-// General functions / Allgemeine Verarbeitungen
-// License: GPL 3
-// Mathias Steudtner http://www.medienvilla.com
+"use strict"
 
-var version = "0.6.0.12.20250425"
-
-// Globale Variablen
-var arQuestionsShort = new Array();	// Kurzform der Fragen: Atomkraft, Flughafenausbau, ...
-var arQuestionsLong = new Array();		// Langform der Frage: Soll der Flughafen ausgebaut werden?
-
-var arPartyPositions = new Array();	// Position der Partei als Zahl aus den CSV-Dateien (1/0/-1)
-var arPartyOpinions = new Array();		// Begründung der Parteien aus den CSV-Dateien
-var arPersonalPositions = new Array();	// eigene Position als Zahl (1/0/-1)
-var arVotingDouble = new Array();	// eigene Position als Zahl (2/1/0/-1/-2)
-
-// var arPartyFiles = new Array();		// Liste mit den Dateinamen der Parteipositionen
-var arPartyNamesShort = new Array();	// Namen der Parteien - kurz
-var arPartyNamesLong = new Array();	// Namen der Parteien - lang
-var arPartyDescription = new Array();	// Beschreibung der Datei
-var arPartyInternet = new Array();		// Internetseiten der Parteien
-var arPartyLogosImg = new Array();		// Logos der Parteien
-
-var arSortParties=new Array();		// Nummern der Listen, nach Punkten sortiert
-
-var activeQuestion=0; //aktuell angezeigte Frage (output.js)
-let intParties = 0;
-
-// Einlesen der CSV-Datei und Weitergabe an Rückgabefunktion "fnCallback"
-function fnReadCsv(csvFile,fnCallback)
-{
-// http://michaelsoriano.com/working-with-jquerys-ajax-promises-and-deferred-objects/
- $.ajax({ 
-	type: "GET", 
-	url: csvFile,
-	dataType: "text", 
-	contentType: "application/x-www-form-urlencoded",
-	error: function(objXML, textStatus, errorThrown) {
-		console.log("Mat-O-Wahl ERROR - Reading CSV-file \n Code - objXML-Status: "+objXML.status+" \n Code - textStatus: "+textStatus+" \n Code - errorThrown: "+errorThrown+" \n Name and folder of CSV-file should be: "+csvFile+" \n\nPossible solutions: Check for capital letters? OR check the extension of the file (csv / xls / xlsx)? OR is the file in the wrong folder? OR are you working on a local machine :( instead of a server? See documentation on www.mat-o-wahl.de"); 
-		// document.getElementById("descriptionAddonTop").innerHTML("nanu. Da ist etwas schief gegangen.")
-			$("#descriptionExplanation").css("color","red").css("font-size", "150%")
-			text = "<p>Nanu? Da ist etwas schief gegangen. Einige Dateien konnten nicht geladen werden. <br /> Sind Sie ein Besucher der Seite? Dann geben Sie bitte dem Administrator der Webseite Bescheid. <br /> Sind Sie der Administrator? Dann schauen Sie bitte in die Browser-Konsole (Strg+Umschalt+i) und/oder öffnen Sie die <q>quicktest.html</q>.</p>"
-			text += "<p>Oh? Something went wrong. Some files couldn't be loaded. <br /> Are you a visitor of this site? Please inform the admin of the site. <br /> Are you the admin? Please check the browser-console (Ctrl+Shift+i) and/or open <q>quicktest.html</q>.</p>"
-			$("#descriptionExplanation").html(text)
-		}
-		})
-	.done(function(data) {
-		// console.log('success', data) 
-		console.log("Mat-o-Wahl load: "+csvFile);
-		fnCallback(data);
-		})
-	.fail(function(xhr) {
-		console.log('Mat-O-Wahl file error - ', xhr);	
-		});	
-}
-
- // Zahl der Parteien dynamisch berechnen, anstatt sie in der definition.js anzugeben
- function fnSetIntParties(data) {
-	let arIntParties = data.split("\n");
-	// Falls die fileAnswers (und damit der Array) mit leeren Zeilen endet, diese entfernen
-	while (true) {
-		if (arIntParties[arIntParties.length - 1] === "" || arIntParties[arIntParties.length - 1] === "\r") {
-			arIntParties.pop();
-		}
-		else break;
-	}
-	// Globale Variable erstellen, um Problem mit return values in async ajax calls zu umgehen
-	// Ergebnis runden, um Fehlertoleranz zu erhöhen
-	return Math.round(arIntParties.length / (intQuestions + 6));
-}
-
-// Anzeige der Fragen (aus fnStart())
-function fnShowQuestions(csvData)
-{
-	// Einlesen der Fragen ...
-	// fnSplitLines(csvData,1);
-	fnTransformCsvToArray(csvData,1)
-	
-	// ... und Anzeigen
-	var questionNumber = -1;
-	
-	// v.0.6 - deaktiviert, da nun am Anfang ein Willkommensbildschirm erscheint.
-	// neu: fnHideWelcomeMessage()
-	// fnShowQuestionNumber(questionNumber);
-} 
-
-
-
-// Einlesen der Parteipositionen und Partei-Informationen (aus fnStart())
-function fnReadPositions(csvData)
-{
-	// Einlesen der Parteipositionen und Vergleichen
-	// fnSplitLines(csvData,0);
-	intParties = fnSetIntParties(csvData)
-	fnTransformCsvToArray(csvData,0)
-}
-
-
-// Auswertung (Berechnung)
-// Gibt ein Array "arResults" zurück für fnEvaluationShort(), fnEvaluationByThesis(), fnEvaluationByParty() und fnReEvaluate();
-// Aufruf am Ende aller Fragen in fnShowQuestionNumber() und beim Prüfen auf die "doppelte Wertung" in fnReEvaluate()
-function fnEvaluation()
-{
-
-	// Abstimmungsknöpfe u.a. entfernen 
-	$("#sectionDescription").empty().hide();
-	$("#sectionShowQuestions").empty().hide();
-	$("#sectionVotingButtons").empty().hide();	
-	$("#sectionNavigation").empty().hide();
-	
-	$("#keepStats").hide();
-
-	// Anzahl der Fragen bestimmen, da Positions-Array ein Vielfaches aus Fragen * Parteien enthält.
-//	var numberOfQuestions = arQuestionsLong.length;		// 3 Fragen
-//	var numberOfPositions = arPartyPositions.length; // 12 = 3 Fragen * 4 Parteien
-
-	var numberOfQuestions = intQuestions;		// 3 Fragen
-	var numberOfPositions = intQuestions * intParties; // 12 = 3 Fragen * 4 Parteien
-
-	var indexPartyInArray = -1; // Berechnung der Position des Index der aktuellen Partei
-	var positionsMatch = 0;	// Zaehler fuer gemeinsame Positionen
-
-	// var arResults = new Array();
-	var arResults = []
-//	for (i = 0; i <= (arPartyFiles.length-1); i++)
-	for (i = 0; i <= (intParties-1); i++)
-	{
-		arResults.push(0);	// Array mit leeren Werten füllen		
-	}
-
-	// Vergleichen der Positionen (= Fragen x Parteien)
-	for (i = 0; i <= (numberOfPositions-1); i++)
-	{
-		var modulo = i % numberOfQuestions;	// 0=0,3,6,9 ; 1=1,4,7,10 ; 2=2,5,8,11
-		if (modulo == 0)
-		{
-			indexPartyInArray++;	// neue Partei in der Array-Liste
-			positionsMatch = 0;
-		}
-
-		// Frage wurde nicht uebersprungen per SKIP (99) oder GEHE ZUR NAECHSTEN FRAGE (-)
-		if ( (arPersonalPositions[modulo] < 99) ) 
-		{
-			var faktor=1; // Faktor ist 1 normal und 2, wenn Frage doppelt gewertet werden soll
-			if(arVotingDouble[modulo])
-				{faktor=2;}
-
-			// Bei Uebereinstimmung der persönlichen Meinung (1,0,-1) mit Partei-Antwort (1,0-1), den Zaehler (Anzahl Übereinstimmungen) um eins erhoehen	
-			if (arPartyPositions[i] == arPersonalPositions[modulo])
-			{
-				positionsMatch+=faktor;
-				arResults[indexPartyInArray] = positionsMatch;
-
-			}
-			// Eigene Meinung ist neutral ODER Partei ist neutral -> 0,5 Punkte vergeben
-			else if ( (arPersonalPositions[modulo] == 0) || (arPartyPositions[i] == 0) )
-			{
-				positionsMatch+=0.5*faktor;
-				arResults[indexPartyInArray] = positionsMatch;
-
-			} // end: if arPartyPosition-i = arPersonalPosition
-		} // end: Frage nicht uebersprungen
-	} // end: for numberOfQuestions
-
-
-/*	
-	// Wenn Nutzer eingewilligt hat ...
-	if ( $("#keepStatsCheckbox").prop("checked")==1)
-	{
-		// Sende Auswertung an Server
-		fnSendResults(arResults, arPersonalPositions);
-	}
-	else
-	{
-	}
+/* @license
+Mat-o-Wahl
+v0.7.x 
+https://github.com/msteudtn/Mat-O-Wahl
+License: GPL 3+
 */
 
-//	$("#keepStats").hide().empty();	
+//  Object.keys(objQuestions).length-1
 
-//	console.log(arResults)
-	return arResults;
-
-}
-
-
-// Senden der persoenlichen Ergebnisse an den Server (nach Einwilligung)
-// Aufruf aus fnEvaluation()
-function fnSendResults(arResults, arPersonalPositions)
-{
-	// Korrektur der Parteiposition (-1,0,1) mit den Informationen aus der doppelten Wertung (-2,-1,0,1,2)
-	// Marius Nisslmueller, Bad Honnef, Juni 2020
-	// Bedingung für übersprungene Frage hinzugefügt
-	arPersonalPositionsForStats = arPersonalPositions.slice(); // Damit arPersonalPositions nicht verändert wird
-	for(let i=0; i<arPersonalPositionsForStats.length; i++){
-		if(arVotingDouble[i] && arPersonalPositionsForStats[i] < 99){
-		    arPersonalPositionsForStats[i] *= 2; 
+// Read both CSV files and call follow-up functions
+function fireUpTheEngines() {
+	
+	// Use www.papaparse.com to read questions CSV with the filename and delimiter from DEFINITION.JS 
+	Papa.parse(fileQuestions, {
+		download: true,
+		delimiter: delimiter,
+		error: function(results, file) {
+			console.log("Mat-O-Wahl ERROR - Reading CSV-file. \n\nName and folder of CSV-file should be: "+fileQuestions+" \n\nPossible solutions: Check for capital letters? OR check the extension of the file (csv / xls / xlsx)? OR is the file in the wrong folder? OR are you working on a local machine :( instead of a server? See documentation on www.mat-o-wahl.de");
+		},
+		complete: function(dataQuestions) {
+			// Convert the array of questions ("q") into JSON-format 
+			// console.log(dataQuestions)
+			console.log("Mat-o-Wahl: OK. File "+fileQuestions+" loaded successfully.")
+			fnQuestionsArrayToJSON(dataQuestions.data)
 		}
+	});
+
+	// Use www.papaparse.com to read candidates CSV with the filename and delimiter from DEFINITION.JS 
+	Papa.parse(fileCandidates, {
+		download: true,
+		delimiter: delimiter,
+		error: function(results, file) {
+			console.log("Mat-O-Wahl ERROR - Reading CSV-file. \n\nName and folder of CSV-file should be: "+fileAnswers+" \n\nPossible solutions: Check for capital letters? OR check the extension of the file (csv / xls / xlsx)? OR is the file in the wrong folder? OR are you working on a local machine :( instead of a server? See documentation on www.mat-o-wahl.de");
+		},
+		// Convert the array of candidates ("c") into JSON-format 
+		complete: function(dataCandidates) {
+			// console.log(dataCandidates)
+			console.log("Mat-o-Wahl: OK. File "+fileCandidates+" loaded successfully.")
+			fnCandidatesArrayToJSON(dataCandidates.data)			
+		}
+	});
+
+	// Show the welcome screen 
+	fnShowDescription()
+		
+} // end: fireUpTheEngines()
+
+/* --------------------------------------------------------------------------- */
+
+// Convert the array of questions ("q") into JSON-object 
+/*
+Example CSV: 
+	"Farbe";"Die beste Fruchtfarbe ist gelb."
+	"Form";"Die beste Fruchtform ist rund."
+	
+turns into array:
+	[0][0] = "Farbe" [0][1] = "Die beste Fruchtfarbe ist gelb."
+	[1][0] = "Form"  [1][1] = "Die beste Fruchtform ist rund."
+	
+to be turned into JSON-format:
+	objQuestions["q0"].short = "Farbe" objQuestions.q0.long = "Die beste Fruchtfarbe ist gelb."
+	objQuestions.q1.short = "Form"     objQuestions["q1"].long = "Die beste Fruchtform ist rund."
+*/
+function fnQuestionsArrayToJSON(dataQuestions) {
+
+	for (let i = 0; i <= intQuestions-1; i++ )
+	{
+		objQuestions[ "q"+i ] = { "short": dataQuestions[i][0] , "long": dataQuestions[i][1] }
 	}
 
+//	var size = Object.keys(objQuestions).length;
+//	console.log(objQuestions )
 
-	var strResults = arResults.join(",");
-	// var strPersonalPositions = arPersonalPositions.join(",");
-	var strPersonalPositions = arPersonalPositionsForStats.join(",");
+	// Create the Bootstrap carousel with questions
+	fnCreateQuestions(objQuestions)
 	
-	$.get(statsServer, { mowpersonal: strPersonalPositions, mowparties: strResults } );
+} // end: fnQuestionsArrayToJSON()
 
-	console.log("Mat-O-Wahl. Daten gesendet an Server: "+statsServer+" - mowpersonal: "+strPersonalPositions+" - mowparties: "+strResults+"")
-}
+/* --------------------------------------------------------------------------- */
 
-
-// Berechnet Prozentwerte
-function fnPercentage(value,max)
-{
-	var percent = value * 100 / max;
-	percent = Math.round(percent);
-	return percent; 
-}
-
-// v.0.3 NEU
-// CSV-Daten in Array einlesen (aus fnShowQuestions() und fnReadPositions())
-function fnTransformCsvToArray(csvData,modus)
-{
-	// benutzt externe jquery-csv-Bibliothek
-	arZeilen = $.csv.toArrays(csvData, {separator: ""+separator+""});
+// Convert the array of candidates ("c") into JSON-format 
+/*
+Example CSV: 
+	Partei_kurz:;"APPD"
+	Partei_lang:;"Appelpartei Deutschlands"
+	...
+	-1;"Gelb ist keine schöne Farbe. Rot ist viel besser!"
+	1;"Runde Früchte sind am besten!"
+	...
 	
-//	console.log(arZeilen.length+ " Part "+intParties+" quest: "+intQuestions )
+turns into array:
+	[0][1] = "APPD"
+	[1][1] = "Appelpartei Deutschlands"
+	...
+	[5][0] = "-1"	[5][1] = "Gelb ist keine schöne Farbe. Rot ist viel besser!"
+	[6][0] = 1		[6][1] = "Runde Früchte sind am besten!"
+	...	
+	
+to be turned into JSON-format:
+	objCandidates.c0.short = "APPD"
+	objCandidates.c0.long = "Appelpartei Deutschlands"
+	objCandidates.c0.points = 2.5
+	...
+	objCandidates.c0.answers.a0.short = -1
+	objCandidates.c0.answers.a0.long = "Gelb ist keine schöne Farbe. Rot ist viel besser!"
+	objCandidates.c0.answers.a0.points = 0.5
+	...
+	objCandidates.c0.answers.a1.short = 1
+	objCandidates.c0.answers.a1.long = "Runde Früchte sind am besten!"
+	objCandidates.c0.answers.a1.points = 2
+	
+*/ 
+function fnCandidatesArrayToJSON(dataCandidates) {
 
+	// Calculate the number of candidates based on the length of the CSV-array, the number of questions plus a number of fixed lines.
+	intCandidates = Math.round(dataCandidates.length / (intQuestions + 6));
+	// console.log(intCandidates )
 
-	// Number of lines per party for MODULO-Operation on the ANSWERS-file
-	// There are five (5) lines with information on the party + "intQuestions" lines + an empty line
+	// Number of lines per candidate for MODULO-Operation on the answers-array 
+	// There are five (5) lines with information on the candidate + "intQuestions" lines + an empty line
 	// Example "Obsthausen"/"Fruitville" = 5 + 6 + 1 = 12
-	// Example "Springfield" = 5 + 15 + 1 = 21
-	var numberOfLines = 6 + intQuestions 
+	const numberOfEntriesPerCandidate = 6 + intQuestions 
 
-	if (modus == 1) // Fragen / Questions
-	{ lastLine = intQuestions}
-	else
-	{ lastLine = (5 + intQuestions + 1) * intParties -1} // Partien und Antworten / Parties and answers
+	// Create the indexes for the JSON-object, like "objCandidates.p0"
+	for (let i = 0; i <= intCandidates -1 ; i++ ) {
+		objCandidates[ "c"+i ] = {}
+		objCandidates[ "c"+i ].answers = {}
+		objCandidates[ "c"+i ].points = 0
+	}
+	
+	// Go through all candidates 
+	for (let i = 0; i <= ( (5 + intQuestions + 1) * intCandidates -1) ; i++ ) {
 
+			// Calculate the index number for the candidate
+			// Example: 
+			// Line (i) = 3 divided by 12 (numberOfEntriesPerCandidate) = 0,25 -> 0
+			// Line (i) = 42 divided by 12 (numberOfEntriesPerCandidate) = 3,5 -> 3
+			let indexOfCandidate = Math.floor( i / numberOfEntriesPerCandidate )
 
-//	for(i = 0; i <= arZeilen.length-1; i++)
-	for(i = 0; i <= lastLine-1; i++)
-	{
-		// console.log("i: "+i+" m: "+modus+" val0: "+arZeilen[i][0]+" val1: "+arZeilen[i][1] )	
-		valueOne = arZeilen[i][0];
-		valueTwo = arZeilen[i][1];
-		
-		// FRAGEN in globales Array schreiben (z.B. aus FRAGEN.CSV)
-		if (modus == 1)
-		{
-			arQuestionsShort.push(valueOne);
-			arQuestionsLong.push(valueTwo);
-		}
-		// ANTWORTEN und Meinungen in globales Array schreiben (z.B. aus PARTEIEN.CSV)
-		else
-		{
-			// v.0.5 NEU
-			// ALLE Partei-Informationen in einer CSV-Datei
-			modulo = i % numberOfLines;
+			let modulo = i % numberOfEntriesPerCandidate;
+			// console.log(i+" - "+modulo)
 
-			if ( (modulo == 0) && (valueTwo != "undefined") )
+			if (modulo == 0)
 			{ 
-				// Parteinamen - kurz
-				arPartyNamesShort.push(valueTwo)
+				// short name of candidate 
+				objCandidates[ "c"+indexOfCandidate  ].short = dataCandidates[i][1] 
 			}
-			else if ( (modulo == 1) && (valueTwo != "undefined") )
+			else if (modulo == 1)
 			{ 
-				// Parteinamen - lang
-				arPartyNamesLong.push(valueTwo)
+				// long name of candidate 
+				objCandidates[ "c"+indexOfCandidate  ].long = dataCandidates[i][1] 
 			}
-			else if ( (modulo == 2) && (valueTwo != "undefined") )
+			else if (modulo == 2) 
 			{ 
-				// Beschreibung der Partei (optional)
-				arPartyDescription.push(valueTwo)
-//				console.log("i: "+i+ " value: "+valueTwo)
+				// Description of candidate
+				objCandidates[ "c"+indexOfCandidate  ].desc = dataCandidates[i][1] 
 			}
-			else if ( (modulo == 3) && (valueTwo != "undefined") )
+			else if (modulo == 3) 
 			{ 
-				// Webseite der Partei
-				arPartyInternet.push(valueTwo)
+				// Web site 
+				objCandidates[ "c"+indexOfCandidate  ].url = dataCandidates[i][1] 
 			}
-			else if ( (modulo == 4) && (valueTwo != "undefined") )
+			else if (modulo == 4) 
 			{ 
-				// Logo der Partei
-				arPartyLogosImg.push(valueTwo)
+				// Logo (not using "img" as attribute to avoid confusion with JavaScript-functions)
+				objCandidates[ "c"+indexOfCandidate  ].pic = dataCandidates[i][1] 
 			}
 			else if ( (modulo > 4) && (modulo <= (intQuestions+4) ) )
 			{
-				// Positionen und Erklärungen
-				arPartyPositions.push(valueOne); // -1,0,1
-				arPartyOpinions.push(valueTwo); // Erklärung zur Zahl
+				// Creates a JSON object with positions (-1,0,1) and full answers of the candidates 
+				// Example: objCandidates["p0"].answers[a42].short = -1
+				// Answers are numbered based on the "modulo".
+				// Example: module = 8 minus 5 fixed lines = index [3] = Question number 4
+				objCandidates[ "c"+indexOfCandidate ].answers[ "a"+(modulo-5) ] = {}
+				objCandidates[ "c"+indexOfCandidate ].answers[ "a"+(modulo-5) ].short = dataCandidates[i][0] 
+				objCandidates[ "c"+indexOfCandidate ].answers[ "a"+(modulo-5) ].long = dataCandidates[i][1] 
+				objCandidates[ "c"+indexOfCandidate ].answers[ "a"+(modulo-5) ].points = 0
 			}
 			else 
 			{
 				// nothing to do. Just empty lines in the CSV-file
-			}
-		}  // end: if-else modus == 1	
-	}  // end: for
+			}		
+		}
+		
+	// console.log(objCandidates)
 
-} // end: function
+} // end: fnCandidatesArrayToJSON()
 
-// v.0.3 NEU
-// ersetzt die Position (-1, 0, 1) mit dem passenden Button
-function fnTransformPositionToButton(position)
-{
-	var arButtons = new Array("btn-danger","btn-warning","btn-success")
-	var positionButton = "btn-default";
-	for (z = -1; z <= 1; z++)
-	{
-	 	if (z == position)
-		{
-			positionButton = arButtons[(z+1)];
+/* --------------------------------------------------------------------------- */
+
+// Calculate the points and create the results-overview in the background.
+// This function is called every-time a voting-button is clicked.
+function fnEvaluation(intCurrentQuestion, intCurrentAnswer, intMultiplier) {
+
+	// Save the current answer to the array of the user's answers
+	// Example: arPersonalAnswers[2] = -1 turns into [1,-1,-1]
+	arPersonalAnswers[intCurrentQuestion] = intCurrentAnswer * intMultiplier;
+
+//	console.log(arPersonalAnswers)
+
+	// Go through all candidates and check, if their answer matches with the user's answer.
+	for (let i = 0; i <= intCandidates-1; i++ ) {
+
+		// If the current user's answer matches the candidate's (short) answer, we'll save the point(s) for this SPECIFIC answer
+		// Example: ( arPersonalAnswers[23] = -1 ) == (objCandidates["c0"].answers["a23"].short = -1 ) -> match -> one point * intMultiplier
+		if (intCurrentAnswer == objCandidates[ "c"+i ].answers[ "a"+intCurrentQuestion ].short) {
+			objCandidates[ "c"+i ].answers[ "a"+intCurrentQuestion ].points = 1 * intMultiplier
+		}
+
+		// The candidate stayed neutral or didn't decide. Their answer was "0"
+		// In this case, it doesn't matter, what the user decided. It's always 0.5 points * intMultiplier
+		else if ( objCandidates[ "c"+i ].answers[ "a"+intCurrentQuestion ].short == 0 ) {
+			objCandidates[ "c"+i ].answers[ "a"+intCurrentQuestion ].points = 0.5 * intMultiplier
+		}
+
+		// No match, no points for the candidate on this answer
+		else {
+			objCandidates[ "c"+i ].answers[ "a"+intCurrentQuestion ].points = 0
 		}
 	}
-	return positionButton;
-}
 
-// v.0.3 NEU
-// ersetzt die Position (-1, 0, 1) mit dem passenden Icon
-function fnTransformPositionToIcon(position)
-{
-	var arIcons = new Array("&#x2716;","&#x25EF;","&#x2714;")
-	var positionIcon = "&#x21B7;";
-	for (z = -1; z <= 1; z++)
-	{
-	 	if (z == position)
-		{
-			positionIcon = arIcons[(z+1)];
+	// Now, we'll go through all candidates and their "objCandidates.C.answer.A.points" again to sum it up in the higher level "objCandidates.C.points".
+	for (let i = 0; i <= intCandidates-1; i++ ) {
+
+		// Reset all collected points of this candidate in "objCandidates.C.points"
+		objCandidates[ "c"+i ].points = 0
+
+		// Go through all the questions (inside the candidates) and sum up these points. 
+		for (let j = 0; j <= Object.keys(objQuestions).length-1 ; j++ ) {
+			let currentPointsOfAnswer = objCandidates[ "c"+i ].answers[ "a"+j ].points
+			let currentPointsinTotal  = objCandidates[ "c"+i ].points
+			objCandidates[ "c"+i ].points = currentPointsinTotal + currentPointsOfAnswer 
+		}
+
+	} 
+
+
+	// Fill up the array with candidate-IDs and points - still ordered by number (i). 
+	// This array will be sorted by points and used for the order of results.
+	let arCandidatesSortedByPoints = []
+	for (let i = 0; i <= intCandidates-1; i++ ) {
+		arCandidatesSortedByPoints.push( { id: "c"+i, points: objCandidates[ "c"+i ].points } ) 
+	}
+
+	// Sort the array of sorted points by points.
+	// Before: arCandidatesSortedByPoints[ { id: c0, points: 2 } , { id: c1, points: 5 } ]
+	// After:  arCandidatesSortedByPoints[ { id: c1, points: 5 } , { id: c0, points: 2 } ]
+	arCandidatesSortedByPoints.sort((a, b) => b.points - a.points);
+
+//	console.log(arCandidatesSortedByPoints)
+
+//	console.log("."+objCandidates.p0.points)
+//	console.log(objCandidates.p1.points)
+//	console.log(objCandidates.p2.points)
+//	console.log(objCandidates.p3.points)
+
+	// Maximum number of points that can be reached.
+	// Example: arPersonalAnswers[1,1,1,1,1,1]  -> 6 out of 6 questions answered = max. 6 points
+	//          arPersonalAnswers[1,1, ,1,1,1]  -> 5 out of 6 questions answered, one not clicked = max. 5 points
+	//          arPersonalAnswers[1,1, ,99,1,1] -> 4 out of 6 questions answered, one not clicked, one skipped (99) = max. 4 points
+	//          arPersonalAnswers[1,1, ,2,1,1]  -> 5 out of 6 questions answered + one time "double" button = max. 6 points
+	let intMaxPoints = 0
+
+	// Go through all the user's answers 
+	for (let i = 0; i <= arPersonalAnswers.length-1; i++ ) {
+
+		// Check if the user answered yes (1), neutral (0) or no (-1)
+		if ( (arPersonalAnswers[i] >= -1) && (arPersonalAnswers[i] <= 1) ) {
+			intMaxPoints = intMaxPoints + 1
+//			console.log("IF 1 (ok) for value: "+arPersonalAnswers[i]+ " at pos. "+i)
+		}
+		// Check if the user answered double-yes (2) or double-no (-2)
+		else if ( (arPersonalAnswers[i] >= -2) && (arPersonalAnswers[i] <= 2) ) {
+			intMaxPoints = intMaxPoints + 2
+//			console.log("IF 2 (ok) for value: "+arPersonalAnswers[i]+ " at pos. "+i)
+		}
+		// The question was skipped by SKIP-button (99) or by the Bootstrap-indicators (empty value)
+		else {
+			intMaxPoints = intMaxPoints + 0
+//			console.log("ELSE (skip) for value: "+arPersonalAnswers[i]+ " at pos. "+i)
 		}
 	}
-	return positionIcon;
-}
-
-// ersetzt die Partei-Position (-1, 0, 1) mit der passenden Farbe
-function fnTransformPositionToColor(position)
-{
-	// red, yellow, green - "#ff0000","#ffff00","#00ff00"
-	// Bootstrap-colors: https://github.com/twbs/bootstrap/blob/master/dist/css/bootstrap.css
-	var arColors = new Array("#d9534f","#f0ad4e","#5cb85c")
-	var positionColor = "#c0c0c0";
-	for (z = -1; z <= 1; z++)
-	{
-	 	if (z == position)
-		{
-			positionColor = arColors[(z+1)];
-		}
-	}
-	return positionColor;
 	
+//		console.log("max-pt.: "+ intMaxPoints )
+
+	// Change the color of the little indicators (navigation) based on the user's answer.
+	fnChangeIndicatorColors()
+
+	// Change the font-weight to "bold" for the clicked pro/neutral/contra-button
+	fnChangeVotingButtonFontWeight()
+
+	fnCreateResults(arCandidatesSortedByPoints, intMaxPoints)
+
 }
 
 
-// ersetzt die Partei-Position (-1, 0, 1) mit dem passenden Text
-function fnTransformPositionToText(position)
-{
-	var arText = new Array("[-]","[o]","[+]")
-	var positionText = "[/]";
-	for (z = -1; z <= 1; z++)
-	{
-	 	if (z == position)
-		{
-			positionText = arText[(z+1)];
-		}
-	}
-	return positionText;
-	
-}
-
-// Gibt ein Bild/CSS-Klasse für den Balken in der Auswertung entsprechend der Prozentzahl Uebereinstimmung zurück
-function fnBarImage(percent)
-{
-	// bis v.0.3 mit PNG-Bildern, danach mit farblicher Bootstrap-Progressbar
-	
-	if (percent <= 33) { 
-		// var barImage = "contra_px.png"; 
-		var barImage = "bg-danger"; 
-	}
-	else if (percent <= 66) { 
-		// var barImage = "neutral_px.png"; 
-		var barImage = "bg-warning"; 
-	}
-	else { 
-		// var barImage = "pro_px.png"; 
-		var barImage = "bg-success"; 
-	}
-	
-	return barImage;
-}
-
-
-// 02/2015 BenKob (doppelte Wertung)
-function fnToggleSelfPosition(i)
-{
-	arPersonalPositions[i]--;
-	if (arPersonalPositions[i]==-2) 
-		{arPersonalPositions[i]=99}
-	if (arPersonalPositions[i]==98) 
-		{arPersonalPositions[i]=1}
-//	var positionImage = fnTransformPositionToImage(arPersonalPositions[i]);
-	var positionButton = fnTransformPositionToButton(arPersonalPositions[i]);
-	var positionIcon = fnTransformPositionToIcon(arPersonalPositions[i]);
-	// var positionColor = fnTransformPositionToColor(arPersonalPositions[i]);
-	var positionText  = fnTransformPositionToText(arPersonalPositions[i]);
-	
-	// $("#selfPosition"+i).attr("src", "img/"+positionImage);
-	$(".selfPosition"+i).removeClass("btn-danger btn-warning btn-success btn-default").addClass(positionButton);
-	$(".selfPosition"+i).html(positionIcon);
-	$(".selfPosition"+i).attr("alt", positionText);
-	$(".selfPosition"+i).attr("title", positionText);
-	// $(".positionRow"+i).css("border","1px solid "+positionColor);
-
-//	console.log("toggle funktion i: "+i)
-
-	fnReEvaluate();
-}
-
-// 02/2015 BenKob (doppelte Wertung)
-function fnToggleDouble(i)
-{
-	arVotingDouble[i]=!arVotingDouble[i];
-	if(arVotingDouble[i])
-	{
-		// $("#doubleIcon"+i).attr("src","img/double-yes_icon.png");
-		$("#doubleIcon"+i).removeClass("btn-outline-dark").addClass("btn-dark");
-		$("#doubleIcon"+i).attr("title",TEXT_ANSWER_DOUBLE);
-	}
-	else
-	{
-		// $("#doubleIcon"+i).attr("src","img/double-no_icon.png");
-		$("#doubleIcon"+i).removeClass("btn-dark").addClass("btn-outline-dark");
-		$("#doubleIcon"+i).attr("title",TEXT_ANSWER_NORMAL);
-	}
-	fnReEvaluate();
-}
-
-
-
-// vanilla JavaScript FadeIn / FadeOut
-// Modus = display: "none / block" ändern (0 = nein, 1 = ja)
-function fnFadeIn(el, time, modus) {
-
-	// Default FadeIn / FadeOut-Time
-	if (!time) {time = 500;}
-
-	// Loading CSS 
-	el.style.animation = "myFadeIn "+time+"ms 1"
-	el.style.opacity = 1;
-
-	if (modus == 1) {
-		el.style.display = ""	
-		el.style.visibility = ""
-	}
-}
-
-// vanilla JavaScript FadeIn / FadeOut
-// Modus = visibility show / hidden ändern (0 = nein, 1 = ja)
-function fnFadeOut(el, time, modus) {
-
-	// Default FadeIn / FadeOut-Time
-	if (!time) {time = 500;}
-
-	// Loading CSS 
-	el.style.animation = "myFadeOut "+time+"ms 1"
-	el.style.opacity = 0;
-
-	// hide element from DOM AFTER opacity is set to 0 (setTimeout)
-	if (modus == 1) {
-		window.setTimeout(function() {
-			el.style.display = "none"	
-			el.style.visibility = "hidden"			
-		}, (time-50));		
-	}
-}
