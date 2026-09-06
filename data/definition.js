@@ -62,7 +62,7 @@
 	e.g. "Airport","The airport shall be expanded."
 */
 
-const fileQuestions = "Obsthausen_Fragen.csv";
+const fileQuestions = "https://raw.githubusercontent.com/msteudtn/Mat-O-Wahl/refs/heads/master/data/Obsthausen_Fragen.csv";
 
 
 // 	--------------------------------------------------------------------
@@ -94,7 +94,8 @@ const intQuestions = 6;
  	1.3. PARTIES, PARTY-INFORMATION and ANSWERS
 */
 
-const fileAnswers = "Obsthausen_Parteien.csv";
+const fileCandidates = "https://raw.githubusercontent.com/msteudtn/Mat-O-Wahl/refs/heads/master/data/Obsthausen_Parteien.csv";
+const fileAnswers = "https://raw.githubusercontent.com/msteudtn/Mat-O-Wahl/refs/heads/master/data/Obsthausen_Parteien.csv";
 
 /*
  	1.5. BILDGROESSE des PARTEILOGOS (am Ende)
@@ -134,17 +135,17 @@ const intPartyLogosImgHeight = "10%";
 
 const descriptionShowOnStart = 1;
 
-// 	1.6.2. Hauptueberschrift / 1.6.1. Main headline
+// 	1.6.2. Hauptueberschrift / Main headline
 
 const descriptionHeading1 = "Fruchtkorbwahlen";
 
 
-// 	1.6.3. Zweite Ueberschrift / 1.6.2. Second Headline
+// 	1.6.3. Zweite Ueberschrift / Second Headline
 
 const descriptionHeading2 = "Die Wahl zur neuen Regierung in Obsthausen";
 
 
-// 	1.6.4. Kurzer Text um was es bei der Wahl geht / 1.6.3. Short (descriptive) text on what's the election about
+// 	1.6.4. Kurzer Text um was es bei der Wahl geht / Short (descriptive) text on what's the election about
 
 const descriptionExplanation = "Am 30. Februar finden in Obsthausen Wahlen statt. Sie k&ouml;nnen sich hier alle Parteipositionen anschauen und miteinander vergleichen. Dies ist <strong>keine Wahlempfehlung</strong>, sondern ein Informationsangebot zu Wahlen! <br /> Zur Auswahl stehen vier Parteien mit unterschiedlichen Meinungen zu kontroversen Themen der Obst- und Frucht-Landschaft."; 
 
@@ -152,7 +153,7 @@ const descriptionExplanation = "Am 30. Februar finden in Obsthausen Wahlen statt
 // 	--------------------------------------------------------------------
 
 /*
-	1.7. IMPRESSUM, KONTAKT: 1.7. LEGAL NOTICE, CONTACT:
+	1.7. IMPRESSUM, KONTAKT: / LEGAL NOTICE, CONTACT:
 
 	1.7.A  
 
@@ -177,14 +178,14 @@ const descriptionExplanation = "Am 30. Februar finden in Obsthausen Wahlen statt
 /*
 
 	DE: Option B) (Standard)-Mat-o-Wahl-Impressum.
-	Wenn Sie keine (oder eigene) Angaben machen, so lassen Sie bitte die Variablen stehen.
+	Wenn Sie keine (oder eigene) Angaben machen, so lassen Sie bitte die Variablen-Namen stehen.
 	Loeschen Sie stattdessen einfach den Text, z.B.
 	const imprintVATid = ``   oder   const imprintVATid = "";
 
 	********************************************************************
 
 	EN: Option B) Use (default) legal notice of Mat-o-Wahl.
-	If you prefer to leave these information blank, please do not delete these lines 
+	If you prefer to leave these information blank, please do not delete the variables
 	but only its content, e.g.
 	const imprintVATid = ``   or   const imprintVATid = "";
 
@@ -220,7 +221,7 @@ const imprintVATid = `<p>Umsatzsteuer-Identifikationsnummer gem&auml;&szlig; &se
 
 
 //	1.7.B.4: 
-//	(optional) Verbraucher­streit­beilegung / Universal­schlichtungs­stelle
+//	(optional) Verbraucherstreitbeilegung / Universalschlichtungsstelle
 //	(optional) Online Dispute Resolution for consumers by European Commission
 
 const imprintDisputeResultion = `<p>Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: (https://ec.europa.eu/consumers/odr).</p>
@@ -255,8 +256,8 @@ const imprintPictures = `<p> Bilder mit freundlicher Genehmigung von / Pictures 
 
 
 //	1.7.B.8
-//	(optional) Link zu einer Datenschutzerklaerung beginnend mit http(s):- erlaubt die anonyme Statistik
-//	(optional) Link to a privacy policy starting with http(s):- allows the anonymous statistics
+//	(optional) Link zu einer Datenschutzerklaerung beginnend mit http(s):- nötig für die anonyme Statistik
+//	(optional) Link to a privacy policy starting with http(s):- necessary for anonymous statistics
 
 const imprintPrivacyUrl = "https://www.hans-wurst-webdesign-obsthausen.com/datenschutz.html";
 
@@ -269,9 +270,10 @@ const imprintPrivacyUrl = "https://www.hans-wurst-webdesign-obsthausen.com/daten
 // 2. ERWEITERTE EINSTELLUNGEN: / 2. ADVANCED SETTINGS
 
 //	2.1. Trennzeichen fuer die CSV-Dateien (Excel benutzt haeufig Semikolon, OpenOffice/LibreOffice ein Komma)
-//	2.1. Separator for CSV files (Excel uses often a semicolon, OpenOffice/LibreOffice a comma)
+//	2.1. Delimiter for CSV files (Excel often uses a semicolon, OpenOffice/LibreOffice a comma)
 
-const separator = ";";
+const separator = ";"; // *** ### !!!
+const delimiter = ";";
 
 
 /*	
@@ -299,7 +301,7 @@ const separator = ";";
 	Please find some examples above.  
 */  
 
-const design = ["default.css","buttons-colors-on.css", "progressbar.css"];
+const design = ["default.css","buttons-colors-on.css", "arrows.css", "progressbar.css"];
 
 
 /*
@@ -345,7 +347,7 @@ const language = "de";
 
 	DE: STATISTIK
 	Anonyme Auswertung zulassen: true/1 oder false/0 
-	Die Einwilligung des Nutzers und eine Datenschutzerklaerung (s.o.) werden benoetigt! (*)
+	Die Einwilligung des Nutzers und eine Datenschutzerklaerung (s.o.) werden benoetigt!
 	Als Ergebnis erhaelt man die Liste mit der persoenlichen Auswahl in der Variablen "mowpersonal" (-1,0,1,99) 
 	und die Liste mit der Anzahl der Uebereinstimmungen mit den Parteien als "mowparties" (5,1,0,2) zurueck.
 	Als Trennzeichen fuer die Werte dient wieder ein Komma. ;-)
@@ -355,7 +357,7 @@ const language = "de";
 
 	EN: STATISTICS
 	Allow anonymous analysis: true/1 or false/0 
-	Consent of the user and a privacy policy are needed! (*)
+	Consent of the user and a privacy policy are needed!
 	As a result you'll get the list of personal choices in a variable "mowpersonal" (-1,0,1,99) 
 	and a list with the number of party-matches as "mowparties" (5,1,0,2).
 	Separator for these variables is a comma gain. ;-)
@@ -370,9 +372,4 @@ const statsServer = "http://localhost/extras/statistics/vote_txt.php";
 	-> POST-Aufruf der gesendeten Ergebnisse / POST-Call of sent results:
 	http://localhost/extras/statistics/vote_txt.php?mowpersonal=-1,0,1,99&mowparties=5,1,0,2
 
-	(*) In der OUTPUT.JS etwa auf Zeile 60 kann man die Checkbox automatisch als 
-	"checked" / angeklickt definieren. Das entspricht dem Opt-In Verfahren.
-
-	(*) In OUTPUT.JS at around line 60 you can define the checkbox as "checked".
-	This would be an opt-in method.
 */
