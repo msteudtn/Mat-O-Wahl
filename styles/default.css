@@ -19,8 +19,39 @@ a:not(.btn):visited { color:#404040; }
 a:not(.btn):active { color:#FF0000; }
 a:not(.btn):hover { color:#FF0000; text-decoration:none; }
 
-.displayNone {
-	display: none;}
+
+/* hide */
+.fading.fadingStop {
+	font-size: 0;
+	margin: 0;
+	opacity: 0;
+	padding: 0;
+	height: 0;
+	border: 0;
+	overflow:hidden;
+	/* fade out, then shrink */
+	transition: opacity 0.5s ease,
+		font-size 0.5s ease,
+		margin 0.5s ease,
+		padding 0.5s ease,
+		height 0.5s ease,
+		border 0.5s ease;
+}
+
+/* reveal */
+.fading {
+    /* unshrink, then fade in */
+    transition: font-size 0.5s ease,
+                margin 0.5s ease,
+                padding 0.5s ease,
+                opacity 0.5s ease,
+                height 0.5s ease,
+		border 0.5s ease;
+}
+
+.opacity025 {
+	background: rgba(255, 255, 255, 0.25);
+}
 
 /* Statistik */
 /* Statistics */
@@ -41,29 +72,11 @@ a:not(.btn):hover { color:#FF0000; text-decoration:none; }
 
 /* BOOTSTRAP */
 .row {
-	padding: 0.2em; 
+	padding: 0.2em;  
 }
 
-/* Gestreifte Spalten in den Ergebnis-Listen
-	Striped rows in results */
-.mow-row-striped:nth-child(odd) {
-	background-color: rgba(0, 0, 0, 0.05);
+.col {
+/*	padding: 0.5em;  */
 }
 
 
-/* Social Media DIV und zugehoerige Buttons */
-/* Social media DIV and corresponding buttons */
-.social-facebook {
-    background: #4560a3;
-	color: #c0c0c0;
-}
-
-.social-twitter {
-   background: #68ace3;
-	color: #fff;
-}
-
-.social-mail {
-	background: #c6c6c6;
-	color: #fff;
-}

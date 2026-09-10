@@ -15,8 +15,9 @@
 
 /*  [PRO] Knopf: dunkleres grün / [PRO] button: darker green  */   
 .btn-success {
-	background: var(--aria-button-green);
+	background: var(--aria-button-green); 
 	color: contrast-color(var(--aria-button-green))
+
 }
 
 /* [o] Knopf: schwarze Schrift auf gelbem Hintergrund / [o] button: black font on yellow background */
