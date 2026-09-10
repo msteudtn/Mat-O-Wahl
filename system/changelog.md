@@ -23,17 +23,40 @@
 
 ### 0.7.0.0.2026xxxx
 
-- Complete rewrite / breaking changes 
+- Complete rewrite / **breaking changes**
   - improved accessibility (ARIA-labels, ...)
   - removed jQuery library 
   - updated Bootstrap to 5.3.8 
-  - renamed variables in DEFINITION.JS
-    - "fileAnswers" to "fileCandidates"
-    - "separator"  to "delimiter"
-  - questions can be swiped on smartphones, now (using Bootstrap "carousel")
+  - using mostly JavaScript objects{} instead of arrays, now.
+    - `arQuestionsShort` -> `objQuestions.q0.short, objQuestions.q1.short, ...`
+    - `arQuestionsLong` -> `objQuestions.q0.long, objQuestions.q1.long, ...`
+    - `arPartyNamesShort` -> `objCandidates.c0.short, ...`
+    - `arPartyNamesLong` -> `objCandidates.c0.long, ...`
+    - `arPartyPositions` -> `objCandidates.c0.answers.a0.short, ...`
+    - `arPartyOpinions` -> `objCandidates.c0.answers.a0.long, ...`
+    - new: points for the specific answer `objCandidates.c0.answers.a0.points, ...`
+    - `arPartyDescription` -> `objCandidates.c0.desc, ...`
+    - `arPartyInternet` -> `objCandidates.c0.url, ...`
+    - `arPartyLogosImg` -> `objCandidates.c0.pic, ...`
+    - new: points for the candidate `objCandidates.c0.points, ...`
+    - renamed `arPersonalPositions` -> `arPersonalAnswers`
+    - renamed `arVotingDouble` -> `arPersonalMultiplier` 
+  - **renamed** variables in DEFINITION.JS
+    - `fileAnswers` -> `fileCandidates`
+    - `separator` -> `delimiter`
+  - renamed JavaScript files
+   - `general.js` -> `backend.js`
+   - `output.js` -> `frontend_*.js`
+  - questions can now be **swiped** on smartphones (using Bootstrap "carousel")
   - no change in the CSV-format, still works
-  - less and clearer source code
   - new texts in i18n
+- still  to do
+  - imprint
+  - quicktest
+  - database results html
+  - documentation and faq on website
+  - check UI and CSS styles
+- faster, better, stronger!
 
 
 ### 0.6.0.12.20250425
