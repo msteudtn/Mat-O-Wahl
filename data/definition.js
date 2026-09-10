@@ -119,8 +119,10 @@ const fileAnswers = "https://raw.githubusercontent.com/msteudtn/Mat-O-Wahl/refs/
 
 */ 
 
-const intPartyLogosImgWidth = "10%";
-const intPartyLogosImgHeight = "10%";
+// *** ### !!!
+
+// const intPartyLogosImgWidth = "10%";
+// const intPartyLogosImgHeight = "10%";
 
 
 // 	--------------------------------------------------------------------
@@ -301,7 +303,7 @@ const delimiter = ";";
 	Please find some examples above.  
 */  
 
-const design = ["default.css","buttons-colors-on.css", "arrows.css", "progressbar.css"];
+const design = ["default.css","buttons-colors-on.css", "progressbar.css"];
 
 
 /*
