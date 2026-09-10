@@ -24,11 +24,14 @@
 	<!-- Mat-o-Wahl SETTINGS (Javascript) -->
 	<script type="text/javascript" src="data/definition.js"></script>
 	<script type="text/javascript" src="system/papaparse.min.js"></script>
-	<script type="text/javascript" src="system/general.js"></script>
 	<script type="text/javascript" src="system/globals.js"></script>
-	<script type="text/javascript" src="system/output.js"></script>
-
-	
+	<script type="text/javascript" src="system/backend.js"></script>
+	<script type="text/javascript" src="system/frontend_welcome.js"></script>
+	<script type="text/javascript" src="system/frontend_questions.js"></script>
+	<script type="text/javascript" src="system/frontend_results_overview.js"></script>
+	<script type="text/javascript" src="system/frontend_results_by_question.js"></script>
+	<script type="text/javascript" src="system/frontend_results_by_candidate.js"></script>
+	<script type="text/javascript" src="system/frontend_helpers.js"></script>
 
 
 	<!-- Advanced Settings based on DEFINITION.JS - dynamically included -->	
@@ -57,28 +60,28 @@
 
 	<main>
 
-		<div id="description">
+		<div id="description" class="fading">
 			
-			<div class="row border border-dark rounded">
-				<div class="col align-self-center">
+			<div class="row border border-dark rounded align-items-center">
+				<div class="col">
 
-					<h1 id="descriptionHeading1">Main headline = name of election</h1>
+					<h1 id="descriptionHeading1">Main headline = name of election (definition.js)</h1>
 
-					<h2 id="descriptionHeading2">Second headline = short summary of election</h2> 
+					<h2 id="descriptionHeading2">Second headline = short summary of election (definition.js)</h2> 
 					
 					<div id="descriptionExplanation" class="">
-						<p style="color: red; font-size: 150%;" lang="en">
+						<p style="color: red; font-size: 150%; font-weight:bold;" lang="en">
 							EN: If you see this message, something went wrong. &#9785;
 							Please activate JavaScript and reload the page.
 						</p>
 
-						<p style="color: red; font-size: 150%;" lang="de">
+						<p style="color: red; font-size: 150%; font-weight:bold;" lang="de">
 							DE: Wenn Sie diese Meldung sehen, dann ist irgendetwas schief gelaufen. &#9785;
 							Bitte aktivieren Sie JavaScript und laden die Seite noch einmal neu. 
 						</p>
 
 						<p>
-							Short description of the election.
+							Short description of the election. (definition.js)
 						</p>						
 					</div>
 					
@@ -87,7 +90,7 @@
 			
 			<div class="row">
 				<div class="col text-end">				
-				<button type="button" class="btn btn-primary btn-lg border-dark" onclick="fnHideDescriptionOnStart()" id="descriptionButtonStart">Start-Button</button>
+				<button type="button" class="btn btn-primary btn-lg border-dark" onclick="fnHideMainDescriptionAndShowQuestions()" id="descriptionButtonStart">Start-Button (i18n)</button>
 				</div>
 			</div>
 
@@ -96,7 +99,7 @@
 	<!-- 2. QUESTIONS AND VOTING-BUTTONS (after the descripion has been cleared). -->
 	<!-- https://getbootstrap.com/docs/5.3/components/carousel/ -->
 
-		<div id="questions">
+		<div id="questions" class="fading fadingStop" >
 
 			<div id="questionsCarousel" class="carousel slide">
 				<div class="carousel-indicators">
@@ -109,8 +112,8 @@
 
 					<!-- Elements from this template will later be imported above at "carousel-indicators" under the FIRST button "0" -->
 					<!-- The indicators show the current position and can be used for navigation. -->
-					<template id="questionsCarouselIndicatorButtonXYZTemplate">
-						<button type="button" data-bs-target="#questionsCarousel" id="questionsCarouselIndicator-X" data-bs-slide-to="999" aria-label="Label for question X" class=""></button>
+					<template id="questionsCarouselIndicatorTemplate">
+						<button type="button" data-bs-target="#questionsCarousel" id="questionsCarouselIndicator-X" data-bs-slide-to="999" aria-label="Label for question X" class="" style="border: 1px solid black; margin-bottom: 0.5em;"></button>
 					</template>
 					
 			  
@@ -121,7 +124,7 @@
 				<template id="questionsCarouselItemsTemplate">
 				
 					<div class="carousel-item">
-						<h1 style="font-size: 1em;" id="questionsMainHeadline-X">Main headline (again)</h1>					
+						<h1 id="questionsMainHeadline-X">Main headline (again)</h1>					
 						
 						<!-- https://getbootstrap.com/docs/5.3/components/card/ -->
 						<div class="card border-dark mb-3 bg-transparent">
@@ -170,7 +173,7 @@
 				</template>
 
 
-				<!-- Template for the last Bootstrap-card with "Continue to results" in "carousel-inner" -->
+				<!-- Template for the LAST Bootstrap-card with "Continue to results" in "carousel-inner" -->
 				<template id="questionsCarouselItemShowResultsTemplate">
 				
 					<div class="carousel-item">
@@ -207,23 +210,23 @@
 
 	<!-- 3.0 RESULTS -->
 
-	<div id="results">
+	<div id="results" class="fading fadingStop">
 
 		<div class="row">	
 	
 			<div class="col">
-					<h1 id="resultsHeading1">Headline for the results = name of election </h1>
+					<h1 id="resultsHeading1">Headline for the results = name of election (definition.js)</h1>
 			</div> <!-- end: col -->
 
 		</div> <!-- end: row -->
 
 
-		<!-- 3. RESULTS - Overview -->
+		<!-- 3.1 RESULTS - Overview -->
 		<div id="resultsOverview">
 			<div class="row">
 		
 				<div class="col">
-						<h2 id="resultsSummaryHeading">Headline for summary of results</h2>
+						<h2 id="resultsSummaryHeading">Headline for summary of results (i18n)</h2>
 				</div> <!-- end: col -->
 
 			</div> <!-- end: row -->
@@ -236,45 +239,45 @@
 		
 		<template id="resultsOverviewCandidatesTemplate">
 
-			<!-- 3. RESULTS - Overview / progress bar -->
+			<!-- 3.1.1 RESULTS -> Overview -> progress bar -->
 			<div class="row">
 		
 				<div class="col col-12 col-md-4">
-					<button class="btn btn-sm btn-outline-dark" id="buttonShowCandidateDivDescription-X" aria-label="Open / Close details for candidate" title="Open / Close details for candidate">&bigtriangledown; &bigtriangleup;</button> 
+					<button class="btn btn-sm btn-dark" id="buttonShowCandidateDivDescription-X" aria-label="Open / Close details for candidate" title="Open / Close details for candidate">Toggle button &bigtriangledown; / &bigtriangleup; / open / close</button> 
 					<span id="candidateShort-X">CANDIDATE (short)</p>
 				</div> <!-- end: col -->
 
 				<div class="col col-9 col-md-6">
-					<div class="progress">	
+					<div class="progress" style="border: 1px solid black;">	
 						<div class="progress-bar" role="progressbar" id="candidateProgressBar-X" style="width:50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div> 
 					</div>
 
 				</div> <!-- end: col -->
 
 				<div class="col col-3 col-md-2">
-					<p id="candidatePercentage-X">100%</p>
+					<p id="candidatePercentage-X">50%</p>
 				</div> <!-- end: col -->
 
 			</div> <!-- end: row -->
 
-			<!-- 3. RESULTS - Overview / description of candidate -->
-			<div class="row" id="candidateDivDescription-X">
+			<!-- 3.1.2 RESULTS -> Overview -> description of candidate -->
+			<div class="row fading" id="candidateDivDescription-X">
 		
-				<div class="col border border-dark rounded" style="background: rgba(255, 255, 255, 0.25)">
+				<div class="col border border-dark rounded opacity025">
 
 					<div class="row">
  
 						<div class="col col-12 col-md-10">
-							<h3 id="candidateLong-X">Candidate's full name</h3>
-							<p id="candidateDescription-X">Candidate's detailed description</p>
+							<h3 id="candidateLong-X">CANDIDATE (full name)</h3>
+							<p id="candidateDescription-X">CANDIDATE (detailed description)</p>
 							<p>
-								<a href="" target="_blank" id="candidateUrl-X" title="">Candidate's URL</a>
+								<a href="" target="_blank" id="candidateUrl-X" title="">CANDIDATE (URL)</a>
 							</p>
 
 						</div> <!-- end: col -->
 
 						<div class="col col-12 col-md-2">
-							<img id="candidateImage-X" class="img-fluid rounded float-right" style="object-fit: contain;" alt="Image of the candidate" title="Image of the candidate" /> 
+							<img id="candidateImage-X" class="img-fluid rounded" style="object-fit: contain;" alt="Image of the candidate" title="Image of the candidate" /> 
 						</div> <!-- end: col -->
 
 					</div> <!-- end: row -->
@@ -283,6 +286,188 @@
 
 			</div> <!-- end: row -->
 		</template>
+
+
+		<!-- 3.2 RESULTS -> BUTTONS to open / close detailed tables -->
+				
+		<div class="row" id="resultsButtons">
+
+			<div class="col col-12 col-md-6 d-grid gap-2">
+				<button type="button" id="resultsButtonQuestions" class="btn btn-dark">[?] Show questions</button>
+			</div>
+
+			<div class="col col-12 col-md-6 d-grid gap-2">
+				<button type="button" id="resultsButtonCandidates" class="btn btn-dark">[#] Show candidates</button>
+			</div>
+
+		</div> <!-- end: row -->
+
+
+		<!-- 3.3 RESULTS -> Questions and candidate's answers -->
+
+		<div id="resultsByQuestion" class="fading"> 
+			<p id="resultsByQuestion_Description">Description for the overview of results by question (from i18n).
+			</p>
+
+			<div role="table" id="resultsByQuestion_Table">		
+				<div role="rowgroup">
+					<div class="row" role="row">
+					
+						<!-- 3.3.1.1 RESULTS -> Questions and candidate's answers -> Table header -->
+						<div class="col col-2 border border-dark rounded" role="columnheader">
+							<strong id="resultsByQuestion_Header_User">Column header: users's answer (i18n)</strong>
+						</div> <!-- end: col -->
+						
+						<div class="col col-10 border border-dark rounded" role="columnheader">
+							<strong id="resultsByQuestion_Header_Candidate">Column header: Question &amp; candidate's answer (i18n)</strong>
+						</div> <!-- end: col -->
+						
+					</div> <!-- end: row -->
+				</div> <!-- end: role rowgroup -->
+			</div> <!-- end: role table -->
+		</div>   <!-- end: div resultsByQuestion -->
+
+
+			<!-- 3.3.1.2 RESULTS -> Questions and candidate's answers -> 1/2 QUESTION(S) -->
+			<!-- Elements from this TEMPLATE will later be imported above at "resultsByQuestion_Table" -->
+			<template id="resultsByQuestion_RowForQuestions_Template">
+				<div role="rowgroup" id="resultsByQuestion_RowForQuestions_Rowgroup-X">
+					<div class="row" role="row">
+						<div class="col col-1" role="cell">
+
+							<button type="button" id="resultsByQuestion_Button_PersonalMultiplier-X" class="btn btn-sm border-dark" title="Your answer: double">x2</button>
+						</div> <!-- end: col -->
+
+						<div class="col col-1" role="cell">
+							<button type="button" id="resultsByQuestion_Button_PersonalAnswer-X" class="btn btn-sm border-dark" title="Your answer was: yes">[+] [o] [-]</button>
+						</div> <!-- end: col -->
+						
+						<div class="col col-10" id="" role="cell">
+							<button class="btn btn-sm btn-dark" id="resultsByQuestion_Button_ShowCandidateAnswers-X" aria-label="Open / Close details for this question" title="Open / Close details for this question">Toggle button &bigtriangledown; / &bigtriangleup; / open / close</button> 
+
+							<strong id="resultsByQuestion_RowForQuestions_TextShort">Question number X (short)</strong>: <span id="resultsByQuestion_RowForQuestions_TextLong">Question number X (long)</span>
+
+						</div> <!-- end: col -->
+					</div> <!-- end: row -->
+				</div> <!-- end: role rowgroup -->
+
+				<div id="resultsByQuestion_DivForCandidates-X" class="fading">
+				</div>
+			</template>
+
+
+			<!-- 3.3.1.1 RESULTS -> Questions and candidate's answers -> 2/2 CANDIDATE-ANSER(S) -->
+			<!-- Elements from this TEMPLATE will later be imported above at "resultsByQuestion" -->
+			<template id="resultsByQuestion_RowForCandidates_Template">
+				<div role="rowgroup" id="resultsByQuestion_RowForCandidates_Rowgroup-X">
+					<div class="row border border-dark rounded  opacity025" role="row">  
+						<div class="col col-1" role="cell"> 
+						</div> <!-- end: col -->
+
+						<div class="col col-1" role="cell"> 
+							<button type="button" id="resultsByQuestion_Button_CandidateAnswer-X" class="btn btn-sm border-dark" disabled="" title="Answer of candidate : [+][o][-]"> ◯ </button>
+						</div> <!-- end: col -->
+
+						<div class="col col-10" role="cell"> 
+							<strong id="resultsByQuestion_RowForCandidates_TextShort">Candidate's name (short)</strong>: <span id="resultsByQuestion_RowForCandidates_TextLong">Candidate's answer (long)</span>
+						</div> <!-- end: col -->
+					</div> <!-- end: row -->
+				</div> <!-- end: role rowgroup -->
+			</template>
+
+
+
+
+
+
+			<!-- 3.3.2 RESULTS -> CANDIDATES with their answers -->
+			<!-- 3.3.2.1 RESULTS -> CANDIDATES with their answers -> Table header -->
+
+			<div id="resultsByCandidate" class="fading"> 
+
+				<p id="resultsByCandidate_Description">Description for the overview of results by question (from i18n).
+				</p>
+
+				<div role="table" id="resultsByCandidate_Table">		
+					<div role="rowgroup" style="display:none">
+						
+						<div class="row" role="row">
+
+							<div class="col col-3 " role="columnheader">
+								<strong id="resultsByCandidate_Header_i18n_CandidateAnswer">Candidate's answer (long)</strong>
+							</div>
+
+							<div class="col col-6" role="columnheader">
+								<strong id="resultsByCandidate_Header_i18n_Question">Question</strong>
+							</div>
+
+							<div class="col col-3" role="columnheader">
+								<strong id="resultsByCandidate_Header_i18n_PersonalAnswer">User's answer (short)</strong>
+							</div>
+
+						</div> <!-- end: row -->
+					</div> <!-- end: role rowgroup -->
+				</div> <!-- end: role table -->
+			</div>   <!-- end: div resultsByCandidate -->
+
+
+			<!-- 3.3.2.2 RESULTS -> CANDIDATES with their answers -> Candidate information -->
+			<!-- Elements from this TEMPLATE will later be imported above at "resultsByCandidate_Table" -->
+			<template id="resultsByCandidate_RowForCandidate_Template">
+
+				<div role="rowgroup" id="resultsByCandidate_RowForCandidate_Rowgroup-X">
+
+					<div class="row border border-dark rounded opacity025" role="row">
+						<div class="col col-1" role="cell">
+							<button class="btn btn-sm btn-dark" id="resultsByCandidate_Button_ShowCandidateAnswers-X" aria-label="Open / Close details for this question" title="Open / Close details for this question">Toggle button &bigtriangledown; / &bigtriangleup; / open / close</button> 
+						</div> <!-- end: col -->
+
+						<div class="col col-11" role="cell">
+							<strong id="resultsByCandidate_Text_CandidateName-X">Name of the candidate</strong> 
+						</div> <!-- end: col -->
+					</div> <!-- end: row -->
+				</div> <!-- end: role rowgroup -->
+
+				<div id="resultsByCandidate_DivForQuestionAndAnswers-X" class="fading">
+				</div>
+			</template>
+
+			<!-- 3.3.2.3 RESULTS -> CANDIDATES with their answers -> QUESTIONS and ANSWERS of this candidate -->
+			
+			<template id="resultsByCandidate_RowForQuestionAndAnswer_Template">
+				<div class="row border border-dark rounded" role="rowgroup" id="resultsByCandidate_RowForQuestionAndAnswer_Rowgroup-X"> 
+
+
+					<div class="col col-1" role="cell">
+						<button type="button" class="btn btn-sm border border-dark" disabled="" title="" id="resultsByCandidate_RowForQuestionAndAnswer_UserAnswerShort-X-Y">[+] [o] [-]</button> 
+					</div> <!-- end: col -->
+
+					<div class="col col-1" role="cell">
+						<button type="button" class="btn btn-sm border border-dark" disabled="" title="" id="resultsByCandidate_RowForQuestionAndAnswer_CandidateAnswerShort-X-Y">[+] [o] [-]</button> 
+					</div> 
+
+					<div class="col col-1" role="cell">
+						<button class="btn btn-sm btn-dark" id="resultsByCandidate_RowForQuestionAndAnswer_Button_ShowCandidateAnswers-X-Y" aria-label="Open / Close details for this question" title="Open / Close details for this question">Toggle button &bigtriangledown; / &bigtriangleup; / open / close</button> 
+					</div> <!-- end: col -->
+
+					<div class="col col-9" role="cell">
+						<span id="resultsByCandidate_RowForQuestionAndAnswer_Question-X-Y"> Number/Total <strong>Question (short)</strong>: Question (long)</span>
+					</div> <!-- end: col -->
+
+				</div> <!-- end: row & role rowgroup -->
+
+				<div class="row border border-dark rounded opacity025 fading" role="rowgroup" id="resultsByCandidate_RowForQuestionAndAnswer_CandidateAnswer-X-Y"> 
+
+					<!-- <div class="col col-2 order-3 col-md-1 order-md-3" role="cell"> -->
+
+
+					<!-- <div class="col col-10 order-4 col-md-5 order-md-4" role="cell" id="resultsByCandidate_RowForQuestionAndAnswer_CandidateAnswerLong-X-Y">  -->
+					<div class="col col-10" role="cell" id="resultsByCandidate_RowForQuestionAndAnswer_CandidateAnswerLong-X-Y"> 
+						Long answer of candidate.
+					</div>  
+				</div> <!-- end: row &  role rowgroup -->
+			</template>
+
 
 	</div> <!-- end: results -->
 
@@ -294,50 +479,50 @@
 
 		<div class="row">	
 			<div class="col text-center">
-				<a class="btn btn-outline-dark btn-sm" role="button" href="system/imprint.html" target="_blank" id="imprint">Button: Legal Notice</a>
+				<a class="btn btn-outline-dark btn-sm" role="button" href="system/imprint.html" target="_blank" id="footerImprint">Button: Legal Notice (i18n)</a>
 			</div>
 
 			<div class="col text-center"">
-				<a class="btn btn-outline-dark btn-sm" role='button' href='index.html' id="restart">Button: Restart</a>
+				<a class="btn btn-outline-dark btn-sm" role='button' href='index.html?' id="footherRestart">Button: Restart (i18n)</a>
 			</div>			
 			
 		</div>
 
 	</footer>
 
-	
+	<!-- Button trigger modal -->
 
-	<!-- Bootstrap-Modal "Can we use your data for statistics?" (only visible, if activated in DEFINITION.JS) -->
-	
-	<div class="modal fade" id="statisticsModal" tabindex="-1" role="dialog" aria-labelledby="statisticsModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered" role="document">
+	<!-- Modal -->
+	<div class="modal fade" id="mowModal" tabindex="-1" aria-labelledby="mowModal_Title" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
-			
 				<div class="modal-header">
-					<h5 class="modal-title" id="statisticsModalLabel"> Modal TITLE </h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-					</button>
+					<p class="modal-title fs-5" id="mowModal_Title">Modal title</p>
+					<button type="button" class="btn-close" id="mowModal_ButtonClose_Top" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
-				
-				<div class="modal-body" id="statisticsModalBody">
-				  Modal BODY
+
+				<div class="modal-body" id="mowModal_Body">
+					Text for the modal (popup)
 				</div>
-				
+
 				<div class="modal-footer">
-					<button type="button" id="statisticsModalButtonNo" class="btn btn-outline-dark" data-dismiss="modal">Close</button>
-					<button type="button" id="statisticsModalButtonYes" class="btn btn-primary">Save changes</button>
+					<button type="button" id="mowModal_ButtonClose_Bottom" class="btn btn-secondary" data-bs-dismiss="modal">Close / Disagree</button>
+					<button type="button" id="mowModal_ButtonOK" class="btn btn-primary">OK / Save changes</button>
 				</div>
 			</div>
 		</div>
-	</div>	
-	
+	</div>
+
 </div>	<!-- end: container -->
 
 <script type="text/javascript">
 	  
 	window.onload = (event) => {
 		fireUpTheEngines();
+
+// const myModal = new bootstrap.Modal(document.getElementById('statisticsModal'))
+// myModal.show()
+
 	};
 
 </script>	
