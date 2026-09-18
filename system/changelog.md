@@ -73,7 +73,7 @@
    - `output.js` -> `frontend_*.js`
 
 - **Issues**
-  - #67 Anzahl der maximal möglichen Punkte erhöhen (increase maximum points) 
+  - [#67] Anzahl der maximal möglichen Punkte erhöhen (increase maximum points) 
     - **solved** by new calculation in `backend.js -> fnEvaluationCurrentAnswer()`
     - calculation is now based on summing up `arPersonalMultiplier[x]` (old name: arVotingDouble[])  instead of `arPersonalPositions[x]` (new name: arPersonalAnswers[])
   - ...
