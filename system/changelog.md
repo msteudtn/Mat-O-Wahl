@@ -20,7 +20,7 @@
   - added https://www.papaparse.com/ 5.0.2 to parse CSV files
   - updated Bootstrap responsive CSS framework to 5.3.8 
   - new texts in `i18n`
-  - no change in the CSV-format, existing files still work
+  - **change in the CSV-format** / new entries / new lines 
 
 - **Features**
   - improved accessibility (ARIA-labels, ...)
@@ -40,15 +40,15 @@
   - added sharing **by mail** and **to clipboard** (was an extra addon before)
 
 - **Addons**
-  - addon_check_iframe_resize_client.js -> to be updated
-  - addon_check_iframe_resize_host.js -> to be updated
-  - addon_contacts_in_results.js -> to be integrated
-  - addon_favorite_party.js -> to be updated
-  - addon_limit_results.js -> to be integrated
-  - addon_permalink_to_personal_result.js -> integrated in footer
-  - addon_results_textfilter_by_button.js -> to be integrated
-  - addon_show_first_results.js -> to be integrated
-  - addon_tooltips.js -> integrated via new text in `ì18n` and title on button 
+  - `addon_check_iframe_resize_client.js` -> to be updated
+  - `addon_check_iframe_resize_host.js` -> to be updated
+  - `addon_contacts_in_results.js` -> to be integrated
+  - `addon_favorite_party.js` -> to be updated
+  - `addon_limit_results.js` -> to be integrated
+  - `addon_permalink_to_personal_result.js` -> **integrated** in footer
+  - `addon_results_textfilter_by_button.js` -> to be integrated
+  - `addon_show_first_results.js` -> to be integrated
+  - `addon_tooltips.js` -> integrated via new text in `ì18n` and title on button 
 
 - **Code**
   - using mostly JavaScript objects{} instead of arrays, now.
