@@ -23,20 +23,20 @@
   - **change in the CSV-format** / new entries / new lines 
 
 - **Features**
-  - improved accessibility (ARIA-labels, ...)
+  - improved **accessibility** (ARIA-labels, ...)
   - questions can now be **swiped** on smartphones (using Bootstrap "carousel")
-  - added options for the number of buttons in `definition.js`
+  - added options for the **number of buttons** in `definition.js`
     - show either 3 or 5 opinion / voting buttons (on the whole questionnaire, not by question)
     - show / hide the `neutral` button
     - show / hide the `double / important` button
     - show / hide the `skip` button
   - Page title can be changed with your individual X-o-mat name by setting `my_o_mat`, like "Fruit-o-Mat"
   - pagination / question-numbers 
-    - removed the numbers from "1." to n
+    - **removed** the numbers from "1." to n
     - added little indicators from Bootstrap "carousel"
     - added a "Show results" card instead of showing the results right after the last question.
-  - added a "scroll to top" button
-  - removed social media buttons
+  - added a **"scroll to top"** button
+  - **removed** social media buttons
   - added sharing **by mail** and **to clipboard** (was an extra addon before)
 
 - **Addons**
@@ -51,26 +51,32 @@
   - `addon_tooltips.js` -> integrated via new text in `ì18n` and title on button 
 
 - **Code**
-  - using mostly JavaScript objects{} instead of arrays, now.
+  - using mostly JavaScript objects{} instead of arrays[], now.
     - `arQuestionsShort` -> `objQuestions.q0.short, objQuestions.q1.short, ...`
     - `arQuestionsLong` -> `objQuestions.q0.long, objQuestions.q1.long, ...`
     - `arPartyNamesShort` -> `objCandidates.c0.short, ...`
     - `arPartyNamesLong` -> `objCandidates.c0.long, ...`
     - `arPartyPositions` -> `objCandidates.c0.answers.a0.short, ...`
     - `arPartyOpinions` -> `objCandidates.c0.answers.a0.long, ...`
-    - new: points for the specific answer `objCandidates.c0.answers.a0.points, ...`
+    - **new**: points for the specific answer `objCandidates.c0.answers.a0.points, ...`
     - `arPartyDescription` -> `objCandidates.c0.desc, ...`
     - `arPartyInternet` -> `objCandidates.c0.url, ...`
     - `arPartyLogosImg` -> `objCandidates.c0.pic, ...`
-    - new: points for the candidate `objCandidates.c0.points, ...`
-    - renamed `arPersonalPositions` -> `arPersonalAnswers`
-    - renamed `arVotingDouble` -> `arPersonalMultiplier` 
+    - **new**: points for the candidate `objCandidates.c0.points, ...`
+    - **renamed** `arPersonalPositions` -> `arPersonalAnswers`
+    - **renamed** `arVotingDouble` -> `arPersonalMultiplier` 
   - **renamed** variables in DEFINITION.JS
     - `fileAnswers` -> `fileCandidates`
     - `separator` -> `delimiter`
-  - renamed JavaScript files
+  - **renamed** JavaScript files
    - `general.js` -> `backend.js`
    - `output.js` -> `frontend_*.js`
+
+- **Issues**
+  - #67 Anzahl der maximal möglichen Punkte erhöhen (increase maximum points) 
+    - **solved** by new calculation in `backend.js -> fnEvaluationCurrentAnswer()`
+    - calculation is now based on summing up `arPersonalMultiplier[x]` (old name: arVotingDouble[])  instead of `arPersonalPositions[x]` (new name: arPersonalAnswers[])
+  - ...
 
 - **Others**
   - updated `quicktest.html` to check for errors
