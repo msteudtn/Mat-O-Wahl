@@ -1,186 +1,368 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <title>Mat-O-Wahl - Test</title>
+  <title>Test (Mat-O-Wahl)</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  
-  <meta name="author" content="Mathias Steudtner" />
+
+  <meta name="keywords" content="Test"/>
+  <meta name="robots" content="index, follow" />
+  <meta name="language" content="de" />
+  <meta name="Content-Language" content="de" />
+
+  <meta name="author" content="Standard" />
   <meta name="description" content="Mat-O-Wahl" />
   
-	<!-- BOOTSTRAP + JQUERY --- START -->
+	<!-- BOOTSTRAP CSS + JS --- START -->
 
-		<!-- ONLINE (deactivated) - Compiled and minified Bootstrap CSS -->
-		<!--	
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-		-->
+		<link rel="stylesheet" href="system/bootstrap5/bootstrap.min.css">
+		<script src="system/bootstrap5/bootstrap.bundle.min.js"></script>
 
-		<!-- LOCAL COPY (alternative) - Compiled and minified Bootstrap CSS -->
-		<link rel="stylesheet" href="system/bootstrap4/css/bootstrap.min.css">
-
-		<!-- ONLINE (deactivated) - Compiled and minified Bootstrap + jQuery JavaScript -->
-		<!--
-		<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
-		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-		-->
-
-		<!-- LOCAL COPY (alternative) - Compiled and minified Bootstrap + jQuery JavaScript -->
-		<script src="system/jquery3/jquery-3.4.1.min.js"></script>
-		<script src="system/bootstrap4/js/bootstrap.min.js"></script>
-
-	<!-- BOOTSTRAP + JQUERY --- END -->
+	<!-- BOOTSTRAP CSS + JS --- END -->
 
 
-	<!-- Mat-o-Wahl EINSTELLUNGEN / PREFERENCES (Javascript) -->
+	<!-- Mat-o-Wahl SETTINGS (Javascript) -->
 	<script type="text/javascript" src="data/definition.js"></script>
-	
-	<!-- Mat-o-Wahl JAVASCRIPT und CSS - dynamisch eingebunden auf Basis DEFINITION.JS -->
-	<script type="text/javascript">
+	<script type="text/javascript" src="system/papaparse.min.js"></script>
+	<script type="text/javascript" src="system/globals.js"></script>
+	<script type="text/javascript" src="system/backend.js"></script>
+	<script type="text/javascript" src="system/quicktest.js"></script>
+
+	<!-- Mat-o-Wahl SETTINGS (CSS) -->
+
+
+	<!-- Advanced Settings based on DEFINITION.JS - dynamically included -->	
+	<script>
+	// Mat-o-Wahl CSS Styles 
 	for (i = 0; i<= design.length-1; i++) {
 		document.writeln("<link rel='stylesheet' type='text/css' href='styles/"+design[i]+"' />");	
 	}	
+
+	// Mat-o-Wahl Language / i18n
+	document.writeln("<script type='text/javascript' src='i18n/i18n_"+language+".js'><\/script>");
 	</script>
 	
-	<!-- Mat-o-Wahl JAVASCRIPT - immer / always -->
-	<script type="text/javascript" src="system/jquery.csv-0.8.9.min.js"></script>
-	<script type="text/javascript" src="system/general.js"></script>
-	<script type="text/javascript" src="system/output.js"></script>	
-	<script type="text/javascript" src="system/quicktest.js"></script>
-
 </head>
 <body>
 
+
 <div class="container container-fluid theme-showcase">
 
-	<h1>Mat-O-Wahl - Konfigurationstest / Configuration test</h1>
-
-		<div class="row">
-			<div class="col" lang="de">
-					DE: Dieser Test liest alle wichtigen Einstellungen aus und liefert so einen schnellen &Uuml;berblick,
-					ob man vielleicht einen Fehler in der Konfiguration gemacht hat. 
-			</div>
-			<div class="col" lang="en">
-					EN: This test reads all important settings and gives you a quick overview if there's a mistake in the configuration.
-			</div>
+	<!-- Überschrift / Headline -->
+	<div class="row">
+		<div class="col" lang="de">
+			<h1>Konfigurationstest</h1>
+				DE: Dieser Test liest alle wichtigen Einstellungen aus und liefert so einen schnellen &Uuml;berblick,
+				ob man vielleicht einen Fehler in der Konfiguration gemacht hat. 
 		</div>
-
-	<h2>Fehlerbericht / Error Report</h2>
-
-		<div class="row">
-			<div class="col" lang="de">
-				<noscript style="color:#ff0000; font-weight:900">
-					DE: Dieser Test ben&ouml;tigt JavaScript. 
-					Bitte aktivieren Sie die JavaScript-Technik in Ihrem Browser.
-					Diese Meldung verschwindet, wenn JavaScript aktiv ist.
-				</noscript>
-			</div>
-			<div class="col" lang="en">
-				<noscript style="color:#ff0000; font-weight:900">
-					EN: JavaScript needed.
-					Please activate JavaScript in your browser.
-					This message disappears once JavaScript is active.
-				</noscript>
-			</div>
+		<div class="col" lang="en">
+				<h1>Configuration test</h1>
+				EN: This test reads all important settings and gives you a quick overview whether there's an error in the configuration.
 		</div>
+	</div>
 
-		<div class="row">
-			<div class="col" lang="de" id="testOtherDe">
-				<b>
-				DE: Wenn diese Meldung auch nach mehreren Minuten nicht verschwindet und JavaScript aktiviert ist, haben Sie entweder einen sehr langsamen Rechner, 
-				einen sehr umfangreichen Fragebogen oder ein echtes Problem in den Definitions-Dateien. 
-				z.B. eine <a href="data/definition.js">Einstellung</a>, die nicht sauber mit &quot;Anf&uuml;hrungszeichen&quot; eingeschlossen ist 
-				oder eine fehlende Einstellung. <u>Zum Beispiel</u>: 
-				</b>
-				<br /> 
-				<br /> Falsch: Fehlendes Anf&uuml;hrungszeichen am Anfang oder Ende.
-				<br /> <i>var fileQuestions = Fragen.csv&quot;;</i>
-				<br /> <i>var fileQuestions = &quot;Fragen.csv;</i>
-				<br />  
-				<br /> Falsch: Eine vollkommen fehlende Einstellung.
-				<br /> <i>var fileQuestions =</i>
-				<br />
-				<br /> Falsch: Eine Datei ohne Dateiendung (obwohl diese vorhanden ist) oder Gro&szlig;- und Kleinschreibung. Dateiendungen werden im Windows-Explorer normalerweise ausgeblendet. :(
-				<br /> <i>var fileQuestions = &quot;Fragen&quot;;</i>
-				<br /> 
-				<br /> Richtig: 
-				<br /> <i>var fileQuestions = &quot;Fragen.csv&quot;;</i>
-			</div>
-			<div class="col" lang="en" id="testOtherEn">
-				<b>
-				EN: If this message is still showing after some minutes and JavaScript is active, you have either a very slow computer, a very complex questionnaire or a real problem with the preferences like
-				a <a href="data/definition.js">setting</a>, that is not enclosed by &quot;quotes&quot; or one of the following wrong settings:
-				</b>
-				<br /> 
-				<br /> Wrong: Missing quote at the beginning or end.
-				<br /> <i>var fileQuestions = Fragen.csv&quot;;</i>
-				<br /> <i>var fileQuestions = &quot;Fragen.csv;</i>
-				<br />  
-				<br /> Wrong: A missing setting
-				<br /> <i>var fileQuestions =</i>
-				<br />
-				<br /> Wrong: A file without file extension (even thoug it exists) or a confusion with capital letters. Windows-Explorer usually hides the file extensions. :(
-				<br /> <i>var fileQuestions = &quot;Fragen&quot;;</i>
-				<br /> 
-				<br /> Right: 
-				<br /> <i>var fileQuestions = &quot;Fragen.csv&quot;;</i>
-			</div>
+
+	<!-- NOSCRIPT -->
+	<div class="row">
+		<div class="col" lang="de">
+			<h2>Fehlerbericht</h2>
+			<noscript style="color:#ff0000; font-weight:900">
+				DE: Dieser Test ben&ouml;tigt JavaScript. 
+				Bitte aktivieren Sie die JavaScript-Technik in Ihrem Browser.
+				Diese Meldung verschwindet, wenn JavaScript aktiv ist.
+			</noscript>
+		</div>
+		<div class="col" lang="en">
+			<h2>Error Report</h2>
+			<noscript style="color:#ff0000; font-weight:900">
+				EN: JavaScript needed.
+				Please activate JavaScript in your browser.
+				This message disappears once JavaScript is active.
+			</noscript>
+		</div>
+	</div>
+
+	<!-- http(s)://? file://? -->
+	<div class="row">
+		<div class="col border border-dark" lang="de" id="quicktest_protocol_de">
+			
+		</div>
+		<div class="col border border-dark" lang="en" id="quicktest_protocol_en">
+			
+		</div>
+	</div>
+
+	<!-- DEFINITION.JS -->
+	<div class="row">
+		<div class="col">
+			<h2>Definitionen</h2>
 		</div>
 		
-	<h2>Beschreibungen / Descriptions</h2>
-			
-		<div class="row">
-			<div class="col" id="testExplanation">
-				<i>Bitte warten, bis alle Berechnungen beendet sind ... / Please wait until all calculations are finished ...</i> 
-			</div>
-		</div>
+		<div class="col">
+			<h2>Definitions</h2>
+		</div>		
+	</div>
 
-	
+	<div class="row">
+		<div class="col border border-dark" id="quicktest_definitions_de">
+			<i>Bitte warten, bis alle Berechnungen beendet sind ...</i> 
+		</div>
+		
+		<div class="col border border-dark" id="quicktest_definitions_en">
+			<i>Please wait until all calculations are finished ...</i> 
+		</div>		
+	</div>
+
+
+	<!-- Fragen / Questions -->
 	<h2>Fragen / Questions</h2>
 	
+	<div class="row">
+		<div class="col border border-dark" id="quicktest_questions">
+			<i>Bitte einen kurzen Moment warten, bis alle Berechnungen beendet sind ... Andernfalls finden Sie Lösungsvorschläge weiter unten. / Please wait a little while until all calculations are finished ... In any case </i>
+		</div>
+	</div>
+
+	<!-- Kandidaten / Candidates-->
+	<h2>Informationen zu Kandidaten und Antworten/ Information on the candidates and answers</h2>
+	
+	<div class="row">
+		<div class="col border border-dark" id="quicktest_candidates">
+			<i>Bitte einen kurzen Moment warten, bis alle Berechnungen beendet sind ... Andernfalls finden Sie Lösungsvorschläge weiter unten. / Please wait a little while until all calculations are finished ... In any case </i>
+		</div>
+	</div>
+
+	<!-- Kandidaten / Candidates-->
+	<h2>Statistische Auswertung / Statistics</h2>
+	
+	<div class="row">
+		<div class="col border border-dark" id="quicktest_statistics">
+			<i>Bitte einen kurzen Moment warten, bis alle Berechnungen beendet sind ... Andernfalls finden Sie Lösungsvorschläge weiter unten. / Please wait a little while until all calculations are finished ... In any case </i>
+		</div>
+	</div>
+
+
+
+
+
+
+
+
+	<!-- Fallback: Possible solutions to errors. This DIV will be emptied at the end, when all calculations are finished. -->
+	<div id="quicktest_welcome">
 		<div class="row">
-			<div class="col" id="testQuestions">
-				<i>Bitte warten, bis alle Berechnungen beendet sind ... / Please wait until all calculations are finished ...</i> 
+			<div class="col" lang="de">
+				<p>
+				<b>
+				DE: Wenn diese Meldung auch nach mehreren Minuten nicht verschwindet und JavaScript aktiviert ist, gibt es möglicherweise  einen Fehler in den <a href="data/definition.js">Definitions-Dateien</a> oder den CSV-Dateien.
+				</b>
+				</p>
+			</div>
+			<div class="col" lang="en">
+				<p>
+				<b>
+				EN: If this message is still showing after some minutes and JavaScript is active, there's probably an error in the <a href="data/definition.js">settings file</a> or the CSV-files.
+				</b>
+				</p>
 			</div>
 		</div>
 
-	<h2>Antworten der Parteien und Partei-Informationen / Party answers and information</h2>
-	
 		<div class="row">
-			<div class="col" id="testAnswers">
-				<i>Bitte warten, bis alle Berechnungen beendet sind ... / Please wait until all calculations are finished ...</i>
+			<div class="col">
+						z.B. In der DATA/DEFINITION.JS: eine fehlende Einstellung oder eine Variable mit fehlenden &quot;Anf&uuml;hrungszeichen&quot;
 			</div>
+			<div class="col">
+						e.g. In DATA/DEFINITION.JS: A missing variable or a variable that is not enclosed by &quot;quotes&quot;
+			</div>			
 		</div>
 		
-	<h2>Kontakt- und Impressumsdaten / Contact and Legal Notice</h2>
-	
 		<div class="row">
-			<div class="col" id="testImprint">
-				<i>Bitte warten, bis alle Berechnungen beendet sind ... / Please wait until all calculations are finished ...</i> 
+			<div class="col">
+						<strong>Falsch:</strong> Fehlendes Anf&uuml;hrungszeichen am Anfang oder Ende. Keine Anf&uuml;hrungszeichen bei Text.
 			</div>
+			<div class="col">
+						<strong>Wrong:</strong> Missing quote at the beginning or end. Completely missing quotes on text.
+			</div>			
 		</div>
+
+		<div class="row">
+			<div class="col">
+				<code>
+				const fileQuestions = Fragen.csv&quot;;
+				<br /> const fileQuestions = &quot;Fragen.csv;
+				<br /> const fileQuestions = Fragen.csv;
+				<br /> const intQuestions = &quot;6
+				</code>
+			</div>			
+		</div>
+
+		<div class="row">
+			<div class="col">
+						<strong>Falsch:</strong> Eine fehlende Einstellung.
+			</div>
+			<div class="col">
+						<strong>Wrong:</strong> A missing setting
+			</div>			
+		</div>
+
+		<div class="row">
+			<div class="col">
+					<code> const fileQuestions =	
+					<br /> const intQuestions = 
+					</code>
+
+			</div>			
+		</div>
+		
+		<div class="row">
+			<div class="col">
+						<strong>Falsch:</strong> Ein falscher Pfad oder Dateiname, z.B. ohne Dateiendung (obwohl diese vorhanden ist) oder falsche Gro&szlig;- und Kleinschreibung.
+			</div>
+			<div class="col">
+						 <strong>Wrong:</strong> A wrong folder or file name due to a wrong file extension (even though it exists) or wrong capital letters.
+			</div>			
+		</div>
+
+		<div class="row">
+			<div class="col">
+				<code>
+				const fileQuestions = &quot;Fragen&quot;;
+				<br /> const fileQuestions = &quot;Fragen.xlsx&quot;;
+				<br /> const fileQuestions = &quot;fRAGEN.csv&quot;;
+				<br /> const fileQuestions = &quot;wrong-folder/Fragen.csv&quot;;
+				<br /> const fileQuestions = &quot;../wrong-folder/Fragen.csv&quot;;
+				</code>
+
+			</div>			
+		</div>
+		
+		<div class="row">
+			<div class="col">
+						<strong>Richtig:</strong> 
+			</div>
+			<div class="col">
+						 <strong>Correct:</strong> 
+			</div>			
+		</div>
+
+		<div class="row">
+			<div class="col">
+				<code>
+				const fileQuestions = &quot;Fragen.csv&quot;;
+				<br /> const fileQuestions = &quot;right-folder/Fragen.csv&quot;;
+				<br /> const fileQuestions = &quot;../right-folder/Fragen.csv&quot;;
+				<br /> const intQuestions = 6
+				</code> 
+
+			</div>			
+		</div>		
+		
+		<div class="row">
+			<div class="col">
+						<strong>Falsch:</strong> Ein falsches Trennzeichen für die CSV-Dateien.
+			</div>
+			<div class="col">
+						 <strong>Wrong:</strong> A wrong delimiter for the CSV-files.
+			</div>			
+		</div>
+
+		<div class="row">
+			<div class="col">
+				
+				DEFINITION.JS: <code>const delimiter = ","</code>
+				<br /> CSV:  <code>-1 ; We disagree</code>
+			</div>			
+		</div>
+
+		<div class="row">
+			<div class="col">
+				<strong>Richtig:</strong> 
+			</div>
+			<div class="col">
+				 <strong>Correct:</strong> 
+			</div>			
+		</div>
+
+		<div class="row">
+			<div class="col">
+				DEFINITION.JS: <code>const delimiter = ";"</code>
+				<br /> CSV:  <code>-1 ; We disagree</code>
+			</div>			
+		</div>		
+
+
+		<div class="row">
+			<div class="col">
+				<strong>Falsch:</strong> Die Anzahl der Fragen <code>intQuestion</code> in der DEFINITION.JS ist unterschiedlich zur Anzahl der <b>Fragen in der FRAGEN-CSV-Datei</b>.
+			</div>
+			<div class="col">
+				 <strong>Wrong:</strong> The number of questions <code>intQuestion</code> in DEFINITION.JS doesn't match the number of <b>questions in the QUESTIONS-CSV</b>-file.
+			</div>			
+		</div>
+
+		<div class="row">
+			<div class="col">
+				<strong>Falsch:</strong> Die Anzahl der Fragen <code>intQuestion</code> in der DEFINITION.JS ist unterschiedlich zur Anzahl der <b>Antworten in der KANDIDATEN-CSV</b>-Datei.
+			</div>
+			<div class="col">
+				<strong>Wrong:</strong> The number of questions <code>intQuestion</code> in DEFINITION.JS doesn't match the number of <b>answers in the CANDIDATE-CSV</b>-file.
+			</div>			
+		</div>
+
+		<div class="row">
+			<div class="col">
+				<strong>Falsch:</strong> Die CSV-Dateien haben <b>unterschiedliche Trennzeichen</b>. z.B. FRAGEN.CSV mit Semikolon (;) und KANDIADTEN mit Komma (,).
+			</div>
+			<div class="col">
+				<strong>Wrong:</strong> The CSV-files use <b>different delimiters</b>. e.g. The QUESTIONS.CSV has semicolon (;) and the CANDIDATE.CSV uses a comma (,).
+			</div>			
+		</div>
+
+		<div class="row">
+			<div class="col">
+				<strong>Falsch:</strong> Die CSV-Dateien sind keine Textdateien, sondern noch im <b>falschen Dateiformat</b> von MS Excel (XLS, XLSX) oder LibreOffice (ODS). Versuchen Sie die Datei im Texteditor zu öffnen.
+			</div>
+			<div class="col">
+				<strong>Wrong:</strong> The CSV-files aren't text files but still in the <b>wrong file format</b>. like MS Excel (XLS, XLSX) oder LibreOffice (ODS). Try to open it in a text editor.
+			</div>			
+		</div>
+
+		<div class="row">
+			<div class="col">
+				<strong>Falsch:</strong> Die KANDIDATEN-CSV-Datei hat viele <b>leere Zeilen am Ende</b>. Das beeinträchtigt die automatische Berechnung der Anzahl der Kandidaten.
+			</div>
+			<div class="col">
+				<strong>Wrong:</strong> The CANDIDATE-CSV</b>-file has multiple <b>empty lines at the end</b>. This affects the automatic calculation of candidate numbers. 
+			</div>			
+		</div>
+
+
+
+	</div> <!-- end: quicktest_welcome -->
+
+
 
 	<div class="row">
 		<div class="col">
-			<a class="btn btn-outline-dark btn-block btn-sm" role="button" href="index.html">[&#x21D0;] Zur&uuml;ck / Back</a>
+			<a class="btn btn-outline-dark btn-block btn-sm w-100" role="button" href="index.html">&#x1F870; Zur&uuml;ck / Back</a>
 		</div>	
 		<div class="col">
-			<a class='btn btn-outline-dark btn-block btn-sm' role='button' href='quicktest.html' id="restart">[&#x21BB;] Neu Laden / Reload</a>
+			<a class="btn btn-outline-dark btn-block btn-sm w-100" role='button' href='quicktest.html' id="restart">&#x21BB; Neu Laden / Reload</a>
 		</div>		
 	</div>
+
 		
 </div>
 
 <script type="text/javascript">
 
-	fnTestStart();
+  
+	window.onload = (event) => {
+		fnTestStart();
+		};
 
-	var jetzt = new Date();
-	var sekunden = jetzt.getTime(); 
-
-	// System nicht aus dem Cache laden lassen, sondern immer mit neuem Parameter	
-	$("#restart").attr("href","quicktest.html?"+sekunden);
-	
 </script>
+
 
 </body>
 </html>
