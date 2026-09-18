@@ -19,46 +19,55 @@ a:not(.btn):visited { color:#404040; }
 a:not(.btn):active { color:#FF0000; }
 a:not(.btn):hover { color:#FF0000; text-decoration:none; }
 
+.hideWelcomeShowQuestions {}
 
-/* hide */
-.fading.fadingStop {
-	font-size: 0;
-	margin: 0;
-	opacity: 0;
-	padding: 0;
-	height: 0;
-	border: 0;
-	overflow:hidden;
-	/* fade out, then shrink */
-	transition: opacity 0.5s ease,
-		font-size 0.5s ease,
-		margin 0.5s ease,
-		padding 0.5s ease,
-		height 0.5s ease,
-		border 0.5s ease;
+.hideQuestionsAndShowResults {}
+
+.hideShareButtons {}
+
+.mow-wrapper000
+{
+ width:50%;
+ height:20%;
+ 
+ margin:auto;
+ position:absolute;
+ /* left:40%; */
+ /* top:50%; */
+ 
+ /*
+ margin-left:auto;
+ margin-top:auto;
+ */
 }
 
-/* reveal */
-.fading {
-    /* unshrink, then fade in */
-    transition: font-size 0.5s ease,
-                margin 0.5s ease,
-                padding 0.5s ease,
-                opacity 0.5s ease,
-                height 0.5s ease,
-		border 0.5s ease;
+.mow-wrapper111 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position:absolute;
+}
+
+.mow-centered {
+  position: fixed;
+  inset: 0px;
+  width: 20rem;
+  height: 3rem;
+  max-width: 100vw;
+  max-height: 100dvh;
+  margin: auto;
 }
 
 .opacity025 {
 	background: rgba(255, 255, 255, 0.25);
 }
 
-/* Statistik */
-/* Statistics */
-#keepStats { 
-	margin-top:10px; 
-	font-size:90%; 
-	}
+#footer_button_scrollToTop {
+	position: fixed;
+	bottom: 1em;
+	right: 1em;
+	display: none;
+}
 
 /* Willkommensnachricht (erster DIV)
    Welcome Message (first DIV) */
@@ -72,11 +81,13 @@ a:not(.btn):hover { color:#FF0000; text-decoration:none; }
 
 /* BOOTSTRAP */
 .row {
+/*
 	padding: 0.2em;  
+*/
 }
 
 .col {
-/*	padding: 0.5em;  */
+	padding: 0.5em;  
 }
 
 
