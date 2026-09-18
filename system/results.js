@@ -1,3 +1,5 @@
+"use strict"
+
 // RESULTS.JS http://www.mat-o-wahl.de
 // Read results from anonymous (example) statistics / VOTE.PHP / Auslesen der (Beispiel) Statistik-Ergebnisse
 // License: GPL 3
@@ -25,7 +27,8 @@ var faktor = 3; // Faktor für Länge der Balkens
 function fnResultsStart()
 {
 	// Datei mit den FRAGEN in Array einlesen
-	fnReadCsv("data/"+fileQuestions+"",fnResultsQuestionsToArray);
+fnReadQuestions()
+	console.log(objQuestions)
 
 	// Antworten der Parteien und Partei-Informationen
 	fnReadCsv("data/"+fileAnswers,fnReadPositions)

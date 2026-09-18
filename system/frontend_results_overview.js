@@ -12,7 +12,7 @@ License: GPL 3+
 function fnCreateResults_Overview(arCandidatesSortedByPoints, intMaxPoints) {
 
 	// Get the parent div for all candidates (overview)
-	const parentToTemplate = document.getElementById("resultsOverviewCandidates")
+	const parentToTemplate = document.getElementById("results_overview")
 
 	// Clear all existing content
 	parentToTemplate.innerHTML = ""
@@ -27,34 +27,42 @@ function fnCreateResults_Overview(arCandidatesSortedByPoints, intMaxPoints) {
 		let idOfCandidate = arCandidatesSortedByPoints[i].id
 
 		// Create a clone of the results-overview-template
-		const template = document.getElementById("resultsOverviewCandidatesTemplate");
+		const template = document.getElementById("results_overview_byMatches_template");
 		const templateClone = document.importNode(template.content, true);
 
 		/* ----------------------------------------------------------- */
 
-		// Add a click-function to the toggle-button to open / close the description (before changing it's ID later)
-		const buttonShowCandidateDivDescription = templateClone.getElementById("buttonShowCandidateDivDescription-X")
-		buttonShowCandidateDivDescription.onclick = function () { fnToggleDiv("candidateDivDescription-"+i, "buttonShowCandidateDivDescription-"+i, 1) } 
+		// Get the TOGGLE-button to open / close the DESCRIPTION (before changing it's ID later)
+		// The button has a Bootstrap "collapse" function in it.
+		const results_overview_byMatches_button_ShowCandidateDescription = templateClone.getElementById("results_overview_byMatches_button_ShowCandidateDescription-X")
 
 		// Set the attributes of the toggle-button for this candidate
-		buttonShowCandidateDivDescription.innerHTML = "[open / close]"	
-		buttonShowCandidateDivDescription.id = "buttonShowCandidateDivDescription-"+i
-		buttonShowCandidateDivDescription.setAttribute("aria-label", TEXT_RESULTS_TOGGLE_BUTTON)
-		buttonShowCandidateDivDescription.title = TEXT_RESULTS_TOGGLE_BUTTON
+		results_overview_byMatches_button_ShowCandidateDescription.id = "results_overview_byMatches_button_ShowCandidateDescription-"+i
+		results_overview_byMatches_button_ShowCandidateDescription.setAttribute("data-bs-target", "#results_overview_byMatches_divCandidateDescription-"+i)
+		results_overview_byMatches_button_ShowCandidateDescription.setAttribute("aria-label", TEXT_RESULTS_TOGGLE_BUTTON)
+		results_overview_byMatches_button_ShowCandidateDescription.title = TEXT_RESULTS_TOGGLE_BUTTON
+		results_overview_byMatches_button_ShowCandidateDescription.setAttribute("aria-controls", "results_overview_byMatches_divCandidateDescription-"+i)
+		results_overview_byMatches_button_ShowCandidateDescription.title = TEXT_RESULTS_TOGGLE_BUTTON
  
 		/* ----------------------------------------------------------- */
 
-		// Set the short name of the candidate (from objCandidates)
-		const candidateShort = templateClone.getElementById("candidateShort-X")
-		candidateShort.innerHTML = objCandidates[idOfCandidate].short
-		candidateShort.id = "candidateShort-"+i
+		// Set the short NAME of the candidate (from objCandidates)
+		const candidateShort = templateClone.getElementById("results_overview_byMatches_candidateShortName-X")
+		candidateShort.innerHTML = "&nbsp;"+objCandidates[idOfCandidate].short
+		candidateShort.id = "results_overview_byMatches_candidateShortName-"+i
 
-		// Set the long name of the candidate (from objCandidates)
+		// Set the long NAME of the candidate (from objCandidates)
+		// If there's none, we set the display to "none" to hide the element (mainly relevant for screen-readers)
 		const candidateLong = templateClone.getElementById("candidateLong-X")
-		candidateLong.innerHTML = objCandidates[idOfCandidate].long
+		const candidateLongText = objCandidates[idOfCandidate].long
+		if (candidateLongText.length > 1) {
+			candidateLong.innerHTML = candidateLongText }
+		else {
+			candidateLong.style.display = "none" }
 		candidateLong.id = "candidateLong-"+i
 
-		// Set the description of the candidate (from objCandidates) - if available
+		// Set the DESCRIPTION of the candidate (from objCandidates) - if available
+		// If there's none, we show an error message
 		const candidateDescription = templateClone.getElementById("candidateDescription-X")
 		let candidateDescriptionText = objCandidates[idOfCandidate].desc
 		if (candidateDescriptionText.length > 1) {
@@ -64,21 +72,31 @@ function fnCreateResults_Overview(arCandidatesSortedByPoints, intMaxPoints) {
 		candidateDescription.id = "candidateDescription-"+i
 
 		// Set the URL (web, site, page) of the candidate (from objCandidates)
+		// If there's none, we set the display to "none" to hide the element (mainly relevant for screen-readers)
 		const candidateUrl = templateClone.getElementById("candidateUrl-X")
-		candidateUrl.innerHTML = objCandidates[idOfCandidate].url
+		const candidateUrlText = objCandidates[idOfCandidate].url 
+		if (candidateUrlText.length > 1) {
+			candidateUrl.innerHTML = candidateUrlText }
+		else {
+			candidateUrl.style.display = "none" }
 		candidateUrl.id = "candidateUrl-"+i
 
 		/* ----------------------------------------------------------- */
 
-		// Set the image of the candidate (from objCandidates)
+		// Set the IMAGE of the candidate (from objCandidates)
+		// If there's none, we set the display to "none" to hide the element (mainly relevant for screen-readers)
 		const candidateImage = templateClone.getElementById("candidateImage-X")
-		candidateImage.src = objCandidates[idOfCandidate].pic
+		const candidateImageText = objCandidates[idOfCandidate].pic 
+		if (candidateImageText.length > 1) {
+			candidateImage.src = candidateImageText }
+		else {
+			candidateImage.style.display = "none" }
 		candidateImage.id = "candidateImage-"+i
 		candidateImage.title = TEXT_IMAGE+ " : " + objCandidates[idOfCandidate].short
 		candidateImage.setAttribute("alt", TEXT_IMAGE+ " : " + objCandidates[idOfCandidate].short)
 
-		// Set the ID of the parent description-DIV to toggle it later by button "buttonShowCandidateDivDescription-X"
-		templateClone.getElementById("candidateDivDescription-X").id = "candidateDivDescription-"+i
+		// Set the ID of the parent description-DIV to toggle it later by button "results_overview_byMatches_button_ShowCandidateDescription-X"
+		templateClone.getElementById("results_overview_byMatches_divCandidateDescription-X").id = "results_overview_byMatches_divCandidateDescription-"+i
 
 		/* ----------------------------------------------------------- */
 
@@ -125,12 +143,6 @@ function fnCreateResults_Overview(arCandidatesSortedByPoints, intMaxPoints) {
 
 		// Append the new clone to the parent "resultsOverviewCandidates"
 		parentToTemplate.appendChild(templateClone);
-
-		/* ----------------------------------------------------------- */
-
-		// Run the TOGGLE-function to hide the description-DIV and set open/close-icon on the button
-		fnToggleDiv("candidateDivDescription-"+i, "buttonShowCandidateDivDescription-"+i, 1)
-
 	}
 
 

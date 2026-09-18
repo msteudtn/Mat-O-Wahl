@@ -38,11 +38,11 @@ let objCandidates = {}
 let intCandidates = 0
 
 // Array of the person's answers to the candidate's-questions 
-// Example: [1, 0, 99, , -1] = yes, neutral, skip, empty, no
+// Example: [1, 0, -1, 99] = yes, neutral, no, skip 
 let arPersonalAnswers = []
 
-// Array of the person's double answers to the candidate's-questions 
-// Example: [1, 1, 0, , 2] = normal, normal, skip, skip, double
+// Array of the person's important (double) answers to the candidate's-questions 
+// Example: [1, 1.5, 2, 3, 0] = normal, very much (but not double), double, very much and double, skip
 let arPersonalMultiplier = []
 
 // JSON-data of the person's answers to the candidate's-questions 
@@ -53,3 +53,4 @@ let arPersonalMultiplier = []
 // This array will be sorted by points and used for the order of results.
 // let arPartiesSortedByPoints = []
 
+// const scrollToTopButton = document.getElementById("footer_button_scrollToTop");

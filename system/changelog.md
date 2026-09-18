@@ -2,31 +2,55 @@
 
 ## To Do 
 
-- Features / Design
-  - More than two answers (yes/no) like in https://github.com/JohnboyJovi/Mat-O-Wahl-multiAnswer -> "agree a lot, agree, -, disagree, disagree a lot"
-  - jumpToQuestion-Tabelle unter den Fragen: Alternative Ansicht: Keine Nummerierung (Mat-o-Wahl), sondern Punkte und Sterne (Wahl-o-Mat)
-  - Include videos in questions or party-answers
-  - Add more Social Media-Buttons (Instagram, ...) or outsource via https://github.com/heiseonline/shariff
-- Technik / unter der Haube:
-  - Quellcode aufraeumen, optimieren und besser dokumentieren.
-  - Pruefen: Unterschiede beim Einlesen von CSV-Dateien zwischen Windows, Mac und Unix?
-  - Wechsel von Arrays (wo die Daten gespeichert sind) hin zu HTML5-Datenbanktechniken (z.B. IndexedDB, evtl. WebStorage) oder anderes
-  - remove all jquery, use JavaScript-Framework like VUE.JS, ANGULAR, REACT or VANILLA-JS
-  - Creator / Configurator: Survey-Tool with basic questions and automatic creation of Mat-o-Wahl ZIP-file.
-  - Update jquery-csv to a new version (https://github.com/typeiii/jquery-csv) or "CSV-ES"-project (https://github.com/vanillaes/csv)
-  - Technik: Update Bootstrap to latest version
-  - Bugfix: if you skip questions, you can't change it later in the "resultsLongTable". GENERAL.JS -> fnToggleSelfPosition()
-  - and much more
+- change the system language by choosing from a button
 
+
+## Known bugs ##
+
+- after sending off the statistic results, the "share to clipboard" button sends off the statistics again
 
 ## Versions:
 
 ### 0.7.0.0.2026xxxx
 
 - Complete rewrite / **breaking changes**
+
+- **Dependencies**
+  - removed https://jquery.com/ library 
+  - added https://www.papaparse.com/ 5.0.2 to parse CSV files
+  - updated Bootstrap responsive CSS framework to 5.3.8 
+  - new texts in `i18n`
+  - no change in the CSV-format, existing files still work
+
+- **Features**
   - improved accessibility (ARIA-labels, ...)
-  - removed jQuery library 
-  - updated Bootstrap to 5.3.8 
+  - questions can now be **swiped** on smartphones (using Bootstrap "carousel")
+  - added options for the number of buttons in `definition.js`
+    - show either 3 or 5 opinion / voting buttons (on the whole questionnaire, not by question)
+    - show / hide the `neutral` button
+    - show / hide the `double / important` button
+    - show / hide the `skip` button
+  - Page title can be changed with your individual X-o-mat name by setting `my_o_mat`, like "Fruit-o-Mat"
+  - pagination / question-numbers 
+    - removed the numbers from "1." to n
+    - added little indicators from Bootstrap "carousel"
+    - added a "Show results" card instead of showing the results right after the last question.
+  - added a "scroll to top" button
+  - removed social media buttons
+  - added sharing **by mail** and **to clipboard** (was an extra addon before)
+
+- **Addons**
+  - addon_check_iframe_resize_client.js -> to be updated
+  - addon_check_iframe_resize_host.js -> to be updated
+  - addon_contacts_in_results.js -> to be integrated
+  - addon_favorite_party.js -> to be updated
+  - addon_limit_results.js -> to be integrated
+  - addon_permalink_to_personal_result.js -> integrated in footer
+  - addon_results_textfilter_by_button.js -> to be integrated
+  - addon_show_first_results.js -> to be integrated
+  - addon_tooltips.js -> integrated via new text in `ì18n` and title on button 
+
+- **Code**
   - using mostly JavaScript objects{} instead of arrays, now.
     - `arQuestionsShort` -> `objQuestions.q0.short, objQuestions.q1.short, ...`
     - `arQuestionsLong` -> `objQuestions.q0.long, objQuestions.q1.long, ...`
@@ -47,17 +71,21 @@
   - renamed JavaScript files
    - `general.js` -> `backend.js`
    - `output.js` -> `frontend_*.js`
-  - questions can now be **swiped** on smartphones (using Bootstrap "carousel")
-  - no change in the CSV-format, still works
-  - new texts in i18n
-- still  to do
-  - imprint
-  - quicktest
-  - database results html
-  - documentation and faq on website
-  - check UI and CSS styles
-- faster, better, stronger!
 
+- **Others**
+  - updated `quicktest.html` to check for errors
+  - checked default legal notice / imprint
+  - moved `imprint.html` from root folder to `system/`
+  - removed EU Online Dispute Resolution from imprint, because it's no longer needed
+  - removed PDF help file
+  - added graphic with flow of functions (it's not a real UML-graph but a good overview)
+
+- still  **to do**
+  - update results of database / statistics
+  - update documentation and faq on website
+  - check / update `extras/addons`
+  - check UI and CSS styles, like "button-colors-off"
+  - increase performance
 
 ### 0.6.0.12.20250425
 

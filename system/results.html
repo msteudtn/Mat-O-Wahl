@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <title>Statistik (Mat-O-Wahl)</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="keywords" content="Statistik, statistics"/>
+  <meta name="robots" content="index, follow" />
+  <meta name="language" content="de" />
+  <meta name="Content-Language" content="de" />
+
+  <meta name="author" content="Standard" />
+  <meta name="description" content="Mat-O-Wahl" />
+  
+	<!-- BOOTSTRAP CSS + JS --- START -->
+
+		<link rel="stylesheet" href="../system/bootstrap5/bootstrap.min.css">
+		<script src="../system/bootstrap5/bootstrap.bundle.min.js"></script>
+
+	<!-- BOOTSTRAP CSS + JS --- END -->
+
+
+	<!-- Mat-o-Wahl SETTINGS (Javascript) -->
+	<script type="text/javascript" src="../data/definition.js"></script>
+	<script type="text/javascript" src="../system/papaparse.min.js"></script>
+	<script type="text/javascript" src="../system/globals.js"></script>
+	<script type="text/javascript" src="../system/backend.js"></script>
+	<script type="text/javascript" src="../system/results.js"></script>
+
+
+	<!-- Mat-o-Wahl SETTINGS (CSS) -->
+
+
+	<!-- Advanced Settings based on DEFINITION.JS - dynamically included -->	
+	<script>
+	// Mat-o-Wahl CSS Styles 
+	for (i = 0; i<= design.length-1; i++) {
+		document.writeln("<link rel='stylesheet' type='text/css' href='../styles/"+design[i]+"' />");	
+	}	
+
+	// Mat-o-Wahl Language / i18n
+	document.writeln("<script type='text/javascript' src='../i18n/i18n_"+language+".js'><\/script>");
+	</script>
+	
+</head>
+<body>
+
+
+<div class="container container-fluid theme-showcase">
+
+	<h1>Auswertung - Mat-O-Wahl</h1>
+
+	<noscript style="color:#ff0000; font-weight:900">
+		Diese Auswertung ben&ouml;tigt JavaScript. 
+		Bitte aktivieren Sie die JavaScript-Technik in Ihrem Browser.
+		Diese Meldung verschwindet, wenn JavaScript aktiv ist.
+	</noscript>
+
+	<div class="row">
+		<div class="col">
+
+			<div id="resultsInformation">
+				Informationen zur Auswertung
+			</div>
+		
+		</div>
+	</div>
+
+	<h2>Abstimmung zu den Parteien</h2>
+		
+	<div class="row">
+		<div class="col">
+
+			<div id="resultsParties">
+				Bitte warten, bis alle Berechnungen beendet sind ...
+			</div>
+		
+		</div>
+	</div>		
+
+	<h2>Abstimmung zu den einzelnen Fragen</h2>
+
+	<div class="row">
+		<div class="col">
+
+			<div id="resultsQuestions">
+				Bitte warten, bis alle Berechnungen beendet sind ...
+			</div>
+		
+		</div>
+	</div>
+
+	<h2>Abstimmung nach Tagen</h2>
+
+	<div class="row">
+		<div class="col">
+
+			<div id="resultsTimes">
+				Bitte warten, bis alle Berechnungen beendet sind ...
+			</div>
+		
+		</div>
+	</div>
+
+	<p class="text-end">
+		<a class="btn btn-outline-dark " role="button" href="../index.html">&#x1F870; Zur&uuml;ck / Back</a>
+	</p>
+		
+</div>
+
+<script type="text/javascript">
+	var jetzt = new Date();
+	var sekunden = jetzt.getTime(); 
+
+	// System nicht aus dem Cache laden lassen, sondern immer mit neuem Parameter
+	var div = document.getElementById("extras");
+	div.innerHTML += " - Auswertung <a href='results.html?"+sekunden+"'>neu starten<\/a>?";
+
+</script>
+
+<script type="text/javascript">
+
+	window.onload = (event) => {
+		fnResultsStart();
+	};
+
+</script>	
+
+</body>
+</html>

@@ -11,7 +11,24 @@ License: GPL 3+
 
 // Read both CSV files and call follow-up functions
 function fireUpTheEngines() {
-	
+
+	// Read the "fileQuestions" (DEFINITION.JS) into "objQuestions" (global.js) 
+	fnReadQuestions()
+
+	// Read the "fileCandidates" (DEFINITION.JS) into "objCandidates" (global.js) 
+	fnReadCandidates()
+
+	// Show the welcome screen 
+	fnShowWelcomeScreenAndSetLocalTexts()
+
+		
+} // end: fireUpTheEngines()
+
+/* *************************************************************************** */
+
+// Read the "fileQuestions" (DEFINITION.JS) into "objQuestions" (global.js) 
+function fnReadQuestions() {
+
 	// Use www.papaparse.com to read questions CSV with the filename and delimiter from DEFINITION.JS 
 	Papa.parse(fileQuestions, {
 		download: true,
@@ -26,7 +43,13 @@ function fireUpTheEngines() {
 			fnQuestionsArrayToJSON(dataQuestions.data)
 		}
 	});
+} // end: fnReadQuestions()
 
+/* *************************************************************************** */
+
+// Read the "fileCandidates" (DEFINITION.JS) into "objCandidates" (global.js) 
+function fnReadCandidates() {
+	
 	// Use www.papaparse.com to read candidates CSV with the filename and delimiter from DEFINITION.JS 
 	Papa.parse(fileCandidates, {
 		download: true,
@@ -38,14 +61,12 @@ function fireUpTheEngines() {
 		complete: function(dataCandidates) {
 			// console.log(dataCandidates)
 			console.log("Mat-o-Wahl: OK. File "+fileCandidates+" loaded successfully.")
-			fnCandidatesArrayToJSON(dataCandidates.data)			
+			fnCandidatesArrayToJSON(dataCandidates.data) 
 		}
 	});
+	
+} // end: 	fnReadCandidates()
 
-	// Show the welcome screen 
-	fnShowWelcomeScreen()
-		
-} // end: fireUpTheEngines()
 
 /* *************************************************************************** */
 
@@ -71,7 +92,7 @@ function fnQuestionsArrayToJSON(dataQuestions) {
 	}
 
 //	var size = Object.keys(objQuestions).length;
-//	console.log(objQuestions )
+//	console.log(objQuestions)
 
 	// Create the Bootstrap carousel with questions
 	fnCreateQuestions(objQuestions)
@@ -190,41 +211,82 @@ function fnCandidatesArrayToJSON(dataCandidates) {
 
 /* *************************************************************************** */
 
+function fnEvaluationAllAnswers() {
+
+	for (let i = 0; i <= arPersonalAnswers.length-1; i++) {
+
+		let percent = Math.round( ( (i+1) / intQuestions ) * 100 )
+//		fnLoadingProgress(percent)
+
+		// The evaluation may block the browser while calculating -> run it in a setTimeout() to show the progress
+		// To do: Change to Web Workers or other strategies!
+		setTimeout(function() {
+			fnEvaluationCurrentAnswer(i, arPersonalAnswers[i], arPersonalMultiplier[i])
+		}, 100);
+
+	}
+
+}
+
+/* *************************************************************************** */
 
 // Calculate the points and create the results-overview in the background.
 // This function is called every-time a voting-button is clicked.
-function fnEvaluation(intCurrentQuestion, intCurrentAnswer, intCurrentMultiplier) {
+function fnEvaluationCurrentAnswer(intCurrentQuestion, intCurrentAnswer, intCurrentMultiplier) {
 
-	// console.log("Running fnEvaluation() Question no. "+intCurrentQuestion+" - answer: "+intCurrentAnswer+" x "+intCurrentMultiplier)
+	console.log("Run fnEvaluationCurrentAnswer() Question no. "+intCurrentQuestion+" - answer: "+intCurrentAnswer+" x "+intCurrentMultiplier)
 
-	// Save the current answer to the array of the user's answers and multiplier (double voting)
+	// Save the current answer to the global ARRAY of the user's ANSWERS and MULTIPLIER (double voting)
 	// Example: arPersonalAnswers[2] = -1 turns into [1,-1,-1]
 	arPersonalAnswers[intCurrentQuestion] = intCurrentAnswer 
 	arPersonalMultiplier[intCurrentQuestion] = intCurrentMultiplier;
 
-	// Correct the multiplier, if the answer was skipped (99)
-	// This can happen, when changing the answers on the RESULTS-table -> fnEvaluation(23, 99, 2)
-	if ( (intCurrentAnswer == 99) ) {
+//	console.log(arPersonalAnswers)
+//	console.log(arPersonalMultiplier)
+
+
+	// Go through ALL answers and correct the skipped (empty) values. 
+	for (let i = 0; i <= intQuestions-1; i++) {
+		if ( (arPersonalAnswers[i] === undefined) || (!arPersonalAnswers) ) {
+			arPersonalAnswers[i] = 99
+		}
+	}
+
+	// Go through ALL multipliers and correct the skipped (empty) values. 
+	for (let i = 0; i <= intQuestions-1; i++) {
+		if (arPersonalAnswers[i] == 99) {
+			arPersonalMultiplier[i] = 0
+		}
+	}
+
+
+	// Additionally, check the skipped-value for the CURRENT answer, because "intCurrentMultiplier" has been set before and not changed.
+	if (arPersonalAnswers[intCurrentQuestion] == 99) {
 		intCurrentMultiplier = 0
 	}
 
 
+
+//	console.log(arPersonalAnswers)
+//	console.log(arPersonalMultiplier)
+
+
 	/* ------------------------------------------------------------------- */
 
-	// Go through all candidates and check, if their answer number X matches with the user's answer number X.
+	// Go through all CANDIDATES and check, if their answer number X matches with the user's answer number X.
+	// If so, add the POINTS to this candidate's answer in "objCandidates.C.answer.A.points"
 	for (let i = 0; i <= intCandidates-1; i++ ) {
 
-		// Reset points for this question
+		// Reset the candidate's points for this question
 		objCandidates[ "c"+i ].answers[ "a"+intCurrentQuestion ].points = 0
 		let candidatesAnswer = objCandidates[ "c"+i ].answers[ "a"+intCurrentQuestion ].short
 
 
 		// If the current user's answer matches the candidate's (short) answer, we'll save the point(s) for this SPECIFIC answer
-		// Example: ( intCurrentAnswer = -1 ) == (objCandidates["c0"].answers["a23"].short = -1 ) -> match -> one point * intMultiplier
+		// Example: ( intCurrentAnswer[23] = -1 ) == (objCandidates["c0"].answers["a23"].short = -1 ) -> match -> one point * intMultiplier
 		if (intCurrentAnswer == candidatesAnswer) {
 			objCandidates[ "c"+i ].answers[ "a"+intCurrentQuestion ].points = 1 * intCurrentMultiplier
 		}
-
 
 		// The USER stayed neutral or didn't decide. Their answer was "0"
 		// In this case, it doesn't matter, what the CANDIDATE decided. It's always 0.5 points * intMultiplier
@@ -244,14 +306,7 @@ function fnEvaluation(intCurrentQuestion, intCurrentAnswer, intCurrentMultiplier
 		}
 	}
 
-/*
-	console.log("a0 "+objCandidates[ "c3" ].answers[ "a0"].points)
-	console.log("a1 "+objCandidates[ "c3" ].answers[ "a1"].points)
-	console.log("a2 "+objCandidates[ "c3" ].answers[ "a2"].points)
-	console.log("a3 "+objCandidates[ "c3" ].answers[ "a3"].points)
-	console.log("a4 "+objCandidates[ "c3" ].answers[ "a4"].points)
-	console.log("a5 "+objCandidates[ "c3" ].answers[ "a5"].points)
-*/
+
 	// Now, we'll go through all candidates and their "objCandidates.C.answer.A.points" again to sum it up in the higher level "objCandidates.C.points".
 	for (let i = 0; i <= intCandidates-1; i++ ) {
 
@@ -266,7 +321,6 @@ function fnEvaluation(intCurrentQuestion, intCurrentAnswer, intCurrentMultiplier
 		}
 	} 
 
-//	console.log("PT "+objCandidates[ "c3" ].points)
 
 	/* ------------------------------------------------------------------- */
 
@@ -277,48 +331,64 @@ function fnEvaluation(intCurrentQuestion, intCurrentAnswer, intCurrentMultiplier
 		arCandidatesSortedByPoints.push( { id: "c"+i, points: objCandidates[ "c"+i ].points } ) 
 	}
 
-	// Sort the array of sorted points by points.
+//	console.log("c0-points: points: "+objCandidates[ "c0" ].points )
+//	console.log("c1-points: points: "+objCandidates[ "c1" ].points )
+//	console.log("c2-points: points: "+objCandidates[ "c2" ].points )
+//	console.log("c3-points: points: "+objCandidates[ "c3" ].points )
+
+	// Sort the array of sorted points by POINTS.
 	// Before: arCandidatesSortedByPoints[ { id: c0, points: 2 } , { id: c1, points: 5 } ]
 	// After:  arCandidatesSortedByPoints[ { id: c1, points: 5 } , { id: c0, points: 2 } ]
 	arCandidatesSortedByPoints.sort((a, b) => b.points - a.points);
 
+	// console.log(arCandidatesSortedByPoints)
+
 	/* ------------------------------------------------------------------- */
 
 	// Maximum number of points that can be reached.
-	// Example: {a0:1, 1, 1, 1, 1, a5:1} -> 6 out of 6 questions answered normally (1) = max. 6 points
-	//          {a0:1, 1,  , 1, 1, a5:1} -> 5 out of 6 questions answered normally (1), one not clicked = max. 5 points
-	//          {a0:1, 1,  , 0, 1, a5:1} -> 4 out of 6 questions answered normally (1), one not clicked, one skipped (0) = max. 4 points
-	//          {a0:1, 1,  , 2, 1, a5:1} -> 5 out of 6 questions answered normally + one time "double" button (2) = max. 6 points
+	// Example: arPersonalAnswers   x arPersonalMultiplier
+	//	    [1, 1, -1, -1, 1, 0] x [1, 1, 1, 1, 1, 1]   -> 6 out of 6 questions answered normally = max. 6 points
+	//          [1, 1, -1, 99, 1, 0] x [1, 1, 1, 0, 1, 1]   -> 5 out of 6 questions answered normally, one skipped (99x0) = max. 5 points
+	//          [1, 1, -1, 99, 1, 0] x [3, 2, 1.5, 0, 1, 1] -> 5 out of 6 questions answered normally, one skipped (99x0), three multipliers (1x3, 1x2, -1x1.5) = max. 8.5 points
 	let intMaxPoints = 0
 
-	// Loop through the "multiplier"-keys and add them together
-//	for (let key in objPersonalAnswers) {
-//		intMaxPoints = intMaxPoints + objPersonalAnswers[key].multiplier
-//	}
-
+	// Loop through the "multiplier" and add them together
 	for (let i = 0; i <= arPersonalMultiplier.length-1; i++ ) {
 
-		// Question was skipped -> no value on this index [i]
-		if ( (arPersonalAnswers[i] == 99) || (!arPersonalMultiplier[i]) ) { }	
-		else {
-			intMaxPoints = intMaxPoints + arPersonalMultiplier[i]
-		}
-// 		console.log("intMaxPoints: "+intMaxPoints)
+		intMaxPoints = intMaxPoints + arPersonalMultiplier[i]
+		// console.log("intMaxPoints: "+intMaxPoints)
 	}
 
 	/* ------------------------------------------------------------------- */	
 
-	// Change the color of the little indicators (navigation) based on the user's answer.
-	fnChangeIndicatorColors()
-
-	// Change the font-weight to "bold" for the clicked pro/neutral/contra-button
-	fnChangeVotingButtonAttributes()
-
-	/* ------------------------------------------------------------------- */
-
 	// Create all necessary <div>s to show the results.
 	fnCreateResults(arCandidatesSortedByPoints, intMaxPoints)
 
+	// Change the color of the little indicators (navigation) based on the user's answer.
+	fnChangeIndicatorColors(intCurrentQuestion)
+
+	// Change the font-weight to "bold" for the clicked pro/neutral/contra-button
+	fnChangeVotingButtonAttributes(intCurrentQuestion)
+
+
+	/* ------------------------------------------------------------------- */
+
+	// Update the "Share by mail" button
+	fnShareResults("email")
+
+// console.log("End fnEvaluationCurrentAnswer() Question no. "+intCurrentQuestion+" - answer: "+intCurrentAnswer+" x "+intCurrentMultiplier)
+
+} // end: fnEvaluationCurrentAnswer()
+
+/* *************************************************************************** */
+
+// Clear HTML tags from ARIA-LABEL and TITLE
+// Tags shall only be used in innerHTML-texts.
+// Example: "Our candidate disagrees <strong>strongly</strong>."
+function fnClearHtmlTags(text) {
+
+	const text_cleaned = text.replace(/<[^>]*>/g, '');
+	return text_cleaned
 }
 
 /* *************************************************************************** */
@@ -333,6 +403,7 @@ function fnClearCommentsFromDom(node) {
 
 		// If Node.COMMENT_NODE (8) or Node.TEXT_NODE (3) is just white spaces
 		if ( (child.nodeType === 8) || (child.nodeType === 3 && !/\S/.test(child.nodeValue) ) ) {
+		// if ( (child.nodeType === 8) ) {
 			node.removeChild(child);
 			n --;
 		}
@@ -343,39 +414,117 @@ function fnClearCommentsFromDom(node) {
 		}
 	}
 
-}
+} // end: fnClearCommentsFromDom()
+
+/* *************************************************************************** */
+
+function fnShareResults(sharing) {
+
+	// Get the current URL including all parameters
+	// Then split at the question mark, like "http://localhost/index.html?myAnswers=[1,0,-1]&myMultiplier=[1,1,2]"
+	let arCurrentUrl = window.location.href .split("?")
+	// Get only the first element, which is the URL without the parameters
+	let currentUrl = arCurrentUrl[0]
+
+	// Create a sharing-link with different escape-characters (& / %26)
+	let linkToUrl_clipboard = currentUrl+"?myAnswers=["+arPersonalAnswers+"]&myMultiplier=["+arPersonalMultiplier+"]"
+	let linkToUrl_email     = currentUrl+"?myAnswers=["+arPersonalAnswers+"]%26myMultiplier=["+arPersonalMultiplier+"]"
+	let emailText = "mailto:?subject="+TEXT_SHARE_EMAIL_SUBJECT+"&body="+TEXT_SHARE_EMAIL_BODY+" %0D "+linkToUrl_email+"%0D"
+
+	if (sharing == "clipboard") {
+
+		// Check, if the clipboard-function is available AND on https:// or localhost
+		if (navigator.clipboard && window.isSecureContext) {
+
+			navigator.clipboard.writeText(linkToUrl_clipboard).then( 
+					() => {
+						// Success
+						fnShowModal("clipboard")
+						console.log("Copied link to clipboard: "+linkToUrl_clipboard)
+					},
+					() => {
+						// Error
+					},
+			);
+		}
+		// The browser doesn't support clipboard or we're in an insecure context - message in the console!
+		else {
+			console.log("Mat-o-Wahl: Error. The browser can't write to the clipboard. Are we on an insecure page (http:// instead of https:// or http://localhost/) or are you using an old browser?")
+		}
+	}
+	else if (sharing == "email") {
+		// Called from fnEvaluationCurrentAnswer() -> Update button every-time with new link.
+		document.getElementById("footer_buttonShare_email").href = emailText
+	}
+	else {
+		console.log("Strange. We're in the ELSE-part of fnShareResults(). The way of sharing was: "+sharing+". This shouldn't happen.")
+	}
+
+} // end: fnShareResults()
 
 /* *************************************************************************** */
 
 // Send the personal results to a server - if the user agreed on it. 
-function fnSendResultsToServer()
+async function fnSendResultsToServer()
 {
 
-	let arMowPersonal = []
-	let arMowCandidates = []
+	let arMowPersonalToSend = []
+	let arMowCandidatesToSend = []
 
 	for (let i = 0; i <= intQuestions-1; i++) {
-		if (arPersonalAnswers[i] === undefined) {
-			arMowPersonal[i] = 99
-		}
-		else {
-			arMowPersonal[i] = arPersonalAnswers[i] * arPersonalMultiplier[i]
-		}
+		arMowPersonalToSend[i] = arPersonalAnswers[i] * arPersonalMultiplier[i]
 	}
+
 
 	for (let i = 0; i <= intCandidates-1; i++) {
-		arMowCandidates[i] = objCandidates["c"+i].points
+		arMowCandidatesToSend[i] = objCandidates["c"+i].points
 	}
 
-	let mowpersonal = arMowPersonal.toString()
-	let mowcandidates = arMowCandidates.toString()
-	// v.0.7 - deprecated variable "mowparties" - only here for older systems -> use "mowcandidates" instead
-	let mowparties = mowcandidates
+	let mowpersonal = arMowPersonalToSend.toString()
+	let mowcandidates = arMowCandidatesToSend.toString()
 
-	// to do !!! ### *** -> fetch() ???
-//	$.get(statsServer, { mowpersonal: strPersonalPositions, mowparties: strResults } );
+	// v.0.7 - deprecated variable "mowparties" -> only here for older systems -> use "mowcandidates" instead
+	const mowURLSearchParams = new URLSearchParams({ "mowpersonal": mowpersonal, 
+			"mowpersonalanswers": arPersonalAnswers, 
+			"mowpersonalmultiplier": arPersonalMultiplier, 
+			"mowparties": mowcandidates, 
+			"mowcandidates": mowcandidates })
 
-	console.log("Mat-O-Wahl. Sent statistics to server: "+statsServer+" - mowpersonal: "+mowpersonal+" - mowcandidates (new) / mowparties (old): "+mowcandidates+"")
-}
+	// POST results -> This is somehow not working on my test-system :(
+	/*
+	const response = await fetch(statsServer, {
+		method: "POST",
+		headers: {
+			 "Content-Type": "application/x-www-form-urlencoded",
+		},
+		body: mowURLSearchParams,
+	})
+	.then(result => console.log(result)); // process result
+	*/
+
+	// GET results (ignores the "body" by default) -> This is somehow not working on my test-system :(
+	/*
+	const response2 = await fetch(statsServer+"?${mowURLSearchParams}", {
+		method: "GET",
+		headers: {
+			 "Content-Type": "application/x-www-form-urlencoded",
+		}
+	})
+	.then(result => console.log(result)); // process result
+	*/
+
+	// GET results (and the results right after "?") -> This dirty hack is working on my test-system :(
+	const response2 = await fetch(statsServer+"?"+mowURLSearchParams, {
+		method: "GET",
+		headers: {
+			 "Content-Type": "application/x-www-form-urlencoded",
+		}
+	})
+	.then(result => console.log(result)); // process result
+	
+
+	console.log("Mat-O-Wahl. Sent statistics to server: "+statsServer+" - \n mowpersonal (answers x multiplier): "+mowpersonal+" \n mowpersonalanswers: "+arPersonalAnswers+" \n mowpersonalmultiplier: "+arPersonalMultiplier+" \n mowcandidates (new) / mowparties (old): "+mowcandidates+"")
+	// console.log( new URLSearchParams({ "mowpersonal": mowpersonal, "mowpersonalanswers": arPersonalAnswers, "mowpersonalmultiplier": arPersonalMultiplier, "mowparties": mowcandidates, "mowcandidates": mowcandidates }) )
+} // end: fnSendResultsToServer()
 
 

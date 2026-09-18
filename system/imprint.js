@@ -1,96 +1,85 @@
+"use strict"
 
 function fnShowImprint() {
 
-	// Versionsnummer aus GENERAL.JS
-	$("#versionNumber").append(version);
+	document.title = my_o_mat+ " - " +TEXT_IMPRINT;
 
+	// Version number from GLOBALS.JS
+	document.getElementById("versionNumber").innerHTML = version;
 
-	var textNoInformation = "keine Angaben / No information available."
+	const textNoInformation = "keine Angaben / No information available."
+
+	// Texts from DEFINITION.JS
 
 	// Angaben gemäß § 5 TMG
 	// General information
 	if (!imprintGeneral)
 	{
-		$("#imprintGeneral").append(textNoInformation);
+		document.getElementById("imprintGeneral").innerHTML = textNoInformation;
 	}
 	else
 	{
-		$("#imprintGeneral").append(imprintGeneral);
+		document.getElementById("imprintGeneral").innerHTML = imprintGeneral;
 	}
 
 
 	// Kontakt / Contact details
 	if (!imprintContact)
 	{
-		$("#imprintContact").append(textNoInformation);
+		document.getElementById("imprintContact").innerHTML = textNoInformation;
 	}
 	else
 	{
-		$("#imprintContact").append(imprintContact);
+		document.getElementById("imprintContact").innerHTML = imprintContact;
 	}
 
 	// Umsatzsteuer-ID / VAT ID
 	if (!imprintVATid)
 	{
-		$("#imprintVATid").append(textNoInformation);
+		document.getElementById("imprintVATid").innerHTML = textNoInformation;
 	}
 	else
 	{
-		$("#imprintVATid").append(imprintVATid);
+		document.getElementById("imprintVATid").innerHTML = imprintVATid;
 	}
-
-	// Verbraucher­streit­beilegung / Universal­schlichtungs­stelle
-	// Online Dispute Resolution
-	if (!imprintDisputeResultion)
-	{
-		$("#imprintDisputeResultion").append(textNoInformation);
-	}
-	else
-	{
-		$("#imprintDisputeResultion").append(imprintDisputeResultion);
-	}
-
 
 	// Redaktion / Editors
 	if (!imprintEditors)
 	{
-		$("#imprintEditors").append(textNoInformation);
+		document.getElementById("imprintEditors").innerHTML = textNoInformation;
 	}
 	else
 	{
-		$("#imprintEditors").append(imprintEditors);
+		document.getElementById("imprintEditors").innerHTML = imprintEditors;
 	}
 
 	// Technik / Programming
 	if (!imprintProgramming)
 	{
-		$("#imprintProgramming").append(textNoInformation);
+		document.getElementById("imprintProgramming").innerHTML = textNoInformation;
 	}
 	else
 	{
-		$("#imprintProgramming").append(imprintProgramming);
+		document.getElementById("imprintProgramming").innerHTML = imprintProgramming;
 	}
 
 	// Bildquellen / Picture sources
 	if (!imprintPictures)
 	{
-		$("#imprintPictures").append(textNoInformation);
+		document.getElementById("imprintPictures").innerHTML = textNoInformation;
 	}
 	else
 	{
-		$("#imprintPictures").append(imprintPictures);
+		document.getElementById("imprintPictures").innerHTML = imprintPictures;
 	}
 
 	// Datenschutzerklaerung / Privacy statement
 	if (imprintPrivacyUrl.length > 0)
 	{
-		$("#idImprintPrivacy").append("Datenschutzerkl&auml;rung / Privacy Policy: <a href='http://"+imprintPrivacyUrl+"' target='_blank'>"+imprintPrivacyUrl+"</a>");
+		document.getElementById("idImprintPrivacy").innerHTML = "Datenschutzerkl&auml;rung / Privacy Policy: <a href='http://"+imprintPrivacyUrl+"' target='_blank'>"+imprintPrivacyUrl+"</a>";
 	}
 	else
 	{
-		$("#idImprintPrivacy").append("Keine Datenschutzerkl&auml;rung vorhanden / No privacy policy available.");
+		document.getElementById("idImprintPrivacy").innerHTML = "Keine Datenschutzerkl&auml;rung vorhanden / No privacy policy available.";
 	}
-
-
-
 }

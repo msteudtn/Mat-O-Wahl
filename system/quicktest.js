@@ -1,3 +1,5 @@
+"use strict" 
+
 // QUICKTEST.JS http://www.mat-o-wahl.de
 // Test of configuration file / DEFINITION.JS / Test der Konfigurationsdatei
 // License: GPL 3
@@ -5,413 +7,216 @@
 
 function fnTestStart()
 {
-	// FRAGEN in Arrays einlesen
-	fnReadCsv("data/"+fileQuestions+"",fnTestReadQuestions)
+		
+	// Read the "fileQuestions" (DEFINITION.JS) into "objQuestions" (global.js) 
+	fnReadQuestions()
 
-	// PARTEIEN und ANTWORTEN in Arrays einlesen
-	fnReadCsv("data/"+fileAnswers+"",fnReadPositions)
-
-/*
-	// bis v 0.5 - mehrere Partei-CSV-Dateien
-	for (i = 0; i <= intParties-1; i++)
-	{
-		// Zeitversetzt starten, damit Reihenfolge auch stimmt. 500, 750, 1000, 1250ms, ... später
-		// Funktioniert aber nicht 100% wenn eine große Datei dazwischen ist :(
-		window.setTimeout("fnReadCsv('data/"+arPartyFiles[i]+"',"+fnTestReadPositions+")",500+i*250);	
-	}
-*/
+	// Read the "fileCandidates" (DEFINITION.JS) into "objCandidates" (global.js) 
+	fnReadCandidates()
 
 	// 1 sec. warten bis alle Dateien eingelesen wurden.
 	window.setTimeout("fnTestShowAll()",1000);
 }
 
-// 
-function fnTestReadQuestions(csvData)
-{
-	// Zeilenweises Einlesen der Fragen ...
-	// fnSplitLines(csvData,1);
-	fnTransformCsvToArray(csvData,1);
-} 
-
-
-
-// Einlesen der Parteipositionen und -informationen
-function fnTestReadPositions(csvData)
-{
-	// Zeilenweises Einlesen der Parteipositionen und Vergleichen
-	// fnSplitLines(csvData,0);
-	fnTransformCsvToArray(csvData,0);
-}
-
-
-// Anzeige der fehlerhaften Variable
-function fnTestAlertVariable(string)
-{
-	// Auslesen der kommagetrennten Werte und in Array speichern
-	var myArray = new Array();
-	myArray = fnTransformDefinitionStringToArray(string)
-
-	// Array wieder in String umwandeln
-	string = "";
-	for (i = 0; i <= myArray.length-1; i++)
-	{
-		string += (i+1)+". "+myArray[i]+"\n";
-	}
-	alert(""+string+"");	
+function fnCreateQuestions() {
+	// The real fnCreateQuestions() is located in FRONTEND_HELPERS.JS and called from BACKEND.JS (after fnReadQuestions() -> fnQuestionsArrayToJSON() )
+	// We don't want to build up the question-cards here.
+	// To avoid any error-messages, we add an empty function. ;) 
 }
 
 
 // Ausgabe - Output
 function fnTestShowAll()
 {
-	
-	var counterError = 0;
 
-	$("#testExplanation").empty();
-	$("#testQuestions").empty();
-	$("#testAnswers").empty();
-	$("#testImprint").empty();
-	
-	$("#testOtherDe").empty();
-	$("#testOtherEn").empty();
+	// Check for http(s):// or file://
+	const quicktest_protocol_de = document.getElementById("quicktest_protocol_de")
+	const quicktest_protocol_en = document.getElementById("quicktest_protocol_en")
 
-	// EXISTENZ DER VARIABLEN
-	arVariablen = new Array(fileQuestions, 
+	let currentProtocol = window.location.protocol;
+	currentProtocol = currentProtocol.substr(0,4)
+	if (currentProtocol != "http") {
+		quicktest_protocol_de.innerHTML = "<b class='bg-danger'>&#x1F872; FEHLER &#x1F870;</b>. Der Browser verhindert, dass Dateien von der lokalen Festplatte (file://) gelesen werden. Lösungsvorschläge finden Sie in der Online-Dokumentation unter <a href='https://www.mat-o-wahl.de/dokumentation.html#technikHttp' target='_blank'>Testen der Einstellungen</a>. "
+		quicktest_protocol_en.innerHTML = "<b class='bg-danger'>&#x1F872; ERROR &#x1F870;</b> The browser blocks loading local files. (file://) You can find possible solutions in the online-help at <a href='https://www.mat-o-wahl.de/dokumentation.html#technikHttp' target='_blank'>Testen der Einstellungen</a> (German). "
+	}
+	else {
+		quicktest_protocol_de.innerHTML = "<b class='bg-success'>OK.</b> Die Dateien werden von http(s):// geladen und nicht lokal (file://)."
+		quicktest_protocol_en.innerHTML = "<b class='bg-success'>OK.</b> Files are beeing loaded from http(s):// and not a local source (file://)."
+	}
+
+	const quicktest_questions = document.getElementById("quicktest_questions")
+	const quicktest_candidates = document.getElementById("quicktest_candidates")
+
+
+	// Check, if the variables from DEFINITION.JS are valid. 
+	const quicktest_definitions_de = document.getElementById("quicktest_definitions_de")
+	quicktest_definitions_de.innerHTML = "Lade alle Variablen aus DEFINITION.JS in die Datei. Wenn das Skript hier <b>abbricht</b>, fehlt vermutlich etwas. Bitte prüfen Sie die Browser-Konsole. <br /> z.B. <code>XYZ is not defined</code>"
+	
+	const quicktest_definitions_en = document.getElementById("quicktest_definitions_en")
+	quicktest_definitions_en.innerHTML = "Loading all variables from DEFINITION.JS into the file. If the script <b>stops</b> here, there's probably something missing. Please check the browser console. <br /> e.g. <code>XYZ is not defined</code>"
+
+	// Loading all variables into the script and hope for the best.
+	let arVariablesFromDefinitionJs = new Array(fileQuestions, 
 		intQuestions,
-		fileAnswers,
-		intPartyLogosImgWidth, 
-		intPartyLogosImgHeight, 
-		descriptionShowOnStart,
+		fileCandidates,
+
+ 		my_o_mat,
 		descriptionHeading1,
 		descriptionHeading2,
 		descriptionExplanation,
+
 		imprintLink,
 		imprintGeneral,
 		imprintContact,
 		imprintVATid,
-		imprintDisputeResultion,
 		imprintEditors,
 		imprintProgramming,
 		imprintPictures,
 		imprintPrivacyUrl,
-		separator,
-		design,
+
 		language,
+		descriptionShowOnStart,
+		intQuestionButtons,
+		intShowButtonNeutral,
+		intShowButtonDouble,
+		intShowButtonSkip,
+
+		delimiter,
+		design,
+		addons,
+		
 		statsRecord,
 		statsServer)
+		
 
-	for (i = 0; i <= arVariablen.length-1; i++)
-	{
-		// console.log(" prüfe ... " +(arVariablen[i])+" ... "+window.arVariablen[i]+" = "+typeof(arVariablen[i]))
-		try 
-		{
-		  (window.arVariablen[i])
-		} 
-		catch (error) 
-		{
-
-			counterError++;
-			$("#testOtherDe").append("<b>("+counterError+").</b>")
-				.append("<b> Achtung! Die Variable mit dem Namen <u>"+arVariablen[i]+"</u> ist in der DEFINITION.JS nicht definiert. </b>")
-				.append("<br /> Bitte zuerst prüfen, dann den Test wiederholen.")
-				.append("<br /> Sie können leere Werte in folgender Form angeben: <b>var variablenName = \"\";</b> (entspricht: <q>keine Angabe</q>).")
-				.append("<br />")
-				.css("color","red");
-				
-			$("#testOtherEn").append("<b>("+counterError+").</b>")
-				.append("<b> Warning! Variable with name <u>"+arVariablen[i]+"</u> is undefined in file DEFINITION.JS. </b>")
-				.append("<br /> Please check this issue first and restart the test.")
-				.append("<br /> You can define empty variables like this: <b>var variableName = \"\";</b> (equals: <q>no value</q>).")
-				.append("<br />")
-				.css("color","red");
-				
-			// alert ("Achtung! Die Variable mit dem Namen - "+arVariablen[i]+" - ist in der DEFINITION.JS nicht definiert. \nBitte zuerst prüfen, dann den Test neu starten.")
-		}
-	}
-
-
-	// BESCHREIBUNG (allgemein) - DESCRIPTION (generally)
-
-	$("#testExplanation").append("<b>1. Überschrift / Heading:</b> "+descriptionHeading1)
-		.append("<br />")
-		.append("<br /> <b>2. Überschrift / Heading:</b> "+descriptionHeading2)
-		.append("<br />")
-		.append("<br /> <b> Beschreibender Text / Description:</b> "+descriptionExplanation);
-
-
+	quicktest_definitions_de.innerHTML = "<b class='bg-success'>OK.</b> Alle Variablen aus der DEFINITION.JS wurden erfolgreich geladen."	
+	quicktest_definitions_en.innerHTML = "<b class='bg-success'>OK.</b> All variables from DEFINITION.JS have been loaded successfully."
+	
 	// FRAGEN an die PARTEIEN - QUESTIONS to the parties
 
-	$("#testQuestions").append("Name der <b>Datei</b> mit den Fragen / Name of <b>file</b> with questions: ")
-		.append("<a class='btn btn-outline-dark btn-block btn-sm' role='button' href='data/"+fileQuestions+"' target='_blank'>"+fileQuestions+"</a>")
-		// .append("<a href='data/"+fileQuestions+"' target='_blank'>"+fileQuestions+"</a>")
+	quicktest_questions.innerHTML = "Name der <b>Datei</b> mit den Fragen / Name of <b>file</b> with questions: "
+	quicktest_questions.insertAdjacentHTML("beforeend", " <p> <a href='"+fileQuestions+"' target='_blank'>"+fileQuestions+"</a> </p> ")
+	quicktest_questions.insertAdjacentHTML("beforeend", " <p> Es sollten <b class='bg-warning'>&#x1F872; "+intQuestions+" &#x1F870; Fragen</b> angezeigt werden. </p> ")
+	quicktest_questions.insertAdjacentHTML("beforeend", " <p> There should be <b class='bg-warning'>&#x1F872; "+intQuestions+" &#x1F870; questions</b> in the list. </p> ")
 
-	$("#testQuestions").append("<p>Hier sollten <strong>"+intQuestions+" Fragen</strong> stehen.</p>")
+	quicktest_questions.insertAdjacentHTML("beforeend", " <hr />")
 
-
-	for (i = 0; i <= (arQuestionsShort.length-1); i++)
+	for (let i = 0; i <= (intQuestions-1); i++)
 	{
-		$("#testQuestions").append(" "+(i+1)+". <b>"+arQuestionsShort[i]+"</b> - "+arQuestionsLong[i]+ "<br />")		
-		var numberOfQuestions = i;
+		quicktest_questions.insertAdjacentHTML("beforeend", " "+(i+1)+". <b>"+objQuestions["q"+i].short+"</b> - "+objQuestions["q"+i].long+ " <br />")
 	}
 
 
-	// ANTWORTEN der PARTEIEN - ANSWERS to the parties
+	// ANTWORTEN der KANDIDATEN - ANSWERS of CANDIDATES
 
-	$("#testAnswers").append("Name der <b>Datei</b> mit den Antworten und Partei-Informationen / Name of <b>file</b> with questions and party-information: ")
-		.append("<a class='btn btn-outline-dark btn-block btn-sm' role='button' href='data/"+fileAnswers+"' target='_blank'>"+fileAnswers+"</a>")
+	quicktest_candidates.innerHTML = "Name der <b>Datei</b> mit den Kandidaten und ihren Antworten / Name of <b>file</b> with candidates and their answers: "
+	quicktest_candidates.insertAdjacentHTML("beforeend", " <p> <a href='"+fileCandidates+"' target='_blank'>"+fileCandidates+"</a> </p> ")
+	quicktest_candidates.insertAdjacentHTML("beforeend", " <p> Es sollten <b class='bg-warning'>&#x1F872; "+intCandidates+" &#x1F870; Kandidaten</b> angezeigt werden. </p> ")
+	quicktest_candidates.insertAdjacentHTML("beforeend", " <p> There should be <b class='bg-warning'>&#x1F872; "+intCandidates+" &#x1F870; candidates</b> in the list. </p> ")
 
-	$("#testAnswers").append("<p>Hier sollten <strong>"+intParties+" Parteien</strong> stehen.</p>")
+	quicktest_candidates.insertAdjacentHTML("beforeend", " <hr />")
 
-	for (i = 0; i <= (intParties-1); i++)
+	for (let i = 0; i <= (intCandidates-1); i++)
 	{
-		$("#testAnswers")
-		.append("<hr>")
-		.append("<h3>"+(i+1)+". Name (kurz): "+arPartyNamesShort[i]+ " </h3> ")
-		.append("<p> <b>Name (ausführlich):</b> "+arPartyNamesLong[i]+"</p>")
-		.append("<p> <b>Beschreibung:</b> "+arPartyDescription[i]+"</p>")
-		.append("<p> <b>Webseite: </b><a href='http://"+arPartyInternet[i]+"' target='_blank' title='"+arPartyNamesLong[i]+"'>"+arPartyInternet[i]+"</a> </p>")
-		.append("<p> <b>Bild:</b> <img src='"+arPartyLogosImg[i]+"' width='"+intPartyLogosImgWidth+"' height='"+intPartyLogosImgHeight+"' alt='"+arPartyNamesLong[i]+"' title='"+arPartyNamesLong[i]+"' /> </p>")
-		.append("<p> <b>Bild-URL:</b> "+arPartyLogosImg[i]+"</p>")
+		quicktest_candidates.insertAdjacentHTML("beforeend", " <p> "+(i+1)+". <b>"+objCandidates["c"+i].short+"</b> - "+objCandidates["c"+i].long+ " </p>")
+		quicktest_candidates.insertAdjacentHTML("beforeend", " <p> "+objCandidates["c"+i].desc+" </p>")
+		quicktest_candidates.insertAdjacentHTML("beforeend", " <p> <a href='"+objCandidates["c"+i].url+"' target='_blank'>"+objCandidates["c"+i].url+"</a> </p>")
+		quicktest_candidates.insertAdjacentHTML("beforeend", " <p> <img src='"+objCandidates["c"+i].pic+"' style='width:20%' /> </p>")
 
-//		.append("<br />")
-//		.append("<a class='btn btn-outline-dark btn-block btn-sm' role='button' href='data/"+arPartyFiles[i]+"' target='_blank' >"+arPartyFiles[i]+"</a>")
-		// .append("<br /> Positionen und Antworten in Datei namens: <a href='data/"+arPartyFiles[i]+"' target='_blank' >"+arPartyFiles[i]+"</a>")
-
-		
- 		var jStart = i * (numberOfQuestions+1); // 0*6=6, 1*6=6, 2*6=12;
- 		var jEnd = jStart + numberOfQuestions; // 0+6=6; 6+6=12; 12+6=18
- 		var jCounter = 0;
-
-		$("#testAnswers")
-		.append("<b>Antworten auf die Fragen</b> <br /> ")
- 		
-		for (j = jStart; j <= jEnd; j++)
+		for (let j = 0; j <= (intQuestions-1); j++)
 		{
-			jCounter++
-			// var positionImage = fnTransformPositionToImage(arPartyPositions[j]);
-			var positionIcon = fnTransformPositionToIcon(arPartyPositions[j]);
-			var positionButton = fnTransformPositionToButton(arPartyPositions[j]);
-			/*
-			$("#testAnswers").append(" ("+(j+1)+") "+jCounter+". <img src='img/"+positionImage+"' height='10' width='10' alt='"+arPartyOpinions[j]+"' /> ")
-				.append(" "+arPartyOpinions[j])
-				.append("<br />");
-			*/
-			
-			$("#testAnswers").append(" ("+(j+1)+") "+jCounter+". <button type='button' class='btn "+positionButton+" btn-sm' disabled> "+positionIcon+"</button>")
-				.append(" "+arPartyOpinions[j])
-				.append("<br />");	
+			let shortAnswer = objCandidates["c"+i].answers["a"+j].short
+			let longAnswer = objCandidates["c"+i].answers["a"+j].long
+			quicktest_candidates.insertAdjacentHTML("beforeend", "<p> ")
+			quicktest_candidates.insertAdjacentHTML("beforeend", " "+(i+1)+".<b>"+(j+1)+".</b> ")
+
+			let buttonAnswer = ""
+
+			if (shortAnswer == -1) {
+				buttonAnswer = "btn-danger" } 
+			else if (shortAnswer == 0) {
+				buttonAnswer = "btn-warning" }
+			else if (shortAnswer == 1) {
+				buttonAnswer = "btn-success" }
+
+			quicktest_candidates.insertAdjacentHTML("beforeend", " &nbsp; <button class='btn "+buttonAnswer+"'> "+shortAnswer+"  </button>")
+
+			quicktest_candidates.insertAdjacentHTML("beforeend", " "+longAnswer+" ")
+
+			if (!longAnswer) {
+				quicktest_candidates.insertAdjacentHTML("beforeend", " <p> <b class='bg-danger'>&#x1F872; FEHLER &#x1F870;</b> Die Antwort des Kandidaten fehlt. Es kann sein, dass das Feld absichtlich leer ist oder dass einige Einträge in der CSV-Datei davor fehlen.</p> ")
+				quicktest_candidates.insertAdjacentHTML("beforeend", " <p> <b class='bg-danger'>&#x1F872; ERROR &#x1F870;</b> The candidate's answer is missing. Maybe it's empty on purpose or we are missing some values in the CSV file.</p> ")
+			}
+
+			quicktest_candidates.insertAdjacentHTML("beforeend", "</p> ")
 		}
-		
-		$("#testAnswers").append("<br />");
-	}
-	
-	
-	// KONTAKT/IMPRESSUM (allgemein) - CONTACT / Imprint (general)
 
-	$("#testImprint").append("<b> Allgemeine Angaben gemäß § 5 TMG / General information</b> "+imprintGeneral+ "")
-		.append("<br />")
-		.append("<br /> <b>Kontaktdaten / Contact details:</b> "+imprintContact+ "")
-		.append("<br />")
-		.append("<br /> <b>(optional) Umsatzsteuer-ID / (optional) VAT-ID:</b> "+imprintVATid+ "")
-		.append("<br />")
-		.append("<br /> <b>Verbraucher­streit­beilegung / Online Dispute Resolution:</b> "+imprintDisputeResultion+ "")
-		.append("<br />")
-		.append("<br /> <b>Redaktion / Editors:</b> "+imprintEditors)
-		.append("<br />")
-		.append("<br /> <b>Technik / Programming:</b> "+imprintProgramming)
-		.append("<br />")
-		.append("<br /> <b>Bilder / Pictures:</b> "+imprintPictures)
-		.append("<br />")
-		.append("<br /> <b>Datenschutz / Privacy:</b> <a href='http://"+imprintPrivacyUrl+"' target='_blank'>"+imprintPrivacyUrl+"</a>");
-		
+		quicktest_candidates.insertAdjacentHTML("beforeend", " <hr />")
 
-	// BERECHNUNGEN - ab V 0.5 eigentlich nicht mehr nötig
-
-/*
-	
-	// Zusammenhang zwischen Anzahl der Parteien und Fragen zu Parteipositionen
-	if ( (intParties * arQuestionsShort.length) != arPartyPositions.length )
-	{
-		counterError++;
-		$("#testOtherDe").append("<b>("+counterError+").</b>")
-			.append(" Das Produkt aus Parteien ("+intParties+") mal Fragen ("+arQuestionsShort.length+") ist ungleich der Gesamtzahl der Parteiantworten ("+arPartyPositions.length+" anstelle von erwarteten "+(intParties * arQuestionsShort.length)+").")
-			.append(" M&ouml;glicherweise Ursachen daf&uuml;r k&ouml;nnen z.B. sein: ")
-			.append(" <br /> - es wurde eine Frage zu viel/zu wenig angegeben, ")
-			.append(" <br /> - eine Partei hat eine Frage nicht beantwortet, ")
-			.append(" <br /> - eine Frage wurde nicht eingetragen (Anzahl der Zeilen &uuml;berpr&uuml;fen!), ")
-			.append(" <br /> - es gibt nur eine Spalte in der Datei (z.B. nur Position 1,0,-1 aber keine Begründung), ")
-			.append(" <br /> - es gibt am Ende einige leere Zeilen, ")
-			.append(" <br /> - es wurden unterschiedliche Trennzeichen benutzt (z.B. Komma in Datei A (f&uuml;r Fragen) und Semikolon in Datei B (f&uuml;r Partei)), ")
-			.append(" <br /> - eine Datei hat ein falsches Format (z.B. XLS oder ODS statt CSV),")
-			.append(" <br /> - eine Datei wurde nicht gefunden (Gro&szlig;-/Kleinschreibung, Dateiendung).")
-			.append("<br /> ") 
-			.append(" Die Reihenfolge der hier gezeigten Fragen hat sich dadurch vielleicht auch verschoben und stimmt nun nicht.")
-			.append("<br /> ");
-			
-		$("#testOtherEn").append("<b>("+counterError+").</b>")
-			.append("The Product of parties ("+intParties+") multiplied with questions ("+arQuestionsShort.length+") is unequal the total number of party-answers ("+arPartyPositions.length+". Expected value: "+(intParties * arQuestionsShort.length)+").")
-			.append(" Possible causes: ")
-			.append(" <br /> - There's one question too much/less, ")
-			.append(" <br /> - a party did not answer a question, ")
-			.append(" <br /> - a missing question (check muber of lines in file!), ")
-			.append(" <br /> - there is only one row in the file (e.g. only position 1,0,-1 but no explanation), ")
-			.append(" <br /> - there are some empty lines at the end of the file, ")
-			.append(" <br /> - different separators in different files (e.g. comma in file A (questions) and semicolon in file B (party)), ")
-			.append(" <br /> - wrong file format (e.g. XLS or ODS instead of CSV),")
-			.append(" <br /> - file not found (check for capital letters, file extensions).")
-			.append("<br /> ") 
-			.append(" The order of questions may have changed due to this error(s).")
-			.append("<br /> ");			
 	}
 
-*/
 
 
-/*
-	// Anzahl der Parteien in Datei	
-	if (intParties <= 0)
-	{
-		counterError++;
-		$("#testOtherDe").append("<b>("+counterError+").</b>")
-			.append(" Es wurde keine Liste mit Parteipositionen angegeben (intParties). ")
-			.append(" <br /> ");
-		$("#testOtherEn").append("<b>("+counterError+").</b>")
-			.append(" No list with party positions defined (intParties). ")
-			.append(" <br /> ");
-	}
 
-	// Parteinamen, kurz und lang
-	if ( (arPartyNamesShort.length <= 0) || (arPartyNamesLong.length <= 0) )
-	{
-		counterError++;
-		$("#testOtherDe").append("<b>("+counterError+").</b>")
-			.append(" Es wurde keine Liste mit langen oder kurzen Parteinamen angegeben (strPartyNamesShort, strPartyNamesLong). ")
-			.append(" <br /> ");
-		$("#testOtherEn").append("<b>("+counterError+").</b>")
-			.append(" No liste with long and/or short party-names defined (strPartyNamesShort, strPartyNamesLong). ")
-			.append(" <br /> ");	}
-
-
-	// Parteilogos und Webseiten
-	if ( (arPartyLogosImg.length <= 0) || (arPartyInternet.length <= 0) )
-	{
-		counterError++;
-		$("#testOtherDe").append("<b>("+counterError+").</b>")
-			.append(" Es wurde keine Liste mit Parteilogos oder -webseiten angegeben (strPartyLogosImg, strPartyInternet). ")
-			.append(" <br /> ");
-		$("#testOtherEn").append("<b>("+counterError+").</b>")
-			.append(" No liste with party-logos and/or -websites defined (strPartyLogosImg, strPartyInternet). ")
-			.append(" <br /> ");
-	}
-
-*/
+	const quicktest_statistics = document.getElementById("quicktest_statistics")
+	quicktest_statistics.innerHTML = ""
 	
 	// Werte fuer "Wahlprognose" pruefen - Check statistics
-	if (statsRecord == 1)
+	if (statsRecord == 0) {
+		quicktest_statistics.insertAdjacentHTML("beforeend", " <p> ")
+		quicktest_statistics.insertAdjacentHTML("beforeend", "<b class='bg-success'>OK</b>. Es wird keine Statistik am Ende abgefragt. / ")
+		quicktest_statistics.insertAdjacentHTML("beforeend", "<b class='bg-success'>OK</b>. There's no demand to send out the statistics.")
+		quicktest_statistics.insertAdjacentHTML("beforeend", " </p> ")
+
+	}
+	else if (statsRecord == 1)
 	{
 		if (imprintPrivacyUrl.length <= 0)
 		{
-			counterError++;
-			$("#testOtherDe").append("<b>("+counterError+").</b>")
-				.append(" Die Variable f&uuml;r die Statistik ist auf TRUE/1 gesetzt aber es wurde keine Datenschutzerkl&auml;rung angegeben.")
-				.append("<br />");
-			$("#testOtherEn").append("<b>("+counterError+").</b>")
-				.append(" Variable for statistics is on TRUE/1 but privacy statement is missing.")
-				.append("<br />");				
-			
+			quicktest_statistics.insertAdjacentHTML("beforeend", " <p> ")
+
+			quicktest_statistics.insertAdjacentHTML("beforeend", " <code>statsRecord + imprintPrivacyUrl</code> ")
+
+			quicktest_statistics.insertAdjacentHTML("beforeend", " <b class='bg-danger'>&#x1F872; FEHLER &#x1F870;</b>. Die Variable f&uuml;r die Statistik ist auf TRUE/1 gesetzt aber es wurde <b>keine Datenschutzerkl&auml;rung</b> angegeben. / ")
+			quicktest_statistics.insertAdjacentHTML("beforeend", " <b class='bg-danger'>&#x1F872; ERROR &#x1F870;</b> Variable for statistics is on TRUE/1 but <b>privacy statement is missing</b>.")
+			quicktest_statistics.insertAdjacentHTML("beforeend", " </p> ")
 		}
+		else {
+			quicktest_statistics.insertAdjacentHTML("beforeend", " <p> ")
+
+			quicktest_statistics.insertAdjacentHTML("beforeend", " <code>statsRecord + imprintPrivacyUrl</code> ")
+
+			quicktest_statistics.insertAdjacentHTML("beforeend", "<b class='bg-success'>OK</b>. Die Variable f&uuml;r die Statistik ist auf TRUE/1 gesetzt und es wurde <b>eine Datenschutzerkl&auml;rung</b> angegeben. / ")
+			quicktest_statistics.insertAdjacentHTML("beforeend", "<b class='bg-success'>OK</b>. Variable for statistics is on TRUE/1 and <b>privacy statement is set</b>. ")
+			quicktest_statistics.insertAdjacentHTML("beforeend", " </p> ")
+		}
+
 		if (statsServer.length <= 0)
 		{
-			counterError++;
-			$("#testOtherDe").append("<b>("+counterError+").</b>")
-				.append(" Die Variable f&uuml;r die Statistik ist auf TRUE/1 gesetzt aber es wurde keine Skript zum Empfang der Daten angegeben.")
-				.append("<br />");
-			$("#testOtherEn").append("<b>("+counterError+").</b>")
-				.append(" Variable for statistics is on TRUE/1 but skript to receive data is missing.")
-				.append("<br />");
-			
+			quicktest_statistics.insertAdjacentHTML("beforeend", " <p> ")
+
+			quicktest_statistics.insertAdjacentHTML("beforeend", " <code>statsRecord + statsServer</code> ")
+
+			quicktest_statistics.insertAdjacentHTML("beforeend", " <b class='bg-danger'>&#x1F872; FEHLER &#x1F870;</b> Die Variable f&uuml;r die Statistik ist auf TRUE/1 gesetzt aber es wurde <b>keine Adresse zum Empfang der Daten</b> angegeben. ")
+			quicktest_statistics.insertAdjacentHTML("beforeend", " <b class='bg-danger'>&#x1F872; ERROR &#x1F870;</b> Variable for statistics is on TRUE/1 but an <b>address to receive data</b> is missing.")
+			quicktest_statistics.insertAdjacentHTML("beforeend", " </p> ")
+		}
+		else {
+			quicktest_statistics.insertAdjacentHTML("beforeend", " <p> ")
+
+			quicktest_statistics.insertAdjacentHTML("beforeend", " <code>statsRecord + statsServer</code> ")
+
+			quicktest_statistics.insertAdjacentHTML("beforeend", " <b class='bg-success'>OK</b>. Die Variable f&uuml;r die Statistik ist auf TRUE/1 gesetzt und es wurde <b>eine Adresse zum Empfang der Daten</b> angegeben. ")
+			quicktest_statistics.insertAdjacentHTML("beforeend", " <b class='bg-success'>OK</b>. Variable for statistics is on TRUE/1 and an <b>address to receive data</b> is set.")
+			quicktest_statistics.insertAdjacentHTML("beforeend", " </p> ")
 		}
 	}
 
 
-/*
-	// Laenge der Arrays vergleichen
-	if (intParties != arPartyNamesShort.length)
-	{
-		counterError++;
-		$("#testOtherDe").append("<b>("+counterError+").</b>")
-			.append(" Die Anzahl der Werte in der <a href='javascript:fnTestAlertVariable(\""+intParties+"\")'>strPartyFiles</a>-Liste ("+intParties+") ist ungleich der Werte in der <a href='javascript:fnTestAlertVariable(\""+strPartyNamesShort+"\")'>strPartyNamesShort</a>-Liste ("+arPartyNamesShort.length+").")
-			.append("<br />");	
-		$("#testOtherEn").append("<b>("+counterError+").</b>")
-			.append(" The number of values in <a href='javascript:fnTestAlertVariable(\""+intParties+"\")'>strPartyFiles</a>-list ("+intParties+") is unequal to the number of values in <a href='javascript:fnTestAlertVariable(\""+strPartyNamesShort+"\")'>strPartyNamesShort</a>-list ("+arPartyNamesShort.length+").")
-			.append("<br />");	
-	}
-
-	if (intParties != arPartyNamesLong.length)
-	{
-		counterError++;
-		$("#testOtherDe").append("<b>("+counterError+").</b>")
-			.append(" Die Anzahl der Werte in der <a href='javascript:fnTestAlertVariable(\""+intParties+"\")'>strPartyFiles</a>-Liste ("+intParties+") ist ungleich der Werte in der <a href='javascript:fnTestAlertVariable(\""+strPartyNamesLong+"\")'>strPartyNamesLong</a>-Liste ("+arPartyNamesLong.length+").")
-			.append("<br />");
-		$("#testOtherEn").append("<b>("+counterError+").</b>")
-			.append(" The number of values in <a href='javascript:fnTestAlertVariable(\""+strPartyFiles+"\")'>strPartyFiles</a>-list ("+intParties+") is unequal to the number of values in <a href='javascript:fnTestAlertVariable(\""+strPartyNamesLong+"\")'>strPartyNamesLong</a>-list ("+arPartyNamesLong.length+").")
-			.append("<br />");
-	}
-
-	if (intParties != arPartyLogosImg.length)
-	{
-		counterError++;
-		$("#testOtherDe").append("<b>("+counterError+").</b>")
-			.append(" Die Anzahl der Werte in der <a href='javascript:fnTestAlertVariable(\""+strPartyFiles+"\")'>strPartyFiles</a>-Liste ("+intParties+") ist ungleich der Werte in der <a href='javascript:fnTestAlertVariable(\""+strPartyLogosImg+"\")'>strPartyLogosImg</a>-Liste ("+arPartyLogosImg.length+").")
-			.append("<br />");
-		$("#testOtherEn").append("<b>("+counterError+").</b>")
-			.append(" The number of values in <a href='javascript:fnTestAlertVariable(\""+strPartyFiles+"\")'>strPartyFiles</a>-Liste ("+intParties+") is unequal to the number of values in <a href='javascript:fnTestAlertVariable(\""+strPartyLogosImg+"\")'>strPartyLogosImg</a>-list ("+arPartyLogosImg.length+").")
-			.append("<br />");			
-	} 
-
-	if (intParties != arPartyInternet.length)
-	{
-		counterError++;
-		$("#testOtherDe").append("<b>("+counterError+").</b>")
-			.append(" Die Anzahl der Werte in der <a href='javascript:fnTestAlertVariable(\""+strPartyFiles+"\")'>strPartyFiles</a>-Liste ("+intParties+") ist ungleich der Werte in der <a href='javascript:fnTestAlertVariable(\""+strPartyInternet+"\")'>strPartyInternet</a>-Liste ("+arPartyInternet.length+").")
-			.append("<br />");
-		$("#testOtherEn").append("<b>("+counterError+").</b>")
-			.append(" The number of values in <a href='javascript:fnTestAlertVariable(\""+strPartyFiles+"\")'>strPartyFiles</a>-Liste ("+intParties+") is unequal to the number of values in <a href='javascript:fnTestAlertVariable(\""+strPartyInternet+"\")'>strPartyInternet</a>-list ("+arPartyInternet.length+").")
-			.append("<br />");			
-	}
-
-*/
 
 
-	// Protokoll prüfen - file:// oder http(s)://
-	var currentProtocol = window.location.protocol;
-	currentProtocol = currentProtocol.substr(0,4)
-	if (currentProtocol != "http") {
-		counterError++
-			$("#testOtherDe").append("<b>("+counterError+").</b>")
-				.append(" Der Browser verhindert, dass Dateien von der lokalen Festplatte gelesen werden. Lösungsvorschläge finden Sie in der Online-Dokumentation unter <a href='https://www.mat-o-wahl.de/dokumentation.html#technikHttp' target='_blank'>Testen der Einstellungen</a>. ")
-				.append("<br />");
-			$("#testOtherEn").append("<b>("+counterError+").</b>")
-				.append(" The browser blocks loading local files. You can find possible solutions in the online-help at <a href='https://www.mat-o-wahl.de/dokumentation.html#technikHttp' target='_blank'>Testen der Einstellungen</a> (German). ")
-				.append("<br />");		
-		}
+	// All calculations successful -> Clear default error / warning / welcome message 
+	document.getElementById("quicktest_welcome").innerHTML = "<p> <br /> <b class='bg-success'>OK</b>. Alle Berechnungen beendet. / <b class='bg-success'>OK</b>. All calculations finished. </p>"
 
 
-	// Abschlussevaluation - Last check
-	if (counterError > 0)
-	{
-		$("#testOtherDe").append("<br /> Bitte &uuml;berpr&uuml;fen Sie Ihre <a href='data/definition.js' target='_blank'>Einstellungen</a>.")
-			.append("<br />")
-			.css("color","red");
-		$("#testOtherEn").append("<br /> Please check your <a href='data/definition.js' target='_blank'>settings</a>.")
-			.append("<br />")
-			.css("color","red");			
-	}
-	else
-	{
-		$("#testOtherDe").append("Keine Fehler gefunden. :-)")
-			.css("color","green");
-		$("#testOtherEn").append("No errors found. :-)")
-			.css("color","green");			
-	}
 }

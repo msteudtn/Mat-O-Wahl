@@ -1,60 +1,53 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <title>Mat-O-Wahl - Impressum / Legal Notice</title>
+  <title>Impressum (Mat-O-Wahl)</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <meta name="keywords" content="Mat-O-Wahl, MatOWahl, Demokratie, Wahlen, elections, vote, Wahlbeteiligung, Fragebogen, Antworten, Positionen, Entscheidung, Hilfe, Politik, B&uuml;rgermeister, Stadtrat, Kommunalwahl, Fachschaftsrat, Studentenrat, StuRa, Studentenparlament, Studierendenparlament, StuPa, AStA, Kreisrat, Landrat, Volksabstimmung, Plebiszit, Klon, clone, Alternative, GPL, Open Source, JavaScript, Freeware, kostenlos"/>
+  <meta name="keywords" content="Impressum, imprint"/>
   <meta name="robots" content="index, follow" />
   <meta name="language" content="de" />
   <meta name="Content-Language" content="de" />
 
-  <meta name="author" content="Mathias Steudtner"/>
+  <meta name="author" content="Standard" />
   <meta name="description" content="Mat-O-Wahl" />
   
-	<!-- BOOTSTRAP + JQUERY --- START -->
+	<!-- BOOTSTRAP CSS + JS --- START -->
 
-		<!-- ONLINE (deactivated) - Compiled and minified Bootstrap CSS -->
-		<!--	
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-		-->
+		<link rel="stylesheet" href="../system/bootstrap5/bootstrap.min.css">
+		<script src="../system/bootstrap5/bootstrap.bundle.min.js"></script>
 
-		<!-- LOCAL COPY (alternative) - Compiled and minified Bootstrap CSS -->
-		<link rel="stylesheet" href="../system/bootstrap4/css/bootstrap.min.css">
+	<!-- BOOTSTRAP CSS + JS --- END -->
 
-		<!-- ONLINE (deactivated) - Compiled and minified Bootstrap + jQuery JavaScript -->
-		<!--
-		<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
-		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-		-->
 
-		<!-- LOCAL COPY (alternative) - Compiled and minified Bootstrap + jQuery JavaScript -->
-		<script src="../system/jquery3/jquery-3.4.1.min.js"></script>
-		<script src="../system/bootstrap4/js/bootstrap.min.js"></script>
-
-	<!-- BOOTSTRAP + JQUERY --- END -->
-	
-	<!-- Mat-o-Wahl EINSTELLUNGEN / PREFERENCES (Javascript) -->
+	<!-- Mat-o-Wahl SETTINGS (Javascript) -->
 	<script type="text/javascript" src="../data/definition.js"></script>
+	<script type="text/javascript" src="../system/imprint.js"></script>
+	<script type="text/javascript" src="../system/globals.js"></script>
 
-	<!-- Mat-o-Wahl JAVASCRIPT und CSS - dynamisch eingebunden auf Basis DEFINITION.JS -->
-	<script type="text/javascript">
+	<!-- Mat-o-Wahl SETTINGS (CSS) -->
+
+
+	<!-- Advanced Settings based on DEFINITION.JS - dynamically included -->	
+	<script>
+	// Mat-o-Wahl CSS Styles 
 	for (i = 0; i<= design.length-1; i++) {
 		document.writeln("<link rel='stylesheet' type='text/css' href='../styles/"+design[i]+"' />");	
-	}	
+	}
+
+	// Mat-o-Wahl Language / i18n
+	document.writeln("<script type='text/javascript' src='../i18n/i18n_"+language+".js'><\/script>");
 	</script>
-
-	<!-- Mat-o-Wahl JAVASCRIPT - immer / always -->
-	<script type="text/javascript" src="../system/imprint.js"></script>
-	<script type="text/javascript" src="../system/general.js"></script>
-
+	
 </head>
 <body>
 
 
 
 <div class="container container-fluid theme-showcase">
+
+
 
 	<h1>Mat-O-Wahl - Impressum / Legal Notice</h1>
 
@@ -74,80 +67,54 @@
 
 	<!-- IMPRESSUM -->	
 
-	<div class="row">
-		<div class="col">
-			<h2>Angaben gem&auml;&szlig; &sect; 5 TMG</h2>
-			<p id="imprintGeneral"></p>
-		</div>
-		<div class="col">
-			<h2>Kontakt / Contact</h2>
-			<p id="imprintContact"></p>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col">
+	<h2>Angaben gem&auml;&szlig; &sect; 5 TMG</h2>
+	<p id="imprintGeneral"></p>
 
-			<h2>Umsatzsteuer-ID</h2>
-			<p id="imprintVATid"></p>
-			
-		</div>
-		<div class="col">
-			<h2>Verbraucher&shy;streit&shy;beilegung / Universal&shy;schlichtungs&shy;stelle</h2>
-			<p id="imprintDisputeResultion"></p>
-		</div>
-	</div>
+	<h2>Kontakt / Contact</h2>
+	<p id="imprintContact"></p>
+
+
+	<h2>Umsatzsteuer-ID</h2>
+	<p id="imprintVATid"></p>
 	
-	<div class="row">
-		<div class="col">
-			<p>Quelle: <a href="https://www.e-recht24.de">eRecht24</a></p>
-		</div>
-	</div>
+	<p>Quelle: <a href="https://www.e-recht24.de">eRecht24</a></p>
 
 
-	<div class="row">
-		<div class="col">
-			<h2>Redaktionelle Leitung / Editors</h2>
-			
-			<p id="imprintEditors"></p>
-		</div>
-
-		<div class="col">
-			<h2>Technische Leitung / Programming</h2>
-
-			<p id="imprintProgramming"></p>
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="col">
-			<h2>Bilder / Pictures</h2>
-			
-			<p id="imprintPictures"></p>
-		</div>			
-		<div class="col">
-			<h2>Datenschutz / Privacy</h2>
+	<h2>Redaktionelle Leitung / Editors</h2>
 	
-			<p id="idImprintPrivacy"></p>	
-		</div>
-	</div>
+	<p id="imprintEditors"></p>
+
+	<h2>Technische Leitung / Programming</h2>
+
+	<p id="imprintProgramming"></p>
+
+	<h2>Bilder / Pictures</h2>
+	
+	<p id="imprintPictures"></p>
+
+	<h2>Datenschutz / Privacy</h2>
+
+	<p id="idImprintPrivacy"></p>	
 
 	<!-- BESCHREIBUNG MAT-O-WAHL -->
 
-	<h2>Allgemeine Informationen / General Information</h2>
-
 	<div class="row">
-		<div class="col" lang="de">
+		<div class="col col-12 col-md-6" lang="de">
+			<h2>Allgemeine Informationen</h2>
+
 			<p>
-			Der <a href="http://www.mat-o-wahl.de/" target="_blank">Mat-O-Wahl</a> ist ein freies Programm zum Vergleichen von Parteipositionen mit der eigenen Meinung.
+			Der <a href="http://www.mat-o-wahl.de/" target="_blank">Mat-O-Wahl</a> ist ein freies Programm zum Vergleichen der eigenen Meinung mit den Positionen von Parteien, Kandidaten / Kandidatinnen oder anderen.
 			</p>
 
 			<p>
 			Der Mat-O-Wahl arbeitet nach dem Vorbild des "Wahl-O-Mat". Dieser wird in Deutschland von der "Bundeszentrale f&uuml;r politische Bildung" (bpb) herausgegeben.			
 			</p>			
 		</div>
-		<div class="col" lang="en">
+		<div class="col col-12 col-md-6" lang="en">
+			<h2>General Information</h2>
+
 			<p>
-			<a href="http://www.mat-o-wahl.de/" target="_blank">Mat-O-Wahl</a> is a free software to compare party positions with your own opinion.
+			<a href="http://www.mat-o-wahl.de/" target="_blank">Mat-O-Wahl</a> is a free software to compare your own opinion with parties, candidates or others.
 			</p>
 
 			<p>
@@ -156,11 +123,11 @@
 		</div>	
 	</div>
 
-
-	<h2>Lizenz / License</h2>
 	
 	<div class="row">
-		<div class="col" lang="de">
+		<div class="col col-12 col-md-6" lang="de">
+			<h2>Lizenz</h2>
+
 			<p>
 			Der Mat-O-Wahl steht unter der GPL - GNU General Public License (Version 3) um eigene &Auml;nderungen und Anpassungen vornehmen zu können.
 			</p>
@@ -172,7 +139,7 @@
 			</p>
 
 			<p>
-			Das System nutzt au&szlig;erdem die <a href="http://www.jquery.com/" target="_blank">jQuery</a>-Bibliothek und das <a href="https://getbootstrap.com/" target="_blank">Bootstrap</a>-Framework unter <a href="https://choosealicense.com/licenses/mit/" target="_blank">MIT-Lizenz</a>.
+			Das System nutzt au&szlig;erdem das <a href="https://getbootstrap.com/" target="_blank">Bootstrap</a>-CSS-Framework und <a href="https://www.papaparse.com/" target="_blank">Papa Parse</a> CSV-parser, jeweils unter <a href="https://choosealicense.com/licenses/mit/" target="_blank">MIT-Lizenz</a>.
 			<!-- 
 			jQuery war bis September 2012 sowohl GPL als auch MIT. MIT ist aber kompatibel mit GPL: 
 			"You are still free to take a jQuery Foundation project, make changes, and re-license it under the GPL if your situation makes that desirable. "
@@ -180,7 +147,9 @@
 			-->
 			</p>	
 		</div>
-		<div class="col" lang="en">
+		<div class="col col-12 col-md-6" lang="en">
+			<h2>License</h2>
+
 			<p>
 			Mat-O-Wahl is licensed under GPL - GNU General Public License (Version 3) to make your own changes and adaptations.
 			</p>
@@ -188,43 +157,38 @@
 			<p>
 			You can read the complete
 			<a href="http://choosealicense.com/licenses/gpl-v3/" target="_blank">license with a short summary</a> 
-			or a a copy in
+			or a copy in
 			<a href="License-GPL-3.0-en.txt" target="_blank">English</a>.
 			</p>
 
 			<p>
-			The system also uses the <a href="http://www.jquery.com/" target="_blank">jQuery</a>-library and <a href="https://getbootstrap.com/" target="_blank">Bootstrap</a>-Framework under <a href="https://choosealicense.com/licenses/mit/" target="_blank">MIT-license</a>.
+			The system also uses the <a href="https://getbootstrap.com/" target="_blank">Bootstrap</a>-CSS-Framework and <a href="https://www.papaparse.com/" target="_blank">Papa Parse</a> CSV-parser, both under <a href="https://choosealicense.com/licenses/mit/" target="_blank">MIT-license</a>.
 			</p>	
 		</div>			
 		
 	</div>	
 
-	<div class="row">
-		<div class="col">
-			<h2>Idee und Konzeption / Idea and Concept</h2>
-	
-			<p>
-			Mathias Steudtner
-			<a href="https://www.mat-o-wahl.de/">www.mat-o-wahl.de/</a>
-			</p>
-			<p id="versionNumber">Version: </p>	
-		</div>			
-	</div>
+	<h2>Technische Konzeption und ursprünglicher Quellcode / Technical concept and original source code</h2>
 
-	<div class="row">
-		<div class="col">
-			<a class="btn btn-outline-dark " role="button" href="../index.html">[&#x21D0;] Zur&uuml;ck / Back</a>
-		</div>			
-	</div>
+	<p>
+	Mathias Steudtner
+	<a href="https://www.mat-o-wahl.de/" target="_blank">www.mat-o-wahl.de/</a>
+	</p>
+	Version: <span id="versionNumber"></span>
+
+	<p class="text-end">
+		<a class="btn btn-outline-dark " role="button" href="../index.html">&#x1F870; Zur&uuml;ck / Back</a>
+	</p>
 	
 </div>	
 
-
 <script type="text/javascript">
-	$(document).ready(function() { 
-		fnShowImprint(); 		
-	});
-</script>
+
+	window.onload = (event) => {
+		fnShowImprint(); 
+	};
+
+</script>	
 
 </body>
 </html>
