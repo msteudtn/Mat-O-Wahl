@@ -1,3 +1,5 @@
+"use strict"
+
 ///////////////////////////////////////////////////////////////////////
 
 /*
@@ -22,10 +24,10 @@
 	DE: Bei den CSV-Dateien bitte beachten: 
 	- ueberall das gleiche Trennzeichen benutzen (z.B. immer nur Komma)
 	- Zweispaltig aufbauen, z.B.
-	-- richtig: 1,"Wir sind dafür" 
-	-- richtig: 1,"" 
+	-- richtig: 	1,"Wir sind dafür" 
+	-- richtig: 	1,"" 
 	-- grenzwertig: 1,
-	-- falsch:  1
+	-- falsch:  	1
 
 	Bei Problemen mit Umlauten und Sonderzeichen benutzen Sie bitte
 	den entsprechenden HTML-Code. z.B. ä = ae = &auml; Anführungszeichen = &quot; 
@@ -38,10 +40,10 @@
 	EN: When creating the CSV files, please take care of:
 	- use always the same separator (e.g. always comma)
 	- use two rows, e.g.
-	-- right: 1,"We support it" 
-	-- right: 1,"" 
-	-- borderline: 1,
-	-- wrong:  1
+	-- right: 	1,"We support it" 
+	-- right: 	1,"" 
+	-- borderline: 	1,
+	-- wrong:  	1
 
 	In case of problems with special characters, please use its HTML code
 	see here: https://www.utexas.edu/learn/html/spchar.html
@@ -62,20 +64,33 @@
 	e.g. "Airport","The airport shall be expanded."
 */
 
-const fileQuestions = "https://raw.githubusercontent.com/msteudtn/Mat-O-Wahl/refs/heads/master/data/Obsthausen_Fragen.csv";
-
+const fileQuestions = "https://raw.githubusercontent.com/msteudtn/Mat-O-Wahl/refs/heads/v0.7.0/data/Obsthausen_Fragen_06x.csv";
+// const fileQuestions = "data/Obsthausen_Fragen.csv"
 
 // 	--------------------------------------------------------------------
 
 //	1.2 ANZAHL der FRAGEN / 1.2 NUMBER of QUESTIONS
 
-const intQuestions = 6;
+ const intQuestions = 6;
+// const intQuestions = 36;
+
+//	1.2a KATEGORIEN / 1.2 CATEGORIES
+
+const intQuestionCategoriesActive = 0;
+
+
+const objQuestionCategories = {
+		q1: {"questions" : "1-2", "topic" : "Farbe und Form"},
+		q2: {"questions" : "4,6", "topic" : "Geschmack"},
+		q3: {"questions" : "3-4,5", "topic" : "Anderes"},
+		q4: {"questions" : "1-2,3,4-5,6", "topic" : "Alle"}
+		}
 
 
 // 	--------------------------------------------------------------------
 
 /* 
-	1.3. PARTEIEN, PARTEI-INFORMATIONEN und ANTWORTEN
+	1.3. KANDIDATEN, KANDIDATEN-INFORMATIONEN und ANTWORTEN
 
 	Die Datei hat folgenden Aufbau:
 		0;Parteiname kurz (z.B. APPD)
@@ -94,10 +109,17 @@ const intQuestions = 6;
  	1.3. PARTIES, PARTY-INFORMATION and ANSWERS
 */
 
-const fileCandidates = "https://raw.githubusercontent.com/msteudtn/Mat-O-Wahl/refs/heads/master/data/Obsthausen_Parteien.csv";
-const fileAnswers = "https://raw.githubusercontent.com/msteudtn/Mat-O-Wahl/refs/heads/master/data/Obsthausen_Parteien.csv";
+// const fileCandidates = "data/Obsthausen_Parteien.csv";
+const fileCandidates = "https://raw.githubusercontent.com/msteudtn/Mat-O-Wahl/refs/heads/v0.7.0/data/Obsthausen_Parteien_06Fragenx04Parteien.csv";
+
+
+
+// 	--------------------------------------------------------------------
 
 /*
+
+	Version 0.7.x: DEPRECATED / VERALTET
+
  	1.5. BILDGROESSE des PARTEILOGOS (am Ende)
 	DE: Die Breite und Höhe kann in Pixel und Prozent angegeben werden. 
 
@@ -119,23 +141,18 @@ const fileAnswers = "https://raw.githubusercontent.com/msteudtn/Mat-O-Wahl/refs/
 
 */ 
 
-// *** ### !!!
-
 // const intPartyLogosImgWidth = "10%";
 // const intPartyLogosImgHeight = "10%";
-
 
 // 	--------------------------------------------------------------------
 
 
 // 	1.6. UeBERSCHRIFTEN UND TEXTE / 1.6. HEADLINES AND TEXTS:
 
-// 	1.6.1 Soll am Anfang eine kurze Beschreibung angezeigt (1) werden oder sollen gleich die Fragen (0) starten?
-//		Wenn die Fragen sofort starten, gibt es einen kurzen "Loading"-Hinweis. :(
-// 	Show a short description in the beginning (1) or start with the questions right (0) away?
-//		If you choose for the questions right away, a short "loading" message will appear. :(
+// 	1.6.2. Eigener Name des X-o-mat / Individual name of your X-o-mat
 
-const descriptionShowOnStart = 1;
+const my_o_mat = "Frucht-o-Mat";
+
 
 // 	1.6.2. Hauptueberschrift / Main headline
 
@@ -157,17 +174,15 @@ const descriptionExplanation = "Am 30. Februar finden in Obsthausen Wahlen statt
 /*
 	1.7. IMPRESSUM, KONTAKT: / LEGAL NOTICE, CONTACT:
 
-	1.7.A  
-
-	DE: Option A) Eigenes Impressum (empfohlen) -> Link anpassen und Option B ignorieren!
+	DE: OPTION A) Eigenes Impressum (empfohlen) -> Link anpassen und Option B ignorieren!
 	Muster finden Sie z.B. auf: http://www.e-recht24.de/ oder http://www.datenschutz-generator.de/
 
-	empfohlener Hinweis bei einem eigenen Impressum:
-	"Der XXXXX-o-Mat basiert auf dem www.Mat-O-Wahl.de von Mathias Steudtner und ist freie Software unter GPL 3 Lizenz."
+	Empfohlener Hinweis bei einem eigenen Impressum (aber keine Pflicht)
+	"Der XXXXX-o-Mat basiert auf dem www.Mat-O-Wahl.de und ist freie Software unter GPL 3 Lizenz."
 
 	********************************************************************
 
-	EN: Option A) Own legal notice (recommended) -> change link and ignore option B!
+	EN: OPTION A) Own legal notice (recommended) -> change link and ignore option B!
 
 
 */
@@ -179,14 +194,14 @@ const descriptionExplanation = "Am 30. Februar finden in Obsthausen Wahlen statt
 
 /*
 
-	DE: Option B) (Standard)-Mat-o-Wahl-Impressum.
+	DE: OPTION B) (Standard)-Mat-o-Wahl-Impressum.
 	Wenn Sie keine (oder eigene) Angaben machen, so lassen Sie bitte die Variablen-Namen stehen.
 	Loeschen Sie stattdessen einfach den Text, z.B.
 	const imprintVATid = ``   oder   const imprintVATid = "";
 
 	********************************************************************
 
-	EN: Option B) Use (default) legal notice of Mat-o-Wahl.
+	EN: OPTION B) Use (default) legal notice of Mat-o-Wahl.
 	If you prefer to leave these information blank, please do not delete the variables
 	but only its content, e.g.
 	const imprintVATid = ``   or   const imprintVATid = "";
@@ -221,15 +236,6 @@ const imprintContact = `<p>Telefon: +49 (0) 123 44 55 66<br />
 const imprintVATid = `<p>Umsatzsteuer-Identifikationsnummer gem&auml;&szlig; &sect; 27 a Umsatzsteuergesetz:<br />
 			DE 999 999 999</p>`
 
-
-//	1.7.B.4: 
-//	(optional) Verbraucherstreitbeilegung / Universalschlichtungsstelle
-//	(optional) Online Dispute Resolution for consumers by European Commission
-
-const imprintDisputeResultion = `<p>Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: (https://ec.europa.eu/consumers/odr).</p>
-				<p>Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>`
-
-
 //	1.7.B.5
 //	(optional) Redaktion: Person(en), die die Fragen ausgearbeitet hat
 //	(optional) Editor: Person(s), who worked on the questions
@@ -258,11 +264,11 @@ const imprintPictures = `<p> Bilder mit freundlicher Genehmigung von / Pictures 
 
 
 //	1.7.B.8
-//	(optional) Link zu einer Datenschutzerklaerung beginnend mit http(s):- nötig für die anonyme Statistik
-//	(optional) Link to a privacy policy starting with http(s):- necessary for anonymous statistics
+//	(optional) Link zu einer Datenschutzerklaerung beginnend mit http(s) -> nötig für die anonyme Statistik
+//	(optional) Link to a privacy policy starting with http(s) -> necessary for anonymous statistics
 
 const imprintPrivacyUrl = "https://www.hans-wurst-webdesign-obsthausen.com/datenschutz.html";
-
+// const imprintPrivacyUrl = ""
 
 //	--------------------------------------------------------------------
 
@@ -271,10 +277,58 @@ const imprintPrivacyUrl = "https://www.hans-wurst-webdesign-obsthausen.com/daten
 
 // 2. ERWEITERTE EINSTELLUNGEN: / 2. ADVANCED SETTINGS
 
+
+//	2.1 Standard-Sprache / Default language
+//	see files in folder /i18n/ -> "de" = i18n_de.js, "en" = i18n_en.js, ...
+
+const language = "de";
+
+// 	--------------------------------------------------------------------
+
+// 	1.6.1 Soll am Anfang eine kurze Beschreibung angezeigt (1) werden oder sollen gleich die Fragen (0) starten?
+// 	Show a short description in the beginning (1) or start with the questions right (0) away?
+
+let descriptionShowOnStart = 1
+
+// 	--------------------------------------------------------------------
+
+//	Anzahl der Fragen-Buttons. Standard ist 3
+//	Number of question-buttons. Default is 3
+//	Beispiel / Example:
+//	3 =               [pro] - [neutral] - [contra]
+//	5 = [extra pro] - [pro] - [neutral] - [contra] - [extra contra]
+
+const intQuestionButtons = 5
+
+
+//	DE: Zeige Button [neutral / egal] -> ja (1) - nein (0)
+//	In Verbindung mit "intQuestionButtons = 3" bleibt nur noch [pro] [contra]
+//	EN: Show button [neutral] -> yes (1) - no (0)
+//	In connection with "intQuestionButtons = 3" only [pro] [contra] remains.
+//	Attention / Known bug: It's still possible to vote neutral in the "results by question"
+
+const intShowButtonNeutral = 1
+
+
+//	Zeige Button [x2 doppelt gewichten] -> ja (1) - nein (0)
+//	Show button [x2 double]  -> yes (1) - no (0)
+//	Attention / Known bug: It's still possible to vote double in the "results by question"
+
+const intShowButtonDouble = 1
+
+
+//	DE: Zeige Button [x2 überspringen] -> ja (1) - nein (0)
+//	Achtung: Fragen können trotzdem innerhalb der Navigation ("indicator") übersprungen werden
+//	EN: Show button [x2 skip]  -> yes (1) - no (0)
+//	Attention / Known bug: It's still possible to skip questions using the navigation ("indicator") and in the "results by question"
+
+const intShowButtonSkip = 1
+
+// 	--------------------------------------------------------------------
+
 //	2.1. Trennzeichen fuer die CSV-Dateien (Excel benutzt haeufig Semikolon, OpenOffice/LibreOffice ein Komma)
 //	2.1. Delimiter for CSV files (Excel often uses a semicolon, OpenOffice/LibreOffice a comma)
 
-const separator = ";"; // *** ### !!!
 const delimiter = ";";
 
 
@@ -303,7 +357,7 @@ const delimiter = ";";
 	Please find some examples above.  
 */  
 
-const design = ["default.css","buttons-colors-on.css", "progressbar.css"];
+const design = ["default.css","bootstrap-override.css"];
 
 
 /*
@@ -335,11 +389,6 @@ const design = ["default.css","buttons-colors-on.css", "progressbar.css"];
 const addons = []
 
 
-//	2.4 Sprache / Language
-//	see files in folder /i18n/
-
-const language = "de";
-
 
 ///////////////////////////////////////////////////////////////////////
 
@@ -366,9 +415,9 @@ const language = "de";
 	The script and Mat-O-Wahl must be on the same domain and network-protocoll. (no "cross origin" / CORS)
 */
 
-const statsRecord = 0;
-const statsServer = "http://localhost/extras/statistics/vote_txt.php";
-
+const statsRecord = 1;
+ const statsServer = "http://localhost:8082/extras/statistics/vote_txt.php";
+// const statsServer = ""
 
 /*
 	-> POST-Aufruf der gesendeten Ergebnisse / POST-Call of sent results:
