@@ -23,7 +23,7 @@
 
 	<!-- Mat-o-Wahl SETTINGS (Javascript) -->
 	<script type="text/javascript" src="data/definition.js"></script>
-	<script type="text/javascript" src="system/papaparse.min.js"></script>
+	<script type="text/javascript" src="system/papaparse5/papaparse.min.js"></script>
 	<script type="text/javascript" src="system/globals.js"></script>
 	<script type="text/javascript" src="system/backend.js"></script>
 	<script type="text/javascript" src="system/quicktest.js"></script>
@@ -66,29 +66,34 @@
 	<div class="row">
 		<div class="col" lang="de">
 			<h2>Fehlerbericht</h2>
-			<noscript style="color:#ff0000; font-weight:900">
+			<noscript style="color:#ff0000; font-weight:900;">
 				DE: Dieser Test ben&ouml;tigt JavaScript. 
 				Bitte aktivieren Sie die JavaScript-Technik in Ihrem Browser.
 				Diese Meldung verschwindet, wenn JavaScript aktiv ist.
 			</noscript>
+
+			<i id="quicktest_noscript_de" style="color:#ff0000; font-weight:900;">Bitte einen kurzen Moment warten, bis alle Berechnungen beendet sind ... Andernfalls finden Sie Lösungsvorschläge weiter unten.</i>
 		</div>
 		<div class="col" lang="en">
 			<h2>Error Report</h2>
-			<noscript style="color:#ff0000; font-weight:900">
+			<noscript style="color:#ff0000; font-weight:900;">
 				EN: JavaScript needed.
 				Please activate JavaScript in your browser.
 				This message disappears once JavaScript is active.
 			</noscript>
+
+			<i id="quicktest_noscript_en" style="color:#ff0000; font-weight:900;">Please wait a little while until all calculations are finished ... Otherwise you'll find possible solutions further down the page.</i>
+
 		</div>
 	</div>
 
 	<!-- http(s)://? file://? -->
 	<div class="row">
 		<div class="col border border-dark" lang="de" id="quicktest_protocol_de">
-			
+			<i>Prüfe Netzwerk-Protokoll ...</i>
 		</div>
 		<div class="col border border-dark" lang="en" id="quicktest_protocol_en">
-			
+			<i>Checking network protocol ...</i>
 		</div>
 	</div>
 
@@ -105,11 +110,11 @@
 
 	<div class="row">
 		<div class="col border border-dark" id="quicktest_definitions_de">
-			<i>Bitte warten, bis alle Berechnungen beendet sind ...</i> 
+			<i>Prüfe definition.js ...</i> 
 		</div>
 		
 		<div class="col border border-dark" id="quicktest_definitions_en">
-			<i>Please wait until all calculations are finished ...</i> 
+			<i>Checking definition.js ...</i> 
 		</div>		
 	</div>
 
@@ -119,7 +124,7 @@
 	
 	<div class="row">
 		<div class="col border border-dark" id="quicktest_questions">
-			<i>Bitte einen kurzen Moment warten, bis alle Berechnungen beendet sind ... Andernfalls finden Sie Lösungsvorschläge weiter unten. / Please wait a little while until all calculations are finished ... In any case </i>
+			<i>Prüfe Fragen-CSV ... / Checking questions-CSV ...</i>
 		</div>
 	</div>
 
@@ -128,7 +133,7 @@
 	
 	<div class="row">
 		<div class="col border border-dark" id="quicktest_candidates">
-			<i>Bitte einen kurzen Moment warten, bis alle Berechnungen beendet sind ... Andernfalls finden Sie Lösungsvorschläge weiter unten. / Please wait a little while until all calculations are finished ... In any case </i>
+			<i> Prüfe Kandidaten-CSV ... / Checking candidates-CSV ...</i>
 		</div>
 	</div>
 
@@ -137,7 +142,7 @@
 	
 	<div class="row">
 		<div class="col border border-dark" id="quicktest_statistics">
-			<i>Bitte einen kurzen Moment warten, bis alle Berechnungen beendet sind ... Andernfalls finden Sie Lösungsvorschläge weiter unten. / Please wait a little while until all calculations are finished ... In any case </i>
+			<i>Prüfe Statistik-Einstellungen ... / Checking settings for statistics ... </i>
 		</div>
 	</div>
 
