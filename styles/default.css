@@ -1,93 +1,93 @@
 
-/* BODY: Hintergrundfarbe, Schriftart, -groesse und -farbe */
+/* Background color for the site.
+   Font-color is calculated as contrast-color() of the background. */
+:root {
+	 --mow-bg-color: #eebb44;  
+}
+
 /* BODY: background color, font, size and color */
 body {
 	font-family: Liberation Sans, DejaVu Sans, Calibri, Helvetica, Verdana, Arial, sans-serif; 
-	font-size:1.4em; 
-	color:#000000; 
+	font-size:1.2em; 
 
-	background-color: #EFC04F;
+	color: contrast-color(var(--mow-bg-color)); 
+/*	color:#000000; */
+
+	background-color: var(--mow-bg-color);
 	/* background-image: linear-gradient(#EFC04F, #FFE08F); */ 
 	/* background-attachment: fixed; */
 	}
 
-/* LINK-Farbe - AUSSER bei der Bootstrap-Klasse "btn" für Buttons. Dort wird der Bootstrap-Standard benutzt. */
-/* LINK-color - EXCEPT for Bootstrap button-class "btn". Use defaults there. */
-a:not(.btn) { color:#000000; text-decoration:underline;}
-a:not(.btn):link { color:#000000; } 
-a:not(.btn):visited { color:#404040; }
-a:not(.btn):active { color:#FF0000; }
-a:not(.btn):hover { color:#FF0000; text-decoration:none; }
 
-.hideWelcomeShowQuestions {}
+/* LINKS */
+a { color: contrast-color(var(--mow-bg-color)); }
+a:link {  color: contrast-color(var(--mow-bg-color)); } 
+a:visited { color:#404040; }
+a:active { color:#FF0000; }
+a:hover { color:#FF0000; }
 
-.hideQuestionsAndShowResults {}
 
-.hideShareButtons {}
+/* Empty classes for Bootstrap's COLLAPSE */
+.mow-collapse-hideWelcomeScreenAndShowQuestions {}
 
-.mow-wrapper000
-{
- width:50%;
- height:20%;
- 
- margin:auto;
- position:absolute;
- /* left:40%; */
- /* top:50%; */
- 
- /*
- margin-left:auto;
- margin-top:auto;
- */
-}
+.mow-collapse-hideQuestionsAndShowResults {}
 
-.mow-wrapper111 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position:absolute;
-}
+.mow-collapse-toggleShareButtons {}
 
-.mow-centered {
-  position: fixed;
-  inset: 0px;
-  width: 20rem;
-  height: 3rem;
-  max-width: 100vw;
-  max-height: 100dvh;
-  margin: auto;
-}
 
-.opacity025 {
+/* Change the background color for some elements. Version 0.7x only uses "mow-opacity025" */
+.mow-opacity025 {
 	background: rgba(255, 255, 255, 0.25);
 }
 
-#footer_button_scrollToTop {
+.mow-opacity050 {
+	background: rgba(255, 255, 255, 0.5);
+}
+
+.mow-opacity075 {
+	background: rgba(255, 255, 255, 0.75);
+}
+
+
+/* Small overview of results (sticky on top) once the "big" results-table is out of focus / viewport */
+.mow-results-smallAndSticky { 
+	position: sticky; 
+	top: 0; 
+	padding: 0.5em;
+	transition: all 1s;
+	z-index: 99;
+}
+
+.mow-results-smallAndSticky div { 
+/*	background-color: #f2cc73; /* lighter background color - same value as "mow-opacity025" on the default background. */
+	background-color: rgba(255, 255, 255, 0.5);
+}
+
+
+/* Limit the description (first div of #welcomeScreen), so the START button is always visible on small screens. */
+#welcomeScreen > div:first-of-type {
+   max-height: 60vh;
+    text-overflow: clip;
+    overflow: auto;
+}
+
+
+/* The tuning-table has two column-headers: "Your answer" and "Question". The text "Your answer" doesn't fit in the narrow "col-2" on small screens. So we'll break the words. */
+#results_tuning_headerForUser, #results_tuning_headerForQuestion {
+	word-break: break-word;
+	/* text-orientation: mixed; */
+	/* writing-mode: vertical-lr; */
+	/* transform: rotate(-90deg); */
+}
+
+
+/* Fixed position of the button "Scroll to top". */
+#footer_buttonScrollToTop {
 	position: fixed;
 	bottom: 1em;
 	right: 1em;
 	display: none;
 }
 
-/* Willkommensnachricht (erster DIV)
-   Welcome Message (first DIV) */
-#description > div:first-of-type {
-    padding: 5% 2%;
-    text-overflow: clip;
-    overflow: auto;
-    margin-top: 1.0em;
-    max-height: 60vh;
-}
-
-/* BOOTSTRAP */
-.row {
-/*
-	padding: 0.2em;  
-*/
-}
-
-.col {
-	padding: 0.5em;  
-}
 
 
