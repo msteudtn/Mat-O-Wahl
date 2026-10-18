@@ -1,60 +1,114 @@
-/* Bootstrap BUTTONS 
-	https://getbootstrap.com/docs/4.0/components/buttons/
 
-	Anpassung: WACG Farben (Barrierefreiheit) 
-   Adjustment: WACG colors (accessibility)
+/* Override Bootstrap CSS */
+
+/* Adjustment: WACG colors (accessibility)
    https://webaim.org/resources/contrastchecker/ */
 
 :root {
-	--aria-button-red: #dc3545; 
-	--aria-button-green: #126412;
-	--aria-button-blue: #0050A0;
-	--aria-button-yellow: #ffc107;
+	--aria-red: #dc3545; 
+	--aria-green: #126412;
+	--aria-blue: #0050A0;
+	--aria-yellow: #ffc107;
+	--aria-grey: #575757;
 
 	/* https://www.w3schools.com/colors/colors_picker.asp */
-	--aria-button-red-dark: #981b27;
-	--aria-button-green-dark: #0c410c;
+	--aria-red-dark: #981b27;
+	--aria-green-dark: #0c410c;
 }
 
 
-/*  [PRO] Knopf: dunkleres grün / [PRO] button: darker green  */   
-.btn-success {
-	background: var(--aria-button-green); 
-	color: contrast-color(var(--aria-button-green))
-
+/* Default ROW */ 
+.row {
+/*	padding: 0.2em;  */
 }
 
 
-/*  [PRO EXTRA] Knopf: dark green */
-.mow-btn-success-dark {
-	background: var(--aria-button-green-dark); 
-	color: contrast-color(var(--aria-button-green-dark));
+/* Default COLUMN */ 
+.col {
+	padding: 0.5em;  
+}
+
+
+/* BUTTONS */
+/* [+] PRO button */   
+.btn-success, .btn-success:disabled {
+	background: var(--aria-green); 
+	color: contrast-color(var(--aria-green))
+}
+
+
+/* [++] PRO EXTRA button */
+.mow-btn-success-dark, .mow-btn-success-dark:disabled {
+	background: var(--aria-green-dark); 
+	color: contrast-color(var(--aria-green-dark));
 
 }
 
-/* [o] Knopf: schwarze Schrift auf gelbem Hintergrund / [o] button: black font on yellow background */
+/* [o] NEUTRAL button */
 .btn-warning {
-	background: var(--aria-button-yellow);
-	color: contrast-color(var(--aria-button-yellow))
+	background: var(--aria-yellow);
+	color: contrast-color(var(--aria-yellow))
 }
 
-/* [CONTRA] Knopf: keine Änderung / [CONTRA] button: no change */
-.btn-danger {
-	background: var(--aria-button-red);
-/*	color: contrast-color(var(--aria-button-red))
+/* [-] CONTRA button */
+.btn-danger, .btn-danger:disabled {
+	background: var(--aria-red);
+/*	color: contrast-color(var(--aria-red))
 */
 }
 
 
-/* [EXTRA CONTRA] Knopf: dark red */
-.mow-btn-danger-dark {
-	background: var(--aria-button-red-dark);
-	color: contrast-color(var(--aria-button-red-dark));
+/* [--] EXTRA CONTRA button */
+.mow-btn-danger-dark, .mow-btn-danger-dark:disabled {
+	background: var(--aria-red-dark);
+	color: contrast-color(var(--aria-red-dark));
 }
 
-/* diverse Knöpfe: dunkles Blau für helle Standardschrift / several buttons: dark blue for light default-fonts  */
+/* Several buttons */
 .btn-primary {
-	background: var(--aria-button-blue);
-	color: contrast-color(var(--aria-button-blue))
+	background: var(--aria-blue);
+	color: contrast-color(var(--aria-blue))
 	}
+
+.btn-secondary {
+	background: var(--aria-grey);
+	color: contrast-color(var(--aria-grey))
+	}
+
+/* PROGRESSBAR https://getbootstrap.com/docs/4.0/components/progress/ */
+
+.bg-success {
+	background: var(--aria-green);
+}
+
+.bg-warning {
+	background: var(--aria-yellow);
+}
+
+.bg-danger {
+	background: var(--aria-red);
+}
+
+.bg-primary {
+	background: var(--aria-blue);
+}
+
+
+
+/* ACCORDION - used for results "by matches" (overview), "by question" and "by candidate" */
+.accordion {
+	/* Background color of OPEN toggle-button  */
+	--bs-accordion-active-bg: rgba(255, 255, 255, 0.5);
+	/* Text color of OPEN toggle-button */
+	--bs-accordion-active-color: contrast-color(var(--bs-accordion-active-bg));
+
+	/* Background color of CLOSED toggle-button  */
+	--bs-accordion-btn-bg: rgba(255, 255, 255, 0.25);
+	/* Text color of CLOSED toggle-button  */
+	--bs-accordion-btn-color: #000;
+}
+
+.accordion-item {
+	background-color: transparent;
+}
 
