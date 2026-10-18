@@ -1,0 +1,641 @@
+# CHANGELOG
+
+## To Do 
+
+- change the system language by choosing from a button
+- check container image (creation, running, changing, ...)
+- Software Bill of Materials (SBOM)
+
+## Known bugs ##
+
+- after sending off the statistic results, the "share to clipboard" button sends off the statistics again
+
+## Versions:
+
+### 0.7.0.0.2026xxxx
+
+- Complete rewrite / **breaking changes** !!!
+
+- **Dependencies**
+  - removed https://jquery.com/ library 
+  - added https://www.papaparse.com/ 5.0.2 to parse CSV files
+  - updated Bootstrap responsive CSS framework to 5.3.8 
+  - new texts in `i18n`
+  - no change in the questions CSV-format 
+  - **change in the candidate's CSV-format** / new entries / new lines 
+    - old: 5 lines with candidate information (short name, long name, description, URL, image)
+    - new: 5 new lines = 10 lines (mail, telephone, filter, 2x reserved for future use)  
+
+- **Features**
+  - improved **accessibility** (ARIA-labels, colors ...)
+  - questions can now be **swiped** on smartphones (using Bootstrap "carousel")
+  - added a **short results-overview on top**, when page is scrolled
+  - added options for the **number of buttons** in `definition.js`
+    - show either 3 or 5 opinion / voting buttons (on the whole questionnaire, not by question)
+    - show / hide the `neutral` button
+    - show / hide the `double / important` button
+    - show / hide the `skip` button
+  - Page title can be changed with your individual X-o-mat name by setting `my_o_mat`, like "Fruit-o-Mat"
+  - pagination / question-numbers 
+    - **removed** the numbers from "1." to n
+    - added little indicators from Bootstrap "carousel"
+    - added a "Show results" card instead of showing the results right after the last question.
+  - added a **"scroll to top"** button
+  - **removed** social media buttons
+  - added sharing **by mail** and **to clipboard** (was an extra addon before)  
+
+- **Addons**
+  - `addon_check_iframe_resize_client.js` -> to be updated
+  - `addon_check_iframe_resize_host.js` -> to be updated
+  - `addon_contacts_in_results.js` -> **integrated** in candidate-CSV and results -> addon removed
+  - `addon_favorite_party.js` -> to be updated
+  - `addon_limit_results.js` -> to be integrated
+  - `addon_permalink_to_personal_result.js` -> **integrated** in footer -> addon removed
+  - `addon_results_textfilter_by_button.js` -> to be integrated
+  - `addon_show_first_results.js` -> to be integrated
+////////////////  - `addon_tooltips.js` -> integrated via new text in `ì18n` and title on button  
+
+- **Code**
+  - using mostly JavaScript objects{} instead of arrays[], now.
+    - `arQuestionsShort` -> `objQuestions.q0.short, objQuestions.q1.short, ...`
+    - `arQuestionsLong` -> `objQuestions.q0.long, objQuestions.q1.long, ...`
+    - `arPartyNamesShort` -> `objCandidates.c0.short, ...`
+    - `arPartyNamesLong` -> `objCandidates.c0.long, ...`
+    - `arPartyPositions` -> `objCandidates.c0.answers.a0.short, objCandidates.c0.answers.a1.short, ...`
+    - `arPartyOpinions` -> `objCandidates.c0.answers.a0.long, ...`
+    - **new**: points for the specific answer `objCandidates.c0.answers.a0.points, objCandidates.c0.answers.a1.points, ...`
+    - `arPartyDescription` -> `objCandidates.c0.desc, ...`
+    - `arPartyInternet` -> `objCandidates.c0.url, ...`
+    - `arPartyLogosImg` -> `objCandidates.c0.pic, ...`
+    - **new**: points for all candidate's answers `objCandidates.c0.points, ...`  
+
+    - **renamed** `arPersonalPositions` -> `arPersonalAnswers`
+    - **renamed** `arVotingDouble` -> `arPersonalMultiplier`  
+
+  - DOM is still built using JavaScript but: 
+   - old: HTML-tags and structure was defined inside the JS-Code
+   - new: Cloning HTML <template> from `index.html` via JS-Code  
+
+  - **changed** the default values for "neutral" and "skipped" answers in calculation
+    - old neutral: "0" -> new: "0.5"
+    - The answer in the candidate's CSV-file still stays "0" for convenience.  
+    - old skipped: "99" -> new: "0"
+
+  - **renamed** variables in DEFINITION.JS
+    - `fileAnswers` -> `fileCandidates`
+    - `separator` -> `delimiter`
+  - **new** variables in DEFINITION.JS
+    - `XXX` -> XXX  
+
+  - **renamed** and split up JavaScript files
+   - `general.js` -> `backend.js`
+   - `output.js` -> `frontend_*.js`  
+
+  - **renamed** and merged CSS files
+   - `buttons-colors-on.css` -> `bootstrap-override.css`
+   - `progressbar.css.css` -> `bootstrap-override.css`
+   - `buttons-colors-off.css` -> removed  
+
+  - **renamed** statistical results to be sent to server
+   - old: 
+     - `mopersonal` = personal answer to each question [-1, 0, 1, 99, -1, 1]
+     - `mowparties` = total candidate's points in CSV-order [5, 1, 0, 2] 
+   - new: 
+    - `mowpersonalanswers` = personal answer to each question [-1, 0.5, 1, 0, -1, 1]
+    - `mowpersonalmultiplier` = personal multiplier ("double" / "x2") to each question [2, 1, 1.5, 0, 3, 1] (**new**)
+    - `mowcandidatespoints` = total candidate's points in CSV-order [3, 6.5, 5.5., 4.75]
+
+- **Solved issues**
+  - [#67] Anzahl der maximal möglichen Punkte erhöhen (increase maximum points) 
+    - **solved** by new calculation in `backend.js -> fnEvaluationCurrentAnswer()`
+    - calculation is now based on summing up `arPersonalMultiplier[x]` (old name: arVotingDouble[])  instead of `arPersonalPositions[x]` (new name: arPersonalAnswers[])
+  - ...  
+
+- **Design decisions** (Why is feature X like that?)
+  - XXX  
+
+- **Others**
+  - updated `quicktest.html` to check for errors
+  - checked default legal notice / imprint
+  - moved `imprint.html` from root folder to `system/`
+  - removed EU Online Dispute Resolution from imprint, because it's no longer needed
+  - removed PDF help file
+  - added graphic with flow of functions (it's not a real UML-graph but a good overview)  
+
+- still  **to do**
+  - update results of database / statistics
+  - update documentation and faq on website
+  - check / update `extras/addons`
+  - increase performance  
+
+### 0.6.0.12.20250425
+
+- Minor fix:
+  - `quicktest.html` had some outdated calculations 
+  
+### 0.6.0.11.20250406
+
+- Added Docker support
+  - https://github.com/msteudtn/Mat-O-Wahl/pull/92
+  - Thanks to https://github.com/PixelWelt
+
+### 0.6.0.10.20230420
+
+- Minor fix: 
+  - The navigation-list (labeled "1-n") contains the short and long questions as title. If someone uses HTML-code inside the questions (see https://github.com/msteudtn/Mat-O-Wahl/issues/53) the navigation won't break now. Before, HTML-code wasn't filtered in `general/output.js`. Users can now **add links or text-formatting in their questions**.
+  - Visited links are now darker than before in `styles/default.css`
+
+### 0.6.0.9.20230407
+
+- new addon `extras/addon_permalink_to_personal_result.js` to save a link of your result to the clipboard and come back to it later https://github.com/msteudtn/Mat-O-Wahl/pull/87 (Thanks to FEnglisch)
+
+### 0.6.0.8.20230215
+
+- `intParties` is not set in the `definition.js`, but is computed in real time (new function `fnSetIntParties()` within `fnReadPositions()`) https://github.com/msteudtn/Mat-O-Wahl/pull/83 (Thanks to FEnglisch)
+- Bugfix: Buttons don't keep their focus after clicking on them https://github.com/msteudtn/Mat-O-Wahl/pull/79 (Thanks to FEnglisch)
+
+### 0.6.0.7.20230203
+
+- Addon `extras/addon_contacts_in_results.js` can now read email addresses from data-tags in `parties.csv` 
+- new addon `extras/addon_show_first_results.js` to show the first result(s) already unfolded with all information
+
+### 0.6.0.6.20221212
+
+- Minor fix
+  - Special characters in `extras/addon_contacts_in_results.js` were encoded with `encodeURI()` instead of `encodeURIComponent()`. Texts with ampersand (&) broke the email. https://github.com/msteudtn/Mat-O-Wahl/issues/75
+
+### 0.6.0.5.20221106
+
+- Small fixes
+  - Party-answers are shown in `#resultsByPartyTable` even if they should be hidden by the addon "limit_results" https://github.com/msteudtn/Mat-O-Wahl/issues/68
+  - Textfilter-addon sometimes didn't show answers in the two bottom tables https://github.com/msteudtn/Mat-O-Wahl/issues/70
+  - Added a contact-option (mailto) to the results via a new addon https://github.com/msteudtn/Mat-O-Wahl/issues/65
+  - Added a new DIV ("clamp") around the row with the result-summary (top table `#resultsShortParty`). Now, the CSS zebra-stripes (via `.mow-row-striped`) work better if an addon adds another row under it.
+  - Updated the "favorite party" addon / question at the beginning due to the new "clamp"-DIV
+  - Declared variables in `data/definition.js` with CONST instead of VAR according to standard ES2015 (ES6)
+
+### 0.6.0.4.20220727
+
+- minimal change to use the right CSS for links 
+  - for buttons: CSS from Bootstrap 
+  - for normal links: own definitions from `styles/default.css`
+
+### 0.6.0.3.20220303
+
+- Fix for https://github.com/msteudtn/Mat-O-Wahl/issues/58 
+  - updated `OUTPUT.JS`, `GENERAL.JS` and CSV-file of parties for `EXTRAS/addon_results_textfilter_by_button.js`
+  - Major **change** in the addon! Keywords for the search have to be placed in the party-description and no longer in the party-name.
+  - before: `ABC-Party #keyword &#x1F464; &#8203; &#8206;`
+  - after: `The ABC-Party fights for your right to literacy. #keyword &#x1F464; &#8203; &#8206;`
+  - Filter-buttons are now shown twice: on top and at the bottom
+  - Filter-buttons at the top moved under the headline (before: over the headline)
+  - First button is now active by default.
+
+### 0.6.0.2.20211031
+
+- Updated error message(s) in `QUICKTEST.HTML`. Some users started Mat-o-Wahl locally but it didn't point out, that the **browsers block reading local files**. Also, added a link to the online-help. 
+
+### 0.6.0.1.20211009
+
+- Update (Clarification) in the privacy statement. The user didn't really know, who he/she was helping to improve the application. Me or the people running the current Mat-o-Wahl?
+
+........20210926 Bundestagswahl in Deutschland 
+
+### 0.6.0.20210902 (BMBF-PTF)
+
+- End of funding project https://prototypefund.de/ "Runde 9" (Richtlinie "Software-Sprint") by *Bundesministerium für Bildung und Forschung* https://www.bmbf.de/ with support of *Open Knowledge Foundation Deutschland e.V.* https://okfn.de/ and *DLR Projektträger* https://www.dlr.de/pt/
+- **Summary of changes**
+  - New list of results: all parties and their answers (0.6.0.stable.20210313 BMBF-PTF-AP1)
+  - Added a **one-time welcome-message** instead of showing the election-description every time. (Improvement for mobile devices)
+  - New addon: Show only a **limited number of results** at the end https://github.com/msteudtn/Mat-O-Wahl/issues/21 
+  - New addon: **Ask for the favorite party** at the beginning (0.6.0.stable.20210709 BMBF-PTF-AP3)
+  - New addon: Include Mat-o-Wahl via an `iframe` on external sites https://github.com/msteudtn/Mat-O-Wahl/issues/25 
+  - Improved addon: **textfilter for multiple elections** with one "CSV-database" (e.g. Noth, East, South, West) (0.6.0.stable.20210405 BMBF-PTF-AP2) 
+  - Improved **settings for statistics** https://github.com/msteudtn/Mat-O-Wahl/issues/43 
+  - Slightly improved analysis of statistics from database instead of text-file https://github.com/msteudtn/Mat-O-Wahl/issues/18
+  - Changed the request for **permission for data-analytics**. It is now a pop-up (modal) after the last question instead of a toggle-button under the questions https://github.com/msteudtn/Mat-O-Wahl/issues/35
+  - Started to remove jQuery-library
+  - **UX changes**: removed some icons, re-arranged the order of the buttons, removed the progress-bar
+  - Major **changes to version 0.5.1**: 
+    - Renamed some variables in `DEFINITION.JS`
+    - New: array `var addons = []` in `DEFINITION.JS`
+    - Changed Type: `var design` is now an `ARRAY` and not a `STRING` in `DEFINITION.JS`
+    - Changed and updated CSS-Stylesheets in `/STYLES` and `INDEX.HTML`
+    - New variables in `/extras/i18n/`
+
+
+#### 0.6.0.stable.20210811 (BMBF-PTF)
+
+- Next **Update** for "Show only X parties in the list of results right away. The rest is visible on click."
+  - https://github.com/msteudtn/Mat-O-Wahl/issues/21 - Nur die ersten 20 (?) Parteien in Tabellen anzeigen und darunter ein Button "Weitere anzeigen"
+  - `EXTRAS/ADDON_LIMIT_RESULTS.JS`
+  - new / changed: Buttons in the (left) table `#resultsByThesisTable` are no longer under the whole table but under each question. So, under each `#resultsByThesisAnswersToQuestionX`.
+
+
+#### 0.6.0.stable.20210727 (BMBF-PTF)
+
+- **Update** for "Show only X parties in the list of results right away. The rest is visible on click."
+  - https://github.com/msteudtn/Mat-O-Wahl/issues/21 - Nur die ersten 20 (?) Parteien in Tabellen anzeigen und darunter ein Button "Weitere anzeigen"
+  - `EXTRAS/ADDON_LIMIT_RESULTS.JS`
+  - new: added an option to the addon to show less results 
+  - new / changed: Buttons are shown directly under the (three) result-lists (tables). Before it was just one button at the end. 
+  
+- Slowly starting to **remove jQuery**
+  - **New:** `@keyframes myFadeIn, @keyframes myFadeOut` in `DEFAULT.CSS` to support fading
+  - **New:** functions `fnFadeIn(), fnFadeOut()` in `GENERAL.JS`
+  - e.g. `fnFadeOut(document.getElementById("myId"), 750, 1)` = fade out `#myId` within 750ms and set `display:none` (1)    
+
+
+#### 0.6.0.stable.20210723 (BMBF-PTF-APx)
+
+- New setting in `/extras/statistics/db_settings.php` to include the table-name, also.
+  - https://github.com/msteudtn/Mat-O-Wahl/issues/43 - DB-Tabellenname in db_settings.php definieren
+  - Before, only the usual database-credentials were saved in `db_settings.php`
+  - Now, you can add the name of your table as well (if you like)
+  - Find more details in `/extras/statistics/readme.md`
+
+
+#### 0.6.0.stable.20210709 (BMBF-PTF-AP3)
+
+- Question in the beginning to **ask for the favorite party**
+  - **NEW**: `/EXTRAS/ADDON_FAVORITE_PARTY.JS`
+  - highlight chosen party from the beginning at the end
+
+  
+#### 0.6.0.stable.20210707 (BMBF-PTF-APx)
+
+- Added option to show **statistics from database** with the included `RESULTS.HTML` (based on a text-file) 
+  - https://github.com/msteudtn/Mat-O-Wahl/issues/18 - results.js/html so anpassen, dass Statistiken aus Datenbanktabelle visualisiert werden
+  - **NEW:** `EXTRAS/STATISTICS_DB/READ_DB_WRITE_TEXT.PHP` - reads data from database and writes a textfile for `RESULTS.HTML` 
+  - **NEW**: `EXTRAS/STATISTICS/DB_SETTINGS.PHP` - credentials for database. Is used in `READ_DB_WRITE_TEXT.PHP` and `VOTE_DB.PHP` 
+
+
+#### 0.6.0.stable.20210702 (BMBF-PTF-APx)
+
+- Include Mat-o-Wahl via `iframe` in an existing site (next try)
+  - https://github.com/msteudtn/Mat-O-Wahl/issues/25 - iframe mit variabler Höhe - Gleiche und unterschiedliche Domain
+  - **NEW:** `EXTRAS/ADDON_CHECK_IFRAME_RESIZE_HOST.JS`
+  - **NEW:** `EXTRAS/ADDON_CHECK_IFRAME_RESIZE_CLIENT.JS`
+  - can be on the same domain or a different domain
+  - still two separate scripts :( but the same technology for same-domain and cross-domain
+  - **Replacement** for https://github.com/msteudtn/Mat-O-Wahl/issues/13  (see also version 20210605) 
+
+
+#### 0.6.0.stable.20210626 (BMBF-PTF-APx)
+
+- New: Bootstrap-Modal in `INDEX.HTML` popping up **after the last question** and **requesting permission for data analytics**
+  - https://github.com/msteudtn/Mat-O-Wahl/issues/35 Abfrage nach statistischer Auswertung als letzter Schritt vor dem Ranking
+  - `GENERAL.JS, OUTPUT.JS, INDEX.HTML, i18n`
+  - **Removed**: toggle-button under the questions to ask for permission 
+  - **NEW:** variables in i18n: ` TEXT_ALLOW_STATISTIC_TITLE, TEXT_ALLOW_STATISTIC_TEXT, TEXT_ALLOW_STATISTIC_YES, TEXT_ALLOW_STATISTIC_NO`
+
+- Changed the sizing of the welcoming-message
+  - https://github.com/msteudtn/Mat-O-Wahl/issues/26 Größe der Beschreibungs-/Willkommensbox definieren
+  - Updated CSS in `/STYLES` and `INDEX.HTML`
+
+
+#### 0.6.0.stable.20210620 (BMBF-PTF-APx)
+
+- Show only X parties in the list of results right away. The rest is visible on click.
+  - https://github.com/msteudtn/Mat-O-Wahl/issues/21 - Nur die ersten 20 (?) Parteien in Tabellen anzeigen und darunter ein Button "Weitere anzeigen"
+  - **NEW:** `EXTRAS/ADDON_LIMIT_RESULTS.JS`  
+
+
+#### 0.6.0.stable.20210618 (BMBF-PTF-APx)
+
+- Bugfix: https://github.com/msteudtn/Mat-O-Wahl/issues/27 
+  - `GENERAL.JS, OUTPUT.JS`
+  - buttons in right overview-table (sorted by party) did not change, when changing your view in the left table (sorted by answers)
+  - **Changed:** from `id=selfPosition123` to `class=selfPosition123`
+
+........20210606 Landtagswahlen in Sachsen-Anhalt
+
+#### 0.6.0.stable.20210605 (BMBF-PTF-APx)
+
+- Include Mat-o-Wahl via `iframe` in an existing site
+  - https://github.com/msteudtn/Mat-O-Wahl/issues/13 - iframe mit variabler Höhe ermöglichen 
+  - **NEW:** `EXTRAS/ADDON_CHECK_IFRAME_RESIZE_SAME_DOMAIN.JS`
+  - **NEW:** `EXTRAS/ADDON_CHECK_IFRAME_RESIZE_CROSS_DOMAIN.JS`
+  - can be on the same domain or a different domain   
+  - currently two separate scripts. But should be included into one script eventually
+
+
+#### 0.6.0.stable.20210514 (BMBF-PTF-AP4)
+
+- UX improvements
+  - **Removed the icons** (like [x] [o]) from the buttons in `i18n`. Site looks "quieter", now. 
+  - **Re-arranged the order of the buttons** and put "count twice" in front, so people can click it before.
+  - Progress bar is hidden now. Progress is already shown in the table with the numbers below the questions.
+
+
+#### 0.6.0.stable.20210423 (BMBF-PTF-AP2)
+
+- new option to include / exlude add-ons via `DEFINITION.JS` instead of messing in `INDEX.HTML`
+   - **NEW:** array `var addons = []`
+
+- adjustments for smalller screens
+  - The view of the short summary (first list) gets adjusted on small screens (left cell + right cell => upper cell + lower cell)
+  - view of party-answers (AP1) gets adjusted on small screens 
+
+- CSS-Stylesheets are now split into multiple small files separated by topic (default, buttons, progressbar)
+  - `DEFAULT.CSS, INDEX.HTML, DEFINITION.JS`
+  - Stylesheet can be individually added in `DEFINITION.JS`
+  - **Changed Type**: `var design` is now an `ARRAY` and not a `STRING`
+
+- updated `QUICKTEST.HTML, QUICKTEST.JS` to new variable names
+
+- some new example-images of fruits in `/DATA` :)
+
+
+#### 0.6.0.stable.20210411 (BMBF-PTF-AP2)
+
+- new option to show/hide a description at the beginning (What's the election about). Before, the explanation was always shown and wasted space on small screens.
+  - `DEFINITION.JS, OUTPUT.JS, INDEX.HTML`
+  - **renamed variables** in `DEFINITION.JS`
+     - `heading1 -> descriptionHeading1`
+     - `heading2 -> descriptionHeading2`
+     - `explanation -> descriptionExplanation`
+     - **NEW:** `descriptionShowOnStart`
+  - **Revert** setting from 20210313: `#descriptionHeading2, #descriptionExplanation` are not hidden on small screens (not needed anymore)
+  - new IDs on `<SECTION>` for easier fadeIn() / fadeOut() in `INDEX.HTML`
+
+- hide column "[x2]" ("important to me") on small screens in `OUTPUT.JS`
+
+- removed (uncommented) a number of unused stylesheets in `DEFAULT.CSS`
+
+
+
+#### 0.6.0.stable.20210405 (BMBF-PTF-AP2)
+
+- textfilter-addon for multiple elections using arrays
+  - `OUTPUT.JS, EXTRAS/TEXTFILTER`
+  - use textfilter on all lists: short summary, questions, parties (from AP1)
+  - use "invisible" characters for filter (examples in the file in `/EXTRAS` folder)
+
+- fadeIn() party-answers (from AP1) like the question-list already does (in `OUTPUT.JS`)
+
+- adjusted Bootstrap-colors for accessibility (WACG) in `DEFAULT.CSS`
+
+........20210314 Landtagswahlen in Rheinland-Pfalz und Baden-Württemberg
+
+#### 0.6.0.stable.20210313 (BMBF-PTF-AP1)
+
+- Show a list of all parties and their answers (fnEvaluationByParty())
+  - `OUTPUT.JS, INDEX.HTML`
+  - **renamed**: `#resultsLong -> #resultsByThesis`, `fnEvaluationLong() -> fnEvaluationByThesis()`
+
+- Bugfix: Hide privacy-statement if `statsRecord` in `DEFINITION.JS` is set to 0/false
+
+- i18n
+  - **removed**: `TEXT_RESULTS_MATCHES_DETAILS, TEXT_RESULTS_MATCHES_DETAILS_TABLE`
+  - **renamed**: `TEXT_RESULTS_MATCHES_DETAILS_INFO -> TEXT_RESULTS_INFO_THESES; TEXT_RESULTS_MATCHES_GENERAL -> TEXT_RESULTS_HEADING`
+  - new: `TEXT_RESULTS_INFO_PARTIES, TEXT_RESULTS_BUTTON_THESES, TEXT_RESULTS_BUTTON_PARTIES`
+
+- Bugfix: If a party did not answer a question, the line was not selected from the CSV file. (e.g. CSV content: "1;") in `GENERAL.JS`
+  
+- DEFAULT.CSS, OUTPUT.JS
+  - removed: CSS `body -> font-size` and all CSS for `table` in `DEFAULT.CSS`
+  - instead: using Bootstrap's `class='table table-bordered table-striped table-hover` in `OUTPUT.JS`
+
+- INDEX.HTML, DEFINITION.JS
+  - `var heading2, var explainingText / #heading2, #explanation` only shown on screens larger than Bootstrap's "medium" (>= 768px)
+
+- replaced open brackets (&#x2335;) from v.0.5.0.1. with [+]/[-] sign to indicate open/close (collapse) in `OUTPUT.JS`
+
+
+### 0.5.1.20201230
+
+- GENERAL.JS
+  - Bugfix: Update algorithm for results (before: no half points if party said yes or no) 
+ -> better compliance with original Wahl-o-Mat https://www.bpb.de/system/files/dokument_pdf/Rechenmodell%20des%20Wahl-O-Mat%202019.pdf
+
+### 0.5.0.1.20201130
+
+- answers.CSV
+  - short descritpion / explanation in first row
+
+- OUTPUT.JS
+  - open brackets (&#x2335;) to show, that you can open "#resultsLong"-table for further details on parties
+
+
+### 0.5.0.20200830
+
+- DEFINITION.JS, answers.CSV
+  - complete change: only ONE file for the parties and answers instead of independet CSV-files 
+   (before: "party-A.csv, B-party.csv, ...". Now: "party+answers.csv")
+   Reason: CSV-files got loaded at different times on slow connections (mobile EDGE, modem, ...)
+	   This ended up in wrong results. (AJAX-bug)
+	   An alternative would be synchronous calls but this blocks the browser. :(
+   New: All information on the party goes in the ANSWERS-file too. (like: www, party-name, ...)
+ 	Possiblity to add a party description 
+
+- OUTPUT.JS
+  - Informationen zu Parteien beim Klick ein-/ausblenden (so wie bei den Antworten in der unteren Tabelle)
+  - Partei-Bild rechtsbündig neben Parteinamen in der gleichen Zelle
+  - Punkt-Bewertung verschoben in Fortschrittsbalken 
+  - jumpToQuestion-Tabelle unter den Fragen: bei onMouseOver() die Frage anzeigen
+  - Bilder müssen nun mit genauem Pfad angegeben werden, z.B. "data/image.jpg" oder "https://domain.com/images/pic.jpg"
+
+- DEFINITION.JS, IMPRINT.HTML, new: IMPRINT.JS 
+  - complete change: focus on German registered societies ("eingetragener Verein, e.V.")
+                    and adjustments to current legal situation.
+		    * Still, this is NOT a PERFECT imprint. *
+		    * Dies ist KEIN PERFEKTES Impressum! *
+  - Note on how to refer to Mat-o-Wahl if you use your own imprint
+
+- GENERAL.JS
+  - arPersonal with corrected values for statistics (Thanks to Marius Nisslmueller)
+   before: -1,0,1 -> now: -2,-1,0,1,2
+
+- EXTRAS\STATISTICS
+  - example of MySQL-Table and PHP-script for statistics / counter (Thanks to Marius Nisslmueller)
+
+- EXTRAS\startSimplePythonServer.txt
+  - Kurzanleitung zum Starten eines http-Servers
+
+- INDEX.HTML
+  - Built-In Bootstrap toogle-switch "custom-control custom-switch" instead of "Flat Toggle Switch" by https://bootsnipp.com/snippets/z8b8y 
+
+- QUICKTEST.HTML, QUICKTEST.JS
+  - adaption to new DEFINITION.JS
+
+- DEFINITION.JS
+  - Picture size in percent (%) instead of pixels (px)
+
+- VERSION.TXT renamed to CHANGELOG.TXT
+
+
+### 0.4.1.20200228
+
+- QUICKTEST.HTML, RESULTS.HTML, IMPRINT.HTML
+  - local copies of Bootstrap and jQuery
+- i18n, OUTPUT.JS
+  - moved Unicode-characters from OUTPUT.JS into i18n, e.g. [agree-tickbox]
+- DEFINITION.JS, OUTPUT.JS
+  - added option/link for own legal notice (Impressum)
+
+### 0.4.0.20200125
+
+- INDEX.HTML
+  - update Bootstrap to 4.4.1
+  - update jQuery to 3.4.1
+  - local copies of Bootstrap and jQuery for better compliance with EU General Data Protection Regulation (GDPR - Datenschutz-Grundverordnung / EU-DSGVO)
+  - new addon-interface. "#descriptionAddonTop", "#descriptionAddonBottom", "#resultsAddonTop", "#resultsAddonBottom"
+   Probably best to use with "MutationObserver" https://developer.mozilla.org/de/docs/Web/API/MutationObserver 
+- DEFINITION.JS, OUTPUT.JS, i18N
+  - links to external pages need the full URL with http(s):// now. Before, I linked to (unsecure) http:// directly.  
+- EXTRAS/ADDON_RESULTS_TEXTFILTER_BY_BUTTON.JS
+  - first addon: Selection-Buttons for joint elections (e.g. town council + mayor, z.B. Stadtrat + Bürgermeister)
+
+........20190929 zehn Jahre! / ten years! :) \
+........20191027 Landtagswahl in Thüringen \
+........20190901 Landtagswahl in Brandenburg und Sachsen \
+........20190526 Europawahl
+
+### 0.3.0.20181103
+
+- INDEX.HTML, OUTPUT.JS, GENERAL.JS, ...
+  - Bootstrap-Framework for responsive design
+  - Ajax-Promises: $.ajax({}).done()
+  - jquery-csv-library instead of own JavaScript-functions (and update existing jquery-csv from 0.7.1 to 0.8.9)
+- CSS
+  - Adaptions to Bootstrap-Framework
+- i18n
+  - internationalisation-files (not via CSV but JS)
+- IMG-folder
+  - pictures deleted (CSS instead)
+
+........20181028 Landtagswahl in Hessen \
+........20181014 Landtagswahl in Bayern \
+........20170924 Bundestagswahl in Deutschland
+
+### 0.2.4.2.20161021
+
+- INDEX.HTML, VOTE.PHP
+  - Translations / Uebersetzungen
+- CSS
+  - Added description for "tr:nth-child(even)"
+
+### 0.2.4.1.20151115
+
+- INDEX.HTML
+  - Social Media Buttons
+  - Wahlknoepfe umbenannt: "Stimme dafür" -> "Stimme zu", "Stimme dagegen" -> "Stimme nicht zu"
+- CSS
+  - Social Media Buttons
+  - tr:nth-child(even) in Ergebnis-Tabellen anstelle von Funktionen GENERAL.JS/"fnCreateMiddleColor" und "fnTransformHexToDec"
+- RESULTS.HTML
+  - Auswertung nach Tagen und optische Verbesserungen
+- IMPRINT.HTML, CSS, DEFINITION.JS
+  - Translations / Uebersetzungen
+
+### 0.2.4.20150222
+
+Riesigen Dank an Ben Kobrinski (mail (a) benkob . de) für:
+- Sortierung der Ergebnistabelle nach Übereinstimmung 
+- Wichtung ausgewählter Thesen (z.B. "Dieses Thema ist mir besonders wichtig" -> doppelte Punktzahl)
+- Live-Auswertung und Aenderung in der Ergebnistabelle (z.B. "Habe mich bei Frage 3 spontan umentschieden." -> Was kommt jetzt raus?)
+  (Die Reihenfolge in der statistischen Auswertung "mowpersonal" und "mowparties" wird davon nicht berührt)
+- GENERAL.JS
+  - neue globale Variablen: arVotingDouble, arSortParties, activeQuestion
+  - neue Variablen fnEvaluation() -> var faktor
+  - neue Funktionen: fnToggleSelfPosition(), fnToggleDouble()
+- OUTPUT.JS
+  - Checkbox für doppelte Bewertung
+  - neue Funktionen: fnChangeVotingDouble(), fnReEvaluate()
+- INDEX.HTML
+  - Checkbox für doppelte Bewertung
+  - Sprechblase (Speechbubble) für These
+  - Pro, Neutral und Contra auf erste Zeile. "Doppelt werten" und "Überspringen" auf zweite Zeile gelegt.
+- optische Verbesserungen (Teil-Transparenz bei Buttons, Farbverlauf für Hintergrund, Sprechblase für These, ...)
+- Hilfe-Dokument überarbeitet
+
+........20150215 - Bürgerschaftswahl in Hamburg \
+........20140831 - Landtagswahl in Sachsen
+
+### 0.2.3.2.20140724
+
+- GENERAL.JS 
+  - Funktion fnReadCsv() um "async: false," erweitert. (Das "A" in AJAX deaktiviert.) Sollte den Lade-Bug hoffentlich bereinigen. Ausserdem den "error:"-Text um eine kurze Hilfe erweitert.
+- OUTPUT.JS
+  - Hintergrundfarbe in Funktion fnJumpToQuestionNumber() mit der Rahmenfarbe angeglichen.
+  - Anzeige der These UND der vollen Frage in der ausfuehrlichen Auswertung (fnEvaluationLong() -> arQuestionsLong[i])
+- DEFAULT.CSS
+  - "height" aus #middle entfernt. Jetzt gibt es zwar keine feste Hoehe mehr aber dafuer kann man am Ende alles problemlos ausdrucken.
+- Hilfe-Dokument um FAQ erweitert
+
+........20140525 - Europawahl in Deutschland
+
+### 0.2.3.1.20140518
+
+- QUICKTEST.HTML prueft nun auf fehlende Variablen
+- IMPRINT.HTML
+  - fehlende, optionale Werte werden mit "keine Angabe" ersetzt.
+  - Texte und Links aufgeraeumt.
+- In INDEX.HTML den #results-DIV aufgeteilt in #resultsShort und #resultsLong um CSS-Vererbung von #content zu vermeiden (Schriftgroesse in den Ergebnistabellen ist nun immer gleich / Standardgröße)
+- In OUTPUT.JS die feste Beschraenkung auf 16 Fragen / Zeile aufgehoben (in fnJumpToQuestionNumber()). 12 Fragen / Zeile als neue Vorgabe eingestellt. Kann jetzt im Quelltext geaendert werden.
+- In DEFINITION.JS Informationen und Beispiele zur Problemvermeidung hinzugefuegt
+  - gleiches Trennzeichen nutzen!
+  - CSV-Dateien mit zwei Spalten nutzen!
+  - HTML-Notation bei Sonderzeichen benutzen!
+
+### 0.2.3.20140511
+
+- kleines Skript für die Auswertung hinzugefügt (RESULTS.HTML) für die Ergebnisse aus der VOTE.PHP / TEST.TXT
+- Erklaerungen in QUICKTEST.HTML praezisiert
+- Möglichkeit die Bildgroesse des Parteilogos in der DEFINITION.JS anzugeben (intPartyLogosImgWidth und intPartyLogosImgHeight)
+- optische und inhaltliche Verbesserungen (Mit Dank an OpenData Wuppertal, www.opendatal.de, www.talomat.de)
+  - Icons ausgetauscht und vergroessert 
+  - Rahmen zentriert und schattiert, Schriftgroessen und -farben angepasst
+
+......20130922 - Bundestagswahl in Deutschland
+
+### 0.2.2.20120930
+
+- Lizenzhinweise aktualisiert (manchmal stand noch GPL 2)
+- optische und inhaltliche Verbesserungen in der detaillierten Auswertung (Mit Dank an Peter Lutz, Passau)
+  - Icons hinzugefuegt, z.B. für rot-gruen-blinde Personen 
+  - Position der Partei im Tooltip (vorher: "Parteiname: Begruendung", jetzt: "Parteiname: Stimme dafuer/dagegen: Begruendung")
+
+### 0.2.1.20091216
+
+- Bewertungssystem korrigiert. Enthaltung wurde als 0,5 gewertet, ist nun 0
+- Vor- und Zurueckspringen bei Fragen nun moeglich
+- Moeglichkeit ein anderes Trennzeichen als das Komma fuer die CSV zu definieren
+- Einstellungen der Partei/Positionslisten in der DEFINITION.JS von Arrays auf Strings umgestellt fuer einfachere Administration
+- Schnelltest verbessert zur einfacheren Fehlersuche
+- optische Verbesserungen
+  - Alternativtext in Ergebnisliste beschreibt auch persoenliche Position mit Worten statt 1/0/-1
+
+### 0.2.0.1.20091027
+
+- Bewertungssystem an den Wahlomat angepasst. Neutrale Positionen der Parteien werden nun als halber Punkt angerechnet.
+
+### 0.2.0.20091004
+
+- Moeglichkeit, einzelne Parteien in der Ergebnisliste einzeln auszuwaehlen
+- Schnelltest zum Pruefen der Konfiguration
+- optische Verbesserungen
+  - Rahmen mit Farbe der eigenen Position (z.B. rot) um Bild der Parteiposition (z.B: gruen) in detaillierter Auswertung
+  - Stylesheet-Datei verbessert (Schriftgroesse mit % statt pt)
+
+### 0.1.1.20090930
+
+- Variable fuer Internetadressen der Parteien hinzugefuegt
+- Austausch der Designvorlagen (CSS) moeglich
+- Moeglichkeit der anonymen "Wahlprogonose" nach Nutzereinwilligung
+- optische Verbesserungen
+  - Hervorhebeung von geraden Tabellenspalten in der Auswertung
+  - Verschiedene Farben in der Auswertung je nach Prozent der uebereinstimmung mit Partei
+
+### 0.1.0.20090929
+
+- erste Veroeffentlichung
+- Abfrage von Parteipositionen
+- kurze Auswertung
+- detaillierte Auswertung
+
+......20090927 - Bundestagswahl in Deutschland
+
+https://de.wikipedia.org/wiki/Liste_von_Wahlen#21._Jahrhundert \
+http://www.mat-o-wahl.de 
