@@ -56,6 +56,12 @@
 	<img src="https://mat-o-wahl.de/bilder/mow-example-results-byCandidate-desktop.png" width="45%" alt="Ergebnisse / nach Kandidaten sortiert (Desktop)" title="Ergebnisse / nach Kandidaten sortiert (Desktop)" /> 
 </p>
 
+**Mobile Ansicht** - Ergebnisse sortiert nach Fragen und Kategorien
+<p float="left">
+	<img src="https://mat-o-wahl.de/bilder/mow-example-results-byQuestions-mobile-top.png" width="45%" alt="Ergebnisse / nach Fragen sortiert (mobil)" title="Ergebnisse / nach Fragen sortiert (mobil)" /> 
+	<img src="https://mat-o-wahl.de/bilder/mow-example-results-byCandidate-mobile.png" width="45%" alt="Ergebnisse / nach Kandidaten sortiert (mobil)" title="Ergebnisse / nach Kandidaten sortiert (mobil)" /> 
+</p>
+
 
 
 ### Mögliche Einsatzzwecke / Zielgruppe
@@ -68,7 +74,7 @@
 
 ## LIVE-DEMO
 
-https://www.mat-o-wahl.de/ -> Ausprobieren (DE) :beer:
+https://www.mat-o-wahl.de/ -> Demo
 
 ## INSTALLATION / DOWNLOAD
 
