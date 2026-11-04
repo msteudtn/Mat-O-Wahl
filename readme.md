@@ -1,14 +1,58 @@
-*ENGLISH DESCRIPTION at the end of the German text*
-
 # Mat-O-Wahl - Ein einfach zu bedienender, freier Wahl-O-Mat Klon für jedermann
+
+## FEATURES / FUNKTIONEN
+
+### Abfrage
+- Fragen / Thesen / Meinungen abfragen
+- Anpassbare **Auswahlmöglichkeiten**: große Zustimmung / Zustimmung / Enthaltung / Ablehnung / große Ablehnung / Überspringen
+- Einzelne Fragen doppelt gewichten
+- Zwischen den Fragen hin- und herspringen
+- Fragen können in **Fragen-Kategorien** sortiert werden
+
+<p float="left">
+  <img src="examples/mow-example-questions-normal.png" width="45%" alt="Mat-o-Wahl mit den Standardeinstellungen - Fragen" title="Mat-o-Wahl mit den Standardeinstellungen - Fragen" /> 
+  <img src="examples/mow-example-questions-plus.png" width="45%" alt="Mat-o-Wahl mit den erweiterten Einstellungen - Fragen" title="Mat-o-Wahl mit den erweiterten Einstellungen - Fragen" /> 
+</p>
+
+### Ergebnisse
+- Übereinstimmungen zu einzelnen Kandidaten als Fortschrittsbalken und Prozentanzeige
+- Ergebnisse werden nach Übereinstimmung **sortiert**
+- Detaillierte Übersicht der **Fragen und jeweiligen Kandidaten-Antworten**
+- Detaillierte Übersicht der **Kandidaten und ihrer jeweiligen Antworten**
+- Meinung noch einmal anpassen und die Ergebnisse neu berechnen (auch wenn alle Fragen schon beantwortet sind)
+- Ergebnisse können per **Filter-Kategorien** gefiltert werden
+- Ergebnisse können als Statistik an den eigenen Server geschickt werden
+
+<p float="left">
+  <img src="examples/mow-example-results-byMatches-normal.png" width="45%" alt="Mat-o-Wahl mit den Standardeinstellungen - Ergebnisse" title="Mat-o-Wahl mit den Standardeinstellungen - Ergebnisse" /> 
+  <img src="examples/mow-example-results-byMatches-plus.png" width="45%" alt="Mat-o-Wahl mit den erweiterten Einstellungen - Ergebnisse" title="Mat-o-Wahl mit den erweiterten Einstellungen - Ergebnisse" /> 
+</p>
+
+### Benutzerfreundlichkeit
+- Mobile- und Desktop-Ansicht automatisch
+- Fragen können auf dem Smartphone gewischt (swiped) werden
+- Barrierefreie Bedienung per Tastatur für Menschen mit Einschränkungen (ARIA)
+- Einfachere Administration mittels Textdateien (CSV-Tabellen und Konfiguration)
+- Anpassung an eigene Designs
+
+<p float="left">
+  <img src="examples/mow-example-results-byQuestions.png" width="31%%" alt="Mat-o-Wahl - Ergebnisse sortiert nach Fragen" title="Mat-o-Wahl - Ergebnisse sortiert nach Fragen" /> 
+  <img src="examples/mow-example-results-tuning.png" width="31%%" alt="Mat-o-Wahl - Ergebnisse noch einmal anpassen" title="Mat-o-Wahl - Ergebnisse noch einmal anpassen" /> 
+  <img src="examples/mow-example-results-byCandidate.png" width="31%%" alt="Mat-o-Wahl - Ergebnisse sortiert nach Kandidaten" title="Mat-o-Wahl - Ergebnisse sortiert nach Kandidaten" /> 
+</p>
+
+### Mögliche Einsatzzwecke / Zielgruppe
+- Wahlen für: B&uuml;rgermeister, Stadtrat, Kommune, Kreisrat, Landrat, Fachschaftsrat, Studentenrat, StuRa, Studentenparlament, Studierendenparlament, StuPa, AStA, Volksabstimmung, Plebiszit, 
+- Privatpersonen, Vereine, Geschäftspersonen / Firmen, Bildungseinrichtungen (Schulen, Universitäten / Hochschulen), Forschungseinrichtungen (z.B. Statistik und Wahlforschung), Medien (z.B. Tageszeitungen, Blogs), Sonstige 
+- nicht geeignet als allgemeine Umfrage mit Schulnoten-Bewertung, Sterne-Bewertung oder Textfeldern für Kommentare
 
 ## LIVE-DEMO
 
 https://www.mat-o-wahl.de/ -> Ausprobieren (DE) :beer:
 
-## BEDIENUNG / INSTALLATION
+## INSTALLATION / DOWNLOAD
 
-### Installation ohne Docker
+### Installation (ohne Docker)
 1. ZIP-Archiv **herunterladen und entpacken**
    (Github -> oben rechts -> Code -> Download ZIP)
 
@@ -19,48 +63,32 @@ https://www.mat-o-wahl.de/ -> Ausprobieren (DE) :beer:
 4. **Testen mit `INDEX.HTML`** oder `QUICKTEST.HTML` 
    (am besten auf http://localhost/ oder im privaten Webspace) 
 
-**Optional:** Im Ordner `/EXTRAS` gibt es **Erweiterungen** um bei Bedarf zusätzliche Funktionen zu aktivieren. (z.B. Filtern von Ergebnissen, Vorabfrage, Einbinden per iframe)
+### Installation (mit Docker)
 
-### Installation mit Docker
-#### Nutzung des fertigen Images
+1. Installiere [docker](https://docs.docker.com/engine/install/) und docker-compose 
 
-1. installiere [docker](https://docs.docker.com/engine/install/) und docker-compose 
+2. Fertiges Image: Lade die docker-compose.yml runter  
+   Image selbst bauen: ZIP-Archiv **herunterladen und entpacken** (Github -> oben rechts -> Code -> Download ZIP)
 
-2. lade die docker-compose.yml runter
-
-3. passe die Parameter für deine zwecke an
+3. Passe die Parameter für deine Zwecke in der `docker-compose-dev.yml` an
    - **Image:** Wähle aus, ob du eine spezielle Version verwenden möchtest.
    - **Port:** Ändere den Port, falls Port 80 bereits belegt ist.
    - **Volumes:** Passe den Pfad deiner Konfigurationsdateien an (Standard: `./data`).
 
-4. starte den Service mit `docker-compose up` (du kannst den Service mit `docker-compose down` stoppen)
+4.  Fertiges Image: Starte den Service mit `docker-compose up` (du kannst den Service mit `docker-compose down` stoppen)  
+    Image selbst bauen: Starte den Service mit `docker-compose -f docker-compose-dev.yml up` (du kannst den Service mit `docker-compose down` stoppen)
 
-#### Baue das image selber
-
-1. installiere [docker](https://docs.docker.com/engine/install/) und docker-compose
-
-2. ZIP-Archiv **herunterladen und entpacken**
-   (Github -> oben rechts -> Code -> Download ZIP)
-
-3. passe die Parameter für deine zwecke in der `docker-compose-dev.yml` an
-   - **Image:** Wähle aus, ob du eine spezielle Version verwenden möchtest.
-   - **Port:** Ändere den Port, falls Port 80 bereits belegt ist.
-   - **Volumes:** Passe den Pfad deiner Konfigurationsdateien an (Standard: `./data`).
-
-4. starte den Service mit `docker-compose -f docker-compose-dev.yml up` (du kannst den Service mit `docker-compose down` stoppen)
-
-## VORAUSSETZUNG
+## VORAUSSETZUNGEN
 
 - ein bisschen **Webspace** (ein günstiges Shared-Hosting-Paket reicht vollkommen aus)
-- **kein** PHP oder MySQL / MariaDB nötig (nur optional für Statistik)
-- **kein** npm, yarn oder eine andere Paketverwaltung nötig
+- **kein** PHP oder MySQL / MariaDB nötig (optional für Statistik)
 - Wissen, wie man eine **Textdatei** und/oder eine Tabellenkalkulation öffnet
 
-## Mat-o-Wahl und DSGVO
+## Mat-o-Wahl und DSGVO (Datenschutz)
 
 - Alle **Verarbeitungen** passieren **innerhalb des Browsers** des Nutzers
 - **keine Datenerhebung auf dem Server** (nur optional für eine Statistik - Ausnahme: Standardmäßige Erfassung der Zugriffe durch den Webhosting-Anbieter, z.B. IP-Adresse und Uhrzeit)
-- kein Aufruf von externen Dateien (z.B. Content Delivery Network / CDN, Bootstrap, jQuery, kein Social Media-Plugin) - alles inklusive 
+- kein Aufruf von externen Dateien (z.B. CDN / Content Delivery Network) - alles inklusive 
 
 ## LIZENZ
 
@@ -79,86 +107,3 @@ Wenn Sie den Mat-O-Wahl einsetzen, würde ich mich über eine **kurze Mitteilung
 
 mathias . steudtner (a) mailbox . org
 
----
-
-# Mat-O-Wahl (*) - A simple to handle, free "Voting Advice Application" / "Electoral Compass" for everybody 
-
-## LIVE-DEMO
-
-https://www.mat-o-wahl.de/ -> Try It (EN) :hamburger:
-
-## USE / INSTALLATION
-
-### Installation without Docker
-1. **Download and unpack** ZIP archive
-    (Github -> top right -> Code -> Download ZIP)
-
-2. **Edit** `/DATA/DEFINITION.JS` with a text-editor (best use one with syntax-highlighting).
-
-3. **Edit** `CSV-text file` for questions and answers with a text-editor or spread-sheet-software (MS Excel. LO Calc, ...)
-
-4. **Test settings** using `INDEX.HTML` or `QUICKTEST.HTML`
-   (works best on http://localhost/ or your private webspace)
-
-**Optional:** You can find some **extensions** in the folder `/EXTRAS`. It adds some more functionality to the program, if needed. (e.g. filter of results, pre-question, include the program within an iframe)
-
-### Installation with Docker
-
-#### Using the Prebuilt Image
-
-1. Install [Docker](https://docs.docker.com/engine/install/) and Docker Compose.  
-
-2. Download the `docker-compose.yml` file.  
-
-3. Adjust the parameters to suit your needs:  
-   - **Image:** Choose whether you want to use a specific version.  
-   - **Port:** Change the port if port 80 is already in use.  
-   - **Volumes:** Adjust the path of your configuration files (default: `./data`).  
-
-4. Start the service with `docker-compose up` (you can stop the service with `docker-compose down`).  
-
-#### Build the Image Yourself  
-
-1. Install [Docker](https://docs.docker.com/engine/install/) and Docker Compose.  
-
-2. **Download and extract the ZIP archive**  
-   (GitHub -> Top right -> Code -> Download ZIP).  
-
-3. Adjust the parameters in `docker-compose-dev.yml` to suit your needs:  
-   - **Image:** Choose whether you want to use a specific version.  
-   - **Port:** Change the port if port 80 is already in use.  
-   - **Volumes:** Adjust the path of your configuration files (default: `./data`).  
-
-4. Start the service with:  `docker-compose -f docker-compose-dev.yml up` (You can stop the service with `docker-compose down`).
-
-## PREREQUISITES
-
-- some **web-space** (a cheap shared-hosting plan is sufficient)
-- **no** PHP or MySQL / MariaDB needed (optional for statistics)
-- **no** npm or any other packaging manager needed
-- knowing, how to **open a text-file** and/or a spread-sheet-software 
-
-## Mat-o-Wahl and GDPR
-
-- All **evaluations** happen **inside the user's browsers**
-- **No data** is collected **on a server** (optional for statistics - Exception: default access-logging by your webhosting-provider, i.e. IP-address and time)
-- No external files (e.g. Content Delivery Network / CDN, Bootstrap, jQuery, no Social Media-plugin) - all included 
-
-## LICENSE
-
-GPL 3 (see folder /SYSTEM or http://choosealicense.com/licenses/gpl-v3/)
-- Required: Disclose Source, License and copyright notice, State Changes 
-- Permitted: Commercial Use, Distribution, Modification, Patent Use, Private Use 
-- Forbidden: Hold Liable
-
-## HELP / CONTACT / CHANGELOG
-
-- You can find further information and documentation on-line at https://www.mat-o-wahl.de
-- or via email (see below)
-- Changes to earlier versions in the changelog https://github.com/msteudtn/Mat-O-Wahl/blob/master/system/changelog.md
-
-If you should find Mat-O-Wahl useful, I would be happy about a **short notice from you** by email.
-
-mathias . steudtner (a) mailbox . org
-
-(*) derived from the German project "Wahl-O-Mat" (Wahl-Automat) / "Vote-Machine"
