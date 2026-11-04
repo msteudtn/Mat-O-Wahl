@@ -42,9 +42,12 @@
 </p>
 
 ### Mögliche Einsatzzwecke / Zielgruppe
-- Wahlen für: B&uuml;rgermeister, Stadtrat, Kommune, Kreisrat, Landrat, Fachschaftsrat, Studentenrat, StuRa, Studentenparlament, Studierendenparlament, StuPa, AStA, Volksabstimmung, Plebiszit, 
-- Privatpersonen, Vereine, Geschäftspersonen / Firmen, Bildungseinrichtungen (Schulen, Universitäten / Hochschulen), Forschungseinrichtungen (z.B. Statistik und Wahlforschung), Medien (z.B. Tageszeitungen, Blogs), Sonstige 
-- nicht geeignet als allgemeine Umfrage mit Schulnoten-Bewertung, Sterne-Bewertung oder Textfeldern für Kommentare
+- Entscheidungsfindung / Umfrage über feste Kategorien, z.B.:
+  - Politische Wahlen: B&uuml;rgermeister, Stadtrat, Kommune, Kreisrat, Landrat, Landtag, Bundestag,  Volksabstimmung, Plebiszit, ...
+  - Wahlen im Bildungsbereich und auf Arbeit: Fachschaftsrat, Studentenrat, StuRa, Studentenparlament, Studierendenparlament, StuPa, AStA, Betriebsrat, Personalrat, ...
+  - Sonstige: Ehrenamt / Vereine (vgl.: https://mitwirk-o-mat.de/), Auswahl von Technik, Kleidung, Haushalt, Mobilität, Freizeit, ...
+- Nicht geeignet als allgemeine Umfrage, z.B. mit Schulnoten-Bewertung, Sterne-Bewertung oder bei Textfeldern für Kommentare
+- Geeignet für: Privatpersonen, Vereine, Geschäftspersonen / Firmen, Bildungseinrichtungen (Schulen, Universitäten / Hochschulen), Forschungseinrichtungen (z.B. Statistik und Wahlforschung), Medien (z.B. Tageszeitungen, Blogs), Sonstige 
 
 ## LIVE-DEMO
 
