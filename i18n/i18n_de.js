@@ -3,31 +3,35 @@
 // const TEXT_LANGUAGE = "deutsch" // for future use / for a possible button to change languages
 
 // WELCOME
-const TEXT_SHARED_RESULTS = "Jemand hat Ihnen diesen Link zu seinen eigenen Ergebnissen geschickt. Sie können die Ergebnisse jetzt anschauen."
+const TEXT_SHARED_RESULTS = "Jemand hat Ihnen diesen Link zu seinen eigenen Ergebnissen geschickt. Sie können die Ergebnisse jetzt einsehen."
 const TEXT_START = "Los geht's!"
 
+// QUESTIONS - Show / Hide categories
+const TEXT_TOGGLE_BUTTON_CATEGRIES = "Kategorien zeigen / verbergen"
+const TEXT_NO_CATEGORY = "Ohne Kategorie"
+
 // QUESTIONS - Buttons [0]-[n]
-const TEXT_VOTING_PRO_EXTRA_SHORT = "&#x2714;" // Heavy Check Mark
+const TEXT_VOTING_PRO_EXTRA_SHORT = "&#x2714;" 		// Unicode icon: Heavy Check Mark
 const TEXT_VOTING_PRO_EXTRA_LONG  = "Stimme sehr zu"
 
-const TEXT_VOTING_PRO_SHORT = "&#x1F5F8;" // Light Check Mark
+const TEXT_VOTING_PRO_SHORT = "&#x1F5F8;" 		// Unicode icon: Light Check Mark
 const TEXT_VOTING_PRO_LONG  = "Stimme zu"
 
-const TEXT_VOTING_NEUTRAL_SHORT = "&#x25EF;" // Large Circle, alternatively: "&#9900;" Medium Small White Circle
+const TEXT_VOTING_NEUTRAL_SHORT = "&#x25EF;" 		// Unicode icon: Large Circle, alternatively: "&#9900;" Medium Small White Circle
 const TEXT_VOTING_NEUTRAL_LONG  = "Egal/Weiß nicht"
 
-const TEXT_VOTING_CONTRA_SHORT =  "&#x2715;" // Multiplication X // alternatively: "&#x1F6C7;"  // prohibited sign
+const TEXT_VOTING_CONTRA_SHORT =  "&#x2715;" 		// Unicode icon: Multiplication "X" // alternatively: "&#x1F6C7;"  // prohibited sign
 const TEXT_VOTING_CONTRA_LONG  = "Stimme nicht zu" 
 
-const TEXT_VOTING_CONTRA_EXTRA_SHORT = "&#x2716;" // Heavy Multiplication X //  alternatively "<b>&#x1F6C7;</b>"  // prohibited sign
+const TEXT_VOTING_CONTRA_EXTRA_SHORT = "&#x2716;" 	// Unicode icon: Heavy Multiplication "X" //  alternatively "<b>&#x1F6C7;</b>"  // prohibited sign
 const TEXT_VOTING_CONTRA_EXTRA_LONG  = "Stimme gar nicht zu"
 
-const TEXT_VOTING_SKIP_SHORT = "&#x21B7;"
+const TEXT_VOTING_SKIP_SHORT = "&#x21B7;"		// Unicode icon: Clockwise Top Semicircle Arrow
 const TEXT_VOTING_SKIP_LONG  = "Überspringen"
 
 const TEXT_VOTING_DOUBLE_SHORT = "x2"
 const TEXT_VOTING_DOUBLE_LONG  = "Doppelt gewichten"
-const TEXT_VOTING_DOUBLE_HELP  = "Ist dir eine Frage besonders wichtig? Dann klicke hier, bevor du deine Antwort auswählst.";
+const TEXT_VOTING_DOUBLE_HELP  = "Ist Ihnen eine Frage besonders wichtig? Dann klicken Sie hier, bevor Sie eine Antwort auswählen.";
 
 const TEXT_VOTING_FINISHED = "Ergebnisse zeigen!"
 
@@ -35,39 +39,42 @@ const TEXT_VOTING_FINISHED = "Ergebnisse zeigen!"
 const TEXT_RESULTS_CARD_SHORT = "Fertig"
 const TEXT_RESULTS_CARD_LONG = "Geschafft! Sie können sich nun Ihre Ergebnisse anzeigen lassen. Die Antworten können später auch noch einmal geändert werden."
 
+// RESULTS - FILTERS 
+const TEXT_FILTER_BUTTON_TOGGLE = "Filter zeigen / verbergen"
+const TEXT_FILTER_BUTTON_OR = "Filter nach A <strong>oder</strong> B"
+const TEXT_FILTER_BUTTON_AND = "Filter nach A <strong>und</strong> B"
+const TEXT_FILTER_BUTTON_RESET = "Filter zurücksetzen"
+const TEXT_FILTER_BY = "Filter nach"		// used for ARIA label and title
+
 // RESULTS - OVERVIEW (with the progress-bar and percentage)
 const TEXT_RESULTS_HEADING_SHORT_SUMMARY = "Ergebnis"
-// const TEXT_RESULTS_TOGGLE_BUTTON = "Details zeigen / verbergen"
 const TEXT_RESULTS_ERROR_NO_DESCRIPTION = "Keine Beschreibung vorhanden."
 const TEXT_RESULTS_IMAGE = "Logo oder Bild"
-const TEXT_RESULTS_URL = "Webseite"
-const TEXT_RESULTS_MAIL = "E-Mail"
-const TEXT_RESULTS_TEL = "Telefon"
+const TEXT_RESULTS_ANSWERS_SHORT = "&#x1F5F8;" 		// Unicode icon: Light Check Mark
+const TEXT_RESULTS_ANSWERS_LONG = "Antworten"
+const TEXT_RESULTS_URL_SHORT = "&#x1F310;&#xFE0E;"	// Unicode icon: Globe with Meridians (text style VS15 / FE0E, not emoji VS16 / FE0F)
+const TEXT_RESULTS_URL_LONG = "Webseite"
+const TEXT_RESULTS_MAIL_SHORT = "&#x2709;&#xFE0E;"	// Unicode icon: Envelope (text style VS15 / FE0E, not emoji VS16 / FE0F)
+const TEXT_RESULTS_MAIL_LONG = "E-Mail"
+const TEXT_RESULTS_TEL_SHORT = "&#x1F4DE;&#xFE0E;"	// Unicode icon: Telephone Receiver (text style VS15 / FE0E, not emoji VS16 / FE0F)
+const TEXT_RESULTS_TEL_LONG = "Telefon"
 
-// RESULTS - BUTTONS to show more details
-const TEXT_RESULTS_BUTTON_QUESTIONS = "Begründungen - Fragen und alle Antworten anzeigen"
-const TEXT_RESULTS_BUTTON_TUNING = "Tuning - Antworten anpassen"
-const TEXT_RESULTS_BUTTON_CANDIDATES = "Standpunkte - Kandidaten und ihre Antworten anzeigen"
+// RESULTS - BUTTONS to show more / less results based on the LIMIT
+const TEXT_RESULTS_LIMIT_LESS = "Weniger Ergebnisse zeigen"
+const TEXT_RESULTS_LIMIT_MORE = "Mehr Ergebnisse zeigen"
 
-
-// RESULTS - 
-// const TEXT_RESULTS_HEADING = "Übereinstimmung mit den Positionen"
-
+// RESULTS - BUTTONS and DESCRIPTIONS for more detailed results-pages
+const TEXT_RESULTS_BY_QUESTION_BUTTON = "Begründungen - Fragen und alle Antworten anzeigen"
 const TEXT_RESULTS_BY_QUESTION_DESCRIPTION = "Dies ist ein Übersicht aller <strong>Fragen sowie der Antworten der Kandidat(inn)en</strong>. Ihre eigene Antwort finden Sie in der ersten Spalte neben der Antwort der Kandidat(inn)en."
+const TEXT_RESULTS_TUNING_BUTTON = "Tuning - Antworten anpassen"
 const TEXT_RESULTS_TUNING_DESCRIPTION = "Hier können Sie Ihre <strong>Antworten noch einmal ändern</strong>. Das neue Ergebnis wird automatisch berechnet."
+const TEXT_RESULTS_BY_CANDIDATE_BUTTON = "Standpunkte - Kandidat(inn)en und ihre Antworten anzeigen"
 const TEXT_RESULTS_BY_CANDIDATE_DESCRIPTION = "Dies ist eine Übersicht aller <strong>Kandidat(inn)en sowie ihrer Antworten</strong>. Ihre eigene Antwort finden Sie in der ersten Spalte neben der Antwort der Kandidat(inn)en."
 
-
-// The following words may be used as ALT-Text or headers on the RESULTS-page 
+// The following words may be used as ALT-Text or headers on the RESULTS-pages
 const TEXT_QUESTION = "Frage"
-// const TEXT_POSITION_PARTY = "Position der Partei"
 const TEXT_ANSWERED_BY_USER = "Ihre Antwort"
 const TEXT_ANSWERED_BY_CANDIDATE = "Antwort der Kandidat(inn)en"
-
-
-const TEXT_PARTY = "Partei oder Kandidat/in"
-const TEXT_ANSWER_NORMAL = "Frage einfach gewertet"
-const TEXT_ANSWER_DOUBLE = "Frage doppelt gewertet" 
 
 
 // Footer
@@ -80,9 +87,10 @@ const TEXT_SHARE_EMAIL_BODY = "Hallo, %0DIch habe gerade den Mat-o-Wahl ausprobi
 const TEXT_RESTART = "<b>&#x2B6E;</b>  Fragebogen neu starten" // &#x21BB;
 const TEXT_SCROLL_TO_TOP = "&#x1F871; nach oben"
 
+
 // MODAL - STATISTICS and ERROR "nothing answered"
 const TEXT_MODAL_STATISTIC_TITLE = "Bevor dein Ergebnis erscheint ..."
-const TEXT_MODAL_STATISTIC_TEXT = "Genehmigst du uns (den Betreibern dieser Seite) die Übertragung deiner <strong>anonymisierten</strong> Antworten für statistische Zwecke gemäß unserer <a href='"+imprintPrivacyUrl+"' target='_blank'>Datenschutzerklärung</a>? Damit hilfst du uns, den Mat-o-Wahl und die Fragen in Zukunft zu verbessern."
+const TEXT_MODAL_STATISTIC_TEXT = "Genehmigen Sie uns (den Betreibern dieser Seite) die Übertragung Ihrer <strong>anonymisierten</strong> Antworten für statistische Zwecke gemäß unserer <a href='"+imprintPrivacyUrl+"' target='_blank'>Datenschutzerklärung</a>? Damit helfen Sie uns, den Mat-o-Wahl und die Fragen in Zukunft zu verbessern."
 const TEXT_MODAL_STATISTIC_YES = "Ja, na klar!"
 const TEXT_MODAL_STATISTIC_NO = "Nein, danke."
 
@@ -95,3 +103,8 @@ const TEXT_MODAL_CLIPBOARD_TITLE = "Fertig."
 const TEXT_MODAL_CLIPBOARD_TEXT = "Die Internet-Adresse mit Ihren Ergebnissen wurde in die Zwischenablage kopiert."
 const TEXT_MODAL_CLIPBOARD_YES = "OK"
 const TEXT_MODAL_CLIPBOARD_NO = "Schließen"
+
+const TEXT_MODAL_ERROR_FILTER_TITLE = "Oh nein!" 
+const TEXT_MODAL_ERROR_FILTER_TEXT = "Es wurden keine Ergebnisse gefunden. Bitte passen Sie Ihren Filter an. <br /> z.B. Wählen Sie weniger Kategorien aus oder benutzen Sie die ODER-Verknüpfung anstelle von UND."	
+const TEXT_MODAL_ERROR_FILTER_YES = "OK"
+const TEXT_MODAL_ERROR_FILTER_NO = "Schließen"
