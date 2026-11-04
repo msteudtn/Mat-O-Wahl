@@ -22,182 +22,177 @@
 
 - Complete rewrite / **breaking changes** !!!
 
-- **Dependencies**
-  - removed https://jquery.com/ library 
-  - added https://www.papaparse.com/ 5.0.2 to parse CSV files
-  - updated https://getbootstrap.com/ responsive CSS framework to 5.3.8 with:
-    - Layout
-      - Containers
-      - Grid
-      - Columns
-      - Gutters
-    - Content
-      - Images
-    - Forms
-      - Checks & Radios
-    - Components 
-      - Accordion
-      - Buttons
-      - Card
-      - Carousel
-      - Collapse
-      - Dropdown
-      - Modal
-      - Popover
-      - Progress
-      - Tooltips
-  - many new texts in `i18n`
-  - minor **change** in the questions CSV-format 
-    - new column for an information-text and new column for categories. Activation via `definition.js`
-  - **change in the candidate's CSV-format** / new entries / new lines 
-    - old: 5 lines with candidate information (short name, long name, description, URL, image)
-    - new: 5 new lines = 10 lines (added mail, telephone, filter, 2x reserved for future use)  
+#### 0.7 Dependencies
+- removed https://jquery.com/ library 
+- added https://www.papaparse.com/ 5.0.2 to parse CSV files
+- updated https://getbootstrap.com/ responsive CSS framework to 5.3.8 with:
+  - Layout
+    - Containers
+    - Grid
+    - Columns
+    - Gutters
+  - Content
+    - Images
+  - Forms
+    - Checks & Radios
+  - Components 
+    - Accordion
+    - Buttons
+    - Card
+    - Carousel
+    - Collapse
+    - Dropdown
+    - Modal
+    - Popover
+    - Progress
+    - Tooltips
+- many new texts in `i18n`
+- minor **change** in the questions CSV-format 
+  - new column for an information-text and new column for categories. Activation via `config.js` (formerly definition.js)
+- **change in the candidate's CSV-format** / new entries / new lines 
+  - old: 5 lines with candidate information (short name, long name, description, URL, image)
+  - new: 5 new lines = 10 lines (added mail, telephone, filter, 2x reserved for future use) 
 
-- **Features**
-  - improved **accessibility** (ARIA-labels, ARIA-pressed, contrast colors ...)
-  - questions can now be **swiped** on smartphones (using Bootstrap "carousel")
-  - Scrolling
-    - added a row with a **short results-overview on top**, when page is scrolled
-    - added a **"scroll to top"** button
-  - added options for the **number of buttons** in `definition.js`
-    - show either 2 or 4 opinion- / voting-buttons (on the whole questionnaire, not by question)
-    - show / hide the `neutral` button
-    - show / hide the `double / important` button
-    - show / hide the `skip` button
-  - page title can be changed with your individual X-o-mat name by setting `my_o_mat`, like "Fruit-o-Mat"
-  - pagination / question-numbers 
-    - **removed** the numbers from "1." to "n." at the bottom
-    - added little indicators from Bootstrap "carousel"
-    - added a "Show results" card instead of showing the results right after the last question.
-  - Sharing
-    - **removed** social media buttons
-    - added sharing **by mail** and **to clipboard** (was an extra addon before)
-  - Included several functions from **addons**.
+#### 0.7 Features
+- improved **accessibility** (ARIA-labels, ARIA-pressed, contrast colors ...)
+- questions can now be **swiped** on smartphones (using Bootstrap "carousel")
+- Scrolling
+  - added a row with a **short results-overview on top**, when page is scrolled
+  - added a **"scroll to top"** button
+- added options for the **number of buttons** in `config.js` (formerly definition.js)
+  - show either 2 or 4 opinion- / voting-buttons (on the whole questionnaire, not by question)
+  - show / hide the `neutral` button
+  - show / hide the `double / important` button
+  - show / hide the `skip` button
+- page title can be changed with your individual X-o-mat name by setting `my_o_mat`, like "Fruit-o-Mat"
+- pagination / question-numbers 
+  - **removed** the numbers from "1." to "n." at the bottom
+  - added little indicators from Bootstrap "carousel"
+  - added a "Show results" card instead of showing the results right after the last question.
+- Sharing
+  - **removed** social media buttons
+  - added sharing **by mail** and **to clipboard** (was an extra addon before)
+- Included several functions from **addons**.
 
-- **Addons**
-  - integrated
-    - `addon_contacts_in_results.js` 
-      - Show contact details (web, tel, mail) in the results
-      - **integrated** in candidate-CSV and results -> addon removed
-    - `addon_limit_results.js`
-      - Limit the number of results and show more on request
-      - **integrated** in `definition.js`and results -> addon removed
-    - `addon_permalink_to_personal_result.js`
-      - Create a clipboard-link for sharing 
-      -  **integrated** in footer -> addon removed
-    - `addon_results_textfilter_by_button.js`
-      - Filter the results based on candidate's categories
-      - **integrated** in `definition.js`, candidate-CSV and results -> addon removed
-  - others
-    - `addon_tooltips.js`
-      - explanatory text for "double / important" button only -> **removed**
-    - `addon_show_first_results.js` 
-      - **removed**, because the new accordion-overview opens the first result(s) by default
-  - to do
-    - `addon_check_iframe_resize_client.js` -> to be updated
-    - `addon_check_iframe_resize_host.js` -> to be updated
-    - `addon_favorite_party.js` -> to be updated  
+#### 0.7 Addons
+- integrated
+  - `addon_contacts_in_results.js` 
+    - Show contact details (web, tel, mail) in the results
+    - **integrated** in candidate-CSV and results -> addon removed
+  - `addon_limit_results.js`
+    - Limit the number of results and show more on request
+    - **integrated** in `config.js`and results -> addon removed
+  - `addon_permalink_to_personal_result.js`
+    - Create a clipboard-link for sharing 
+    -  **integrated** in footer -> addon removed
+  - `addon_results_textfilter_by_button.js`
+    - Filter the results based on candidate's categories
+    - **integrated** in `config.js`, candidate-CSV and results -> addon removed
+- others
+  - `addon_tooltips.js`
+    - explanatory text for "double / important" button only -> **removed**
+  - `addon_show_first_results.js` 
+    - **removed**, because the new accordion-overview opens the first result(s) by default
+- to do
+  - `addon_check_iframe_resize_client.js` -> to be updated
+  - `addon_check_iframe_resize_host.js` -> to be updated
+  - `addon_favorite_party.js` -> to be updated 
 
-- **Code**
-  - using mostly JavaScript objects{} instead of arrays[], now.
-    - `arQuestionsShort` -> `objQuestions.q0.short, objQuestions.q1.short, ...`
-    - `arQuestionsLong` -> `objQuestions.q0.long, objQuestions.q1.long, ...`
-    - **new** Text and position of a detailed explanation -> `objQuestions.q0.moreInfoText`, `objQuestions.q0.moreInfoStart`
-    - **new** Category of question -> `objQuestions.q0.category`  
+#### 0.7 Code
+- using mostly JavaScript objects{} instead of arrays[], now.
+- Questions
+  - `arQuestionsShort` -> `objQuestions.q0.short, objQuestions.q1.short, ...`
+  - `arQuestionsLong` -> `objQuestions.q0.long, objQuestions.q1.long, ...`
+  - **new** Text and position of a detailed explanation -> `objQuestions.q0.moreInfoText`, `objQuestions.q0.moreInfoStart`
+  - **new** Category of question -> `objQuestions.q0.category` 
+- Candidates (formerly parties)
+  - `arPartyNamesShort` -> `objCandidates.c0.short, ...`
+  - `arPartyNamesLong` -> `objCandidates.c0.long, ...`
+  - `arPartyPositions` -> `objCandidates.c0.answers.a0.short, objCandidates.c0.answers.a1.short, ...`
+  - `arPartyOpinions` -> `objCandidates.c0.answers.a0.long, ...`
+  - **new**: points for the specific answer `objCandidates.c0.answers.a0.points, objCandidates.c0.answers.a1.points, ...`
+  - **new**: summed up points for all answers of this candidate `objCandidates.c0.points, ...`
+  - `arPartyDescription` -> `objCandidates.c0.desc, ...`
+  - `arPartyInternet` -> `objCandidates.c0.url, ...`
+  - `arPartyLogosImg` -> `objCandidates.c0.pic, ...`
+  - **new**: filter-categories for the candidate `objCandidates.c0.filters, ...`
+- Results
+  - **renamed** `arPersonalPositions` -> `arPersonalAnswers`
+  - **renamed** `arVotingDouble` -> `arPersonalMultiplier`
+- DOM is still built using JavaScript but: 
+  - old: HTML-tags and structure was defined inside the JS-Code
+  - new: Cloning HTML \<template\> from `index.html` via JS-Code for easier adjustments 
+- **changed** the default values for "neutral" and "skipped" answers in calculation
+  - old neutral: "0" -> new: "0.5"
+  - The answer in the candidate's CSV-file still stays "0" for convenience.
+  - old skipped: "99" -> new: "0" 
+- **renamed** and split up JavaScript files
+ - `definition.js` -> `config.js`
+ - `general.js` -> `backend.js`
+ - `output.js` -> `frontend_*.js` 
+- **renamed** variables in CONFIG.JS (formerly DEFINITION.JS)
+  - `fileAnswers` -> `fileCandidates`
+  - `separator` -> `delimiter`
+- **new** variables in CONFIG.JS (formerly DEFINITION.JS)
+  - `XXX` -> XXX 
+- **renamed** and merged CSS files
+  - `buttons-colors-on.css` -> `bootstrap-override.css`
+  - `progressbar.css.css` -> `bootstrap-override.css`
+  - `buttons-colors-off.css` -> removed 
+- **renamed** statistical results to be sent to server
+ - old: 
+   - `mopersonal` = personal answer to each question [-1, 0, 1, 99, -1, 1]
+   - `mowparties` = total candidate's points in CSV-order [5, 1, 0, 2] 
+ - new: 
+   - `mowpersonalanswers` = personal answer to each question [-1, 0.5, 1, 0, -1, 1]
+   - `mowpersonalmultiplier` = personal multiplier ("double" / "x2") to each question [2, 1, 1.5, 0, 3, 1] (**new**)
+   - `mowcandidatespoints` = total candidate's points in CSV-order [3, 6.5, 5.5., 4.75] .
 
-    - `arPartyNamesShort` -> `objCandidates.c0.short, ...`
-    - `arPartyNamesLong` -> `objCandidates.c0.long, ...`
-    - `arPartyPositions` -> `objCandidates.c0.answers.a0.short, objCandidates.c0.answers.a1.short, ...`
-    - `arPartyOpinions` -> `objCandidates.c0.answers.a0.long, ...`
-    - **new**: points for the specific answer `objCandidates.c0.answers.a0.points, objCandidates.c0.answers.a1.points, ...`
-    - **new**: summed up points for all answers of this candidate `objCandidates.c0.points, ...`
-    - `arPartyDescription` -> `objCandidates.c0.desc, ...`
-    - `arPartyInternet` -> `objCandidates.c0.url, ...`
-    - `arPartyLogosImg` -> `objCandidates.c0.pic, ...`
-    - **new**: filter-categories for the candidate `objCandidates.c0.filters, ...`  
+#### 0.7 Solved issues
+- [#14] ... die ganze Zeile klickbar machen, um Antworten aus-/einzuklappen (make whole row clickable)
+  - **solved** by new layout via Bootstrap accordion (see also [#22])
+- [#22] Akkordeon-Logik in Tabellen (use accordion in tables)
+  - **solved** by new layout via Bootstrap accordion (see also [#14])
+- [#23] Animationen ändern (change animations)
+  - **solved** by new display of question via Bootstrap carousel (see also [#52])
+  - questions are now sliding smoothly 
+- [#36] Farben der #jumpToQuestionNrX in default.css definieren (define colors in CSS instead of hard-coded JS)
+  - **solved** by new navigation via Bootstrap indicators
+  - colors are now in CSS files
+- [#44] Fragen in Kategorien sortieren (create categories for questions)
+  - **solved** by new columns in the questions-CSV and a setting in config.js
+- [#52] Fragen nicht ein/ausblenden (fadeIn/Out), sondern wegschieben (slide questions instead of fading)
+  - **solved** via Bootstrap carousel (see also [#23]) 
+- [#53] Erläuterung / weiterführende Information zu Fragen / Thesen definieren (more detailed information for questions)
+  - **solved** via new button with Bootstrap popover and a "details" tag in `config.js` and questions CSV-file.
+- [#59] csv2array mit csv2json ersetzen (replace function to read CSV files)
+  - **solved** by replacing CSV function with `papaparse.js`
+- [#67] Anzahl der maximal möglichen Punkte erhöhen (increase maximum points) 
+  - **solved** by new calculation in `backend.js -> fnEvaluationCurrentAnswer()`
+  - calculation is now based on summing up `arPersonalMultiplier[x]` (old name: arVotingDouble[])  instead of `arPersonalPositions[x]` (new name: arPersonalAnswers[])
+- [#69] Konflikt zwischen Textfilter-Addon und Limit-Results-Addon (conflict between text-filter and limit results)
+  - **solved** with the integration of the former addons. (see also [#73], [#86])
+- [#73] Konflikt zwischen Kontakt-Addon, Filter-Addon und Limit-Results-Addon: Anzeige der Kontakt-Buttons (error with contact buttons and filter-addons)
+  - **solved** with the integration of the former addons. (see also  [#69], [#86])
+- [#82] resultsByPartyAnswersToQuestion in die resultsShortTable migrieren (put answers into summary of results)
+  - **solved** with a new button / link "answers" in the candidate's description
+- [#84] Geschlechtergerechtigkeit in Hinweis- und Fehlermeldungen (gender equality in texts)
+  - text in i18n adjusted to speak of male and female persons alike. (mainly for non-English texts)
+- [#85] ... Hintergrundfarbe beim Zurückspringen nicht zurücksetzen (do not reset background color when jumping back from questions)
+  - **solved** with updated functions and Bootstrap indicators
+- [#86] Verschiedene Filter-Kategorien + UND-Verknüpfung (using AND on multiple filters)
+  - **solved** with updated functions and Bootstrap indicators (see also [#69], [#73])
+- [#90] Social Media-Buttons aktualisieren bzw. ersetzen (replace Social Media buttons)
+  - **solved** via new "Share" buttons for email and clipboard.
+  - No more Social Media buttons 
 
-    - **renamed** `arPersonalPositions` -> `arPersonalAnswers`
-    - **renamed** `arVotingDouble` -> `arPersonalMultiplier`  
-
-  - DOM is still built using JavaScript but: 
-    - old: HTML-tags and structure was defined inside the JS-Code
-    - new: Cloning HTML <template> from `index.html` via JS-Code for easier adjustments  
-
-  - **changed** the default values for "neutral" and "skipped" answers in calculation
-    - old neutral: "0" -> new: "0.5"
-    - The answer in the candidate's CSV-file still stays "0" for convenience.
-    - old skipped: "99" -> new: "0"  
-
-  - **renamed** and split up JavaScript files
-   - `definition.js` -> `config.js`
-   - `general.js` -> `backend.js`
-   - `output.js` -> `frontend_*.js`  
-
-  - **renamed** variables in CONFIG.JS (formerly DEFINITION.JS)
-    - `fileAnswers` -> `fileCandidates`
-    - `separator` -> `delimiter`
-  - **new** variables in CONFIG.JS (formerly DEFINITION.JS)
-    - `XXX` -> XXX  
-
-  - **renamed** and merged CSS files
-   - `buttons-colors-on.css` -> `bootstrap-override.css`
-   - `progressbar.css.css` -> `bootstrap-override.css`
-   - `buttons-colors-off.css` -> removed  
-
-  - **renamed** statistical results to be sent to server
-   - old: 
-     - `mopersonal` = personal answer to each question [-1, 0, 1, 99, -1, 1]
-     - `mowparties` = total candidate's points in CSV-order [5, 1, 0, 2] 
-   - new: 
-     - `mowpersonalanswers` = personal answer to each question [-1, 0.5, 1, 0, -1, 1]
-     - `mowpersonalmultiplier` = personal multiplier ("double" / "x2") to each question [2, 1, 1.5, 0, 3, 1] (**new**)
-     - `mowcandidatespoints` = total candidate's points in CSV-order [3, 6.5, 5.5., 4.75]  
-
-- **Solved issues**
-  - [#14] ... die ganze Zeile klickbar machen, um Antworten aus-/einzuklappen (make whole row clickable)
-    - **solved** by new layout via Bootstrap accordion (see also [#22])
-  - [#22] Akkordeon-Logik in Tabellen (use accordion in tables)
-    - **solved** by new layout via Bootstrap accordion (see also [#14])
-  - [#23] Animationen ändern (change animations)
-    - **solved** by new display of question via Bootstrap carousel (see also [#52])
-    - questions are now sliding smoothly 
-  - [#36] Farben der #jumpToQuestionNrX in default.css definieren (define colors in CSS instead of hard-coded JS)
-    - **solved** by new navigation via Bootstrap indicators
-    - colors are now in CSS files
-  - [#44] Fragen in Kategorien sortieren (create categories for questions)
-    - **solved** by new columns in the questions-CSV and a setting in definition.js
-  - [#52] Fragen nicht ein/ausblenden (fadeIn/Out), sondern wegschieben (slide questions instead of fading)
-    - **solved** via Bootstrap carousel (see also [#23]) 
-  - [#53] Erläuterung / weiterführende Information zu Fragen / Thesen definieren (more detailed information for questions)
-    - **solved** via new button with Bootstrap popover and a "details" tag in `definition.js` and questions CSV-file.
-  - [#59] csv2array mit csv2json ersetzen (replace function to read CSV files)
-    - **solved** by replacing CSV function with `papaparse.js`
-  - [#67] Anzahl der maximal möglichen Punkte erhöhen (increase maximum points) 
-    - **solved** by new calculation in `backend.js -> fnEvaluationCurrentAnswer()`
-    - calculation is now based on summing up `arPersonalMultiplier[x]` (old name: arVotingDouble[])  instead of `arPersonalPositions[x]` (new name: arPersonalAnswers[])
-  - [#69] Konflikt zwischen Textfilter-Addon und Limit-Results-Addon (conflict between text-filter and limit results)
-    - **solved** with the integration of the former addons. (see also [#73], [#86])
-  - [#73] Konflikt zwischen Kontakt-Addon, Filter-Addon und Limit-Results-Addon: Anzeige der Kontakt-Buttons (error with contact buttons and filter-addons)
-    - **solved** with the integration of the former addons. (see also  [#69], [#86])
-  - [#82] resultsByPartyAnswersToQuestion in die resultsShortTable migrieren (put answers into summary of results)
-    - **solved** with a new button / link "answers" in the candidate's description
-  - [#84] Geschlechtergerechtigkeit in Hinweis- und Fehlermeldungen (gender equality in texts)
-    - text in i18n adjusted to speak of male and female persons alike. (mainly for non-English texts)
-  - [#85] ... Hintergrundfarbe beim Zurückspringen nicht zurücksetzen (do not reset background color when jumping back from questions)
-    - **solved** with updated functions and Bootstrap indicators
-  - [#86] Verschiedene Filter-Kategorien + UND-Verknüpfung (using AND on multiple filters)
-    - **solved** with updated functions and Bootstrap indicators (see also [#69], [#73])
-  - [#90] Social Media-Buttons aktualisieren bzw. ersetzen (replace Social Media buttons)
-    - **solved** via new "Share" buttons for email and clipboard.
-    - No more Social Media buttons  
-
-- **Others**
-  - updated `quicktest.html` to check for errors
-  - checked default legal notice / imprint
-  - moved `imprint.html` from root folder to `system/`
-  - removed "EU Online Dispute Resolution" from imprint, because it's no longer needed
-  - removed PDF help file
-  - added graphic with flow of functions (it's not a real UML-graph but a good overview)  
+#### 0.7 Others
+- updated `quicktest.html` to check for errors
+- checked default legal notice / imprint
+- moved `imprint.html` from root folder to `system/`
+- removed "EU Online Dispute Resolution" from imprint, because it's no longer needed
+- removed PDF help file
+- added graphic with flow of functions (it's not a real UML-graph but a good overview)
 
 ### 0.6.0.12.20250425
 
