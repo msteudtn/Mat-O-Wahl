@@ -9,9 +9,16 @@
 - Zwischen den Fragen hin- und herspringen
 - Fragen können in **Fragen-Kategorien** sortiert werden
 
+**Desktop-Ansicht** - Fragen
 <p float="left">
-  <img src="examples/mow-example-questions-normal.png" width="45%" alt="Mat-o-Wahl mit den Standardeinstellungen - Fragen" title="Mat-o-Wahl mit den Standardeinstellungen - Fragen" /> 
-  <img src="examples/mow-example-questions-plus.png" width="45%" alt="Mat-o-Wahl mit den erweiterten Einstellungen - Fragen" title="Mat-o-Wahl mit den erweiterten Einstellungen - Fragen" /> 
+  <img src="https://mat-o-wahl.de/bilder/mow-example-questions-normal-desktop.png" width="45%" alt="Fragen (Desktop) - Standard-Einstellungen" title="Fragen (Desktop) - Standard-Einstellungen" /> 
+  <img src="https://mat-o-wahl.de/bilder/mow-example-questions-plus-desktop.png" width="45%" alt="Fragen (Desktop) - mit Kategorien" title="Fragen (Desktop) - mit Kategorien" /> 
+</p>
+
+**Mobile Ansicht** - Fragen
+<p float="left">
+  <img src="https://mat-o-wahl.de/bilder/mow-example-questions-normal-mobile.png" width="45%" alt="Fragen (mobil) - Standard-Einstellungen" title="Fragen (mobil) - Standard-Einstellungen" /> 
+  <img src="https://mat-o-wahl.de/bilder/mow-example-questions-plus-mobile.png" width="45%" alt="Fragen (mobil) - mit Kategorien" title="Fragen (mobil) - mit Kategorien" /> 
 </p>
 
 ### Ergebnisse
@@ -23,10 +30,18 @@
 - Ergebnisse können per **Filter-Kategorien** gefiltert werden
 - Ergebnisse können als Statistik an den eigenen Server geschickt werden
 
+**Desktop-Ansicht** - Ergebnisübersicht
 <p float="left">
-  <img src="examples/mow-example-results-byMatches-normal.png" width="45%" alt="Mat-o-Wahl mit den Standardeinstellungen - Ergebnisse" title="Mat-o-Wahl mit den Standardeinstellungen - Ergebnisse" /> 
-  <img src="examples/mow-example-results-byMatches-plus.png" width="45%" alt="Mat-o-Wahl mit den erweiterten Einstellungen - Ergebnisse" title="Mat-o-Wahl mit den erweiterten Einstellungen - Ergebnisse" /> 
+	<img src="https://mat-o-wahl.de/bilder/mow-example-results-byMatches-normal-desktop.png" width="45%" alt="Ergebnisse / Übersicht (Desktop) - Standard-Einstellungen" title="Ergebnisse / Übersicht (Desktop) - Standard-Einstellungen" /> 
+	<img src="https://mat-o-wahl.de/bilder/mow-example-results-byMatches-plus-desktop.png" width="45%" alt="Ergebnisse / Übersicht (Desktop) - mit Filtern" title="Ergebnisse / Übersicht (Desktop) - mit Filtern" /> 
 </p>
+
+**Mobile Ansicht** - Ergebnisübersicht
+<p float="left">
+	<img src="https://mat-o-wahl.de/bilder/mow-example-results-byMatches-normal-mobile.png" width="45%" alt="Ergebnisse / Übersicht (mobil) - Standard-Einstellungen" title="Ergebnisse / Übersicht (Desktop) - Standard-Einstellungen" /> 
+	<img src="https://mat-o-wahl.de/bilder/mow-example-results-byMatches-plus-mobile-top.png" width="45%" alt="Ergebnisse / Übersicht (mobil) - mit Filtern" title="Ergebnisse / Übersicht (mobil) - mit Filtern" /> 
+</p>
+
 
 ### Benutzerfreundlichkeit
 - Mobile- und Desktop-Ansicht automatisch
@@ -35,11 +50,13 @@
 - Einfachere Administration mittels Textdateien (CSV-Tabellen und Konfiguration)
 - Anpassung an eigene Designs
 
+**Desktop-Ansicht** - Ergebnisse sortiert nach Fragen und Kategorien
 <p float="left">
-  <img src="examples/mow-example-results-byQuestions.png" width="31%%" alt="Mat-o-Wahl - Ergebnisse sortiert nach Fragen" title="Mat-o-Wahl - Ergebnisse sortiert nach Fragen" /> 
-  <img src="examples/mow-example-results-tuning.png" width="31%%" alt="Mat-o-Wahl - Ergebnisse noch einmal anpassen" title="Mat-o-Wahl - Ergebnisse noch einmal anpassen" /> 
-  <img src="examples/mow-example-results-byCandidate.png" width="31%%" alt="Mat-o-Wahl - Ergebnisse sortiert nach Kandidaten" title="Mat-o-Wahl - Ergebnisse sortiert nach Kandidaten" /> 
+	<img src="https://mat-o-wahl.de/bilder/mow-example-results-byQuestions-desktop.png" width="45%" alt="Ergebnisse / nach Fragen sortiert (Desktop)" title="Ergebnisse / nach Fragen sortiert (Desktop)" /> 
+	<img src="https://mat-o-wahl.de/bilder/mow-example-results-byCandidate-desktop.png" width="45%" alt="Ergebnisse / nach Kandidaten sortiert (Desktop)" title="Ergebnisse / nach Kandidaten sortiert (Desktop)" /> 
 </p>
+
+
 
 ### Mögliche Einsatzzwecke / Zielgruppe
 - Entscheidungsfindung / Umfrage über feste Kategorien, z.B.:
