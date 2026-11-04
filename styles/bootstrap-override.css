@@ -112,3 +112,8 @@
 	background-color: transparent;
 }
 
+
+/* DROPDOWN - used to change the personal answer in the "tuning" table */
+.dropdown-menu {
+	--bs-dropdown-bg: rgba(255, 255, 255, 0.75);
+}
