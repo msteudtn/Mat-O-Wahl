@@ -22,20 +22,22 @@
 
 
 	<!-- Mat-o-Wahl SETTINGS (Javascript) -->
-	<script type="text/javascript" src="data/definition.js"></script>
+	<script type="text/javascript" src="data/config.js"></script>
 	<script type="text/javascript" src="system/papaparse5/papaparse.min.js"></script>
 	<script type="text/javascript" src="system/globals.js"></script>
 	<script type="text/javascript" src="system/backend.js"></script>
+	<script type="text/javascript" src="system/frontend_helpers.js"></script>
+	<script type="text/javascript" src="system/frontend_helpers_buttons.js"></script>
 	<script type="text/javascript" src="system/quicktest.js"></script>
 
 	<!-- Mat-o-Wahl SETTINGS (CSS) -->
 
 
-	<!-- Advanced Settings based on DEFINITION.JS - dynamically included -->	
+	<!-- Advanced Settings based on CONFIG.JS - dynamically included -->	
 	<script>
 	// Mat-o-Wahl CSS Styles 
 	for (i = 0; i<= design.length-1; i++) {
-		document.writeln("<link rel='stylesheet' type='text/css' href='styles/"+design[i]+"' />");	
+		document.writeln("<link rel='stylesheet' type='text/css' href='"+design[i]+"' />");	
 	}	
 
 	// Mat-o-Wahl Language / i18n
@@ -97,24 +99,24 @@
 		</div>
 	</div>
 
-	<!-- DEFINITION.JS -->
+	<!-- CONFIG.JS -->
 	<div class="row">
 		<div class="col">
-			<h2>Definitionen</h2>
+			<h2>Konfigurationsdatei</h2>
 		</div>
 		
 		<div class="col">
-			<h2>Definitions</h2>
+			<h2>Configuration file</h2>
 		</div>		
 	</div>
 
 	<div class="row">
-		<div class="col border border-dark" id="quicktest_definitions_de">
-			<i>Prüfe definition.js ...</i> 
+		<div class="col border border-dark" id="quicktest_config_de">
+			<i>Prüfe config.js ...</i> 
 		</div>
 		
-		<div class="col border border-dark" id="quicktest_definitions_en">
-			<i>Checking definition.js ...</i> 
+		<div class="col border border-dark" id="quicktest_config_en">
+			<i>Checking config.js ...</i> 
 		</div>		
 	</div>
 
@@ -127,6 +129,43 @@
 			<i>Prüfe Fragen-CSV ... / Checking questions-CSV ...</i>
 		</div>
 	</div>
+
+	<!-- Fragen-Knöpfe / Question-buttons -->
+	<h2>Fragen-Knöpfe / Question-buttons</h2>
+	
+	<div class="row">
+		<div class="col border border-dark" id="quicktest_questions_buttons">
+			<i>Prüfe Knöpfe ... / Checking buttons ...</i>
+		</div>
+	</div>
+
+	<template id="quicktest_questions_buttons_template">
+		<div class="row text-center">
+			<div class="col">
+				<button class="btn btn-success mow-btn-success-dark" id="quicktest_voting_proExtra">[++]</button> <br />
+			</div>
+			<div class="col">
+				<button class="btn btn-success" id="quicktest_voting_pro">[+]</button> <br />
+			</div>
+			<div class="col">
+				<button class="btn btn-warning" id="quicktest_voting_neutral">[o]</button> <br />
+			</div>
+			<div class="col">
+				<button class="btn btn-danger" id="quicktest_voting_contra">[-]</button> <br />
+			</div>
+			<div class="col">
+				<button class="btn btn-danger mow-btn-danger-dark" id="quicktest_voting_contraExtra">[--]</button> <br />
+			</div>
+		</div>
+		<div class="row text-center">
+			<div class="col">
+				<button class="btn btn-outline-dark" id="quicktest_voting_double">[x2]</button> <br />
+			</div>
+			<div class="col">
+				<button class="btn btn-secondary" id="quicktest_voting_skip">[/]</button> <br />
+			</div>
+		</div>
+	</template>
 
 	<!-- Kandidaten / Candidates-->
 	<h2>Informationen zu Kandidaten und Antworten/ Information on the candidates and answers</h2>
@@ -159,14 +198,14 @@
 			<div class="col" lang="de">
 				<p>
 				<b>
-				DE: Wenn diese Meldung auch nach mehreren Minuten nicht verschwindet und JavaScript aktiviert ist, gibt es möglicherweise  einen Fehler in den <a href="data/definition.js">Definitions-Dateien</a> oder den CSV-Dateien.
+				DE: Wenn diese Meldung auch nach mehreren Minuten nicht verschwindet und JavaScript aktiviert ist, gibt es möglicherweise  einen Fehler in den <a href="data/config.js">Konfig-Dateien</a> oder den CSV-Dateien.
 				</b>
 				</p>
 			</div>
 			<div class="col" lang="en">
 				<p>
 				<b>
-				EN: If this message is still showing after some minutes and JavaScript is active, there's probably an error in the <a href="data/definition.js">settings file</a> or the CSV-files.
+				EN: If this message is still showing after some minutes and JavaScript is active, there's probably an error in the <a href="data/config.js">settings file</a> or the CSV-files.
 				</b>
 				</p>
 			</div>
@@ -174,10 +213,10 @@
 
 		<div class="row">
 			<div class="col">
-						z.B. In der DATA/DEFINITION.JS: eine fehlende Einstellung oder eine Variable mit fehlenden &quot;Anf&uuml;hrungszeichen&quot;
+						z.B. In der DATA/CONFIG.JS: eine fehlende Einstellung oder eine Variable mit fehlenden &quot;Anf&uuml;hrungszeichen&quot;
 			</div>
 			<div class="col">
-						e.g. In DATA/DEFINITION.JS: A missing variable or a variable that is not enclosed by &quot;quotes&quot;
+						e.g. In DATA/CONFIG.JS: A missing variable or a variable that is not enclosed by &quot;quotes&quot;
 			</div>			
 		</div>
 		
@@ -274,7 +313,7 @@
 		<div class="row">
 			<div class="col">
 				
-				DEFINITION.JS: <code>const delimiter = ","</code>
+				CONFIG.JS: <code>const delimiter = ","</code>
 				<br /> CSV:  <code>-1 ; We disagree</code>
 			</div>			
 		</div>
@@ -290,7 +329,7 @@
 
 		<div class="row">
 			<div class="col">
-				DEFINITION.JS: <code>const delimiter = ";"</code>
+				CONFIG.JS: <code>const delimiter = ";"</code>
 				<br /> CSV:  <code>-1 ; We disagree</code>
 			</div>			
 		</div>		
@@ -298,19 +337,19 @@
 
 		<div class="row">
 			<div class="col">
-				<strong>Falsch:</strong> Die Anzahl der Fragen <code>intQuestion</code> in der DEFINITION.JS ist unterschiedlich zur Anzahl der <b>Fragen in der FRAGEN-CSV-Datei</b>.
+				<strong>Falsch:</strong> Die Anzahl der Fragen <code>intQuestion</code> in der CONFIG.JS ist unterschiedlich zur Anzahl der <b>Fragen in der FRAGEN-CSV-Datei</b>.
 			</div>
 			<div class="col">
-				 <strong>Wrong:</strong> The number of questions <code>intQuestion</code> in DEFINITION.JS doesn't match the number of <b>questions in the QUESTIONS-CSV</b>-file.
+				 <strong>Wrong:</strong> The number of questions <code>intQuestion</code> in CONFIG.JS doesn't match the number of <b>questions in the QUESTIONS-CSV</b>-file.
 			</div>			
 		</div>
 
 		<div class="row">
 			<div class="col">
-				<strong>Falsch:</strong> Die Anzahl der Fragen <code>intQuestion</code> in der DEFINITION.JS ist unterschiedlich zur Anzahl der <b>Antworten in der KANDIDATEN-CSV</b>-Datei.
+				<strong>Falsch:</strong> Die Anzahl der Fragen <code>intQuestion</code> in der CONFIG.JS ist unterschiedlich zur Anzahl der <b>Antworten in der KANDIDATEN-CSV</b>-Datei.
 			</div>
 			<div class="col">
-				<strong>Wrong:</strong> The number of questions <code>intQuestion</code> in DEFINITION.JS doesn't match the number of <b>answers in the CANDIDATE-CSV</b>-file.
+				<strong>Wrong:</strong> The number of questions <code>intQuestion</code> in CONFIG.JS doesn't match the number of <b>answers in the CANDIDATE-CSV</b>-file.
 			</div>			
 		</div>
 
