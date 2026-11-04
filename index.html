@@ -1,40 +1,43 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <title>Mat-O-Wahl</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Mat-O-Wahl</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <meta name="keywords" content="Mat-O-Wahl, MatOWahl, Demokratie, Wahlen, elections, vote, Wahlbeteiligung, Fragebogen, Antworten, Positionen, Meinung, Entscheidung, Hilfe, Politik, Vereine, e.V., Mitwirkung, B&uuml;rgermeister, Stadtrat, Kommunalwahl, Fachschaftsrat, Studentenrat, StuRa, Studentenparlament, Studierendenparlament, StuPa, AStA, Kreisrat, Landrat, Volksabstimmung, Plebiszit, Klon, clone, Alternative, GPL, Open Source, JavaScript, Freeware, kostenlos, frei"/>
-  <meta name="robots" content="index, follow" />
-  <meta name="language" content="de" />
-  <meta name="Content-Language" content="de" />
+	<meta name="keywords" content="Mat-O-Wahl, MatOWahl, Demokratie, Wahlen, elections, vote, Wahlbeteiligung, Fragebogen, Antworten, Positionen, Meinung, Entscheidung, Hilfe, Politik, Vereine, e.V., Mitwirkung, B&uuml;rgermeister, Stadtrat, Kommunalwahl, Fachschaftsrat, Studentenrat, StuRa, Studentenparlament, Studierendenparlament, StuPa, AStA, Kreisrat, Landrat, Volksabstimmung, Plebiszit, Klon, clone, Alternative, GPL, Open Source, JavaScript, Freeware, kostenlos, frei"/>
+	<meta name="robots" content="index, follow" />
+	<meta name="language" content="de" />
+	<meta name="Content-Language" content="de" />
 
-  <meta name="author" content="Standard" />
-  <meta name="description" content="Mat-O-Wahl" />
-  
+	<meta name="author" content="Standard" />
+	<meta name="description" content="Mat-O-Wahl" />
+
 	<!-- BOOTSTRAP and CSV-PARSER -->
-	<link rel="stylesheet" href="system/bootstrap5/bootstrap.min.css">
+	<link rel="stylesheet" href="system/bootstrap5/bootstrap.min.css" />
 	<script type="text/javascript" src="system/bootstrap5/bootstrap.bundle.min.js"></script>
 	<script type="text/javascript" src="system/papaparse5/papaparse.min.js"></script>
 
 	<!-- Mat-o-Wahl Javascript -->
-	<script type="text/javascript" src="data/definition.js"></script>
+	<script type="text/javascript" src="data/config.js"></script>
 
 	<script type="text/javascript" src="system/globals.js"></script>
 	<script type="text/javascript" src="system/backend.js"></script>
 	<script type="text/javascript" src="system/frontend_questions.js"></script>
-	<script type="text/javascript" src="system/frontend_results_overview.js"></script>
-	<script type="text/javascript" src="system/frontend_results_by_question.js"></script>
+	<script type="text/javascript" src="system/frontend_results_byMatches.js"></script>
+	<script type="text/javascript" src="system/frontend_results_byMatches_limitsAndFilters.js"></script>
+	<script type="text/javascript" src="system/frontend_results_byQuestion.js"></script>
 	<script type="text/javascript" src="system/frontend_results_tuning.js"></script>
-	<script type="text/javascript" src="system/frontend_results_by_candidate.js"></script>
+	<script type="text/javascript" src="system/frontend_results_byCandidate.js"></script>
 	<script type="text/javascript" src="system/frontend_helpers.js"></script>
+	<script type="text/javascript" src="system/frontend_helpers_buttons.js"></script>
+	<script type="text/javascript" src="system/frontend_helpers_scrolling.js"></script>
 
-	<!-- Advanced Settings based on DEFINITION.JS - dynamically included -->	
+	<!-- Advanced Settings based on CONFIG.JS - dynamically included -->	
 	<script>
 	// Mat-o-Wahl CSS Styles 
 	for (i = 0; i<= design.length-1; i++) {
-		document.writeln("<link rel='stylesheet' type='text/css' href='styles/"+design[i]+"' />");	
+		document.writeln("<link rel='stylesheet' type='text/css' href='"+design[i]+"' />");	
 	}	
 
 	// Mat-o-Wahl Extras / Add-ons 
@@ -49,8 +52,7 @@
 </head>
 <body>
 
-
-<div class="container container-fluid theme-showcase">
+<div class="container">
 
 	<div class="mow-results-smallAndSticky">
 		<div class="row" id="results_smallAndSticky" style="display:none;">
@@ -61,7 +63,8 @@
 
 	</div> <!-- end:  -->
 
-<!-- 1.  DESCRIPTION / START-SCREEN -->
+
+	<!-- 1.  WILLKOMMENS-BILDSCHIRM / WELCOME-SCREEN / START -->
 
 	<main>
 
@@ -70,9 +73,9 @@
 			<div class="row border border-dark rounded align-items-center">
 				<div class="col">
 
-					<h1 id="welcomeScreen_heading1">Main headline = name of election (definition.js)</h1>
+					<h1 id="welcomeScreen_heading1">Main headline = name of election (config.js)</h1>
 
-					<h2 id="welcomeScreen_heading2">Second headline = short summary of election (definition.js)</h2> 
+					<h2 id="welcomeScreen_heading2">Second headline = short summary of election (config.js)</h2> 
 					
 					<div id="welcomeScreen_description" class="">
 						<p style="color: red; font-size: 150%; font-weight:bold;" lang="en">
@@ -86,8 +89,8 @@
 						</p>
 
 						<p>
-							Short description of the election, like: "We're going to vote a new major in Summer. Here you can compare the candidates." (definition.js)
-						</p>						
+							Short description of the election, like: "We're going to vote a new major in Summer. Here you can compare the candidates." (config.js)
+						</p>				
 					</div>
 					
 				</div>
@@ -121,19 +124,46 @@
 
 		<div id="questions" class="collapse mow-collapse-hideWelcomeScreenAndShowQuestions mow-collapse-hideQuestionsAndShowResults">
 
-			<div id="questionsCarousel" class="carousel slide">
-				<div class="carousel-indicators">
-					<!-- Elements from the template "questionsCarousel_indicators_template" to be imported here. -->
-				</div>
+			<h1 id="questions_mainHeadline">Main headline (config.js)</h1>				
 
-<!-- 2. QUESTIONS AND VOTING-BUTTONS -> DIV for CAROUSEL: Indicator buttons -->
+
+			<button 
+			id="questionsCategories_toggleButton" 
+			class="btn btn-sm btn-outline-dark d-sm-block d-md-none w-100" 
+			type="button" 
+			data-bs-toggle="collapse" 
+			data-bs-target="#questionsCategories_collapse" 
+			aria-expanded="false" aria-controls="questionsCategories_collapse">
+				Show / Hide categories
+			</button>
+
+			<div class="container mb-1">
+				<div class="collapse show" id="questionsCategories_collapse">
+
+					<div class="row row-cols-X" id="questionsCategories">
+
+						<!-- Elements from the template "questionsCategories_template" to be imported here. -->
+
+					</div>
+				</div>
+			</div>
+
+
+			<div id="questionsCarousel" class="carousel slide">
+
+	<!-- 2. QUESTIONS AND VOTING-BUTTONS -> DIV for CAROUSEL: Indicator buttons -->
 
 				<div class="carousel-inner">
 					<!-- Elements from the next template "questionsCarousel_items_template" to be imported here. -->
 				</div>
 
-			</div> <!-- end: carousel -->
-		</div> <!-- end: "questions" -->
+				<div class="carousel-indicators">
+					<!-- Elements from the template "questionsCarousel_indicators_template" to be imported here. -->
+				</div>
+
+			</div> <!-- end: questionsCarousel -->
+
+		</div> <!-- end: questions -->
 
 	</main>
 	
@@ -145,19 +175,104 @@
 
 		<div class="row">
 			<div class="col">
-				<h1 id="results_overview_heading1">Headline for the RESULTS = name of election (definition.js)</h1>
+				<h1 id="results_overview_heading1">Headline for the RESULTS = name of election (config.js)</h1>
 			</div> <!-- end: col -->
 		</div> <!-- end: row -->
 
 		<!-- 3.0 RESULTS -->
-		<div class="row">		
+		<div class="row">
 			<div class="col">
 				<h2 id="results_overview_heading2">Headline for summary of RESULTS, e.g. "results" (i18n)</h2>
 			</div> <!-- end: col -->
 		</div> <!-- end: row -->
 
+
+		<button 
+		id="results_overview_filters_toggleButton" 
+		class="btn btn-sm btn-outline-dark d-sm-block d-md-none w-100 mb-1" 
+		type="button" 
+		data-bs-toggle="collapse" 
+		data-bs-target="#results_overview_filters_collapse" 
+		aria-expanded="false" aria-controls="results_overview_filters_collapse">
+			Show / Hide filters
+		</button>
+
+		<div class="container mb-1">
+			<div class="collapse show" id="results_overview_filters_collapse">
+
+				<div class="row border border-dark rounded mow-opacity025">
+					<div class="col">
+						<input type="radio" class="btn-check" name="options-base" id="filtersOr" autocomplete="off" checked>
+						<label 
+						id="results_overview_filters_settings_filterOr"
+						for="filtersOr" 
+						role="button" 
+						class="btn btn-sm btn-outline-dark w-100">
+							Filter A or B
+						</label>
+					</div> <!-- end: col -->
+
+					<div class="col">
+						<input 
+						id="filtersAnd"
+						type="radio" 
+						class="btn-check" 
+						name="options-base" 
+						autocomplete="off"> 
+
+						<label 
+						id="results_overview_filters_settings_filterAnd"
+						for="filtersAnd" 
+						role="button" 
+						class="btn btn-sm btn-outline-dark w-100"> 
+							Filter A and B
+						</label>
+					</div> <!-- end: col -->
+
+					<div class="col">
+						<button 
+						id="results_overview_filters_settings_reset"
+						class="btn btn-sm btn-outline-dark w-100">
+							Reset filters
+						</button>
+					</div> <!-- end: col -->
+				</div> <!-- end: row -->
+
+
+
+				<div 
+				id="results_overview_filters"
+				class="row row-cols-X">
+						<!-- Elements from the template "results_overview_filters_template" will be imported here. -->
+				</div> <!-- end: row -->
+
+			</div>
+		</div>
+
+
+
+
 		<div class="accordion" id="results_overview_byMatches_accordion">
 			<!-- Elements from the template "results_overview_byMatches_template" will be imported here. -->
+		</div>
+
+<!-- 3.x RESULTS -> Default BUTTONS to show / hide more results, if "intLimitResults" is set in config.js -->
+
+		<div class="row" id="results_limited_buttons">
+			<div class="col col-12 col-md-6">
+				<button
+				id="results_limited_buttons_less"
+				class="btn btn-sm btn-outline-dark w-100 h-100 border-dark rounded text-center">
+					Show less results
+				</button>
+			</div>
+			<div class="col col-12 col-md-6">
+				<button
+				id="results_limited_buttons_more"
+				class="btn btn-sm btn-outline-dark w-100 h-100 border-dark rounded text-center">
+					Show more results
+				</button>
+			</div>
 		</div>
 
 
@@ -177,7 +292,6 @@
 					aria-label="[?] Show results by questions" 
 					aria-expanded="false" 
 					aria-controls="results_byQuestion">
-					onclick="fnHideDiv('results_byCandidate', 'results_byX_buttonFor_byCandidates'); fnChangeToggleButtonColor();">
 					[?] Show results by questions
 				</button>
 			</div>
@@ -302,7 +416,7 @@
 
 	
 <!-- FOOTER: LEGAL NOTICE, SHARE, RESTART -->
-	<footer>
+	<footer class="container">
 
 		<div class="row">
 			<!-- Button: LEGAL NOTICE -->
@@ -321,57 +435,46 @@
 			<!-- TEST 
 			<div class="col text-center" style="000display:none;">
 				<a 
-					href="index.html?myAnswers=[1,-1,-1,-1,-1,1]&myMultiplier=[1,1,1,1,1,1]" 
+					href="index.html?myAnswers=[1,-1,-1,-1,-1,1,0,1]&myMultiplier=[1,1.5,1,2,3,1,0,1]" 
 					type="button" 
 					role="button" 
 					class="btn btn-outline-dark btn-sm w-100"> 
-					TEST: Banana
+					TEST: Banana results @ 8 questions & 9 candidates
 				</a>
-			</div> --> <!-- end: col -->
+			</div> -->  <!-- end: col -->
 
-			<!-- TEST
+			<!-- TEST 
 			<div class="col text-center" style="000display:none;">
 				<a 
 					href="index.html?myAnswers=[0.5,0.5,0.5,0.5,0.5,0.5]&myMultiplier=[1,1,1,1,1,1]" 
 					type="button" 
 					role="button" 
 					class="btn btn-outline-dark btn-sm w-100"> 
-					TEST: Neutral
+					TEST: Neutral results
 				</a>
-			</div> --> <!-- end: col -->
+			</div>  <!-- end: col -->
 
 			<!-- TEST 
 			<div class="col text-center" style="000display:none;">
 				<a 
-					href="index.html?myAnswers=[1,-1,-1,0.5,0,1]&myMultiplier=[2,2,1,1,1,1]" 
+					href="index.html?myAnswers=[1,-1,-1,0.5,0,1,1]&myMultiplier=[2,2,1,1,1,1,1]" 
 					type="button" 
 					role="button" 
 					class="btn btn-outline-dark btn-sm w-100"> 
 					TEST: short clipboard link (1,0.5,-1)
 				</a>
-			</div>  --> <!-- end: col -->
+			</div>   <!-- end: col -->
 
 			<!-- TEST 
 			<div class="col text-center" style="000display:none;">
 				<a 
-					href="index.html?myAnswers=[1,-1,-1,0.5,0,1]&myMultiplier=[3,2,1.5,1,1,1]" 
+					href="index.html?myAnswers=[1,-1,-1,0.5,0,1,1]&myMultiplier=[3,2,1.5,1,1,1,1]" 
 					type="button" 
 					role="button" 
 					class="btn btn-outline-dark btn-sm w-100"> 
 					TEST: short clipboard link * 1.5
 				</a>
-			</div> --> <!-- end: col -->
-
-			<!-- TEST 
-			<div class="col text-center" style="0000display:none;">
-				<a 
-					href="index.html?myAnswers=[1,-1,-1,-1,-1,1,1,-1,-1,-1,-1,1,1,-1,-1,-1,-1,1,1,-1,-1,-1,-1,1,1,-1,-1,-1,-1,1,1,-1,-1,-1,-1,1]&myMultiplier=[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]" 
-					type="button" 
-					role="button" 
-					class="btn btn-outline-dark btn-sm w-100"> 
-					TEST: long clipboard link
-				</a>
-			</div> -->  <!-- end: col -->
+			</div>  <!-- end: col -->
 
 			<!-- Button: SHARE -->
 			<div class="col text-center">
@@ -483,6 +586,43 @@
 </template>
 
 
+<!-- 2. QUESTIONS AND VOTING-BUTTONS -> TEMPLATE: Categories -->
+<!-- Elements from this template will later be imported at id "questionsCategories" mx-1 -->
+<template id="questionsCategories_template">
+	<div
+	id="questionsCategories_template_column-X"
+	class="col border border-dark rounded text-center">	
+		<span 
+		id="questionsCategories_categoryName-X" 
+		style="font-size: smaller;">
+		CATEGORY name
+		</span>
+		<br/>
+		<button
+		id="questionsCategories_button-X"  
+		class="btn btn-sm btn-outline-dark ms-1">
+		NUMBER of question
+		</button> 
+	</div>
+</template>
+
+
+<!-- 2. QUESTIONS AND VOTING-BUTTONS -> TEMPLATE: more Information (i) -->
+<!-- Elements from this template will later be imported right into the long question IF an explanation is available -->
+<template id="questionsCarousel_items_moreInformationInSideLongQuestion_template">
+	<a 
+	id="questionsCarousel_items_moreInformationInSideLongQuestion-X"
+	tabindex="0" 
+	class="btn btn-sm btn-outline-dark" 
+	role="button" 
+	data-bs-toggle="popover" 
+	data-bs-trigger="focus" 
+	data-bs-content="A text with an explanation">
+	(i) INFORMATION icon / symbol
+	</a>
+</template>
+
+
 <!-- 2. QUESTIONS AND VOTING-BUTTONS -> TEMPLATE: Indicator buttons -->
 <!-- Elements from this template will later be imported above at class "carousel-indicators" -->
 <!-- The indicators show the current position and can be used for navigation. -->
@@ -507,7 +647,7 @@
 <template id="questionsCarousel_items_template">
 
 	<div class="carousel-item">
-		<h1 id="questionsCarousel_items_mainHeadline-X">Main headline (definition.js)</h1>					
+<!--		<h1 id="questionsCarousel_items_mainHeadline-X">Main headline (config.js)</h1> -->
 		
 		<!-- https://getbootstrap.com/docs/5.3/components/card/ -->
 		<div class="card border-dark mb-3 bg-transparent">
@@ -604,6 +744,7 @@
 						id="votingDouble-X" 
 						class="btn btn-sm btn-outline-dark w-100" 
 						data-question-number="0" 
+						data-bs-toggle="button" 
 						aria-label="Label for important" 
 						aria-pressed="false">
 							[x2] Important / Double rating
@@ -611,7 +752,7 @@
 					</div>
 
 					<div class="col col-sm">
-						<!-- empty div to create three columns. Also to avoid having extra long buttons [x2] and [skip]. -->
+						<!-- empty div to create three columns. Also to avoid having extra long buttons: [x2] and [skip]. -->
 					</div>
 
 					<!-- SKIP question -->
@@ -642,7 +783,7 @@
 <template id="questionsCarousel_items_showResults_template">
 
 	<div class="carousel-item">
-		<h1 style="font-size: 1em;" id="questionsCarousel_items_mainHeadline-X">Main headline (again)</h1>					
+	<!--	<h1 style="font-size: 1em;" id="questionsCarousel_items_mainHeadline-X">Main headline (again)</h1>	 -->				
 		
 		<!-- https://getbootstrap.com/docs/5.3/components/card/ -->
 		<div class="card border-dark mb-3 bg-transparent">
@@ -675,12 +816,32 @@
 </template>
 
 
+<!-- 3.0 RESULTS -> OVERVIEW -> FILTERS
+<!-- Elements from this template will later be imported above at "results_overview_filters" -->
+<template id="results_overview_filters_template">
+	<div class="col">
+<!--
+		<input type="checkbox" class="btn-check" name="options-base" id="results_overview_filters_input-X" autocomplete="off">
+		<label class="btn btn-outline-dark w-100" id="results_overview_filters_label-X" for="results_overview_filters_input-X">
+			NAME of FILTER-category
+		</label> 
+-->
+		<button 
+		id="results_overview_filters_button-X" 
+		class="btn btn-outline-dark w-100"
+		data-bs-toggle="button">
+			NAME of FILTER-category
+		</label> 
+	</div>
+</template>
 
 
 <!-- 3.0 RESULTS -> OVERVIEW (by % matches) -> ACCORDION (Bootstrap) -->
-<!-- Elements from this template will later be imported above at "results_overview_byMatches_accordion" -->		
+<!-- Elements from this template will later be imported above at "results_overview_byMatches_accordion" -->
 <template id="results_overview_byMatches_template">
-	<div class="accordion-item">
+	<div 
+	id="results_overview_byMatches_accordionItem-X" 
+	class="accordion-item">
 
 		<!-- 3.0a RESULTS -> OVERVIEW (by % matches) -> FIRST ROW: Candidate name + progress bar + PERCENTAGE -->
 		<div class="accordion-header">
@@ -748,16 +909,21 @@
 				</div> <!-- end: row -->
 
 				<div class="row">
-					<div class="col col-12 col-md-4">
+					
+					<div class="col col-12 col-md-3">
+						<!-- Using a button here, because <a> without "href" can't be accessed by tab-key for accessibility -->
+						<button class="btn btn-small btn-outline-dark w-100" id="candidateAnswers-X" title="" aria-controls="">Link to the Answers of this candidate</button> 
+					</div>  <!-- end: col -->
+					<div class="col col-12 col-md-3">
 						<a class="btn btn-small btn-outline-dark w-100" href="" target="_blank" id="candidateUrl-X" title="">CANDIDATE (URL)</a> 
 					</div> <!-- end: col -->
 
-					<div class="col col-12 col-md-4">
-						<a class="btn btn-small btn-outline-dark w-100" href="" target="_blank" id="candidateMail-X" title="">CANDIDATE (EMAIL)</a> 
+					<div class="col col-12 col-md-3">
+						<a class="btn btn-small btn-outline-dark w-100" href="" id="candidateMail-X" title="">CANDIDATE (EMAIL)</a> 
 					</div> <!-- end: col -->
 
-					<div class="col col-12 col-md-4">
-						<a class="btn btn-small btn-outline-dark w-100" href="" target="_blank" id="candidateTel-X" title="">CANDIDATE (TELEPHONE)</a> 
+					<div class="col col-12 col-md-3">
+						<a class="btn btn-small btn-outline-dark w-100" href="" id="candidateTel-X" title="">CANDIDATE (TELEPHONE)</a> 
 					</div> <!-- end: col -->
 				</div> <!-- end: row -->
 				
@@ -819,7 +985,10 @@
 <!-- Elements from this TEMPLATE will later be imported INTO the TEMPLATE "results_byQuestion_accordionItem_template" at "results_byQuestion_accordionBody-X" -->
 <template id="results_byQuestion_accordionBody_template">
 
-		<div class="row" role="row"> 
+		<div 
+		id="results_byQuestion_accordionBody_candidateRow-X-Y" 
+		class="row" 
+		role="row"> 
 			<div class="col col-6 col-md-1 text-center" role="cell"> 
 				<button 
 					type="button" 
@@ -861,7 +1030,8 @@
 			<button 
 				type="button" 
 				id="results_tuning_table_button_personalMultiplier-X" 
-				class="btn btn-sm border-dark" 
+				class="btn btn-sm btn-outline-dark" 
+				data-bs-toggle="button"
 				aria-label="Your answer: double">
 				[x2] Important / Double rating
 			</button>
@@ -870,11 +1040,20 @@
 		<div class="col col-2 text-center" role="cell">
 			<button 
 				type="button" 
-				id="results_tuning_table_button_PersonalAnswer-X" 
-				class="btn btn-sm border-dark" 
+				id="results_tuning_table_button_currentPersonalAnswer-X" 
+				class="btn btn-sm border border-dark dropdown-toggle" 
+				data-bs-toggle="dropdown" 
+				aria-expanded="false" 
 				aria-label="Your answer: yes">
-				[++] [+] [o] [-] [--]
+				[++] [+] [o] [-] [--] [/]
 			</button>
+			
+			<ul 
+			id="results_tuning_table_listForDropdown-X"
+			class="dropdown-menu text-center">
+				<!-- Elements from "#results_tuning_table_listForDropdown_template" go here -->
+			</ul>
+			
 		</div> <!-- end: col -->
 							
 		<div class="col col-8" role="cell">
@@ -885,6 +1064,21 @@
 		</div> <!-- end: col -->
 	</div> <!-- end: row -->
 </template> <!-- end: results_tuning_table_template -->
+
+
+<!-- 3.3c RESULTS -> FINE-TUNING -> Dropdown items -->
+<!-- Elements from this template will later be imported at "#results_tuning_table" -> "#results_tuning_table_listForDropdown" -->
+<template id="results_tuning_table_listForDropdown_template">
+	<li 
+	id=""
+	class="mb-1 border border-dark">
+		<button 
+		id="results_tuning_table_button_newPersonalAnswer-X-Y"
+		class="dropdown-item btn btn-sm">
+		[++] Pro extra [+] Pro [o] Neutral [-] Contra [--] Contra extra
+		</button>
+	</li>
+</template>
 
 
 <!-- 3.4 RESULTS -> BY CANDIDATE and candidate's answers -->
@@ -967,6 +1161,7 @@
 </template> <!-- end: results_byCandidate_accordionBody_template -->
 
 <!-- ######################### ALL the TEMPLATES (end) ######################### -->
+
 
 
 <script type="text/javascript">
