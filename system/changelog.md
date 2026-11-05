@@ -10,7 +10,7 @@
 - The dropdown menu in the "tuning" view still has a light transparent background and a fixed width.
 - Update the documentation and faq on website.
 - Check / update `extras/addons`
-- Add a Dark mode
+- Add a dark mode
 - Increase performance
 - Change the system language by choosing from a button
 - Check the container image (creation, running, changing, ...)
@@ -22,42 +22,11 @@
 
 - Complete rewrite / **breaking changes** !!!
 
-#### 0.7 Dependencies
-- removed https://jquery.com/ library 
-- added https://www.papaparse.com/ 5.0.2 to parse CSV files
-- updated https://getbootstrap.com/ responsive CSS framework to 5.3.8 with:
-  - Layout
-    - Containers
-    - Grid
-    - Columns
-    - Gutters
-  - Content
-    - Images
-  - Forms
-    - Checks & Radios
-  - Components 
-    - Accordion
-    - Buttons
-    - Card
-    - Carousel
-    - Collapse
-    - Dropdown
-    - Modal
-    - Popover
-    - Progress
-    - Tooltips
-- many new texts in `i18n`
-- minor **change** in the questions CSV-format 
-  - new column for an information-text and new column for categories. Activation via `config.js` (formerly definition.js)
-- **change in the candidate's CSV-format** / new entries / new lines 
-  - old: 5 lines with candidate information (short name, long name, description, URL, image)
-  - new: 5 new lines = 10 lines (added mail, telephone, filter, 2x reserved for future use) 
-
 #### 0.7 Features
 - improved **accessibility** (ARIA-labels, ARIA-pressed, contrast colors ...)
 - questions can now be **swiped** on smartphones (using Bootstrap "carousel")
 - Scrolling
-  - added a row with a **short results-overview on top**, when page is scrolled
+  - added a sticky row with a **short results-overview on top**, when page is scrolled
   - added a **"scroll to top"** button
 - added options for the **number of buttons** in `config.js` (formerly definition.js)
   - show either 2 or 4 opinion- / voting-buttons (on the whole questionnaire, not by question)
@@ -75,7 +44,7 @@
 - Included several functions from **addons**.
 
 #### 0.7 Addons
-- integrated
+- Integrated
   - `addon_contacts_in_results.js` 
     - Show contact details (web, tel, mail) in the results
     - **integrated** in candidate-CSV and results -> addon removed
@@ -88,12 +57,12 @@
   - `addon_results_textfilter_by_button.js`
     - Filter the results based on candidate's categories
     - **integrated** in `config.js`, candidate-CSV and results -> addon removed
-- others
+- Others
   - `addon_tooltips.js`
     - explanatory text for "double / important" button only -> **removed**
   - `addon_show_first_results.js` 
     - **removed**, because the new accordion-overview opens the first result(s) by default
-- to do
+- To do
   - `addon_check_iframe_resize_client.js` -> to be updated
   - `addon_check_iframe_resize_host.js` -> to be updated
   - `addon_favorite_party.js` -> to be updated 
@@ -108,20 +77,22 @@
 - Candidates (formerly parties)
   - `arPartyNamesShort` -> `objCandidates.c0.short, ...`
   - `arPartyNamesLong` -> `objCandidates.c0.long, ...`
+  - `arPartyDescription` -> `objCandidates.c0.desc, ...`
+  - `arPartyInternet` -> `objCandidates.c0.url, ...`
+  - `arPartyLogosImg` -> `objCandidates.c0.pic, ...`
+  - **new**: contact by mail `objCandidates.c0.mail, ...`
+  - **new**: contact by telephone `objCandidates.c0.tel, ...`
+  - **new**: filter-categories for the candidate `objCandidates.c0.filters, ...`
   - `arPartyPositions` -> `objCandidates.c0.answers.a0.short, objCandidates.c0.answers.a1.short, ...`
   - `arPartyOpinions` -> `objCandidates.c0.answers.a0.long, ...`
   - **new**: points for the specific answer `objCandidates.c0.answers.a0.points, objCandidates.c0.answers.a1.points, ...`
   - **new**: summed up points for all answers of this candidate `objCandidates.c0.points, ...`
-  - `arPartyDescription` -> `objCandidates.c0.desc, ...`
-  - `arPartyInternet` -> `objCandidates.c0.url, ...`
-  - `arPartyLogosImg` -> `objCandidates.c0.pic, ...`
-  - **new**: filter-categories for the candidate `objCandidates.c0.filters, ...`
 - Results
   - **renamed** `arPersonalPositions` -> `arPersonalAnswers`
   - **renamed** `arVotingDouble` -> `arPersonalMultiplier`
 - DOM is still built using JavaScript but: 
   - old: HTML-tags and structure was defined inside the JS-Code
-  - new: Cloning HTML \<template\> from `index.html` via JS-Code for easier adjustments 
+  - new: Cloning HTML **\<template\>** from `index.html` via JS-Code for easier adjustments 
 - **changed** the default values for "neutral" and "skipped" answers in calculation
   - old neutral: "0" -> new: "0.5"
   - The answer in the candidate's CSV-file still stays "0" for convenience.
@@ -185,6 +156,38 @@
 - [#90] Social Media-Buttons aktualisieren bzw. ersetzen (replace Social Media buttons)
   - **solved** via new "Share" buttons for email and clipboard.
   - No more Social Media buttons 
+
+#### 0.7 Dependencies
+- removed https://jquery.com/ library 
+- removed https://github.com/evanplaice/jquery-csv 0.8.9
+- added https://www.papaparse.com/ 5.0.2 to parse CSV files
+- updated https://getbootstrap.com/ responsive CSS framework from 4.4.1 to 5.3.8 with:
+  - Layout
+    - Containers
+    - Grid
+    - Columns
+    - Gutters
+  - Content
+    - Images
+  - Forms
+    - Checks & Radios
+  - Components 
+    - Accordion
+    - Buttons
+    - Card
+    - Carousel
+    - Collapse
+    - Dropdown
+    - Modal
+    - Popover
+    - Progress
+    - Tooltips
+- many new texts in `i18n`
+- minor **change** in the questions CSV-format 
+  - new column for an information-text and new column for categories. Activation via `config.js` (formerly definition.js)
+- **change in the candidate's CSV-format** / new entries / new lines 
+  - old: 5 lines with candidate information (short name, long name, description, URL, image)
+  - new: **5 new lines** = 10 lines (added mail, telephone, filter, 2x reserved for future use) 
 
 #### 0.7 Others
 - updated `quicktest.html` to check for errors
