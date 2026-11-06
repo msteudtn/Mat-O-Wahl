@@ -23,7 +23,7 @@
 
 ### 0.7.x
 
-- in development
+- in development https://github.com/msteudtn/Mat-O-Wahl/tree/v0.7.0
 
 ### 0.6.0.12.20250425
 
