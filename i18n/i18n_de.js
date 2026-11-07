@@ -11,22 +11,22 @@ const TEXT_TOGGLE_BUTTON_CATEGRIES = "Kategorien zeigen / verbergen"
 const TEXT_NO_CATEGORY = "Ohne Kategorie"
 
 // QUESTIONS - Buttons [0]-[n]
-const TEXT_VOTING_PRO_EXTRA_SHORT = "&#x2714;" 		// Unicode icon: Heavy Check Mark
+const TEXT_VOTING_PRO_EXTRA_SHORT = "&#x2714;&#xFE0E;" 		// Unicode icon: Heavy Check Mark (text style VS15 / FE0E, not emoji VS16 / FE0F)
 const TEXT_VOTING_PRO_EXTRA_LONG  = "Stimme sehr zu"
 
-const TEXT_VOTING_PRO_SHORT = "&#x1F5F8;" 		// Unicode icon: Light Check Mark
+const TEXT_VOTING_PRO_SHORT = "&#x1F5F8;&#xFE0E;" 		// Unicode icon: Light Check Mark (text style VS15 / FE0E, not emoji VS16 / FE0F)
 const TEXT_VOTING_PRO_LONG  = "Stimme zu"
 
-const TEXT_VOTING_NEUTRAL_SHORT = "&#x25EF;" 		// Unicode icon: Large Circle, alternatively: "&#9900;" Medium Small White Circle
+const TEXT_VOTING_NEUTRAL_SHORT = "&#x25EF;&#xFE0E;" 		// Unicode icon: Large Circle, alternatively: "&#9900;" Medium Small White Circle (text style VS15 / FE0E, not emoji VS16 / FE0F)
 const TEXT_VOTING_NEUTRAL_LONG  = "Egal/Weiß nicht"
 
-const TEXT_VOTING_CONTRA_SHORT =  "&#x2715;" 		// Unicode icon: Multiplication "X" // alternatively: "&#x1F6C7;"  // prohibited sign
+const TEXT_VOTING_CONTRA_SHORT =  "&#x2715;&#xFE0E;" 		// Unicode icon: Multiplication "X" (text style VS15 / FE0E, not emoji VS16 / FE0F) // alternatively: "&#x1F6C7;"  // prohibited sign
 const TEXT_VOTING_CONTRA_LONG  = "Stimme nicht zu" 
 
-const TEXT_VOTING_CONTRA_EXTRA_SHORT = "&#x2716;" 	// Unicode icon: Heavy Multiplication "X" //  alternatively "<b>&#x1F6C7;</b>"  // prohibited sign
+const TEXT_VOTING_CONTRA_EXTRA_SHORT = "&#x2716;&#xFE0E;" 	// Unicode icon: Heavy Multiplication "X" (text style VS15 / FE0E, not emoji VS16 / FE0F) //  alternatively "<b>&#x1F6C7;</b>"  // prohibited sign
 const TEXT_VOTING_CONTRA_EXTRA_LONG  = "Stimme gar nicht zu"
 
-const TEXT_VOTING_SKIP_SHORT = "&#x21B7;"		// Unicode icon: Clockwise Top Semicircle Arrow
+const TEXT_VOTING_SKIP_SHORT = "&#x21B7;&#xFE0E;"		// Unicode icon: Clockwise Top Semicircle Arrow (text style VS15 / FE0E, not emoji VS16 / FE0F)
 const TEXT_VOTING_SKIP_LONG  = "Überspringen"
 
 const TEXT_VOTING_DOUBLE_SHORT = "x2"
@@ -105,6 +105,6 @@ const TEXT_MODAL_CLIPBOARD_YES = "OK"
 const TEXT_MODAL_CLIPBOARD_NO = "Schließen"
 
 const TEXT_MODAL_ERROR_FILTER_TITLE = "Oh nein!" 
-const TEXT_MODAL_ERROR_FILTER_TEXT = "Es wurden keine Ergebnisse gefunden. Bitte passen Sie Ihren Filter an. <br /> z.B. Wählen Sie weniger Kategorien aus oder benutzen Sie die ODER-Verknüpfung anstelle von UND."	
+const TEXT_MODAL_ERROR_FILTER_TEXT = "Es wurden keine Übereinstimmungen gefunden. Bitte passen Sie Ihren Filter an. <br /> z.B. Wählen Sie weniger Kategorien aus oder benutzen Sie die ODER-Verknüpfung anstelle von UND."	
 const TEXT_MODAL_ERROR_FILTER_YES = "OK"
 const TEXT_MODAL_ERROR_FILTER_NO = "Schließen"
