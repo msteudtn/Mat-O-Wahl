@@ -1,10 +1,10 @@
 # CHANGELOG
 
-## Known bugs 
+## Known bugs (mainly low priority) 
 
-- When using a filter on the results, the "show less results" (from "limit results") isn't updated and may have to be pressed multiple times
-- When using a filter on the results, there's no top-border on the rows (candidates) between "first" and "last".
-- When clicking on the button "Answers" inside the candidate's information inside the main results ("by matches" / Overview), it correctly opens the view "by candidate". However it doesn't close any existing views, like "by question" or "tuning".
+- When using a filter on the results, the button "show less results" isn't updated and may have to be pressed multiple times
+- When using a filter on the results, only the "first" and "last" results have a border on top / at bottom. Any rows (candidates) between are missing the top-border.
+- When clicking on the button "Answers" inside the candidate's information ("by matches" / Overview), it correctly opens the view "by candidate". However it doesn't close any existing views, like "by question" or "tuning".
 - The buttons "Show/hide categories" and "Show/hide filters" are only visible on small screens. This is intentional.
 - The dropdown menu in the "tuning" view still has a light transparent background and a fixed width.
 
