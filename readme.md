@@ -44,10 +44,10 @@
 
 
 ### Benutzerfreundlichkeit
-- Mobile- und Desktop-Ansicht automatisch
+- **Mobile- und Desktop-Ansicht** automatisch
 - Fragen können auf dem Smartphone gewischt (swiped) werden
 - Barrierefreie Bedienung per Tastatur für Menschen mit Einschränkungen (ARIA)
-- Einfachere Administration mittels Textdateien (CSV-Tabellen und Konfiguration)
+- **Einfachere Administration** mittels Textdateien (CSV-Tabellen und Konfiguration)
 - Anpassung an eigene Designs
 
 **Desktop-Ansicht** - Ergebnisse sortiert nach Fragen und Kategorien
@@ -65,12 +65,12 @@
 
 
 ### Mögliche Einsatzzwecke / Zielgruppe
-- Entscheidungsfindung / Umfrage über feste Kategorien, z.B.:
+- **Entscheidungsfindung** / Umfrage über feste Kategorien, z.B.:
   - Politische Wahlen: B&uuml;rgermeister, Stadtrat, Kommune, Kreisrat, Landrat, Landtag, Bundestag,  Volksabstimmung, Plebiszit, ...
   - Wahlen im Bildungsbereich und auf Arbeit: Fachschaftsrat, Studentenrat, StuRa, Studentenparlament, Studierendenparlament, StuPa, AStA, Betriebsrat, Personalrat, ...
   - Sonstige: Ehrenamt / Vereine (vgl.: https://mitwirk-o-mat.de/), Auswahl von Technik, Kleidung, Haushalt, Mobilität, Freizeit, ...
-- Nicht geeignet als allgemeine Umfrage, z.B. mit Schulnoten-Bewertung, Sterne-Bewertung oder bei Textfeldern für Kommentare
-- Geeignet für: Privatpersonen, Vereine, Geschäftspersonen / Firmen, Bildungseinrichtungen (Schulen, Universitäten / Hochschulen), Forschungseinrichtungen (z.B. Statistik und Wahlforschung), Medien (z.B. Tageszeitungen, Blogs), Sonstige 
+- **Nicht geeignet** als allgemeine Umfrage, z.B. mit Schulnoten-Bewertung, Sterne-Bewertung oder bei Textfeldern für Kommentare
+- **Geeignet für**: Privatpersonen, Vereine, Geschäftspersonen / Firmen, Bildungseinrichtungen (Schulen, Universitäten / Hochschulen), Forschungseinrichtungen (z.B. Statistik und Wahlforschung), Medien (z.B. Tageszeitungen, Blogs), Sonstige 
 
 ## LIVE-DEMO
 
