@@ -5,7 +5,12 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<meta name="keywords" content="Mat-O-Wahl, MatOWahl, Demokratie, Wahlen, elections, vote, Wahlbeteiligung, Fragebogen, Antworten, Positionen, Meinung, Entscheidung, Hilfe, Politik, Vereine, e.V., Mitwirkung, B&uuml;rgermeister, Stadtrat, Kommunalwahl, Fachschaftsrat, Studentenrat, StuRa, Studentenparlament, Studierendenparlament, StuPa, AStA, Kreisrat, Landrat, Volksabstimmung, Plebiszit, Klon, clone, Alternative, GPL, Open Source, JavaScript, Freeware, kostenlos, frei"/>
+	<meta name="keywords" content="Mat-O-Wahl, MatOWahl,
+		Politik, Wahlen, B&uuml;rgermeister, Stadtrat, Kommune, Kreisrat, Landrat, Landtag, Bundestag,  Volksabstimmung, Plebiszit, 
+		Bildung, Arbeit, Fachschaftsrat, Studentenrat, StuRa, Studentenparlament, Studierendenparlament, StuPa, AStA, Betriebsrat, Personalrat, 
+		Ehrenamt, Freizeit, Verein,  e.V.,
+		Demokratie, Wahlbeteiligung, Fragebogen, Meinung, Fragen, Thesen, Antworten, Positionen, Entscheidung, Hilfe, Mitwirkung,
+		Klon, clone, Alternative, GPL, Open Source, JavaScript, Freeware, kostenlos, frei"/>
 	<meta name="robots" content="index, follow" />
 	<meta name="language" content="de" />
 	<meta name="Content-Language" content="de" />
@@ -63,14 +68,13 @@
 
 	</div> <!-- end:  -->
 
-
 	<!-- 1.  WILLKOMMENS-BILDSCHIRM / WELCOME-SCREEN / START -->
 
 	<main>
 
 		<div id="welcomeScreen" class="collapse show mow-collapse-hideWelcomeScreenAndShowQuestions">
 			
-			<div class="row border border-dark rounded align-items-center">
+			<div class="row border border-dark rounded">
 				<div class="col">
 
 					<h1 id="welcomeScreen_heading1">Main headline = name of election (config.js)</h1>
@@ -433,7 +437,7 @@
 			</div> <!-- end: col -->
 
 			<!-- TEST 
-			<div class="col text-center" style="000display:none;">
+			<div class="col text-center">
 				<a 
 					href="index.html?myAnswers=[1,-1,-1,-1,-1,1,0,1]&myMultiplier=[1,1.5,1,2,3,1,0,1]" 
 					type="button" 
@@ -442,39 +446,6 @@
 					TEST: Banana results @ 8 questions & 9 candidates
 				</a>
 			</div> -->  <!-- end: col -->
-
-			<!-- TEST 
-			<div class="col text-center" style="000display:none;">
-				<a 
-					href="index.html?myAnswers=[0.5,0.5,0.5,0.5,0.5,0.5]&myMultiplier=[1,1,1,1,1,1]" 
-					type="button" 
-					role="button" 
-					class="btn btn-outline-dark btn-sm w-100"> 
-					TEST: Neutral results
-				</a>
-			</div>  <!-- end: col -->
-
-			<!-- TEST 
-			<div class="col text-center" style="000display:none;">
-				<a 
-					href="index.html?myAnswers=[1,-1,-1,0.5,0,1,1]&myMultiplier=[2,2,1,1,1,1,1]" 
-					type="button" 
-					role="button" 
-					class="btn btn-outline-dark btn-sm w-100"> 
-					TEST: short clipboard link (1,0.5,-1)
-				</a>
-			</div>   <!-- end: col -->
-
-			<!-- TEST 
-			<div class="col text-center" style="000display:none;">
-				<a 
-					href="index.html?myAnswers=[1,-1,-1,0.5,0,1,1]&myMultiplier=[3,2,1.5,1,1,1,1]" 
-					type="button" 
-					role="button" 
-					class="btn btn-outline-dark btn-sm w-100"> 
-					TEST: short clipboard link * 1.5
-				</a>
-			</div>  <!-- end: col -->
 
 			<!-- Button: SHARE -->
 			<div class="col text-center">
@@ -492,6 +463,7 @@
 					<!-- onclick="fnChangeToggleButtonColor()" -->
 					 &#x1F875; Share
 				</button>
+
 				<div class="collapse mow-collapse-toggleShareButtons">
 					<button 
 						type="button" 
@@ -534,7 +506,7 @@
 	</button>
 
 
-<!-- MODAL (Pop-Up) used for "Do you allow statistics?" and "No question answered!" -->
+<!-- MODAL (Pop-Up) used for several messages, see nShowModal() in frontend_helpers.js -->
 	<div class="modal fade" id="mowModal" tabindex="-1" aria-labelledby="mowModal_Title" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
@@ -664,11 +636,11 @@
 				<div class="row">
 
 					<!-- EXTRA PRO [++] -->
-					<div class="col col-12 col-sm" style="display:none000;">
+					<div class="col col-12 col-sm">
 						<button 
 						type="button" 
 						id="votingProExtra-X" 
-						class="btn btn-success btn-lg border-dark w-100 mow-btn-success-dark" 
+						class="btn btn-success btn-lg border-dark w-100 h-100 mow-btn-success-dark" 
 						data-bs-target="#questionsCarousel" 
 						data-bs-slide="next" 
 						data-question-number="0"
@@ -682,7 +654,7 @@
 						<button 
 						type="button" 
 						id="votingPro-X" 
-						class="btn btn-success btn-lg border-dark w-100" 
+						class="btn btn-success btn-lg border-dark w-100 h-100" 
 						data-bs-target="#questionsCarousel" 
 						data-bs-slide="next" 
 						data-question-number="0"
@@ -692,11 +664,11 @@
 					</div>
 
 					<!-- NEUTRAL [o] -->
-					<div class="col col-12 col-sm">
+					<div class="col col-12 col-md"> <!-- The neutral button has "col-md" instead of "col-sm". So it goes to full "col-12" earlier than the other buttons. Otherwise the user ends up with four buttons "[++] [+] [o] [-]" next to each other and "[--] disagree a lot" in a new row. :( -->
 						<button 
 						type="button" 
 						id="votingNeutral-X" 
-						class="btn btn-warning btn-lg border-dark w-100" 
+						class="btn btn-warning btn-lg border-dark w-100 h-100" 
 						data-bs-target="#questionsCarousel" 
 						data-bs-slide="next" 
 						data-question-number="0"
@@ -710,7 +682,7 @@
 						<button 
 						type="button" 
 						id="votingContra-X" 
-						class="btn btn-danger btn-lg border-dark w-100" 
+						class="btn btn-danger btn-lg border-dark w-100 h-100" 
 						data-bs-target="#questionsCarousel" 
 						data-bs-slide="next" 
 						data-question-number="0"
@@ -720,7 +692,7 @@
 					</div>
 
 					<!-- EXTRA CONTRA [--] -->
-					<div class="col col-12 col-sm" style="display:none00;">
+					<div class="col col-12 col-sm">
 						<button 
 						type="button" 
 						id="votingContraExtra-X" 
